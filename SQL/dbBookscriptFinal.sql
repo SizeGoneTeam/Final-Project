@@ -1,3 +1,4 @@
+-- Create by Trần Ngọc Hải --
 -- Tạo database
 create database dbBook;
 use dbBook;
