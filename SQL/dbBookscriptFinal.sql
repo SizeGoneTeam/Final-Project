@@ -1,9 +1,4 @@
--- Create by Trần Ngọc Hải --
--- Tạo database
-create database dbBook;
-use dbBook;
 
--- Tạo thực Thể sách
 create table tbSach(
 MaSach int auto_increment primary key,
 TenSach nvarchar(120),
@@ -56,14 +51,15 @@ foreign key(MaNXB) references tbNXB(MaNXB),
 foreign key(MaSach) references tbSach(MaSach)
 );
 -- Tạo thực thể Khách hàng
-create table tbKhachHang(
+create table tbAccount(
 MaKH int auto_increment primary key,
 TenKH nvarchar(20),
 DiaChi nvarchar(50),
 Phone nvarchar(10),
 Email nvarchar(20),
 TK nvarchar(15),
-MK nvarchar(20)
+MK nvarchar(20),
+isAdmin int
 );
 -- Tạo thực thể Hoá đơn
 create table tbHoaDon(
@@ -71,7 +67,7 @@ MaHD int auto_increment primary key,
 NgayTao datetime,
 MaKH int,
 TongTien int,
-foreign key(MaKH) references tbkhachhang(MaKH)
+foreign key(MaKH) references tbAccount(MaKH)
 );
 
 -- Tạo thực thể Chi tiết hoá đơn
@@ -81,8 +77,8 @@ MaSach int,
 SoLuong int,
 DonGia int,
 primary key (MaHD,MaSach),
-foreign key(MaHD) references tbhoadon(MaHD),
-foreign key(MaSach) references tbsach(MaSach)
+foreign key(MaHD) references tbHoaDon(MaHD),
+foreign key(MaSach) references tbSach(MaSach)
 );
 
 -- Tạo thực thể Giỏ hàng
@@ -91,11 +87,11 @@ MaGioHang int auto_increment primary key,
 MaSach int,
 DonGia int,
 SoLuong int,
-foreign key(MaSach) references tbsach(MaSach)
+foreign key(MaSach) references tbSach(MaSach)
 );
 
 -- Nhập dữ liệu
-insert into tbtheloai(TenTheLoai) 
+insert into tbTheLoai(TenTheLoai) 
 values
 	("Sách Tiếng Việt"),("Sách văn học"),("Sách kinh tế"),("Sách thiếu nhi "),("Sách kỹ năng sống"),
     ("Sách Bà mẹ - Em bé"),("Sách Giáo Khoa - Giáo Trình"),("Sách Học Ngoại Ngữ"),("Sách Tham Khảo"),
@@ -106,7 +102,7 @@ values
     ("Art & Photography"),("Biographies & Memoirs"),("Business & Economics"),("How-to - Self Help"),("Children's Books"),
     ("Dictionary"),("Education - Teaching"),("Fiction - Literature"),("Magazines"),("Medical Books"),("Parenting & Relationships"),("Reference"),
     ("Science - Technology"),("History, Politics & Social Sciences"),("Travel & Holiday"),("Cookbooks, Food & Wine");
-insert into tbsach(TenSach,Anh,DonGia,SoLuong)
+insert into tbSach(TenSach,Anh,DonGia,SoLuong)
 values
 -- Sách văn học
 	("Xứ Cát","https://salt.tikicdn.com/cache/750x750/ts/product/b4/f0/81/5d5e4a26cb029fdecd04e0c30cbef17a.jpg.webp",249000,10),
@@ -121,7 +117,7 @@ values
     ("Hoàng Tử Bé (Tái Bản 2019)","https://salt.tikicdn.com/cache/750x750/ts/product/5c/e7/68/26838e18d7f96d562d828980520019d2.jpg.webp",75000,10),
 	("Chuyến Phiêu Lưu Diệu Kỳ Của Edward Tulane (Tái Bản 2019)","https://salt.tikicdn.com/cache/w1200/ts/product/7a/84/df/a39d0c6791709883529a84c688eed944.jpg",80000,10);
 
-insert into tbthuoctheloai(MaSach,MaTheLoai)
+insert into tbThuocTheLoai(MaSach,MaTheLoai)
 values
 	(1,1),(1,2),
     (2,1),(2,2),
@@ -138,7 +134,7 @@ values
 	("Frank Herbert"),("Paulo Coelho"),("Vladimir Nabokov"),("Morgan Housel"),("Napoleon Hill"),("Yann Martel"),("Luis Sepulveda"),("Antoine De Saint-Exupéry"),
     ("Kate DiCamillo");
 
-insert into tbviet(MaTacGia,MaSach)
+insert into tbViet(MaTacGia,MaSach)
 values
 	(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9);
     
