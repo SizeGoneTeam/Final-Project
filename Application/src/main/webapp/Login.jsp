@@ -17,12 +17,15 @@
 			<div class="sign-in-htm">
 				<form action="login" method="get">
 					<div class="group">
+					<div class="alert wrong-pass" role="alert">
+						<p style="color:red">${mess}</p>
+					</div>
 						<label for="user" class="label">Tên đăng nhập</label>
-						<input id="user" type="text" class="input">
+						<input name="user" id="user" type="text" class="input">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Mật khẩu</label>
-						<input id="pass" type="password" class="input" data-type="password">
+						<input name="pass" id="pass" type="password" class="input" data-type="password">
 					</div>
 					<div class="group">
 						<input id="check" type="checkbox" class="check" checked>
@@ -38,18 +41,19 @@
 				</form>
 			</div>
 			<div class="sign-up-htm">
-				<form action="signin" method="get">
+				<form action="Register" method="get">
 					<div class="group">
+						<p style="color:red">${mess}</p>
 						<label for="user" class="label">Tên đăng nhập</label>
-						<input id="user" type="text" class="input">
+						<input name="user" id="user" type="text" class="input">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Mật khẩu</label>
-						<input id="pass" type="password" class="input" data-type="password">
+						<input name="pass" id="pass" type="password" class="input" data-type="password">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Nhập lại mật khẩu</label>
-						<input id="pass" type="password" class="input" data-type="password">
+						<input name="re_pass" id="pass" type="password" class="input" data-type="password">
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Đăng ký">
