@@ -3504,3 +3504,8 @@ ol {
 		font-size: 24px;
 	}
 }
+
+.hero__search__login__text.hello_user h5{
+	margin-bottom: 0px;
+	padding-top: 0px;
+}

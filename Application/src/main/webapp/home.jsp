@@ -115,10 +115,28 @@
 							<div class="hero__search__login__icon">
 								<i class="fa fa-user"></i>
 							</div>
-							<div class="hero__search__login__text">
-								<h5><a href="Login.jsp">Đăng nhập</a></h5>
-
-							</div>
+							<c:if test="${sessionScope.acc != null}">
+								<div class="hero__search__login__text hello_user">
+									<h5>
+										Xin chào ${sessionScope.acc.user}
+									</h5>
+								</div>
+								<br>
+								<div class="hero__search__login__text">
+									<h5>
+										<a href="logout">Đăng Xuất</a>
+									</h5>
+								</div>
+								
+							
+							</c:if>
+							<c:if test="${sessionScope.acc == null}">
+								<div class="hero__search__login__text">
+									<h5>
+										<a href="Login.jsp">Đăng Nhập</a>
+									</h5>
+								</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="hero__item set-bg"

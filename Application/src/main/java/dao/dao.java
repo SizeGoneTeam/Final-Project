@@ -41,7 +41,7 @@ public class dao {
 			ps.setString(2, pass);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				return new Account(rs.getString(1), rs.getString(2), rs.getInt(3));
+				return new Account(rs.getString(6), rs.getString(2), rs.getInt(3));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

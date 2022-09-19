@@ -15,7 +15,7 @@
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Đăng ký</label>
 		<div class="login-form">
 			<div class="sign-in-htm">
-				<form action="login" method="get">
+				<form action="login" method="post">
 					<div class="group">
 					<div class="alert wrong-pass" role="alert">
 						<p style="color:red">${mess}</p>
@@ -41,7 +41,7 @@
 				</form>
 			</div>
 			<div class="sign-up-htm">
-				<form action="Register" method="get">
+				<form action="Register" method="post">
 					<div class="group">
 						<p style="color:red">${mess}</p>
 						<label for="user" class="label">Tên đăng nhập</label>
