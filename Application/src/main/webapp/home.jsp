@@ -138,7 +138,7 @@
 						</div>
 					</div>
 					<div class="hero__item set-bg"
-						style="background-image: url('picture/book-banner.jpg');">
+						data-setbg="picture/book-banner.jpg">
 						<div class="hero__text">
 							<span>SÁCH XỊN</span>
 							<h2>
@@ -177,9 +177,11 @@
 			<div class="row featured__filter">
 				<c:forEach items="${listP}" var="o">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-						<div class="featured__item">
+						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }';">
 							<div class="featured__item__pic set-bg"
-								style="background-image: url('${o.anh}');">
+							 data-setbg="${o.anh }"
+								
+								>								
 								<ul class="featured__item__pic__hover">
 									<li><a href="#"><i class="fa fa-heart"></i></a></li>
 
@@ -188,9 +190,9 @@
 							</div>
 							<div class="featured__item__text">
 								<h6>
-									<a href="#">${o.tenSach }</a>
+									<a href="detail?pid=${o.maSach }">${o.tenSach }</a>
 								</h6>
-								<h5>${o.price}VNĐ</h5>
+								<h5 >${o.price}VNĐ</h5>
 							</div>
 						</div>
 					</div>
@@ -212,7 +214,7 @@
  -->
 						<div class="latest-prdouct__slider__item">
 							<c:forEach items="${listLast}" var="o">
-								<a href="#" class="latest-product__item">
+								<a href="detail?pid=${o.maSach }" class="latest-product__item">
 									<div class="latest-product__item__pic">
 										<img src="${o.anh}" alt="">
 									</div>
@@ -234,7 +236,7 @@
 						<div>
 							<div class="latest-prdouct__slider__item">
 								<c:forEach items="${listRated}" var="o">
-									<a href="#" class="latest-product__item">
+									<a href="detail?pid=${o.maSach }" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>
@@ -256,7 +258,7 @@
 						<div>
 							<div class="latest-prdouct__slider__item">
 								<c:forEach items="${listSell}" var="o">
-									<a href="#" class="latest-product__item">
+									<a href="detail?pid=${o.maSach }" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>
@@ -359,5 +361,15 @@
 			</div>
 		</div>
 	</footer>
+	    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+	
 </body>
 </html>
