@@ -21,7 +21,13 @@ public class HomeControl extends HttpServlet{
 		resp.setContentType("text/html;charset=UTF-8");
 		dao Dao = new dao();
 		List<Product> list = Dao.getALLProduct();
+		List<Product> listLast = Dao.getLatestProduct();
+		List<Product> listSell = Dao.getTopSeller();
+		List<Product> listRated = Dao.getTopRated();
 		req.setAttribute("listP", list);
+		req.setAttribute("listLast", listLast);
+		req.setAttribute("listSell", listSell);
+		req.setAttribute("listRated", listRated);
 		req.getRequestDispatcher("home.jsp").forward(req, resp);
 	}
 	@Override

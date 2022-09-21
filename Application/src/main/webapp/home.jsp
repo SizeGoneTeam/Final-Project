@@ -117,9 +117,7 @@
 							</div>
 							<c:if test="${sessionScope.acc != null}">
 								<div class="hero__search__login__text hello_user">
-									<h5>
-										Xin chào ${sessionScope.acc.user}
-									</h5>
+									<h5>Xin chào ${sessionScope.acc.user}</h5>
 								</div>
 								<br>
 								<div class="hero__search__login__text">
@@ -127,8 +125,8 @@
 										<a href="logout">Đăng Xuất</a>
 									</h5>
 								</div>
-								
-							
+
+
 							</c:if>
 							<c:if test="${sessionScope.acc == null}">
 								<div class="hero__search__login__text">
@@ -208,147 +206,72 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-						<h4>Latest Products</h4>
+						<h4>Sách Vừa Bán</h4>
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!--  <div class="latest-product__slider owl-carousel">
  -->
+						<div class="latest-prdouct__slider__item">
+							<c:forEach items="${listLast}" var="o">
+								<a href="#" class="latest-product__item">
+									<div class="latest-product__item__pic">
+										<img src="${o.anh}" alt="">
+									</div>
+									<div class="latest-product__item__text">
+										<h6>${o.tenSach}</h6>
+										<span>${o.price}VNĐ</span>
+									</div>
+								</a>
+							</c:forEach>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="latest-product__text">
+						<h4>Top Sách được đánh giá cao</h4>
+						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
+						<!-- <div class="latest-product__slider owl-carousel"> -->
 						<div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-							</div>
-							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc4.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								<c:forEach items="${listRated}" var="o">
+									<a href="#" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="${o.anh}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>${o.tenSach}</h6>
+											<span>${o.price}VNĐ</span>
+										</div>
+									</a>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-						<h4>Top Rated Products</h4>
+						<h4>Top Sách Bán Chạy</h4>
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!-- <div class="latest-product__slider owl-carousel"> -->
 						<div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-							</div>
-							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc4.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="latest-product__text">
-						<h4>Review Products</h4>
-						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
-						<!-- <div class="latest-product__slider owl-carousel"> -->
-						<div>
-							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc1.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
-							</div>
-							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="picture/feature-vanhoc4.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								<c:forEach items="${listSell}" var="o">
+									<a href="#" class="latest-product__item">
+										<div class="latest-product__item__pic">
+											<img src="${o.anh}" alt="">
+										</div>
+										<div class="latest-product__item__text">
+											<h6>${o.tenSach}</h6>
+											<span>${o.price}VNĐ</span>
+										</div>
+									</a>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</section>
 	<!-- Latest Product Section End -->
 

@@ -6,17 +6,27 @@ public class Product {
 	private String Anh;
 	private int Price;
 	private int SoLuong;
+	private String MoTa;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(int maSach, String tenSach, String anh, int price, int soLuong) {
+	public Product(int maSach, String tenSach, String anh, int price, int soLuong, String moTa) {
 		MaSach = maSach;
 		TenSach = tenSach;
 		Anh = anh;
 		Price = price;
 		SoLuong = soLuong;
+		MoTa = moTa;
+	}
+
+	public String getMoTa() {
+		return MoTa;
+	}
+
+	public void setMoTa(String moTa) {
+		MoTa = moTa;
 	}
 
 	public int getMaSach() {
@@ -62,8 +72,10 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [MaSach=" + MaSach + ", TenSach=" + TenSach + ", Anh=" + Anh + ", Price=" + Price + ", SoLuong="
-				+ SoLuong + "]";
+				+ SoLuong + ", MoTa=" + MoTa + "]";
 	}
+
+
 
 
 }

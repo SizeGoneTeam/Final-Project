@@ -23,7 +23,7 @@ public class dao {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -81,9 +81,68 @@ public class dao {
 			// TODO: handle exception
 		}
 	}
+	
+	public List<Product> getLatestProduct() {
+		List<Product> list = new ArrayList<>();
+		String query = "select * from tbSach inner join (select MaSach from tbChiTietHD\r\n"
+				+ "order by MaHD desc\r\n"
+				+ "limit 4) chitiet on tbSach.MaSach = chitiet.MaSach";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+	
+	public List<Product> getTopSeller() {
+		List<Product> list = new ArrayList<>();
+		String query = "select * from tbSach inner join (select MaSach from tbChiTietHD\r\n"
+				+ "group by MaSach\r\n"
+				+ "order by sum(SoLuong) desc\r\n"
+				+ "limit 4) chitiet on tbSach.MaSach = chitiet.MaSach";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+	
+	public List<Product> getTopRated() {
+		List<Product> list = new ArrayList<>();
+		String query = "select * from tbSach inner join (select MaSach from tbRated\r\n"
+				+ "group by MaSach\r\n"
+				+ "order by avg(Rated) desc\r\n"
+				+ "limit 4) rate on tbSach.MaSach = rate.MaSach";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
 
 	public static void main(String[] args) {
 		dao Dao = new dao();
-		Dao.register("gio123", "1");
+		List<Product> list = Dao.getALLProduct();
+		for (Product product : list) {
+			System.out.println(product);
+		}
 	}
 }
