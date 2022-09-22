@@ -154,6 +154,56 @@ public class dao {
 		}
 		return list;
 	}
+	
+	public void deleteProduct(String id) {
+		String query = "delete from tbSach where MaSach = ? ";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void updateProduct(String maSach, String tenSach, String anh, int price, int soLuong, String moTa ) {
+
+		String query = "update tbSach set TenSach = ?, Anh = ?, DonGia = ?, SoLuong =?, MoTa=?"
+				+ " Where MaSach=?";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, tenSach);
+			ps.setString(2, anh);
+			ps.setInt(3, price);
+			ps.setInt(4, soLuong);
+			ps.setString(5, moTa);
+			ps.setString(6, maSach);
+
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void addProduct(String tenSach, String anh, int price, int soLuong, String moTa ) {
+
+		String query = "insert into tbSach(TenSach,Anh,DonGia,SoLuong,MoTa)\r\n"
+				+ "values (?,?,?,?,?)";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, tenSach);
+			ps.setString(2, anh);
+			ps.setInt(3, price);
+			ps.setInt(4, soLuong);
+			ps.setString(5, moTa);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 
 	public static void main(String[] args) {
 		dao Dao = new dao();

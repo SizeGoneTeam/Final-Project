@@ -11,10 +11,10 @@ public class DBContext {
 		
 	}
 	private final String serverName ="sql6.freesqldatabase.com";
-	private final String dbName = "sql6519593";
+	private final String dbName = "sql6521250";
 	private final String portNumber ="3306";
-	private final String UserID = "sql6519593";
-	private final String password ="SSXuSNbcG5";
+	private final String UserID = "sql6521250";
+	private final String password ="HTetLcEFIR";
 	public static void main(String[] args) {
 		try {
 			System.out.println(new DBContext().getConnection());

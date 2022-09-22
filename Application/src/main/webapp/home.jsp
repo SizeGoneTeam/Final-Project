@@ -33,7 +33,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="./index.jsp">Home</a></li>
+							<li class="active"><a href="loadSach">Home</a></li>
 							<li><a href="./shop-grid.html">Shop</a></li>
 							<li><a href="#">Pages</a>
 								<ul class="header__menu__dropdown">
@@ -43,7 +43,7 @@
 									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
 							<li><a href="./blog.html">Blog</a></li>
-							<li><a href="./contact.html">Contact</a></li>
+							<li><a href="AdminProduct">Admin</a></li>
 						</ul>
 					</nav>
 				</div>
