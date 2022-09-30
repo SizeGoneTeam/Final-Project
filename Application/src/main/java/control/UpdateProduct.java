@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.dao;
+import entity.Product;
+import entity.TacGia;
 @WebServlet(urlPatterns = {"/updateProduct"})
 public class UpdateProduct extends HttpServlet{
 	@Override
@@ -22,6 +25,10 @@ public class UpdateProduct extends HttpServlet{
 		System.out.println(maSach);
 		dao Dao = new dao();
 		Dao.updateProduct(maSach, tenSach, anh, price, soLuong, moTa);
-		resp.sendRedirect("AdminProduct");
+		Product p = Dao.getProductbyID(maSach);
+		req.setAttribute("detail", p);
+		List<TacGia> list = Dao.getALLTacGia();
+		req.setAttribute("listTG", list);
+		req.getRequestDispatcher("addTGForProduct").forward(req, resp);
 	}
 }

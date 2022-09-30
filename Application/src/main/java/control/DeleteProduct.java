@@ -17,6 +17,6 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	String id = req.getParameter("MaSach");
 	dao Dao = new dao();
 	Dao.deleteProduct(id);
-	resp.sendRedirect("AdminProduct");
+	resp.sendRedirect("loadSach");
 }
 }

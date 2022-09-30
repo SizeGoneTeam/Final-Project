@@ -1,14 +1,22 @@
 package entity;
 
 public class Account {
+	private int id;
 	private String user;
 	private String pass;
 	private int isAdmin;
 
-	public Account(String user, String pass, int isAdmin) {
+	public Account(int id,String user, String pass, int isAdmin) {
+		this.id = id;
 		this.user = user;
 		this.pass = pass;
 		this.isAdmin = isAdmin;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getUser() {
 		return user;

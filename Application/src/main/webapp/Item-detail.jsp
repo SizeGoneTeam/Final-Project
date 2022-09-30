@@ -30,6 +30,18 @@
 <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
+<style>
+table {
+	border: 1px solid #e5e5e5;
+	width: 100%;
+	border-collapse: collapse;
+	text-indent: initial;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+</style>
 </head>
 
 <body>
@@ -158,7 +170,7 @@
 					<div class="product__details__pic">
 						<div class="product__details__pic__item">
 							<img class="product__details__pic__item--large"
-								src="${detail.anh }" alt="" alt="">
+								src="${detail.anh }">
 						</div>
 
 					</div>
@@ -172,21 +184,47 @@
 								class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
 						</div>
 						<div class="product__details__price">${detail.price}VNĐ</div>
-						<p></p>
-						<div class="product__details__quantity">
-							<div class="quantity">
-								<div class="pro-qty">
-									<input type="text" value="1">
+						<c:if test="${sessionScope.acc == null}">
+							<h5>Vui lòng đăng nhập trước khi đấu giá</h5>
+						</c:if>
+						<c:if test="${sessionScope.acc != null}">
+							<form action="placeBid">
+								<div class="product__details__quantity">
+									<div class="quantity">
+										<div class="pro-qty">
+											<input name="new_price" type="text" value=""> <input
+												name="maSach" value="${detail.maSach}" hidden> <input
+												name="id" value="${sessionScope.acc.id}" hidden>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<a href="#" class="primary-btn">Thêm vào giỏ hàng</a> <a href="#"
+								<input type="submit" class="primary-btn" style="color: #66FFFF"
+									value="Đấu Giá">
+							</form>
+							Vui lòng nhập hơn ${detail.price} VNĐ<br>
+						</c:if>
+
+						 <a href="#"
+							class="primary-btn">Thêm vào giỏ hàng</a> <a href="#"
 							class="heart-icon"><span class="icon_heart_alt"></span></a>
-						<ul>
-							<li><b>Số lượng sản phẩm: </b> <span>${detail.soLuong }</span></li>
+					</div>
+					<hr>
+					<div class="bid-history">
+						<table border="1">
+							<tr>
+								<th>Bidder</th>
+								<th>Bid Amount</th>
+								<th>Bid Time</th>
+							</tr>
+							<c:forEach items="${BidHistory}" var="o">
+								<tr>
+									<td>${o.tenKH}</td>
+									<td>${o.price} VNĐ</td>
+									<td>${o.ngayTao}</td>
+								</tr>
+							</c:forEach>
 
-
-						</ul>
+						</table>
 					</div>
 				</div>
 				<div class="col-lg-12">
@@ -431,7 +469,7 @@
 	<script src="js/jquery.slicknav.js"></script>
 	<script src="js/mixitup.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/main.js"></script>
+	<!-- 	<script src="js/main.js"></script> -->
 
 
 
