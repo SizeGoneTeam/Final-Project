@@ -10,11 +10,11 @@ public class DBContext {
 		return DriverManager.getConnection(url, UserID, password);
 		
 	}
-	private final String serverName ="sql6.freesqldatabase.com";
-	private final String dbName = "sql6521250";
+	private final String serverName ="database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com";
+	private final String dbName = "dbbook";
 	private final String portNumber ="3306";
-	private final String UserID = "sql6521250";
-	private final String password ="HTetLcEFIR";
+	private final String UserID = "admin";
+	private final String password ="Enter0123";
 	public static void main(String[] args) {
 		try {
 			System.out.println(new DBContext().getConnection());
