@@ -60,7 +60,7 @@
 					</div>
 					<div class="hr"></div>
 					<div class="foot-lnk">
-						<label for="tab-1">Đã có tài khoản?</a>
+						<label for="tab-1">Đã có tài khoản?</label>
 					</div>
 				</form>
 			</div>
