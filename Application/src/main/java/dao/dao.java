@@ -16,6 +16,37 @@ public class dao {
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	
+	public boolean changePassword(int userID, String newPassword, String oldPassword) {
+		String query = "UPDATE tbAccount SET MK = ? WHERE MaKH = ? AND MK = ?";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, newPassword);
+			ps.setInt(2, userID);
+			ps.setString(3, oldPassword);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+
+		}
+		return false;
+	}
+	
+	public boolean changeUserName(int userID, String userName) {
+		String query = "UPDATE tbAccount SET TenKH = ? WHERE MaKH = ?";
+		try {
+			conn = new DBContext().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, userName);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+
+		}
+		return false;
+	}
 
 	public List<Product> getALLProduct() {
 		List<Product> list = new ArrayList<>();

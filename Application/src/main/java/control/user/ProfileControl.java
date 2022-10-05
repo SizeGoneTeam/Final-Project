@@ -1,4 +1,4 @@
-package control;
+package control.user;
 
 import java.io.IOException;
 
@@ -16,7 +16,14 @@ import entity.Account;
 public class ProfileControl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+		dao DAO = new dao();
+//		DAO.changeUserName(session.getAttribute("acc.user"), getServletInfo());
+		Account acc = (Account) session.getAttribute("acc");
+		DAO.changeUserName(acc.getId(), (String) request.getParameter("userName"));
+		acc.setName((String) request.getParameter("userName"));
+		session.setAttribute("acc", acc);
+		response.sendRedirect("profile.jsp");
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
