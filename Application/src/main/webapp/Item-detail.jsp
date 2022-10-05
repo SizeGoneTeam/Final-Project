@@ -60,11 +60,7 @@ th {
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-<<<<<<< Updated upstream
-							<li><a href="./index.html">Home</a></li>
-=======
 							<li><a href="./index.jsp">Home</a></li>
->>>>>>> Stashed changes
 							<li class="active"><a href="./shop-grid.html">Shop</a></li>
 							<li><a href="#">Pages</a>
 								<ul class="header__menu__dropdown">
@@ -73,11 +69,7 @@ th {
 									<li><a href="./checkout.html">Check Out</a></li>
 									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
-<<<<<<< Updated upstream
-							<li><a href="./blog.html">Blog</a></li>
-=======
 							<li><a href="FAQ.jsp">FAQ</a></li>
->>>>>>> Stashed changes
 							<li><a href="./contact.html">Contact</a></li>
 						</ul>
 					</nav>
@@ -200,15 +192,9 @@ th {
 								<div class="product__details__quantity">
 									<div class="quantity">
 										<div class="pro-qty">
-<<<<<<< Updated upstream
-											<input name="new_price" type="text" value=""> <input
-												name="maSach" value="${detail.maSach}" hidden> <input
-												name="id" value="${sessionScope.acc.id}" hidden>
-=======
 											<input name="new_price" type="text" value=""> 
 											<input name="maSach" value="${detail.maSach}" hidden> 
 											<input name="id" value="${sessionScope.acc.id}" hidden>
->>>>>>> Stashed changes
 										</div>
 									</div>
 								</div>

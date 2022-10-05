@@ -42,11 +42,7 @@
 									<li><a href="./checkout.html">Check Out</a></li>
 									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
-<<<<<<< Updated upstream
-							<li><a href="./blog.html">Blog</a></li>
-=======
 							<li><a href="FAQ.jsp">FAQ</a></li>
->>>>>>> Stashed changes
 							<li><a href="AdminProduct">Admin</a></li>
 						</ul>
 					</nav>
@@ -181,11 +177,7 @@
 			<div class="row featured__filter">
 				<c:forEach items="${listP}" var="o">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-<<<<<<< Updated upstream
-						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }';">
-=======
 						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}';">
->>>>>>> Stashed changes
 							<div class="featured__item__pic set-bg"
 							 data-setbg="${o.anh }"
 								
@@ -198,11 +190,7 @@
 							</div>
 							<div class="featured__item__text">
 								<h6>
-<<<<<<< Updated upstream
-									<a href="detail?pid=${o.maSach }">${o.tenSach }</a>
-=======
 									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}"">${o.tenSach }</a>
->>>>>>> Stashed changes
 								</h6>
 								<h5 >${o.price}VNĐ</h5>
 							</div>
@@ -220,15 +208,6 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-<<<<<<< Updated upstream
-						<h4>Sách Vừa Bán</h4>
-						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
-						<!--  <div class="latest-product__slider owl-carousel">
- -->
-						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${listLast}" var="o">
-								<a href="detail?pid=${o.maSach }" class="latest-product__item">
-=======
 						<h4>Sách Vừa Xem</h4>
 						
 						<input name="idlogin" value="${sessionScope.acc.id}" hidden>
@@ -237,7 +216,6 @@
 						<div class="latest-prdouct__slider__item">
 							<c:forEach items="${lastSeen}" var="o">
 								<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}""  class="latest-product__item">
->>>>>>> Stashed changes
 									<div class="latest-product__item__pic">
 										<img src="${o.anh}" alt="">
 									</div>
@@ -253,22 +231,13 @@
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-<<<<<<< Updated upstream
-						<h4>Top Sách được đánh giá cao</h4>
-=======
 						<h4>Top Sách được đấu giá nhiều</h4>
->>>>>>> Stashed changes
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!-- <div class="latest-product__slider owl-carousel"> -->
 						<div>
 							<div class="latest-prdouct__slider__item">
-<<<<<<< Updated upstream
-								<c:forEach items="${listRated}" var="o">
-									<a href="detail?pid=${o.maSach }" class="latest-product__item">
-=======
 								<c:forEach items="${listBid}" var="o">
-									<a href='detail?pid=${o.maSach}&amp;maKH=${sessionScope.acc.id}' class="latest-product__item">
->>>>>>> Stashed changes
+									<a href="detail?pid=${o.maSach}&amp;maKH=${sessionScope.acc.id}" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>
@@ -284,22 +253,13 @@
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-<<<<<<< Updated upstream
-						<h4>Top Sách Bán Chạy</h4>
-=======
 						<h4>Sách Mới Được Đăng</h4>
->>>>>>> Stashed changes
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!-- <div class="latest-product__slider owl-carousel"> -->
 						<div>
 							<div class="latest-prdouct__slider__item">
-<<<<<<< Updated upstream
-								<c:forEach items="${listSell}" var="o">
-									<a href="detail?pid=${o.maSach }" class="latest-product__item">
-=======
 								<c:forEach items="${listNew}" var="o">
 									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}" class="latest-product__item">
->>>>>>> Stashed changes
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>

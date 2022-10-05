@@ -27,14 +27,6 @@ public class HomeControl extends HttpServlet{
 		dao Dao = new dao();
 		List<Product> list = Dao.getALLProduct();
 		List<Product> listLast = Dao.getLatestProduct();
-<<<<<<< Updated upstream
-		List<Product> listSell = Dao.getTopSeller();
-		List<Product> listRated = Dao.getTopRated();
-		req.setAttribute("listP", list);
-		req.setAttribute("listLast", listLast);
-		req.setAttribute("listSell", listSell);
-		req.setAttribute("listRated", listRated);
-=======
 		List<Product> listNew = Dao.getTopNew();
 		List<Product> listBid = Dao.getTopBid();
 		
@@ -52,7 +44,6 @@ public class HomeControl extends HttpServlet{
 		req.setAttribute("listNew", listNew);
 		req.setAttribute("listBid", listBid);
 
->>>>>>> Stashed changes
 		req.getRequestDispatcher("home.jsp").forward(req, resp);
 	}
 	@Override
