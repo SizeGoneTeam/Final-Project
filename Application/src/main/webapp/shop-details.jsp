@@ -68,7 +68,11 @@
                         <li><a href="./blog-details.html">Blog Details</a></li>
                     </ul>
                 </li>
+<<<<<<< Updated upstream
                 <li><a href="./blog.html">Blog</a></li>
+=======
+                <li><a href="FAQ.jsp">FAQ</a></li>
+>>>>>>> Stashed changes
                 <li><a href="./contact.html">Contact</a></li>
             </ul>
         </nav>

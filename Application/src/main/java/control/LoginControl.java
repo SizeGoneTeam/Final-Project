@@ -27,7 +27,15 @@ public class LoginControl extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.setAttribute("acc", a);
 			session.setMaxInactiveInterval(600);
+<<<<<<< Updated upstream
 			resp.sendRedirect("loadSach");
+=======
+			
+
+			req.getServletContext().getRequestDispatcher("/loadSach").forward(req, resp);
+			//getServletContext().getRequestDispatcher("/loadSach");
+
+>>>>>>> Stashed changes
 		}
 		
 	}
