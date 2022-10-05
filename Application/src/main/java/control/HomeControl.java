@@ -30,7 +30,7 @@ public class HomeControl extends HttpServlet{
 		List<Product> listNew = Dao.getTopNew();
 		List<Product> listBid = Dao.getTopBid();
 		
-		HttpSession session=req.getSession(false);
+		HttpSession session=req.getSession();
 		Account account;
 		account= (Account) session.getAttribute("acc");
 		if(account != null) {
