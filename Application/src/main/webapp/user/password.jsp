@@ -80,6 +80,7 @@
                         </div>
       
                         <form action="password">
+                          <div><i>${message}</i></div>
                           <div class="fo5IeT" style="padding-top: 1.5625rem;    flex-direction: column;display: flex;align-items: center;">
                             <div class="Kuz0mN" style="width: 50rem;display: flex;align-items: center;">
                               <div class="A8yLgM" style="width: 100%;margin-bottom: .9375rem;border-radius: .125rem;display: block;">

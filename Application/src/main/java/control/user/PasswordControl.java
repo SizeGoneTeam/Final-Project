@@ -25,18 +25,23 @@ public class PasswordControl extends HttpServlet {
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
 		String newPasswordRepeat = request.getParameter("newPasswordRepeat");
+		String message;
 		
 		if (oldPassword.equals(acc.getPass()) && newPassword.equals(newPasswordRepeat)) {
 			DAO.changePassword(acc.getId(), newPassword, oldPassword);
 			
 			acc.setPass(newPassword);
 			session.setAttribute("acc", acc);
+			message = "Đổi mật khẩu thành công";
+		}
+		else {
+			message = "Sai mật khẩu";
 		}
 		
 		
 		
-		
-		response.sendRedirect("profile.jsp");
+		request.setAttribute("message", message);
+		getServletContext().getRequestDispatcher("/user/password.jsp").forward(request, response);	
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
