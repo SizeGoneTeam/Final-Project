@@ -5,19 +5,19 @@ public class Product {
 	private String TenSach;
 	private String Anh;
 	private int Price;
-	private int SoLuong;
+	private String NguoiSoHuu;
 	private String MoTa;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(int maSach, String tenSach, String anh, int price, int soLuong, String moTa) {
+	public Product(int maSach, String tenSach, String anh, int price, String nguoiSoHuu, String moTa) {
 		MaSach = maSach;
 		TenSach = tenSach;
 		Anh = anh;
 		Price = price;
-		SoLuong = soLuong;
+		NguoiSoHuu = nguoiSoHuu;
 		MoTa = moTa;
 	}
 
@@ -61,18 +61,18 @@ public class Product {
 		Price = price;
 	}
 
-	public int getSoLuong() {
-		return SoLuong;
+	public String getNguoiSoHuu() {
+		return NguoiSoHuu;
 	}
 
-	public void setSoLuong(int soLuong) {
-		SoLuong = soLuong;
+	public void serNguoiSoHuu(String nguoiSoHuu) {
+	    NguoiSoHuu = nguoiSoHuu;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [MaSach=" + MaSach + ", TenSach=" + TenSach + ", Anh=" + Anh + ", Price=" + Price + ", SoLuong="
-				+ SoLuong + ", MoTa=" + MoTa + "]";
+				+ NguoiSoHuu + ", MoTa=" + MoTa + "]";
 	}
 
 

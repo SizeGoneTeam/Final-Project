@@ -56,7 +56,7 @@ public class dao {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -109,7 +109,7 @@ public class dao {
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				return new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+				return new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -143,7 +143,7 @@ public class dao {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -162,7 +162,7 @@ public class dao {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -181,7 +181,7 @@ public class dao {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -315,7 +315,7 @@ public List<Product> getTopNew() {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -325,16 +325,18 @@ public List<Product> getTopNew() {
 	
 	public List<Product> getTopBid() {
 		List<Product> list = new ArrayList<>();
-		String query = "select  tbSach.MaSach,  tbSach.TenSach,  tbSach.Anh,  tbSach.DonGia,  tbSach.SoLuong,  tbSach.MoTa from tbSach inner join (select count(MaBid), MaSach from tbLichSuBid\r\n"
-				+ "order by count(MaBid) desc\r\n"
-				+ "limit 4) as dem \r\n"
-				+ "where tbSach.MaSach=dem.MaSach;";
+		String query = "select  tbSach.MaSach,  tbSach.TenSach,  tbSach.Anh,  tbSach.DonGia,  tbSach.NguoiSoHuu,  tbSach.MoTa from tbSach \r\n"
+		        + "inner join (select count(MaBid),tbPhienDauGia.MaSach  from tbLichSuBid \r\n"
+		        + "inner join tbPhienDauGia where tbLichSuBid.MaPhien = tbPhienDauGia.MaPhien\r\n"
+		        + "order by count(MaBid) desc\r\n"
+		        + "limit 4) as dem \r\n"
+		        + "where tbSach.MaSach=dem.MaSach;";
 		try {
 			conn = new DBContext().getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -343,17 +345,17 @@ public List<Product> getTopNew() {
 	}
 	public List<Product> getTopLast(String MaKH) {
 		List<Product> list = new ArrayList<>();
-		String query = "SELECT tbSach.MaSach,  tbSach.TenSach,  tbSach.Anh,  tbSach.DonGia,  tbSach.SoLuong,  tbSach.MoTa FROM tbLichSuXem inner join tbSach\r\n"
-				+ "where tbLichSuXem.MaSach = tbSach.MaSach and MaKH = ?\r\n"
-				+ "order by NgayXem desc\r\n"
-				+ "limit 4;";
+		String query = "SELECT tbSach.MaSach,  tbSach.TenSach,  tbSach.Anh,  tbSach.DonGia,  tbSach.NguoiSoHuu,  tbSach.MoTa FROM tbLichSuXem inner join tbSach\r\n"
+		        + "where tbLichSuXem.MaSach = tbSach.MaSach and MaTK = ?\r\n"
+		        + "order by NgayXem desc\r\n"
+		        + "limit 4;";
 		try {
 			conn = new DBContext().getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, MaKH);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -362,9 +364,9 @@ public List<Product> getTopNew() {
 	}	
 	public List<Product> getLast(String MaKH, String MaSach) {
 		List<Product> list = new ArrayList<>();
-		String query = "SELECT tbSach.MaSach,  tbSach.TenSach,  tbSach.Anh,  tbSach.DonGia,  tbSach.SoLuong,  tbSach.MoTa FROM tbLichSuXem inner join tbSach\r\n"
-				+ "	where tbLichSuXem.MaSach = tbSach.MaSach and MaKH = ? and  tbLichSuXem.MaSach = ?\r\n"
-				+ "	order by NgayXem desc;";
+		String query = "SELECT tbSach.MaSach,  tbSach.TenSach,  tbSach.Anh,  tbSach.DonGia,  tbSach.NguoiSoHuu,  tbSach.MoTa FROM tbLichSuXem inner join tbSach\r\n"
+		        + "where tbLichSuXem.MaSach = tbSach.MaSach and MaTK = ? and  tbLichSuXem.MaSach = ?\r\n"
+		        + "order by NgayXem desc;";
 		try {
 			conn = new DBContext().getConnection();
 			ps = conn.prepareStatement(query);
@@ -372,7 +374,7 @@ public List<Product> getTopNew() {
 			ps.setString(2, MaSach);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getString(6)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getString(6)));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -381,7 +383,7 @@ public List<Product> getTopNew() {
 	}		
 	public void addLastSeen(String MaKH, String MaSach) {
 
-		String query = "insert into tbLichSuXem(MaKH, MaSach)\r\n"
+		String query = "insert into tbLichSuXem(MaTK, MaSach)\r\n"
 				+ "values (?,?)";
 		try {
 			conn = new DBContext().getConnection();
@@ -395,7 +397,7 @@ public List<Product> getTopNew() {
 	}
 	public void updateDate(String MaKH, String MaSach) {
 
-		String query = "UPDATE tbLichSuXem SET NgayXem =  (CONVERT_TZ(NOW(),'+00:00','+7:00')) WHERE MaSach = ? and MaKH =?  ";
+		String query = "UPDATE tbLichSuXem SET NgayXem =  (CONVERT_TZ(NOW(),'+00:00','+7:00')) WHERE MaSach = ? and MaTK =?";
 		try {
 			conn = new DBContext().getConnection();
 			ps = conn.prepareStatement(query);
@@ -409,7 +411,7 @@ public List<Product> getTopNew() {
 	
 	public static void main(String[] args) {
 		dao Dao = new dao();
-		List<Product> list = Dao.getLast("2", "2");
+		List<Product> list = Dao.getTopLast("1");
 		for (Product product : list) {
 			System.out.println(product);
 		}

@@ -103,17 +103,18 @@ th {
 							<i class="fa fa-bars"></i> <span>All departments</span>
 						</div>
 						<ul>
-							<li><a href="#">Fresh Meat</a></li>
-							<li><a href="#">Vegetables</a></li>
-							<li><a href="#">Fruit & Nut Gifts</a></li>
-							<li><a href="#">Fresh Berries</a></li>
-							<li><a href="#">Ocean Foods</a></li>
-							<li><a href="#">Butter & Eggs</a></li>
-							<li><a href="#">Fastfood</a></li>
-							<li><a href="#">Fresh Onion</a></li>
-							<li><a href="#">Papayaya & Crisps</a></li>
-							<li><a href="#">Oatmeal</a></li>
-							<li><a href="#">Fresh Bananas</a></li>
+							<li><a href="#">Sách văn học</a></li>
+							<li><a href="#">Sách kinh tế</a></li>
+							<li><a href="#">Sách thiếu nhi</a></li>
+							<li><a href="#">Sách kỹ năng sống</a></li>
+							<li><a href="#">Thiếu nhi</a></li>
+							<li><a href="#">Sách Bà mẹ - Em bé</a></li>
+							<li><a href="#">Sách Giáo Khoa - Giáo Trình</a></li>
+							<li><a href="#">Sách Học Ngoại Ngữ</a></li>
+							<li><a href="#">Sách Tham Khảo</a></li>
+							<li><a href="#">Từ Điển</a></li>
+							<li><a href="#">Sách Kiến Thức Tổng Hợp</a></li>
+							<li><a href="#">Sách Khoa Học - Kỹ Thuật</a></li>
 						</ul>
 					</div>
 				</div>

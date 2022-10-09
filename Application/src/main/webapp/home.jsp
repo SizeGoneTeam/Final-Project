@@ -169,7 +169,7 @@
 							<li data-filter=".vanhoc">Sách văn học</li>
 							<li data-filter=".kinhte">Sách kinh tế</li>
 							<li data-filter=".thieunhi">Sách thiếu nhi</li>
-							<li data-filter=".kynang song">Sách kỹ năng sống</li>
+							<li data-filter=".kynangsong">Sách kỹ năng sống</li>
 						</ul>
 					</div>
 				</div>
