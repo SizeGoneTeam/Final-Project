@@ -88,7 +88,7 @@
                                   </div>
                                   <div class="v1Bl9+">
                                     <div class="_2MJTPE">
-                                      <div class="J7g-AJ">${sessionScope.acc.user}</div>
+                                      <div class="J7g-AJ">${sessionScope.acc.maTK}</div>
                                       <button class="OcJZJm"></button>
                                     </div>
                                   </div>
@@ -102,7 +102,7 @@
                                       <div class="input-with-validator">
                                         <input
                                           type="text"
-                                          placeholder="${sessionScope.acc.name}"
+                                          placeholder="${sessionScope.acc.hoTen}"
                                           maxlength="255"
                                           name="userName"
                                           value=""
@@ -132,7 +132,7 @@
                                   </div>
                                   <div class="v1Bl9+">
                                     <div class="_2MJTPE">
-                                      <div class="J7g-AJ">${sessionScope.acc.phoneNumber}</div>
+                                      <div class="J7g-AJ">${sessionScope.acc.phone}</div>
                                       <button class="OcJZJm">Thay đổi</button>
                                     </div>
                                   </div>

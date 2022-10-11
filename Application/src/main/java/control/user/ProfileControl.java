@@ -20,8 +20,8 @@ public class ProfileControl extends HttpServlet {
 		dao DAO = new dao();
 //		DAO.changeUserName(session.getAttribute("acc.user"), getServletInfo());
 		Account acc = (Account) session.getAttribute("acc");
-		DAO.changeUserName(acc.getId(), (String) request.getParameter("userName"));
-		acc.setName((String) request.getParameter("userName"));
+		DAO.changeUserName(acc.getMaTK(), (String) request.getParameter("userName"));
+		acc.setHoTen((String) request.getParameter("userName"));
 		session.setAttribute("acc", acc);
 		response.sendRedirect("profile.jsp");
 	}

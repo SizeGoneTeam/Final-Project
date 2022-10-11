@@ -54,7 +54,13 @@
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</ul>
 						<div class="header__cart__price">
+						<c:if test="${sessionScope.acc != null}">
+							item: <span>${sessionScope.acc.tien} VNĐ</span>
+						</c:if>
+						<c:if test="${sessionScope.acc == null}">
 							item: <span>$0.00</span>
+						</c:if>
+							
 						</div>
 					</div>
 				</div>
@@ -117,7 +123,7 @@
 							</div>
 							<c:if test="${sessionScope.acc != null}">
 								<div class="hero__search__login__text hello_user">
-									<h5>Xin chào ${sessionScope.acc.user}</h5>
+									<h5>Xin chào ${sessionScope.acc.maTK}</h5>
 								</div>
 								<br>
 								<div class="hero__search__login__text">
@@ -177,7 +183,7 @@
 			<div class="row featured__filter">
 				<c:forEach items="${listP}" var="o">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}';">
+						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}';">
 							<div class="featured__item__pic set-bg"
 							 data-setbg="${o.anh }"
 								
@@ -190,7 +196,7 @@
 							</div>
 							<div class="featured__item__text">
 								<h6>
-									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}"">${o.tenSach }</a>
+									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}"">${o.tenSach }</a>
 								</h6>
 								<h5 >${o.price}VNĐ</h5>
 							</div>
@@ -210,12 +216,12 @@
 					<div class="latest-product__text">
 						<h4>Sách Vừa Xem</h4>
 						
-						<input name="idlogin" value="${sessionScope.acc.id}" hidden>
+						<input name="idlogin" value="${sessionScope.acc.maTK}" hidden>
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!--  <div class="latest-product__slider owl-carousel">-->
 						<div class="latest-prdouct__slider__item">
 							<c:forEach items="${lastSeen}" var="o">
-								<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}""  class="latest-product__item">
+								<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}""  class="latest-product__item">
 									<div class="latest-product__item__pic">
 										<img src="${o.anh}" alt="">
 									</div>
@@ -237,7 +243,7 @@
 						<div>
 							<div class="latest-prdouct__slider__item">
 								<c:forEach items="${listBid}" var="o">
-									<a href="detail?pid=${o.maSach}&amp;maKH=${sessionScope.acc.id}" class="latest-product__item">
+									<a href="detail?pid=${o.maSach}&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>
@@ -259,7 +265,7 @@
 						<div>
 							<div class="latest-prdouct__slider__item">
 								<c:forEach items="${listNew}" var="o">
-									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.id}" class="latest-product__item">
+									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>

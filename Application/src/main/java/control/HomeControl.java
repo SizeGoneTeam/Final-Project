@@ -34,7 +34,7 @@ public class HomeControl extends HttpServlet{
 		Account account;
 		account= (Account) session.getAttribute("acc");
 		if(account != null) {
-			String maKH = String.valueOf(account.getId());
+			String maKH = String.valueOf(account.getMaTK());
 			List<Product> lastSeen = Dao.getTopLast(maKH);
 			req.setAttribute("lastSeen", lastSeen);
 		}

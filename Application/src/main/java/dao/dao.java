@@ -66,7 +66,7 @@ public class dao {
 
 	public Account login(String user, String pass) {
 
-		String query = "select * from tbAccount\r\n" + "where TK = ? and MK = ?";
+		String query = "select * from tbAccount\r\n" + "where UName = ? and PWord = ?";
 		try {
 			conn = new DBContext().getConnection();
 			ps = conn.prepareStatement(query);
@@ -74,8 +74,8 @@ public class dao {
 			ps.setString(2, pass);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
-						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8));
+			    return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4),rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDouble(10), rs.getFloat(11));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -92,7 +92,8 @@ public class dao {
 			ps.setString(1, user);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				return new Account(rs.getInt(1),rs.getString(6), rs.getString(2), rs.getInt(3));
+			    return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4),rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDouble(10), rs.getFloat(11));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -411,9 +412,14 @@ public List<Product> getTopNew() {
 	
 	public static void main(String[] args) {
 		dao Dao = new dao();
-		List<Product> list = Dao.getTopLast("1");
-		for (Product product : list) {
-			System.out.println(product);
-		}
+		List<Product> list = Dao.getALLProduct();
+		Account acc = Dao.login("hai", "hai123");
+        /*
+         * for (Product product : list) {
+         * System.out.println(product);
+         * }
+         */
+		System.out.println(acc);
+		
 	}
 }

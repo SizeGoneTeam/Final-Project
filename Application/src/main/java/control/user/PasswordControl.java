@@ -27,10 +27,10 @@ public class PasswordControl extends HttpServlet {
 		String newPasswordRepeat = request.getParameter("newPasswordRepeat");
 		String message;
 		
-		if (oldPassword.equals(acc.getPass()) && newPassword.equals(newPasswordRepeat)) {
-			DAO.changePassword(acc.getId(), newPassword, oldPassword);
+		if (oldPassword.equals(acc.getpWord()) && newPassword.equals(newPasswordRepeat)) {
+			DAO.changePassword(acc.getMaTK(), newPassword, oldPassword);
 			
-			acc.setPass(newPassword);
+			acc.setpWord(newPasswordRepeat);
 			session.setAttribute("acc", acc);
 			message = "Đổi mật khẩu thành công";
 		}
