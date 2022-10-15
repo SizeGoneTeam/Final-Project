@@ -120,7 +120,7 @@ public class dao {
 
 	public void register(String user, String pass) {
 
-		String query = "insert into tbAccount(TK,MK) values (?,?)";
+		String query = "insert into tbAccount(UName,PWord) values (?,?)";
 		try {
 			conn = new DBContext().getConnection();
 			ps = conn.prepareStatement(query);
