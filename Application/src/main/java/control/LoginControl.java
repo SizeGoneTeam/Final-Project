@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import dao.dao;
 import entity.Account;
+import entity.TbAccount;
+import model.UserDao;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginControl extends HttpServlet {
@@ -18,8 +20,8 @@ public class LoginControl extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("user");
 		String password = req.getParameter("pass");
-		dao Dao = new dao();
-		Account a = Dao.login(username, password);
+		UserDao dao = new UserDao();
+		TbAccount a = dao.login(username, password);
 		if(a==null) {
 			req.setAttribute("mess", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
 			req.getRequestDispatcher("Login.jsp").forward(req, resp);

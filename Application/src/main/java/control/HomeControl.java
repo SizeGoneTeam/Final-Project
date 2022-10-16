@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import dao.dao;
 import entity.Account;
 import entity.Product;
+import entity.TbAccount;
 
 @WebServlet(urlPatterns = {"/loadSach"})
 public class HomeControl extends HttpServlet{
@@ -31,8 +32,8 @@ public class HomeControl extends HttpServlet{
 		List<Product> listBid = Dao.getTopBid();
 		
 		HttpSession session=req.getSession();
-		Account account;
-		account= (Account) session.getAttribute("acc");
+		TbAccount account;
+		account= (TbAccount) session.getAttribute("acc");
 		if(account != null) {
 			String maKH = String.valueOf(account.getMaTK());
 			List<Product> lastSeen = Dao.getTopLast(maKH);

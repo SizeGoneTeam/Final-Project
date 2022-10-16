@@ -2,12 +2,20 @@ package model;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
-import utils.JpaUntil;
+import entity.TbAccount;
+import utils.JpaUntils;
 
 public class UserDao {
+    private EntityManager em = JpaUntils.getEntityManager();
+    @Override
+    protected void finalize() throws Throwable {
+        em.close();
+        super.finalize();
+    }
+    
     public void insert(TbAccount acc) {
-        EntityManager em = JpaUntil.getEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
@@ -22,5 +30,19 @@ public class UserDao {
         finally {
             em.close();
         }
+    }
+    
+    public TbAccount findById(String maTK) {
+        TbAccount entity = em.find(TbAccount.class, maTK);
+        return entity;
+    }
+    
+    public TbAccount login(String UName, String PWord ) {
+        String jpql = "SELECT o FROM TbAccount o WHERE o.UName =:UName AND o.PWord =:PWord";
+        TypedQuery<TbAccount> query = em.createQuery(jpql,TbAccount.class);
+        query.setParameter("UName",UName );
+        query.setParameter("PWord",PWord );
+        TbAccount entity = query.getSingleResult();
+        return entity;
     }
 }
