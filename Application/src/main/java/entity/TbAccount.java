@@ -14,9 +14,9 @@ import javax.persistence.*;
 public class TbAccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id //@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="MaTK")
-	private int maTK;
+	private Long maTK;
 
 	@Column(name="Email")
 	private String email;
@@ -48,14 +48,22 @@ public class TbAccount implements Serializable {
 	@Column(name="UName")
 	private String UName;
 
-	public TbAccount() {
-	}
-	
-
+    public TbAccount() {
+        maTK = null;
+        email = null;
+        hoTen = null;
+        namSinh = null;
+        ngaySinh = null;
+        phone = null;
+        PWord = null;
+        sao = null;
+        thangSinh = null;
+        tien = null;
+        UName = null;
+    }
 
 
     public TbAccount(String uName,String pWord) {
-        super();
         PWord = pWord;
         UName = uName;
     }
@@ -63,11 +71,11 @@ public class TbAccount implements Serializable {
 
 
 
-    public int getMaTK() {
+    public Long getMaTK() {
 		return this.maTK;
 	}
 
-	public void setMaTK(int maTK) {
+	public void setMaTK(Long maTK) {
 		this.maTK = maTK;
 	}
 

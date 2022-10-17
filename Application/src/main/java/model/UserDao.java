@@ -32,9 +32,30 @@ public class UserDao {
         }
     }
     
-    public TbAccount findById(String maTK) {
+    public Boolean checkExitAccount(String UName) {
+        
+        TbAccount acc = em.find(TbAccount.class, UName);
+        if(acc != null) return true;
+        return false;
+    }
+    
+    public TbAccount findById(Long maTK) {
         TbAccount entity = em.find(TbAccount.class, maTK);
         return entity;
+    }
+    
+    public TbAccount findByName(String UName) {
+        try {
+            String jpql = "SELECT o FROM TbAccount o WHERE o.UName =:UName";
+            TypedQuery<TbAccount> query = em.createQuery(jpql,TbAccount.class);
+            query.setParameter("UName",UName );
+            TbAccount entity = query.getSingleResult();
+            return entity;
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null;
     }
     
     public TbAccount login(String UName, String PWord ) {
@@ -45,4 +66,9 @@ public class UserDao {
         TbAccount entity = query.getSingleResult();
         return entity;
     }
+    
+    public void register(String UName, String PWord) {
+        
+    }
+
 }
