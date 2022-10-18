@@ -59,12 +59,19 @@ public class UserDao {
     }
     
     public TbAccount login(String UName, String PWord ) {
-        String jpql = "SELECT o FROM TbAccount o WHERE o.UName =:UName AND o.PWord =:PWord";
-        TypedQuery<TbAccount> query = em.createQuery(jpql,TbAccount.class);
-        query.setParameter("UName",UName );
-        query.setParameter("PWord",PWord );
-        TbAccount entity = query.getSingleResult();
-        return entity;
+        try {
+            String jpql = "SELECT o FROM TbAccount o WHERE o.UName =:UName AND o.PWord =:PWord";
+            TypedQuery<TbAccount> query = em.createQuery(jpql,TbAccount.class);
+            query.setParameter("UName",UName );
+            query.setParameter("PWord",PWord );
+            TbAccount entity = query.getSingleResult();
+            return entity;
+        }
+        catch (Exception e) {
+           
+        }
+        return null;
+        
     }
     
     public void register(String UName, String PWord) {
