@@ -185,7 +185,7 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}';">
 							<div class="featured__item__pic set-bg"
-							 data-setbg="${o.anh }"
+							 data-setbg="${o.getAnh() }"
 								
 								>								
 								<ul class="featured__item__pic__hover">
@@ -196,9 +196,9 @@
 							</div>
 							<div class="featured__item__text">
 								<h6>
-									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}"">${o.tenSach }</a>
+									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}"">${o.getTenSach() }</a>
 								</h6>
-								<h5 >${o.price}VNĐ</h5>
+								<h5 >${o.getDonGia()}VNĐ</h5>
 							</div>
 						</div>
 					</div>
@@ -267,11 +267,11 @@
 								<c:forEach items="${listNew}" var="o">
 									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
 										<div class="latest-product__item__pic">
-											<img src="${o.anh}" alt="">
+											<img src="${o.getAnh()}" alt="">
 										</div>
 										<div class="latest-product__item__text">
-											<h6>${o.tenSach}</h6>
-											<span>${o.price}VNĐ</span>
+											<h6>${o.getTenSach()}</h6>
+											<span>${o.getDonGia()}VNĐ</span>
 										</div>
 									</a>
 								</c:forEach>

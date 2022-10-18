@@ -16,6 +16,8 @@ import dao.dao;
 import entity.Account;
 import entity.Product;
 import entity.TbAccount;
+import entity.TbSach;
+import model.HomeDao;
 
 @WebServlet(urlPatterns = {"/loadSach"})
 public class HomeControl extends HttpServlet{
@@ -30,7 +32,9 @@ public class HomeControl extends HttpServlet{
 		List<Product> listLast = Dao.getLatestProduct();
 		List<Product> listNew = Dao.getTopNew();
 		List<Product> listBid = Dao.getTopBid();
-		
+		HomeDao home = new HomeDao();
+		List<TbSach> all = home.GetAll();
+		List<TbSach> lastAdd = home.LastAdd();
 		HttpSession session=req.getSession();
 		TbAccount account;
 		account= (TbAccount) session.getAttribute("acc");
@@ -40,9 +44,9 @@ public class HomeControl extends HttpServlet{
 			req.setAttribute("lastSeen", lastSeen);
 		}
 
-		req.setAttribute("listP", list);
+		req.setAttribute("listP", all);
 		req.setAttribute("listLast", listLast);
-		req.setAttribute("listNew", listNew);
+		req.setAttribute("listNew", lastAdd);
 		req.setAttribute("listBid", listBid);
 
 		req.getRequestDispatcher("home.jsp").forward(req, resp);
