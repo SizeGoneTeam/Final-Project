@@ -17,7 +17,7 @@ import entity.Account;
 import entity.Product;
 import entity.TbAccount;
 import entity.TbSach;
-import model.HomeDao;
+import model.BookDao;
 
 @WebServlet(urlPatterns = {"/loadSach"})
 public class HomeControl extends HttpServlet{
@@ -32,7 +32,7 @@ public class HomeControl extends HttpServlet{
 		List<Product> listLast = Dao.getLatestProduct();
 		List<Product> listNew = Dao.getTopNew();
 		List<Product> listBid = Dao.getTopBid();
-		HomeDao home = new HomeDao();
+		BookDao home = new BookDao();
 		List<TbSach> all = home.GetAll();
 		List<TbSach> lastAdd = home.LastAdd();
 		HttpSession session=req.getSession();

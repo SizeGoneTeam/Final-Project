@@ -133,7 +133,7 @@ th {
 							</div>
 							<c:if test="${sessionScope.acc != null}">
 								<div class="hero__search__login__text hello_user">
-									<h5>Xin chào ${sessionScope.acc.user}</h5>
+									<h5>Xin chào ${sessionScope.acc.UName}</h5>
 								</div>
 								<br>
 								<div class="hero__search__login__text">
@@ -195,7 +195,7 @@ th {
 										<div class="pro-qty">
 											<input name="new_price" type="text" value=""> 
 											<input name="maSach" value="${detail.maSach}" hidden> 
-											<input name="id" value="${sessionScope.acc.id}" hidden>
+											<input name="id" value="${sessionScope.acc.getMaTK()}" hidden>
 										</div>
 									</div>
 								</div>
