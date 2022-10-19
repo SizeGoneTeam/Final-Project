@@ -123,7 +123,7 @@
 							</div>
 							<c:if test="${sessionScope.acc != null}">
 								<div class="hero__search__login__text hello_user">
-									<h5>Xin chào ${sessionScope.acc.maTK}</h5>
+									<h5>Xin chào ${sessionScope.acc.UName}</h5>
 								</div>
 								<br>
 								<div class="hero__search__login__text">
