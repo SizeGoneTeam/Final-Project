@@ -45,8 +45,8 @@ public class PaymentServices {
 
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/BookStore/cancel.html");
-        redirectUrls.setReturnUrl("http://localhost:8080/BookStore/review_payment");
+        redirectUrls.setCancelUrl("https://sizegone-bookstore.herokuapp.com/cancel.html");
+        redirectUrls.setReturnUrl("https://sizegone-bookstore.herokuapp.com/review_payment");
         return redirectUrls;
     }
 

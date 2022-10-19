@@ -2,13 +2,17 @@ use dbbook;
 
 create table tbAccount(
 MaTK int auto_increment primary key,
-TenKH varchar(20),	
+HoTen varchar(40),
 Phone varchar(10),
 Email varchar(20),
-TK varchar(15) unique,
-MK varchar(20),
-HoTen varchar(40),
-Sao int
+NgaySinh int,
+ThangSinh int,
+NamSinh int,
+UName varchar(15) unique,
+PWord varchar(20),
+Tien double(10,3) default 0,
+Sao float(2,1),
+isAdmin bit
 );
 
 create table tbSach(
@@ -88,13 +92,6 @@ foreign key(MaGiao) references tbDiaDiem(MaDD) ON DELETE CASCADE,
 foreign key(MaNhan) references tbDiaDiem(MaDD) ON DELETE CASCADE
 );
 
-create table tbSoHuu(
-MaTK int,
-MaSach int,
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
-);
-
 create table tbThanhToan(
 MaTT int auto_increment primary key,
 PhuongThuc varchar(20),
@@ -103,6 +100,7 @@ NgayTT timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00'))
 
 create table tbPhienDauGia(
 MaPhien int auto_increment primary key,
+LoaiPhien int,
 MaTK int,
 MaSach int,
 GiaKhoiDiem bigint,
@@ -121,7 +119,7 @@ MaSach int,
 MaPhien int,
 MaVC int,
 MaTT int,
-Gia float,
+Gia double(10,3),
 NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
 foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
 foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE,
@@ -153,7 +151,7 @@ create table tbNhanXet (
 MaNX int auto_increment primary key,
 MaTK INT NOT NULL,
 TKbiDG int not null,
-Sao float NOT NULL,
+Sao float(2,1) NOT NULL,
 NhanXet text,
 foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE,
 foreign key(TKbiDG) references tbAccount(MaTK) ON DELETE CASCADE
@@ -324,9 +322,9 @@ insert into tbSanXuat(MaSach,MaNXB)
 values
 	(1,1),(2,2),(3,1),(4,3),(5,4),(6,5),(7,1),(8,1),(9,6);
     
-insert into tbAccount(TK,MK)
+insert into tbAccount(UName,PWord)
 values ("hai","hai123");
-insert into tbAccount(TK,MK)
+insert into tbAccount(UName,PWord)
 values ("a","b");
 
 
