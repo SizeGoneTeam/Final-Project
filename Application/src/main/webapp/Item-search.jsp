@@ -102,7 +102,7 @@
 					<div class="hero__search">
 						<div class="hero__search__form">
 
-							<form action="search" method="post">
+							<form action="search" method="get">
 
 								<input type="text" placeholder="Tìm sách gì dợ?"  name="key">
 								<button type="submit" class="site-btn">Tìm kiếm</button>
