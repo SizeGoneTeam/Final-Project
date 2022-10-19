@@ -55,7 +55,7 @@
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
-							item: <span>${sessionScope.acc.tien} USD</span>
+							item: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
 						</c:if>
 						<c:if test="${sessionScope.acc == null}">
 							item: <span>$0.00</span>

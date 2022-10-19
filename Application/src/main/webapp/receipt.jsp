@@ -49,6 +49,7 @@
             <td>${sessionScope.acc.tien} USD</td>
         </tr>                            
     </table>
+        <h2><a href="loadSach">Về Trang Chủ</a></h2>
 </div>
 </body>
 </html>
