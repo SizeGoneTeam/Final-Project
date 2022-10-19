@@ -204,7 +204,7 @@
 	                                </div>
 	                                <div class="product__item__text">
 	                                <h6>
-										<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}"">${o.getTenSach() }</a>
+										<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">${o.getTenSach() }</a>
 									</h6>
 	                                    <h5>${o.getDonGia()}VNĐ</h5>
 	                                </div>

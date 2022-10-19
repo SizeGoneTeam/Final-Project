@@ -57,7 +57,7 @@ public class BookDao {
     }
     public static void main(String[] args) {
         BookDao dao = new BookDao();
-        List<TbSach> list = dao.seachTilte("xu");
+        List<TbSach> list = dao.seachTilte("Xứ");
           for (TbSach product : list) {
           System.out.println(product.getMaSach()+ " " + product.getTenSach());
           }

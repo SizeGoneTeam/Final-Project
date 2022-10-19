@@ -74,8 +74,22 @@ public class UserDao {
         
     }
     
-    public void register(String UName, String PWord) {
-        
+    public void update(TbAccount acc) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(acc);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
     }
-
+    
+    
 }

@@ -45,8 +45,8 @@ public class PaymentServices {
 
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost/BookStore/cancel.html");
-        redirectUrls.setReturnUrl("http://localhost/BookStore/review_payment");
+        redirectUrls.setCancelUrl("http://localhost:8080/BookStore/cancel.html");
+        redirectUrls.setReturnUrl("http://localhost:8080/BookStore/review_payment");
         return redirectUrls;
     }
 
@@ -80,13 +80,30 @@ public class PaymentServices {
 
     }
 
+    public Payment getPaymentDetails(String paymentId) throws PayPalRESTException {
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+        return Payment.get(apiContext, paymentId);
+    }
+    
+    public Payment executePayment(String paymentId, String payerId)
+            throws PayPalRESTException {
+        PaymentExecution paymentExecution = new PaymentExecution();
+        paymentExecution.setPayerId(payerId);
+     
+        Payment payment = new Payment().setId(paymentId);
+     
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+     
+        return payment.execute(apiContext, paymentExecution);
+    }
+
     private String getApprovalLink(Payment approvedPayment) {
         List<Links> links = approvedPayment.getLinks();
         String approvalLink = null;
         for (Links link : links) {
             if (link.getRel().equalsIgnoreCase("approval_url")) {
                 approvalLink = link.getHref();
-                
+
             }
         }
         return approvalLink;

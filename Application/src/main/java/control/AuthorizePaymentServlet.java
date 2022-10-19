@@ -38,6 +38,8 @@ public class AuthorizePaymentServlet extends HttpServlet {
         }
         catch (PayPalRESTException e) {
             e.printStackTrace();
+            request.setAttribute("errorMessage", "Thanh Toán Không Hợp Lệ. Vui Lòng Thử Lại Sau");
+            request.getRequestDispatcher("ErrorPayment.jsp").forward(request, response);
         }
         
     }
