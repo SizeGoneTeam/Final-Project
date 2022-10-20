@@ -1,5 +1,5 @@
 # Final Project
 ## Member:
-Nguyễn Trung Hiếu  
-Trần Ngọc Hải  
-Phan Phạm Nghĩa
+20110524 - Nguyễn Trung Hiếu  
+20110467 - Trần Ngọc Hải  
+20110479 - Phan Phạm Nghĩa
