@@ -36,10 +36,10 @@ public class TbSach implements Serializable {
 	@Column(name="TenSach")
 	private String tenSach;
 
-	//bi-directional many-to-many association to TbTheLoai
-	@ManyToMany(mappedBy="tbSaches")
-	
-	private List<TbTheLoai> tbTheLoais;
+    //bi-directional many-to-many association to TbTheLoai
+    @ManyToMany(mappedBy="tbSaches")
+    
+    private List<TbTheLoai> tbTheLoais;
 
 	public TbSach() {
 	}
@@ -92,12 +92,12 @@ public class TbSach implements Serializable {
 		this.tenSach = tenSach;
 	}
 
-	public List<TbTheLoai> getTbTheLoais() {
-		return this.tbTheLoais;
-	}
+    public List<TbTheLoai> getTbTheLoais() {
+        return this.tbTheLoais;
+    }
 
-	public void setTbTheLoais(List<TbTheLoai> tbTheLoais) {
-		this.tbTheLoais = tbTheLoais;
-	}
+    public void setTbTheLoais(List<TbTheLoai> tbTheLoais) {
+        this.tbTheLoais = tbTheLoais;
+    }
 
 }
