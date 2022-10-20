@@ -3,7 +3,7 @@ package entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.List;
 
 
 /**
@@ -36,8 +36,11 @@ public class TbSach implements Serializable {
 	@Column(name="TenSach")
 	private String tenSach;
 
-
+	//bi-directional many-to-many association to TbTheLoai
+	@ManyToMany(mappedBy="tbSaches")
 	
+	private List<TbTheLoai> tbTheLoais;
+
 	public TbSach() {
 	}
 
@@ -87,6 +90,14 @@ public class TbSach implements Serializable {
 
 	public void setTenSach(String tenSach) {
 		this.tenSach = tenSach;
+	}
+
+	public List<TbTheLoai> getTbTheLoais() {
+		return this.tbTheLoais;
+	}
+
+	public void setTbTheLoais(List<TbTheLoai> tbTheLoais) {
+		this.tbTheLoais = tbTheLoais;
 	}
 
 }

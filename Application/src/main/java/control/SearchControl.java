@@ -14,6 +14,7 @@ import org.apache.tomcat.util.buf.StringUtils;
 import org.hibernate.annotations.common.util.StringHelper;
 
 import entity.TbSach;
+import entity.TbTheLoai;
 import model.BookDao;
 
 /**
@@ -32,8 +33,9 @@ public class SearchControl extends HttpServlet {
 	    BookDao bookDao = new BookDao();
 	    List<TbSach> search = bookDao.seachTilte(key);  
 	    List<TbSach> lastAdd = bookDao.LastAdd();
-
-	    request.setAttribute("search", search);        
+        List<TbTheLoai> category = bookDao.GetCategory();
+        request.setAttribute("category", category);
+	    request.setAttribute("search", search);
 	    request.setAttribute("lastAdd", lastAdd);
 	    request.getRequestDispatcher("Item-search.jsp").forward(request, response);
 	}

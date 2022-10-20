@@ -1,7 +1,8 @@
 package model;
 
 import java.util.List;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -10,6 +11,7 @@ import entity.Account;
 import entity.Product;
 import entity.TbAccount;
 import entity.TbSach;
+import entity.TbTheLoai;
 import utils.JpaUntils;
 
 public class BookDao {
@@ -26,6 +28,12 @@ public class BookDao {
         String jpql = "SELECT o FROM TbSach o";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         List<TbSach> entity = query.getResultList();
+        return entity;
+    }
+    public List<TbTheLoai> GetCategory() {
+        String jpql = "SELECT o FROM TbTheLoai o";
+        TypedQuery<TbTheLoai> query = em.createQuery(jpql,TbTheLoai.class);
+        List<TbTheLoai> entity = query.setMaxResults(12).getResultList();
         return entity;
     }
     public List<TbSach> LastAdd() {
@@ -55,15 +63,25 @@ public class BookDao {
         List<TbSach> entity = query.getResultList();
         return entity;
     }
+    public List<TbSach> seachcategory(String keyword) {
+        String jpql = "SELECT o FROM TbTheLoai o where o.tenTheLoai like :keyword";
+        TypedQuery<TbTheLoai> query = em.createQuery(jpql,TbTheLoai.class);
+        query.setParameter("keyword","%" + keyword + "%" );
+        List<TbTheLoai> entity = query.getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbTheLoai product : entity) {
+            entity1.addAll(product.getTbSaches());
+        }
+        return entity1;
+    }
     public static void main(String[] args) {
         BookDao dao = new BookDao();
-        String key = "Xứ";
-        List<TbSach> list = dao.seachTilte(key);
-          for (TbSach product : list) {
-          System.out.println(product.getMaSach()+ " " + product.getTenSach());
+        String key = "2";
+        List<TbTheLoai> list = dao.GetCategory();
+          for (TbTheLoai product : list) {
+          System.out.println(product.getMaTheLoai()+ " " + product.getTenTheLoai());
           }
         
-
     }
 }
 

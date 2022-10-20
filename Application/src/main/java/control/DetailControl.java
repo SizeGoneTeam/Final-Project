@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import dao.dao;
 import entity.BidHistory;
 import entity.Product;
+import entity.TbTheLoai;
+import model.BookDao;
 
 
 @WebServlet("/detail")
@@ -26,6 +28,8 @@ public class DetailControl extends HttpServlet {
 		Product p = Dao.getProductbyID(id);
 		List<BidHistory> list = Dao.getTopBid(p.getMaSach());
 		List<Product> last = Dao.getLast(maKH, id);
+		BookDao home = new BookDao();
+		List<TbTheLoai> category = home.GetCategory();
 		if(last.isEmpty()) {
 			Dao.addLastSeen(maKH, id);
 			 
@@ -35,7 +39,7 @@ public class DetailControl extends HttpServlet {
 		}
 		request.setAttribute("BidHistory", list);
 		request.setAttribute("detail", p);
-
+		request.setAttribute("category", category);
 
 
 		request.getRequestDispatcher("Item-detail.jsp").forward(request, response);

@@ -80,31 +80,9 @@
 							<span>Tất cả thể loại</span>
 						</div>
 						<ul>
-							<li><a href="#">Sách văn học</a></li>
-							<li><a href="#">Sách kinh tế</a></li>
-							<li><a href="#">Sách thiếu nhi</a></li>
-							<li><a href="#">Sách kỹ năng sống</a></li>
-							<li><a href="#">Thiếu nhi</a></li>
-							<li><a href="#">Sách Bà mẹ - Em bé</a></li>
-							<li><a href="#">Sách Giáo Khoa - Giáo Trình</a></li>
-							<li><a href="#">Sách Học Ngoại Ngữ</a></li>
-							<li><a href="#">Sách Tham Khảo</a></li>
-							<li><a href="#">Từ Điển</a></li>
-							<li><a href="#">Sách Kiến Thức Tổng Hợp</a></li>
-							<li><a href="#">Sách Khoa Học - Kỹ Thuật</a></li>
-							<!--                             <li><a href="#">Sách Lịch sử</a></li>
-                            <li><a href="#">Điện Ảnh - Nhạc - Họa</a></li>
-                            <li><a href="#">Truyện Tranh - Manga - Comic</a></li>
-                            <li><a href="#">Sách Tôn Giáo - Tâm Linh</a></li>
-                            <li><a href="#">Sách Văn Hóa - Địa Lý - Du Lịch</a></li>
-                            <li><a href="#">Sách Chính Trị - Pháp Lý</a></li>
-                            <li><a href="#">Sách Nông - Lâm - Ngư Nghiệp</a></li>
-                            <li><a href="#">Sách Công Nghệ Thông Tin</a></li>
-                            <li><a href="#">Sách Y Học</a></li>
-                            <li><a href="#">Tạp Chí - Catalogue</a></li>
-                            <li><a href="#">Sách Tâm lý - Giới tính</a></li>
-                            <li><a href="#">Sách Thường Thức - Gia Đình</a></li>
-                            <li><a href="#">Thể Dục - Thể Thao</a></li> -->
+							<c:forEach items="${category}" var="o">
+							<li><a href="categorysearch?keycategory=${o.getTenTheLoai() }">${o.getTenTheLoai()}</a></li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>

@@ -17,6 +17,7 @@ import entity.Account;
 import entity.Product;
 import entity.TbAccount;
 import entity.TbSach;
+import entity.TbTheLoai;
 import model.BookDao;
 
 @WebServlet(urlPatterns = {"/loadSach"})
@@ -35,6 +36,7 @@ public class HomeControl extends HttpServlet{
 		BookDao home = new BookDao();
 		List<TbSach> all = home.GetAll();
 		List<TbSach> lastAdd = home.LastAdd();
+	    List<TbTheLoai> category = home.GetCategory();
 		HttpSession session=req.getSession();
 		TbAccount account;
 		account= (TbAccount) session.getAttribute("acc");
@@ -45,6 +47,7 @@ public class HomeControl extends HttpServlet{
 		}
 
 		req.setAttribute("listP", all);
+		req.setAttribute("category", category);
 		req.setAttribute("listLast", listLast);
 		req.setAttribute("listNew", lastAdd);
 		req.setAttribute("listBid", listBid);
