@@ -34,13 +34,13 @@
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a href="loadSach">Home</a></li>
-							<li><a href="search?key=">Shop</a></li>
+							<li><a href="./shop-grid.html">Shop</a></li>
 							<li><a href="#">Pages</a>
 								<ul class="header__menu__dropdown">
-									<li><a href="#">Shop Details</a></li>
-									<li><a href="#">Shoping Cart</a></li>
-									<li><a href="#">Check Out</a></li>
-									<li><a href="#">Blog Details</a></li>
+									<li><a href="./shop-details.html">Shop Details</a></li>
+									<li><a href="./shoping-cart.html">Shoping Cart</a></li>
+									<li><a href="./checkout.html">Check Out</a></li>
+									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
 							<li><a href="FAQ.jsp">FAQ</a></li>
 							<li><a href="AdminProduct">Admin</a></li>
@@ -194,18 +194,18 @@
 					<div class="latest-product__text">
 						<h4>Sách Vừa Xem</h4>
 						
-						<input name="idlogin" value="${sessionScope.acc.maTK}" hidden>
+						<input name="idlogin" value="${sessionScope.acc.UName}" hidden>
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!--  <div class="latest-product__slider owl-carousel">-->
 						<div class="latest-prdouct__slider__item">
 							<c:forEach items="${lastSeen}" var="o">
 								<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}""  class="latest-product__item">
 									<div class="latest-product__item__pic">
-										<img src="${o.anh}" alt="">
+										<img src="${o.getAnh()}" alt="">
 									</div>
 									<div class="latest-product__item__text">
-										<h6>${o.tenSach}</h6>
-										<span>${o.price}VNĐ</span>
+										<h6>${o.getTenSach()}</h6>
+										<span>${o.getDonGia()}VNĐ</span>
 									</div>
 								</a>
 							</c:forEach>

@@ -1,17 +1,22 @@
 package model;
 
 import java.util.List;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import dao.dao;
-import entity.Account;
-import entity.Product;
+import org.hibernate.engine.spi.EntityEntryFactory;
+
 import entity.TbAccount;
-import entity.TbPhienDauGia;
+import entity.TbLichSuXem;
+import entity.TbLichSuXemPK;
 import entity.TbSach;
 import entity.TbTheLoai;
 import utils.JpaUntils;
@@ -25,7 +30,42 @@ public class BookDao {
     }
     
     
+    
+    public void update(TbLichSuXem xem) {
+        
+            EntityTransaction trans = em.getTransaction();
+            try {
+                trans.begin();
+                em.merge(xem);
+                trans.commit();
+                
+            } catch (Exception e) {
+                // TODO: handle exception
+                trans.rollback();
+               System.out.println("Error:"+ e.toString());
+            }
+            finally {
+                em.close();
+            }
+        }
 
+    public void insert(TbLichSuXem xem) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(xem);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
     public List<TbSach> GetAll() {
         String jpql = "SELECT o FROM TbSach o";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
@@ -50,14 +90,32 @@ public class BookDao {
         List<TbSach> entity = query.setMaxResults(4).getResultList();
         return entity;
     }
-//    public List<TbSach> getLastSeen() {
-//        String jpql = "SELECT o FROM TbSach o inner join o.TbLichSuXem p "
-//                + "where o.maSach = p.maSach "
-//                + "order by p.ngayXem desc";
-//        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
-//        List<TbSach> entity = query.setMaxResults(4).getResultList();
-//        return entity;
-//    }
+    public List<TbSach> getLastSeen(String MaTK) {
+        String jpql = "SELECT o FROM TbLichSuXem o "
+                + "where o.id.maTK = :MaTK "
+                + "order by o.ngayXem desc";
+        
+        TypedQuery<TbLichSuXem> query = em.createQuery(jpql,TbLichSuXem.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbLichSuXem> entity = query.setMaxResults(4).getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbLichSuXem product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
+    public List<TbLichSuXem> getlast(String MaTK, String MaSach) {
+        String jpql = "SELECT o FROM TbLichSuXem o "
+                + "where o.id.maTK = :MaTK and o.id.maSach= :MaSach ";
+
+        TypedQuery<TbLichSuXem> query = em.createQuery(jpql,TbLichSuXem.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        query.setParameter("MaSach",Integer.parseInt(MaSach));
+        List<TbLichSuXem> entity = query.getResultList();
+        return entity;
+    }
+    
+    
     public List<TbSach> seachTilte(String keyword) {
         String jpql = "SELECT o FROM TbSach o where o.tenSach like :keyword";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
@@ -76,32 +134,25 @@ public class BookDao {
         }
         return entity1;
     }
-    
-    public void insert(TbSach sach) {
-        EntityTransaction trans = em.getTransaction();
-        try {
-            trans.begin();
-            em.persist(sach);
-            trans.commit();
-            
-        } catch (Exception e) {
-            // TODO: handle exception
-            trans.rollback();
-           System.out.println("Error:"+ e.toString());
-        }
-        finally {
-            em.close();
-        }
-    }
-    
+    private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static void main(String[] args) {
         BookDao dao = new BookDao();
         String key = "2";
-        List<TbTheLoai> list = dao.GetCategory();
-          for (TbTheLoai product : list) {
-          System.out.println(product.getMaTheLoai()+ " " + product.getTenTheLoai());
-          }
+        Date date = new Date();
+        System.out.println(); 
+        TbLichSuXemPK xem1 = new TbLichSuXemPK(2,9); 
         
+
+        Timestamp timestamp = new Timestamp(date.getTime());
+        TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
+        System.out.println(xem.getId().getMaSach()+ " " + xem.getId().getMaTK() + " " +xem.getNgayXem());
+        //dao.update(xem);
+        //dao.insert(xem);
+        List<TbLichSuXem> list = dao.getlast("2", "8");
+          for (TbLichSuXem product : list) {
+          System.out.println(product.getId().getMaSach());
+          }
+//        
     }
 }
 

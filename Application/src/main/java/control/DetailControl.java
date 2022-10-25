@@ -1,6 +1,8 @@
 package control;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import dao.dao;
 import entity.BidHistory;
 import entity.Product;
+import entity.TbLichSuXem;
+import entity.TbLichSuXemPK;
 import entity.TbTheLoai;
 import model.BookDao;
 
@@ -27,15 +31,21 @@ public class DetailControl extends HttpServlet {
 		dao Dao = new dao();
 		Product p = Dao.getProductbyID(id);
 		List<BidHistory> list = Dao.getTopBid(p.getMaSach());
-		List<Product> last = Dao.getLast(maKH, id);
-		BookDao home = new BookDao();
-		List<TbTheLoai> category = home.GetCategory();
+		//List<Product> last = Dao.getLast(maKH, id);
+		BookDao detail = new BookDao();
+		List<TbTheLoai> category = detail.GetCategory();
+		List<TbLichSuXem> last = detail.getlast(maKH, id);
+        TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
+		
 		if(last.isEmpty()) {
-			Dao.addLastSeen(maKH, id);
+		    detail.insert(xem);
 			 
 		}
 		else {
-			Dao.updateDate(maKH, id); 
+			detail.update(xem); 
 		}
 		request.setAttribute("BidHistory", list);
 		request.setAttribute("detail", p);
