@@ -102,10 +102,9 @@
                                       <div class="input-with-validator">
                                         <input
                                           type="text"
-                                          placeholder="${sessionScope.acc.hoTen}"
                                           maxlength="255"
                                           name="fullName"
-                                          value=""
+                                          value="${sessionScope.acc.hoTen}"
                                         />
                                       </div>
                                     </div>
@@ -120,10 +119,9 @@
                                       <div class="input-with-validator">
                                         <input
                                           type="text"
-                                          placeholder="${sessionScope.acc.email}"
                                           maxlength="255"
                                           name="email"
-                                          value=""
+                                          value="${sessionScope.acc.email}"
                                         />
                                       </div>
                                     </div>
@@ -138,10 +136,9 @@
                                       <div class="input-with-validator">
                                         <input
                                           type="text"
-                                          placeholder="${sessionScope.acc.phone}"
                                           maxlength="255"
                                           name="phoneNumber"
-                                          value=""
+                                          value="${sessionScope.acc.phone}"
                                         />
                                       </div>
                                     </div>

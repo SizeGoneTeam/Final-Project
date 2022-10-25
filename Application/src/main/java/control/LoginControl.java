@@ -36,7 +36,7 @@ public class LoginControl extends HttpServlet {
 	        else {
 	            
 	            session.setAttribute("acc", a);
-	            session.setMaxInactiveInterval(-1);
+	            session.setMaxInactiveInterval(60*30);
 	            
 	            String rememberMe = req.getParameter("rememberMe");
 	            if (rememberMe.equals("on")) {
