@@ -9,21 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.dao;
-import entity.Account;
-
 @WebServlet("/user/profile")
 public class ProfileControl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		dao DAO = new dao();
-//		DAO.changeUserName(session.getAttribute("acc.user"), getServletInfo());
-		Account acc = (Account) session.getAttribute("acc");
-		DAO.changeUserName(acc.getMaTK(), (String) request.getParameter("userName"));
-		acc.setHoTen((String) request.getParameter("userName"));
-		session.setAttribute("acc", acc);
-		response.sendRedirect("profile.jsp");
+
+		String fullName = request.getParameter("fullName");
+		String email = request.getParameter("email");
+		String phoneNumber = request.getParameter("phoneNumber");
+		String dateOfBirth = request.getParameter("dateOfBirth");
+
+		getServletContext().getRequestDispatcher("/user/profile.jsp").forward(request, response);
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.dao;
 import data.AccountDB;
-import entity.Account;
 import entity.TbAccount;
 import model.UserDao;
 import utils.CookieUtil;
@@ -43,8 +41,8 @@ public class LoginControl extends HttpServlet {
 	            String rememberMe = req.getParameter("rememberMe");
 	            if (rememberMe.equals("on")) {
 	                Cookie c = new Cookie("accountID", a.getMaTK().toString());
-	                //Cookie 1 phut
-	                c.setMaxAge(60*5);
+	                //Cookie 1 ngay
+	                c.setMaxAge(60*60*24);
 	                c.setPath("/");
 	                resp.addCookie(c);
 	            }
