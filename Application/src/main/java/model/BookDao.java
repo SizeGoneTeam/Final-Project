@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import dao.dao;
 import entity.Account;
 import entity.Product;
 import entity.TbAccount;
+import entity.TbPhienDauGia;
 import entity.TbSach;
 import entity.TbTheLoai;
 import utils.JpaUntils;
@@ -74,6 +76,24 @@ public class BookDao {
         }
         return entity1;
     }
+    
+    public void insert(TbSach sach) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(sach);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
     public static void main(String[] args) {
         BookDao dao = new BookDao();
         String key = "2";

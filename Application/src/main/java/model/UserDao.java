@@ -32,6 +32,7 @@ public class UserDao {
         }
     }
     
+    
     public Boolean checkExitAccount(String UName) {
         
         TbAccount acc = em.find(TbAccount.class, UName);
@@ -79,6 +80,28 @@ public class UserDao {
         try {
             trans.begin();
             em.merge(acc);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
+    public void delete(Long maTK) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            TbAccount acc = em.find(TbAccount.class, maTK);
+            if(acc != null)
+                em.merge(acc);
+            else {
+                throw new Exception("Can't delete user. User can't found");
+            }
             trans.commit();
             
         } catch (Exception e) {

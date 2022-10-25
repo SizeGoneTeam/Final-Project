@@ -1,6 +1,10 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 
@@ -14,7 +18,8 @@ import javax.persistence.*;
 public class TbAccount implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id //@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="MaTK")
     private Long maTK;
 
@@ -47,6 +52,19 @@ public class TbAccount implements Serializable {
     
     @Column(name="UName")
     private String UName;
+    
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private List<TbPhienDauGia> phienDauGias;
+
+    public List<TbPhienDauGia> getPhienDauGias() {
+        return phienDauGias;
+    }
+
+
+    public void setPhienDauGias(List<TbPhienDauGia> phienDauGias) {
+        this.phienDauGias = phienDauGias;
+    }
+
 
     public TbAccount() {
         maTK = null;
@@ -60,6 +78,7 @@ public class TbAccount implements Serializable {
         thangSinh = null;
         tien = null;
         UName = null;
+        phienDauGias= null;
     }
 
 
@@ -158,6 +177,14 @@ public class TbAccount implements Serializable {
     public void setUName(String UName) {
         this.UName = UName;
     }
+    
+    public void add(TbPhienDauGia tempPhienDG)
+    {
+        if (phienDauGias == null)
+            phienDauGias = new ArrayList<>();
+        phienDauGias.add(tempPhienDG);
+        tempPhienDG.setAccount(this);
+    }
 
 
     @Override
@@ -166,6 +193,7 @@ public class TbAccount implements Serializable {
                 + ", ngaySinh=" + ngaySinh + ", phone=" + phone + ", PWord=" + PWord + ", sao=" + sao + ", thangSinh="
                 + thangSinh + ", tien=" + tien + ", UName=" + UName + "]";
     }
+
     
 
 }

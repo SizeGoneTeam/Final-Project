@@ -28,7 +28,7 @@
 						<input name="pass" id="pass" type="password" class="input" data-type="password">
 					</div>
 					<div class="group">
-						<input id="check" type="checkbox" class="check" name="rememberMe" checked>
+						<input id="check" type="checkbox" class="check" checked>
 						<label for="check"><span class="icon"></span> Nhớ mật khẩu</label>
 					</div>
 					<div class="group">

@@ -18,6 +18,7 @@ public class TbSach implements Serializable {
 
 	@Id
 	@Column(name="MaSach")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maSach;
 
 	@Column(name="Anh")
@@ -35,16 +36,40 @@ public class TbSach implements Serializable {
 
 	@Column(name="TenSach")
 	private String tenSach;
+	
+	@OneToOne(mappedBy = "maSach")
+	private TbPhienDauGia phienDauGia;
 
     //bi-directional many-to-many association to TbTheLoai
     @ManyToMany(mappedBy="tbSaches")
     
     private List<TbTheLoai> tbTheLoais;
 
-	public TbSach() {
-	}
+    public TbSach() {
+        this.anh = null;
+        this.donGia = BigInteger.valueOf(0);
+        this.moTa = null;
+        this.tenSach = null;
+        nguoiSoHuu = 2;
+    }
 
-	public int getMaSach() {
+	public TbSach(String anh, BigInteger donGia, String moTa, String tenSach) {
+        this.anh = anh;
+        this.donGia = donGia;
+        this.moTa = moTa;
+        this.tenSach = tenSach;
+        nguoiSoHuu = 2;
+    }
+
+    public TbPhienDauGia getPhienDauGia() {
+        return phienDauGia;
+    }
+
+    public void setPhienDauGia(TbPhienDauGia phienDauGia) {
+        this.phienDauGia = phienDauGia;
+    }
+
+    public int getMaSach() {
 		return this.maSach;
 	}
 
@@ -99,5 +124,12 @@ public class TbSach implements Serializable {
     public void setTbTheLoais(List<TbTheLoai> tbTheLoais) {
         this.tbTheLoais = tbTheLoais;
     }
+
+    @Override
+    public String toString() {
+        return "TbSach [maSach=" + maSach + ", anh=" + anh + ", donGia=" + donGia + ", moTa=" + moTa + ", nguoiSoHuu="
+                + nguoiSoHuu + ", tenSach=" + tenSach + ", phienDauGia=" + phienDauGia + "]";
+    }
+    
 
 }
