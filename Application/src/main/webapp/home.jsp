@@ -115,7 +115,7 @@
 							<c:if test="${sessionScope.acc == null}">
 								<div class="hero__search__login__text">
 									<h5>
-										<a href="Login.jsp">Đăng Nhập</a>
+										<a href="login">Đăng Nhập</a>
 									</h5>
 								</div>
 							</c:if>

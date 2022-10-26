@@ -88,7 +88,7 @@
                                   </div>
                                   <div class="v1Bl9+">
                                     <div class="_2MJTPE">
-                                      <div class="J7g-AJ">${sessionScope.acc.maTK}</div>
+                                      <div class="J7g-AJ">${sessionScope.acc.UName}</div>
                                       <button class="OcJZJm"></button>
                                     </div>
                                   </div>
@@ -102,10 +102,9 @@
                                       <div class="input-with-validator">
                                         <input
                                           type="text"
-                                          placeholder="${sessionScope.acc.hoTen}"
                                           maxlength="255"
-                                          name="userName"
-                                          value=""
+                                          name="fullName"
+                                          value="${sessionScope.acc.hoTen}"
                                         />
                                       </div>
                                     </div>
@@ -116,79 +115,14 @@
                                 <div class="_5eQ8vX">
                                   <div class="_3cfiVM"><label>Email</label></div>
                                   <div class="v1Bl9+">
-                                    <div class="_2MJTPE">
-                                      <div class="J7g-AJ">
-                                        ${sessionScope.acc.email}
-                                      </div>
-                                      <button class="OcJZJm">Thay đổi</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="es8DWX">
-                                <div class="_5eQ8vX">
-                                  <div class="_3cfiVM">
-                                    <label>Số điện thoại</label>
-                                  </div>
-                                  <div class="v1Bl9+">
-                                    <div class="_2MJTPE">
-                                      <div class="J7g-AJ">${sessionScope.acc.phone}</div>
-                                      <button class="OcJZJm">Thay đổi</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="es8DWX">
-                                <div class="_5eQ8vX">
-                                  <div class="_3cfiVM"><label>Giới tính</label></div>
-                                  <div class="v1Bl9+">
-                                    <div class="fkl4oC">
-                                      <div
-                                        class="stardust-radio-group"
-                                        role="radiogroup"
-                                      >
-                                        <div
-                                          class="stardust-radio"
-                                          tabindex="0"
-                                          role="radio"
-                                          aria-checked="false"
-                                        >
-                                          <div class="stardust-radio-button">
-                                            <div
-                                              class="stardust-radio-button__outer-circle"
-                                            >
-                                              <div
-                                                class="stardust-radio-button__inner-circle"
-                                              ></div>
-                                            </div>
-                                          </div>
-                                          <div class="stardust-radio__content">
-                                            <div class="stardust-radio__label">
-                                              Nam
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div
-                                          class="stardust-radio"
-                                          tabindex="0"
-                                          role="radio"
-                                          aria-checked="false"
-                                        >
-                                          <div class="stardust-radio-button">
-                                            <div
-                                              class="stardust-radio-button__outer-circle"
-                                            >
-                                              <div
-                                                class="stardust-radio-button__inner-circle"
-                                              ></div>
-                                            </div>
-                                          </div>
-                                          <div class="stardust-radio__content">
-                                            <div class="stardust-radio__label">
-                                              Nữ
-                                            </div>
-                                          </div>
-                                        </div>
+                                    <div class="input-with-validator-wrapper">
+                                      <div class="input-with-validator">
+                                        <input
+                                          type="text"
+                                          maxlength="255"
+                                          name="email"
+                                          value="${sessionScope.acc.email}"
+                                        />
                                       </div>
                                     </div>
                                   </div>
@@ -196,85 +130,38 @@
                               </div>
                               <div class="es8DWX">
                                 <div class="_5eQ8vX">
-                                  <div class="_3cfiVM"><label>Ngày sinh</label></div>
+                                  <div class="_3cfiVM"><label>Số điện thoại</label></div>
                                   <div class="v1Bl9+">
-                                    <div class="ndO8jd">
-                                      <div
-                                        class="shopee-dropdown shopee-dropdown--has-selected"
-                                      >
-                                        <div
-                                          class="shopee-dropdown__entry shopee-dropdown__entry--selected"
-                                        >
-                                          <span>3</span
-                                          ><svg
-                                            enable-background="new 0 0 11 11"
-                                            viewBox="0 0 11 11"
-                                            x="0"
-                                            y="0"
-                                            class="shopee-svg-icon icon-arrow-down"
-                                          >
-                                            <g>
-                                              <path
-                                                d="m11 2.5c0 .1 0 .2-.1.3l-5 6c-.1.1-.3.2-.4.2s-.3-.1-.4-.2l-5-6c-.2-.2-.1-.5.1-.7s.5-.1.7.1l4.6 5.5 4.6-5.5c.2-.2.5-.2.7-.1.1.1.2.3.2.4z"
-                                              ></path>
-                                            </g>
-                                          </svg>
-                                        </div>
+                                    <div class="input-with-validator-wrapper">
+                                      <div class="input-with-validator">
+                                        <input
+                                          type="text"
+                                          maxlength="255"
+                                          name="phoneNumber"
+                                          value="${sessionScope.acc.phone}"
+                                        />
                                       </div>
-                                      <div
-                                        class="shopee-dropdown shopee-dropdown--has-selected"
-                                      >
-                                        <div
-                                          class="shopee-dropdown__entry shopee-dropdown__entry--selected"
-                                        >
-                                          <span>Tháng 8</span
-                                          ><svg
-                                            enable-background="new 0 0 11 11"
-                                            viewBox="0 0 11 11"
-                                            x="0"
-                                            y="0"
-                                            class="shopee-svg-icon icon-arrow-down"
-                                          >
-                                            <g>
-                                              <path
-                                                d="m11 2.5c0 .1 0 .2-.1.3l-5 6c-.1.1-.3.2-.4.2s-.3-.1-.4-.2l-5-6c-.2-.2-.1-.5.1-.7s.5-.1.7.1l4.6 5.5 4.6-5.5c.2-.2.5-.2.7-.1.1.1.2.3.2.4z"
-                                              ></path>
-                                            </g>
-                                          </svg>
-                                        </div>
-                                      </div>
-                                      <div
-                                        class="shopee-dropdown shopee-dropdown--has-selected"
-                                      >
-                                        <div
-                                          class="shopee-dropdown__entry shopee-dropdown__entry--selected"
-                                        >
-                                          <span>2001</span
-                                          ><svg
-                                            enable-background="new 0 0 11 11"
-                                            viewBox="0 0 11 11"
-                                            x="0"
-                                            y="0"
-                                            class="shopee-svg-icon icon-arrow-down"
-                                          >
-                                            <g>
-                                              <path
-                                                d="m11 2.5c0 .1 0 .2-.1.3l-5 6c-.1.1-.3.2-.4.2s-.3-.1-.4-.2l-5-6c-.2-.2-.1-.5.1-.7s.5-.1.7.1l4.6 5.5 4.6-5.5c.2-.2.5-.2.7-.1.1.1.2.3.2.4z"
-                                              ></path>
-                                            </g>
-                                          </svg>
-                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="es8DWX">
+                                <div class="_5eQ8vX">
+                                  <div class="_3cfiVM"><label>Ngày Sinh</label></div>
+                                  <div class="v1Bl9+">
+                                    <div class="input-with-validator-wrapper">
+                                      <div class="input-with-validator">
+                                        <input
+                                          type="date"
+                                          name="dateOfBirth"
+                                        />
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                               <div class="HqWwZ8">
-                                <button
-                                  type="submit"
-                                  class="btn btn-solid-primary btn--m btn--inline"
-                                  aria-disabled="false"
-                                >
+                                <button type="submit" class="btn btn-solid-primary btn--m btn--inline" aria-disabled="false">
                                   Lưu
                                 </button>
                               </div>
