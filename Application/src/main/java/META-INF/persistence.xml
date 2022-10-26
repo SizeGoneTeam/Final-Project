@@ -9,6 +9,8 @@
     <class>entity.TbSach</class>
     <class>entity.TbTheLoai</class>
     <class>entity.TbPhienDauGia</class>
+    <class>entity.TbLichSuXem</class>
+    <class>entity.TbLichSuXemPK</class>
     <properties>
         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com:3306/dbbook"/>
         <property name="javax.persistence.jdbc.user" value="admin"/>

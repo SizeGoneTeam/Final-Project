@@ -205,7 +205,7 @@
 									</div>
 									<div class="latest-product__item__text">
 										<h6>${o.getTenSach()}</h6>
-										<span>${o.getDonGia()}VNĐ</span>
+										<span>${o.price}VNĐ</span>
 									</div>
 								</a>
 							</c:forEach>
