@@ -65,7 +65,12 @@ public class BookDao {
             em.close();
         }
     }
-    
+    public int CountAll(String keyword) {
+        String jpql = "SELECT count(o) FROM TbSach o where o.tenSach like :keyword";
+        Query query = em.createQuery(jpql);
+        query.setParameter("keyword","%" + keyword + "%" );
+        return ((Long) query.getSingleResult()).intValue();
+    }
     public List<TbSach> GetAll() {
         String jpql = "SELECT o FROM TbSach o";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
@@ -116,43 +121,56 @@ public class BookDao {
     }
     
     
-    public List<TbSach> seachTilte(String keyword) {
+    public List<TbSach> seachTilte(String keyword, String page) {
         String jpql = "SELECT o FROM TbSach o where o.tenSach like :keyword";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("keyword","%" + keyword + "%" );
-        List<TbSach> entity = query.getResultList();
+        List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
         return entity;
     }
-    public List<TbSach> seachcategory(String keyword) {
+    public List<TbSach> seachcategory(String keyword, String page) {
         String jpql = "SELECT o FROM TbTheLoai o where o.tenTheLoai like :keyword";
         TypedQuery<TbTheLoai> query = em.createQuery(jpql,TbTheLoai.class);
         query.setParameter("keyword","%" + keyword + "%" );
-        List<TbTheLoai> entity = query.getResultList();
+        List<TbTheLoai> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbTheLoai product : entity) {
             entity1.addAll(product.getTbSaches());
         }
         return entity1;
     }
+    public int CountAllCategory(String keyword) {
+        String jpql = "SELECT o FROM TbTheLoai o where o.tenTheLoai like :keyword";
+        int dem=0;
+        TypedQuery<TbTheLoai> query = em.createQuery(jpql,TbTheLoai.class);
+        query.setParameter("keyword","%" + keyword + "%" );
+        List<TbTheLoai> entity = query.getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbTheLoai product : entity) {
+           dem++;
+        }
+        return dem;
+    }
     private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static void main(String[] args) {
         BookDao dao = new BookDao();
-        String key = "2";
-        Date date = new Date();
-        System.out.println(); 
-        TbLichSuXemPK xem1 = new TbLichSuXemPK(2,9); 
-        
-
-        Timestamp timestamp = new Timestamp(date.getTime());
-        TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
-        System.out.println(xem.getId().getMaSach()+ " " + xem.getId().getMaTK() + " " +xem.getNgayXem());
-        //dao.update(xem);
-        //dao.insert(xem);
-        List<TbLichSuXem> list = dao.getlast("2", "8");
-          for (TbLichSuXem product : list) {
-          System.out.println(product.getId().getMaSach());
+//        String key = "2";
+//        Date date = new Date();
+//        System.out.println(); 
+//        TbLichSuXemPK xem1 = new TbLichSuXemPK(2,9); 
+//        
+//
+//        Timestamp timestamp = new Timestamp(date.getTime());
+//        TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
+//        System.out.println(xem.getId().getMaSach()+ " " + xem.getId().getMaTK() + " " +xem.getNgayXem());
+//        dao.update(xem);
+//        dao.insert(xem);
+        List<TbSach> list = dao.seachcategory("Sách Thiếu nhi", "0");
+          for (TbSach product : list) {
+          System.out.println(product.getTenSach());
           }
 //        
+        System.out.println(dao.CountAll(""));
     }
 }
 

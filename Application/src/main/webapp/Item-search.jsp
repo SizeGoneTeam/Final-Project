@@ -194,6 +194,14 @@
 	                        </div>
                       	</c:forEach>
                     </div>
+                    <div class="product__pagination">
+                    	<c:forEach begin="1" end="${endPTitle}" var="o">
+	                        <a href="search?key=${keyout}&amp;page=${o}">${o}</a>
+                        </c:forEach>
+                        <c:forEach begin="1" end="${endPCategory}" var="o">
+	                        <a href="categorysearch?keycategory=${keyout}&amp;page=${o}">${o}</a>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>

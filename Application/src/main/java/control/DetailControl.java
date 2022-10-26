@@ -34,18 +34,21 @@ public class DetailControl extends HttpServlet {
 		//List<Product> last = Dao.getLast(maKH, id);
 		BookDao detail = new BookDao();
 		List<TbTheLoai> category = detail.GetCategory();
-		List<TbLichSuXem> last = detail.getlast(maKH, id);
-        TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
-        TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
-		
-		if(last.isEmpty()) {
-		    detail.insert(xem);
-			 
-		}
-		else {
-			detail.update(xem); 
+		if(maKH !="") {
+    		List<TbLichSuXem> last = detail.getlast(maKH, id);
+            TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
+    		
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
+    		
+    		if(last.isEmpty()) {
+    		    detail.insert(xem);
+    			 
+    		}
+    		else {
+    			detail.update(xem); 
+    		}
 		}
 		request.setAttribute("BidHistory", list);
 		request.setAttribute("detail", p);
