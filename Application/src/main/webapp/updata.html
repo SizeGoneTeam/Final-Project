@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi" style="height:100%" class="mdl-js">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Tạo thông tin đăng bán sách</title>
+  <link rel="stylesheet" href="css/update-style.css">
+</head>
+
+<body class="ds3 edp-crnew hd-min  full-page " style="height:100%" id="body">
+  <div class="pagewidth">
+    <div class="pageminwidth">
+      <div class="pagelayout">
+        <div class="pagecontainer">
+          <div class="CentralArea" id="CentralArea">
+            <div class="edp sngl" id="editpane">
+              <div class="main-area">
+                <div id="editpane_cnt" class="cnt">
+                  <div class="crnew-hd">
+                    <br />
+                    <h1 class="fl-none">Tạo thông tin đăng bán sách</h1>
+                  </div>
+                  <div id="editpane_cnta">
+                    <form id="editpane_form" action="TaoPhienDauGia" method="post" enctype="multipart/form-data" >
+                      <div class="inner-cnt" style="visibility:visible"><input type="hidden" id="isRestricted"
+                          value="false">
+                        <div class="hgh">
+                          <h2 class="fl-none sec-t">Chi tiết sản phẩm</h2>
+                          <div><input type="hidden" id="isRestricted" value="false">
+                            <div class="def min" id="editpaneSect_Title" sec="1">
+                              <h2 class="reqd pad-t8"><label for="editpane_title">Tiêu đề</label>
+                              </h2>
+                              <div id="editpane_titlewrap"><input type="text" id="editpane_title" fnk="tt"
+                                  maxlength="80" name="title"
+                                  aria-describedby="titCount err_editpane_title editpane_title_toolTip"
+                                  aria-required="true" value="">
+                              </div>
+                            </div>
+                            <div class="def min" id="editpaneSect_Subtitle" sec="1">
+                              <h2 class="pad-t8"><label for="editpane_subtitle">Subtitle</label>
+                              </h2>
+                              <div><input type="text" id="editpane_subtitle" fnk="stt" maxlength="55" name="subtitle"
+                                  aria-describedby="subtitCount" value="">
+                              </div>
+                            </div>
+                            <div class="sec-msk msk-con" id="editpaneSect_Condition" sec="1">
+                              <div class="def" id="editpane_cond" target="1">
+                                <h2 class="reqd pad-t8"><strong>Tình trạng</strong></h2>
+                                <div class="ecoli-wrap incnt">
+                                  <div class="combo">
+                                    <div id="l_itemCondition"></div>
+                                    <div class="cell-lblLftFldDiv"><span id="e_itemCondition">
+                                        <select id="itemCondition" name="itemCondition" aria-required="true"
+                                          fieldname="itemCondition" md="dt|INTEGER||em|Please enter a condition.||ev|-1"
+                                          title="Condition"
+                                          aria-describedby="err_itemCondition editpane_condition_toolTip" vld="1"
+                                          fn="cond">
+                                          <option value="-1">-</option>
+                                          <option value="1000">Thương hiệu mới</option>
+                                          <option value="2750">Như mới</option>
+                                          <option value="4000">Rất tốt</option>
+                                          <option value="5000">Tốt</option>
+                                          <option value="6000">Chấp nhận được</option>
+                                        </select></span>
+                                      <div id="em_itemCondition"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="def min" id="editpaneSect_Photo" sec="1">
+                              <h2 class="reqd"><label for="editpane_photo">Up Ảnh Sách</label>
+                              </h2>
+                              <div><input type="file" id="editpane_photo" fnk="stt" maxlength="150" name="image">
+                              </div>
+                            </div>
+                            <div class="def" id="editpaneSect_Description" sec="1">
+                              <h2 class="reqd"><strong>Mô tả mặt hàng</strong></h2>
+                              <div id="editpane_desc">
+                                <div class="control-group">
+                                  <textarea class="form-control" rows="8" id="message" placeholder="Message"
+                                    required="required"
+                                    data-validation-required-message="Please enter your message" name ="Mota"></textarea>
+                                  <p class="help-block text-danger"></p>
+                                </div>
+                              </div>
+                            </div>
+                            <div id="editpaneSect_AddToDescription" sec="1"></div>
+                          </div>
+                        </div>
+                        <div class="hgh">
+                          <h2 class="fl-none sec-t"="805351">Chi tiết bán hàng</h2>
+                          <div>
+                            <div id="editpaneSect_Format" sec="1">
+                              <div class="def">
+                                <div>
+                                  <div target="1" id="editpane_formatSec" class="sec-msk msk-fr">
+                                    <div>
+                                      <div id="editpane_forDur">
+                                        <div class="eifd-wrap">
+                                          <div style="margin-top:2px; margin-bottom:3px">
+                                            <h2 class="reqd pad-t8 eifd-ttl"><label for="format">Kiểu bán</label>
+                                            </h2>
+                                            <div class="mr255"><span class="combo-lrg"><select id="format" name="format"
+                                                  aria-required="true">
+                                                  <option value="ChineseAuction" selected="selected">Đấu giá
+                                                  </option>
+                                                  <option value="FixedPrice">Giá cố định</option>
+                                                </select></span></div>
+                                          </div>
+                                          <div class="eifd-durSec">
+                                            <h2 class="reqd pad-t8 eifd-ttl"><label for="duration">Thời gian lên sàn</label>
+                                            </h2>
+                                            <div class="mr255"><span class="combo-lrg"><select name="duration"
+                                                  id="duration" aria-describedby="err_duration" pv="Days_7"
+                                                  aria-required="true">
+                                                  <option value="Days_3">3 ngày</option>
+                                                  <option value="Days_5">5 ngày</option>
+                                                  <option value="Days_7" selected="selected">7 ngày</option>
+                                                  <option value="Days_10">10 ngày</option>
+                                                </select></span></div>
+                                          </div>
+                                          <div class="eifd-durSec">
+                                            <div id="editpane_priceQty">
+                                              <h2><strong>Giá</strong></h2>
+                                              <div>
+                                                <div>
+                                                  <div>
+                                                    <div class="epqi-cntDiv">
+                                                      <h2 class="epqi-cntHeader fl-none">Auction-style</h2>
+                                                      <div>
+                                                        <div id="l_priceQtyPrntCell"></div>
+                                                        <div class="cell-lblLftFldDiv">
+                                                          <div>
+                                                            <table cellpadding="0" cellspacing="0">
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td>
+                                                                    <div id="editpane_startPrice"
+                                                                      class="epqi-syiDivField epqi-inpWidth">
+                                                                      <div>
+                                                                        <div id="l_startPrice"><label for="startPrice">
+                                                                            <div class="epqi-captionSpan reqd">
+                                                                              Giá khởi điểm
+                                                                            </div>
+                                                                          </label></div>
+                                                                        <div class="cell-lblTopFldDiv">
+                                                                          <div style="display:inline"><span
+                                                                              style="margin-right:4px">$</span><input
+                                                                              type="number" name="startPrice"
+                                                                              id="startPrice"
+                                                                              aria-describedby="err_startPrice"
+                                                                              md="dt|DOUBLE||em|Please enter a starting price.||vm|Please enter a valid starting price.||gdn|priceQtyPrntCell"
+                                                                              vld="1" maxlength="10"
+                                                                              aria-required="true"
+                                                                              aria-labelledby="startPrice_currencySymbol">
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="err-lbl" id="err_startPrice"></div>
+                                                                    </div>
+                                                                  </td>
+                                                                  <td>
+                                                                    <div id="editpane_binPrice"
+                                                                      class="epqi-syiDivField epqi-inpWidth">
+                                                                      <div>
+                                                                        <div id="l_binPrice"><label for="binPrice">
+                                                                            <div class="epqi-captionSpan">
+                                                                              Giá cao nhất</div>
+                                                                          </label></div>
+                                                                        <div class="cell-lblTopFldDiv">
+                                                                          <div style="display:inline"><span
+                                                                              style="margin-right:4px">$</span><input
+                                                                              type="text" name="binPrice" id="binPrice"
+                                                                              aria-describedby="err_binPrice"
+                                                                              md="dt|DOUBLE||vm|Please enter a valid Buy It Now price.||gdn|priceQtyPrntCell"
+                                                                              vld="1" maxlength="10"
+                                                                              aria-labelledby="binPrice_currencySymbol">
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="err-lbl" id="err_binPrice"></div>
+                                                                      <div class="edp-ly edp-abs info-small"
+                                                                        aria-hidden="true" ignr="1" id="binPrice_help">
+                                                                        <i class="edp-pt"></i><i class="icn"></i>
+                                                                        <div class="icn-mrg-sm dfon fs13">
+                                                                          Phải ít nhất <b _istranslated="1"></b>
+                                                                          (<span _istranslated="1"></span>nhiều hơn%
+                                                                          so với giá khởi điểm).</div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div id="editpane_quantity"
+                                                        class="epqi-syiDivFieldQuantity qty epqi-inpWidth">
+                                                        <div>
+                                                          <div id="l_quantity"><label for="quantity">
+                                                              <h2 class="epqi-captionSpan">Số lượng</h2>
+                                                            </label></div>
+                                                          <div class="cell-lblTopFldDiv">
+                                                            <div style="display:inline"><input type="text"
+                                                                name="quantity" id="quantity" disabled="disabled"
+                                                                aria-describedby="err_quantity" value="1"
+                                                                md="dt|INTEGERdt|Integer||em|Please enter a quantity.||vm|Please enter a valid quantity."
+                                                                vld="1" maxlength="10" aria-required="true"
+                                                                aria-labelledby="quantity_currencySymbol"></div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="err-lbl mr255" id="err_quantity"></div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="clr"></div>
+                                </div>
+                              </div>
+                              <div id="editpaneSect_CHARITY" sec="1"></div>
+                              <div id="editpaneSect_Payment" sec="1">
+                                <div class="def" id="editpane_payment" target="1">
+                                  <h2 class="reqd"><strong>Tùy chọn thanh toán</strong></h2>
+                                  <div>
+                                    <div class="sec-msk msk-pymt">
+                                      <div>
+                                        <div class="editindiv-wrap bear-clear">
+                                          <div id="editpane_paymentMethods">
+                                            <div class="err-lbl"></div>
+                                          </div>
+                                          <div class="editindiv-displayInBlk bhw" style="margin-bottom:10px">
+                                            <div><input type="checkbox" name="ebaypay" id="ebaypay" disabled="disabled"
+                                                checked="checked"><label for="ebaypay">Thanh toán được quản lý bởi
+                                                BookStore</label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="hgh">
+                          <h2 class="fl-none sec-t">Chi tiết giao hàng</h2>
+                          <div>
+                            <div id="editpaneSect_Shipping" sec="1">
+                              <div class="def">
+                                <h2 class="reqd"><strong>Vị trí mặt hàng</strong></h2>
+                                <div class="col-lg-5 mb-5">
+                                  <div class="bg-light p-30 mb-30">
+                                    <iframe style="width: 100%; height: 250px;"
+                                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.484300946451!2d106.76972825028096!3d10.850721392233206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752763f23816ab%3A0x282f711441b6916f!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTxrAgcGjhuqFtIEvhu7kgdGh14bqtdCBUcC4gSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1663732784826!5m2!1svi!2s"
+                                      frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                                      tabindex="0"></iframe>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div id="editpane_loc">
+                                    <div class="eil-wrap">
+                                      <div id="locTxtId">1 Đ. Võ Văn
+                                        Ngân, Linh Chiểu, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh<a href="javascript:;"
+                                          id="anLocId" style="padding-left:5px;text-decoration: underline"
+                                          aria-label="Thay đổi vị trí">thay
+                                          đổi</a></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                  <div class="act-bar" id="actionbar">
+                    <div class="tof">
+                      <h2 class="bhw">Lệ phí</h2>
+                      <div><a href="javascript:;" role="button" aria-label="Phí = $ 0,00" id="rev_fees" 
+                         >0,00 đô la</a><span class="spin-sm"></span></div>
+                    </div>
+                    <div>
+                      <div class="large-btn btn-m-r20 btn-wr" id="actionbar"><input type="submit" value="Đăng bán"
+                          class="pbtn" ><a href="javascript:;" role="button" aria-label="Hủy">Hủy</a>
+                          
+                    </form>
+                  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
