@@ -37,11 +37,11 @@ public class DetailControl extends HttpServlet {
 		if(maKH !="") {
     		List<TbLichSuXem> last = detail.getlast(maKH, id);
             TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
-    		
+            int dem = detail.countyeuthich(maKH);
             Date date = new Date();
             Timestamp timestamp = new Timestamp(date.getTime());
             TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
-    		
+            request.setAttribute("dem", dem);
     		if(last.isEmpty()) {
     		    detail.insert(xem);
     			 
@@ -50,6 +50,7 @@ public class DetailControl extends HttpServlet {
     			detail.update(xem); 
     		}
 		}
+		
 		request.setAttribute("BidHistory", list);
 		request.setAttribute("detail", p);
 		request.setAttribute("category", category);

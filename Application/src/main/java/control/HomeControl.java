@@ -41,11 +41,13 @@ public class HomeControl extends HttpServlet{
 		TbAccount account;
 		account= (TbAccount) session.getAttribute("acc");
 		if(account != null) {
+		    int dem = home.countyeuthich(account.getMaTK().toString());
 			String maKH = String.valueOf(account.getMaTK());
 			List<Product> lastSeen = Dao.getTopLast(maKH);
 			req.setAttribute("lastSeen", lastSeen);
+			req.setAttribute("dem", dem);
 		}
-
+		
 		req.setAttribute("listP", all);
 		req.setAttribute("category", category);
 		req.setAttribute("listLast", listLast);

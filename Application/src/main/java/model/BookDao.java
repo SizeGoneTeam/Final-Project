@@ -19,6 +19,8 @@ import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbSach;
 import entity.TbTheLoai;
+import entity.TbYeuThich;
+import entity.TbYeuThichPK;
 import utils.JpaUntils;
 
 public class BookDao {
@@ -29,10 +31,45 @@ public class BookDao {
         super.finalize();
     }
     
+    public void insertyeuthich(TbYeuThich xem) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(xem);
+            trans.commit();
+            
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+           //em.close();
+        }
+    }
     
+    public void deleteyeuthich(TbYeuThichPK xem) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            
+            TbYeuThich tbYeuThich = em.find(TbYeuThich.class, xem);
+            trans.begin();
+            em.remove(tbYeuThich);
+            trans.commit();
+            
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+           //em.close();
+        }
+    }
     
     public void update(TbLichSuXem xem) {
-        
             EntityTransaction trans = em.getTransaction();
             try {
                 trans.begin();
@@ -65,6 +102,7 @@ public class BookDao {
             em.close();
         }
     }
+
     public int CountAll(String keyword) {
         String jpql = "SELECT count(o) FROM TbSach o where o.tenSach like :keyword";
         Query query = em.createQuery(jpql);
@@ -151,26 +189,64 @@ public class BookDao {
         }
         return dem;
     }
-    private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
+    public List<TbSach> GetYeuThich(String MaTK) {
+        String jpql = "SELECT o FROM TbYeuThich o where o.id.maTK = : MaTK ";
+        TypedQuery<TbYeuThich> query = em.createQuery(jpql,TbYeuThich.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbYeuThich> entity = query.getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbYeuThich product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
+    public List<TbYeuThich> findyeuthich(String MaTK, String MaSach) {
+        String jpql = "SELECT o FROM TbYeuThich o "
+                + "where o.id.maTK = :MaTK and o.id.maSach= :MaSach ";
+
+        TypedQuery<TbYeuThich> query = em.createQuery(jpql,TbYeuThich.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        query.setParameter("MaSach",Integer.parseInt(MaSach));
+        List<TbYeuThich> entity = query.getResultList();
+        return entity;
+    }
+    
+    public int countyeuthich(String MaTK) {
+        String jpql = "SELECT o FROM TbYeuThich o "
+                + "where o.id.maTK = :MaTK";
+        int dem =0;
+        TypedQuery<TbYeuThich> query = em.createQuery(jpql,TbYeuThich.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+
+        List<TbYeuThich> entity = query.getResultList();
+        for (TbYeuThich product : entity) {
+            dem++;
+         }
+        return dem;
+    }
     public static void main(String[] args) {
         BookDao dao = new BookDao();
 //        String key = "2";
 //        Date date = new Date();
-//        System.out.println(); 
 //        TbLichSuXemPK xem1 = new TbLichSuXemPK(2,9); 
 //        
-//
+//      
 //        Timestamp timestamp = new Timestamp(date.getTime());
 //        TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
 //        System.out.println(xem.getId().getMaSach()+ " " + xem.getId().getMaTK() + " " +xem.getNgayXem());
 //        dao.update(xem);
 //        dao.insert(xem);
-        List<TbSach> list = dao.seachcategory("Sách Thiếu nhi", "0");
-          for (TbSach product : list) {
-          System.out.println(product.getTenSach());
-          }
-//        
-        System.out.println(dao.CountAll(""));
+      
+        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
+        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
+        dao.deleteyeuthich(tbYeuThichPK);
+//        List<TbYeuThich> list = dao.findyeuthich("2","12");
+//          for (TbYeuThich product : list) {
+//          System.out.println(product.getId());
+//          }
+////        
+        //System.out.println(dao.countyeuthich("2"));
     }
 }
 

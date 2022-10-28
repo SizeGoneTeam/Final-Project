@@ -77,8 +77,10 @@ th {
 				<div class="col-lg-3">
 					<div class="header__cart">
 						<ul>
-							<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+							<c:if test="${sessionScope.acc != null}">
+							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+						</c:if>
 						</ul>
 						<div class="header__cart__price">
 							item: <span>$150.00</span>
@@ -196,9 +198,8 @@ th {
 							Vui lòng nhập hơn ${detail.price} VNĐ<br>
 						</c:if>
 
-						 <a href="#"
-							class="primary-btn">Thêm vào giỏ hàng</a> <a href="#"
-							class="heart-icon"><span class="icon_heart_alt"></span></a>
+						 <a href="#"class="primary-btn">Thêm vào giỏ hàng</a> 
+						 <a href="insertytdetail?MaSach=${detail.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="heart-icon"><span class="icon_heart_alt"></span></a>
 					</div>
 					<hr>
 					<div class="bid-history">

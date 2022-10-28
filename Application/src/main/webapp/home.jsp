@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/toast.css" type="text/css">
 </head>
 <body>
 	<header class="header">
@@ -50,8 +51,11 @@
 				<div class="col-lg-3">
 					<div class="header__cart">
 						<ul>
-							<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+						<c:if test="${sessionScope.acc != null}">
+							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+						</c:if>
+							
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
@@ -163,13 +167,10 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}';">
 							<div class="featured__item__pic set-bg"
-							 data-setbg="${o.getAnh() }"
-								
-								>								
+							 data-setbg="${o.getAnh()}">					
 								<ul class="featured__item__pic__hover">
-									<li><a href="#"><i class="fa fa-heart"></i></a></li>
-
-									<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+									<li><a href="insertyt?MaTK=${sessionScope.acc.maTK}&amp;MaSach=${o.maSach }"><i class="fa fa-heart"></i></a></li>
+									
 								</ul>
 							</div>
 							<div class="featured__item__text">
@@ -354,6 +355,7 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
+    <script src="js/toast.js"></script>
     <script src="js/main.js"></script>
 	
 </body>

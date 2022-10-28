@@ -44,6 +44,9 @@ public class TbSach implements Serializable {
 	@OneToMany(mappedBy="tbSach")
 	private List<TbLichSuXem> tbLichSuXems;
 
+	//bi-directional many-to-one association to TbYeuThich
+    @OneToMany(mappedBy="tbSach")
+    private List<TbYeuThich> TbYeuThichs;
 	
 
     //bi-directional many-to-many association to TbTheLoai
@@ -104,7 +107,13 @@ public class TbSach implements Serializable {
 		return this.moTa;
 	}
 
-	public void setMoTa(String moTa) {
+	public List<TbYeuThich> getTbYeuThichs() {
+        return TbYeuThichs;
+    }
+    public void setTbYeuThichs(List<TbYeuThich> tbYeuThichs) {
+        TbYeuThichs = tbYeuThichs;
+    }
+    public void setMoTa(String moTa) {
 		this.moTa = moTa;
 	}
 
