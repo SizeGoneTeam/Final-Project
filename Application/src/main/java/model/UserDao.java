@@ -3,7 +3,9 @@ package model;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import entity.TbAccount;
 import utils.JpaUntils;
@@ -116,7 +118,7 @@ public class UserDao {
     }
     
     public TbAccount selectAccount(String accountID) {
-
+        EntityManager em = JpaUntils.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM TbAccount a WHERE a.maTK = :accountID";
         TypedQuery<TbAccount> q = em.createQuery(qString, TbAccount.class);
         q.setParameter("accountID", Long.parseLong(accountID));
@@ -128,5 +130,23 @@ public class UserDao {
         } finally {
             em.close();
         }
+    }
+    
+    public boolean updateAccount(TbAccount account) {
+        EntityManager em = JpaUntils.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.merge(account);
+            trans.commit();
+        }
+        catch (Exception ex) {
+            trans.rollback();
+            return false;
+        }
+        finally {
+            em.close();
+        }
+        return true;
     }
 }

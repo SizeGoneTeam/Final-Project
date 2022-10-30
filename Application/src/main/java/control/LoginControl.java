@@ -38,6 +38,9 @@ public class LoginControl extends HttpServlet {
 	            session.setMaxInactiveInterval(60*30);
 	            
 	            String rememberMe = req.getParameter("rememberMe");
+	            if (rememberMe == null) {
+	                rememberMe = "";
+	            }
 	            if (rememberMe.equals("on")) {
 	                Cookie c = new Cookie("accountID", a.getMaTK().toString());
 	                //Cookie 1 ngay

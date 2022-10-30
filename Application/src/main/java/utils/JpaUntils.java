@@ -21,4 +21,11 @@ public class JpaUntils {
         }
         factory = null;
     }
+    
+    private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("dbbook");
+    
+    public static EntityManagerFactory getEmFactory() {
+        return emf;
+    }
 }

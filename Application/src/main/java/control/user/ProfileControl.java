@@ -20,7 +20,7 @@ public class ProfileControl extends HttpServlet {
 		TbAccount account = (TbAccount) session.getAttribute("acc");
 		
 		if (account == null) {
-		    getServletContext().getRequestDispatcher("/login").forward(request, response);
+		    response.sendRedirect("../login");
 		}
 		else {
 		    //Sync data account
@@ -28,15 +28,19 @@ public class ProfileControl extends HttpServlet {
 		    TbAccount data = dao.selectAccount(Long.toString(account.getMaTK()));
 		    session.setAttribute("acc", data);
 		    
-		    String fullName = request.getParameter("fullName");
-	        String email = request.getParameter("email");
-	        String phoneNumber = request.getParameter("phoneNumber");
-	        String dateOfBirth = request.getParameter("dateOfBirth");
+		    String fullName = checkNullString(request.getParameter("fullName"));
+	        String email = checkNullString(request.getParameter("email"));
+	        String phoneNumber = checkNullString(request.getParameter("phoneNumber"));
+	        String dateOfBirth = checkNullString(request.getParameter("dateOfBirth"));
 	        
 	        if (fullName.equals("") && email.equals("") && phoneNumber.equals("") && dateOfBirth.equals("")) {
 	        }
 	        else {
-	            //Do update
+	            data.setHoTen(fullName);
+	            data.setEmail(email);
+	            data.setPhone(phoneNumber);
+	            
+	            boolean flag = dao.updateAccount(data);
 	        }
 
 	        getServletContext().getRequestDispatcher("/user/profile.jsp").forward(request, response);
@@ -45,5 +49,11 @@ public class ProfileControl extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	String checkNullString(String string) {
+	    if (string == null) {
+	        return "";
+	    }
+	    return string;
 	}
 }
