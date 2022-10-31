@@ -154,6 +154,7 @@
                                         <input
                                           type="date"
                                           name="dateOfBirth"
+                                          value="${sessionScope.acc.dateOfBirth.toString()}"
                                         />
                                       </div>
                                     </div>

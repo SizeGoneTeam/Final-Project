@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -52,6 +53,9 @@ public class TbAccount implements Serializable {
     
     @Column(name="UName")
     private String UName;
+    
+    @Column(name="DateOfBirth")
+    private Date dateOfBirth;
     
     @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<TbPhienDauGia> phienDauGias;
@@ -176,6 +180,14 @@ public class TbAccount implements Serializable {
 
     public void setUName(String UName) {
         this.UName = UName;
+    }
+    
+    public Date getDateOfBirth() {
+        return this.dateOfBirth;
+    }
+    
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
     
     public void add(TbPhienDauGia tempPhienDG)

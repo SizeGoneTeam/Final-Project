@@ -2,6 +2,7 @@ package control.user;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +40,8 @@ public class ProfileControl extends HttpServlet {
 	            data.setHoTen(fullName);
 	            data.setEmail(email);
 	            data.setPhone(phoneNumber);
-	            
+	            data.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
+	               
 	            boolean flag = dao.updateAccount(data);
 	        }
 
