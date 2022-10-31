@@ -25,8 +25,7 @@ public class ProfileControl extends HttpServlet {
 		}
 		else {
 		    //Sync data account
-		    UserDao dao = new UserDao();
-		    TbAccount data = dao.selectAccount(Long.toString(account.getMaTK()));
+		    TbAccount data = UserDao.selectAccount(Long.toString(account.getMaTK()));
 		    session.setAttribute("acc", data);
 		    
 		    String fullName = checkNullString(request.getParameter("fullName"));
@@ -42,7 +41,7 @@ public class ProfileControl extends HttpServlet {
 	            data.setPhone(phoneNumber);
 	            data.setDateOfBirth(java.sql.Date.valueOf(dateOfBirth));
 	               
-	            boolean flag = dao.updateAccount(data);
+	            boolean flag = UserDao.updateAccount(data);
 	        }
 
 	        getServletContext().getRequestDispatcher("/user/profile.jsp").forward(request, response);

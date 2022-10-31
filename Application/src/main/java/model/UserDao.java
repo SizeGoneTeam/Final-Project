@@ -117,7 +117,7 @@ public class UserDao {
         }
     }
     
-    public TbAccount selectAccount(String accountID) {
+    public static TbAccount selectAccount(String accountID) {
         EntityManager em = JpaUntils.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM TbAccount a WHERE a.maTK = :accountID";
         TypedQuery<TbAccount> q = em.createQuery(qString, TbAccount.class);
@@ -132,7 +132,7 @@ public class UserDao {
         }
     }
     
-    public boolean updateAccount(TbAccount account) {
+    public static boolean updateAccount(TbAccount account) {
         EntityManager em = JpaUntils.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
