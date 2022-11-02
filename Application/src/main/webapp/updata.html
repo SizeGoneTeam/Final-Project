@@ -50,17 +50,17 @@
                                   <div class="combo">
                                     <div id="l_itemCondition"></div>
                                     <div class="cell-lblLftFldDiv"><span id="e_itemCondition">
-                                        <select id="itemCondition" name="itemCondition" aria-required="true"
+                                        <select id="itemCondition" name="TinhTrang" aria-required="true"
                                           fieldname="itemCondition" md="dt|INTEGER||em|Please enter a condition.||ev|-1"
                                           title="Condition"
                                           aria-describedby="err_itemCondition editpane_condition_toolTip" vld="1"
                                           fn="cond">
                                           <option value="-1">-</option>
-                                          <option value="1000">Thương hiệu mới</option>
-                                          <option value="2750">Như mới</option>
-                                          <option value="4000">Rất tốt</option>
-                                          <option value="5000">Tốt</option>
-                                          <option value="6000">Chấp nhận được</option>
+                                          <option value="Sách Mới 100%">Sách Mới 100%</option>
+                                          <option value="Gần Như Mới">Gần Như Mới</option>
+                                          <option value="Bình Thường">Bình Thường</option>
+                                          <option value="Hơi Cũ">Hơi Cũ</option>
+                                          <option value="Cũ">Cũ</option>
                                         </select></span>
                                       <div id="em_itemCondition"></div>
                                     </div>
@@ -80,7 +80,7 @@
                                 <div class="control-group">
                                   <textarea class="form-control" rows="8" id="message" placeholder="Message"
                                     required="required"
-                                    data-validation-required-message="Please enter your message" name ="Mota"></textarea>
+                                    data-validation-required-message="Please enter your message" name ="MoTa"></textarea>
                                   <p class="help-block text-danger"></p>
                                 </div>
                               </div>
@@ -101,23 +101,26 @@
                                           <div style="margin-top:2px; margin-bottom:3px">
                                             <h2 class="reqd pad-t8 eifd-ttl"><label for="format">Kiểu bán</label>
                                             </h2>
-                                            <div class="mr255"><span class="combo-lrg"><select id="format" name="format"
+                                            <div class="mr255"><span class="combo-lrg"><select id="format" name="LoaiPhien"
                                                   aria-required="true">
-                                                  <option value="ChineseAuction" selected="selected">Đấu giá
+                                                  <option value="1" selected="selected">Mặc Định
                                                   </option>
-                                                  <option value="FixedPrice">Giá cố định</option>
+                                                  <option value="2">Kiểu Hà Lan</option>
                                                 </select></span></div>
                                           </div>
                                           <div class="eifd-durSec">
                                             <h2 class="reqd pad-t8 eifd-ttl"><label for="duration">Thời gian lên sàn</label>
                                             </h2>
-                                            <div class="mr255"><span class="combo-lrg"><select name="duration"
+                                            <div class="mr255"><span class="combo-lrg"><select name="ThoiGian"
                                                   id="duration" aria-describedby="err_duration" pv="Days_7"
                                                   aria-required="true">
-                                                  <option value="Days_3">3 ngày</option>
-                                                  <option value="Days_5">5 ngày</option>
-                                                  <option value="Days_7" selected="selected">7 ngày</option>
-                                                  <option value="Days_10">10 ngày</option>
+                                                  <option value="300">5 phút</option>
+                                                  <option value="86400">1 ngày</option>
+                                                  <option value="259200">3 ngày</option>
+                                                  <option value="432000">5 ngày</option>
+                                                  <option value="604800" selected="selected">7 ngày</option>
+                                                  <option value="1209600" >14 ngày</option>
+                                                  <option value="2592000">30 ngày</option>
                                                 </select></span></div>
                                           </div>
                                           <div class="eifd-durSec">
@@ -166,12 +169,12 @@
                                                                       <div>
                                                                         <div id="l_binPrice"><label for="binPrice">
                                                                             <div class="epqi-captionSpan">
-                                                                              Giá cao nhất</div>
+                                                                              Giá thấp nhất</div>
                                                                           </label></div>
                                                                         <div class="cell-lblTopFldDiv">
                                                                           <div style="display:inline"><span
                                                                               style="margin-right:4px">$</span><input
-                                                                              type="text" name="binPrice" id="binPrice"
+                                                                              type="number" name="GiaThapNhat" id="binPrice"
                                                                               aria-describedby="err_binPrice"
                                                                               md="dt|DOUBLE||vm|Please enter a valid Buy It Now price.||gdn|priceQtyPrntCell"
                                                                               vld="1" maxlength="10"
@@ -200,15 +203,35 @@
                                                         class="epqi-syiDivFieldQuantity qty epqi-inpWidth">
                                                         <div>
                                                           <div id="l_quantity"><label for="quantity">
-                                                              <h2 class="epqi-captionSpan">Số lượng</h2>
+                                                              <h2 class="epqi-captionSpan">Bước Giảm</h2>
                                                             </label></div>
                                                           <div class="cell-lblTopFldDiv">
-                                                            <div style="display:inline"><input type="text"
-                                                                name="quantity" id="quantity" disabled="disabled"
-                                                                aria-describedby="err_quantity" value="1"
-                                                                md="dt|INTEGERdt|Integer||em|Please enter a quantity.||vm|Please enter a valid quantity."
-                                                                vld="1" maxlength="10" aria-required="true"
-                                                                aria-labelledby="quantity_currencySymbol"></div>
+                                                            <div style="display:inline"><label>&nbsp;&nbsp;&nbsp;Thời gian giảm	&nbsp;Giá Giảm</label><div class="mr255"><span class="combo-lrg"><select name="ThoiGianGiam"
+			                                                  id="duration" aria-describedby="err_duration" pv="Days_7"
+			                                                  aria-required="true">
+			                                                  <option value="60">1 m</option>
+			                                               	  <option value="600">10 m</option>
+			                                                  <option value="1800">30 m</option>
+			                                                  <option value="3600">1 h</option>
+			                                                  <option value="10800" >3 h</option>
+			                                                  <option value="21600">6 h</option>
+			                                                  <option value="28800" selected="selected">8 h</option>
+
+			                                                </select></span>
+			                                                <span class="combo-lrg"><select name="GiaGiam"
+			                                                  id="duration" aria-describedby="err_duration" pv="Days_7"
+			                                                  aria-required="true">
+			                                                  <option value="1" selected="selected">1</option>
+			                                                  <option value="5">5</option>
+			                                                  <option value="10">10</option>
+			                                                  <option value="20">20</option>
+			                                                  <option value="50">50</option>
+			                                                  <option value="100" >100</option>
+			                                                  <option value="300" >300</option>
+			                                                  <option value="500">500</option>
+			                                                  <option value="1000">1000</option>
+			                                                </select></span>
+			                                                </div>
                                                           </div>
                                                         </div>
                                                         <div class="err-lbl mr255" id="err_quantity"></div>

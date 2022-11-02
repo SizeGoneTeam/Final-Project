@@ -36,6 +36,21 @@ public class TbPhienDauGia implements Serializable {
 	@Column(name="NgayTao")
 	private Timestamp ngayTao;
 	
+    @Column(name="ThoiGian")
+    private Integer thoiGian;
+    
+    @Column(name="GiaGiam")
+    private BigInteger giaGiam;   
+    
+    @Column(name="ThoiGianGiam")
+    private Integer thoiGianGiam;
+    
+    @Column(name="GiaThapNhat")
+    private BigInteger giaThapNhat;  
+    
+    @Column(name="IsEnd")
+    private int isEnd;  
+	
 	@ManyToOne
 	@JoinColumn(name="MaTK")
 	private TbAccount account;
@@ -49,20 +64,19 @@ public class TbPhienDauGia implements Serializable {
     }
 	
     public TbPhienDauGia() {
-        this.giaChot = null;
-        this.giaKhoiDiem = null;
-        this.loaiPhien = 0;
-        this.ngayKetThuc = null;
-        this.ngayTao = null;
+
     }	
 
-    public TbPhienDauGia(BigInteger giaChot, BigInteger giaKhoiDiem, int loaiPhien,
-            Timestamp ngayKetThuc, Timestamp ngayTao) {
-        this.giaChot = giaChot;
+    public TbPhienDauGia(BigInteger giaKhoiDiem, int loaiPhien,
+            Timestamp ngayKetThuc, Timestamp ngayTao, Integer thoiGian, BigInteger giaGiam, BigInteger giaThapNhat, Integer thoiGianGiam) {
         this.giaKhoiDiem = giaKhoiDiem;
         this.loaiPhien = loaiPhien;
         this.ngayKetThuc = ngayKetThuc;
         this.ngayTao = ngayTao;
+        this.thoiGian = thoiGian;
+        this.giaGiam = giaGiam;
+        this.giaThapNhat = giaThapNhat;
+        this.thoiGianGiam = thoiGianGiam;
     }
 
 
@@ -128,13 +142,58 @@ public class TbPhienDauGia implements Serializable {
 	public void setNgayTao(Timestamp ngayTao) {
 		this.ngayTao = ngayTao;
 	}
+	
+	
+
+    public Integer getThoiGian() {
+        return thoiGian;
+    }
+
+    public void setThoiGian(Integer thoiGian) {
+        this.thoiGian = thoiGian;
+    }
+
+    public BigInteger getGiaGiam() {
+        return giaGiam;
+    }
+
+    public void setGiaGiam(BigInteger giaGiam) {
+        this.giaGiam = giaGiam;
+    }
+
+    public Integer getThoiGianGiam() {
+        return thoiGianGiam;
+    }
+
+    public void setThoiGianGiam(Integer thoiGianGiam) {
+        this.thoiGianGiam = thoiGianGiam;
+    }
+
+    public BigInteger getGiaThapNhat() {
+        return giaThapNhat;
+    }
+
+    public void setGiaThapNhat(BigInteger giaThapNhat) {
+        this.giaThapNhat = giaThapNhat;
+    }
+
+    public int getIsEnd() {
+        return isEnd;
+    }
+
+    public void setIsEnd(int isEnd) {
+        this.isEnd = isEnd;
+    }
 
     @Override
     public String toString() {
         return "TbPhienDauGia [maPhien=" + maPhien + ", giaChot=" + giaChot + ", giaKhoiDiem=" + giaKhoiDiem
-                + ", loaiPhien=" + loaiPhien + ", maSach=" + maSach + ", ngayKetThuc=" + ngayKetThuc
-                + ", ngayTao=" + ngayTao + "]";
+                + ", loaiPhien=" + loaiPhien + ", ngayKetThuc=" + ngayKetThuc + ", ngayTao=" + ngayTao + ", thoiGian="
+                + thoiGian + ", giaGiam=" + giaGiam + ", thoiGianGiam=" + thoiGianGiam + ", giaThapNhat=" + giaThapNhat
+                + ", isEnd=" + isEnd + ", account=" + account + ", maSach=" + maSach + "]";
     }
+
+
 	
 
 }

@@ -9,7 +9,11 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import TimerTask.MyTask;
 import entity.TbAccount;
 import entity.TbPhienDauGia;
 import entity.TbSach;
@@ -52,13 +57,29 @@ public class TaoPhienDauGia extends HttpServlet {
         {
             String TenSach = request.getParameter("title");
             String Mota = request.getParameter("MoTa");
+            String TinhTrang = request.getParameter("TinhTrang");
             String Anh = "image/UploadSach/";
-            int GiaKhoiDiem = Integer.parseInt(request.getParameter("startPrice")) ;
+            BigInteger GiaKhoiDiem = new BigInteger(request.getParameter("startPrice"));
+            BigInteger GiaThapNhat = new BigInteger(request.getParameter("GiaThapNhat"));
+            Integer LoaiPhien = Integer.valueOf(request.getParameter("LoaiPhien"));
+            Integer ThoiGian = Integer.valueOf(request.getParameter("ThoiGian"));
+            Integer ThoiGianGiam = Integer.valueOf(request.getParameter("ThoiGianGiam"));
+            BigInteger GiaGiam = new BigInteger(request.getParameter("GiaGiam"));
+            
+            // Xử lý thời gian
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            Timestamp NowTime = Timestamp.valueOf(dtf.format(LocalDateTime.now()));
+            Timestamp EndTime = null;
+            Calendar now = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            now.setTime(NowTime);
+            end.add(Calendar.SECOND, ThoiGian);
+            System.out.println(now.getTime());
+            System.out.println(end.getTime());
+
             Long NguoiSoHuu = acc.getMaTK();
             
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
-            LocalDateTime now = LocalDateTime.now();
-            Timestamp NowTime = Timestamp.valueOf(dtf.format(now));
+
             // upload ảnh
             try {
                 Part part = request.getPart("image");
@@ -96,8 +117,13 @@ public class TaoPhienDauGia extends HttpServlet {
             
             PhienDauGiaDao dao = new PhienDauGiaDao();
             UserDao dao1 = new UserDao();
-            TbPhienDauGia phien = new TbPhienDauGia(null, BigInteger.valueOf(GiaKhoiDiem), 0, null, NowTime);
-            TbSach sach = new TbSach(Anh, BigInteger.valueOf(GiaKhoiDiem), Mota, TenSach);
+            TbPhienDauGia phien = new TbPhienDauGia(GiaKhoiDiem, LoaiPhien, new Timestamp(end.getTime().getTime()), NowTime, ThoiGian, GiaGiam, GiaThapNhat, ThoiGianGiam);
+            /*
+             * MyTask myTask = new MyTask(end.getTime());
+             * Timer timer = new Timer();
+             * timer.schedule(myTask, 1000, ThoiGianGiam * 1000);
+             */
+            TbSach sach = new TbSach(Anh, GiaKhoiDiem, Mota, TenSach);
             phien.setMaSach(sach);
             dao.insert(phien);
             acc = dao1.findById(acc.getMaTK());
@@ -112,6 +138,22 @@ public class TaoPhienDauGia extends HttpServlet {
        
         response.sendRedirect(url);
 
+    }
+    
+    public static void main(String[] args) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+        LocalDateTime no2w = LocalDateTime.now();
+        Timestamp a = Timestamp.valueOf(dtf.format(no2w));
+        Calendar now = Calendar.getInstance();
+        now.setTime(a);
+        Calendar end = Calendar.getInstance();
+        end.setTime(a);
+        end.add(Calendar.SECOND, 20);
+        
+        Timestamp Now = new Timestamp(now.getTime().getTime());
+        Timestamp End = new Timestamp(end.getTime().getTime());
+        System.out.println(Now);
+        System.out.println(End);
     }
 
 }

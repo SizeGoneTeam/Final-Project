@@ -52,6 +52,7 @@
 					<div class="header__cart">
 						<ul>
 						<c:if test="${sessionScope.acc != null}">
+							<li><a href="updata.html"><i class="fa fa-book"></i> <span>2</span></a></li>
 							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</c:if>
@@ -59,7 +60,7 @@
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
-							item: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
+							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
 						</c:if>
 						<c:if test="${sessionScope.acc == null}">
 							item: <span>$0.00</span>

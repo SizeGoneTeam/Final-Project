@@ -41,19 +41,22 @@ public class PhienDauGiaDao {
     
     
     public static void main(String[] args) {
-        BookDao dao2 = new BookDao();
-       PhienDauGiaDao dao = new PhienDauGiaDao();
-       UserDao dao1 = new UserDao();
-        TbPhienDauGia phien = new TbPhienDauGia(null, BigInteger.valueOf(100), 0, null, Timestamp.valueOf("2022-10-25 11:44:10"));
-        TbSach sach = new TbSach(null, BigInteger.valueOf(100), null, "Deromon 2");
-        //dao2.insert(sach);
-        System.out.println(sach);
-       TbAccount acc = dao1.findByName("hai");
-       phien.setMaSach(sach);
-      dao.insert(phien);
-       System.out.println(phien);
-      acc.add(phien);
-      dao1.update(acc);
+        /*
+         * BookDao dao2 = new BookDao();
+         * PhienDauGiaDao dao = new PhienDauGiaDao();
+         * UserDao dao1 = new UserDao();
+         * TbPhienDauGia phien = new TbPhienDauGia(null, BigInteger.valueOf(100), 0,
+         * null, Timestamp.valueOf("2022-10-25 11:44:10"));
+         * TbSach sach = new TbSach(null, BigInteger.valueOf(100), null, "Deromon 2");
+         * //dao2.insert(sach);
+         * System.out.println(sach);
+         * TbAccount acc = dao1.findByName("hai");
+         * phien.setMaSach(sach);
+         * dao.insert(phien);
+         * System.out.println(phien);
+         * acc.add(phien);
+         * dao1.update(acc);
+         */
         // System.out.println(acc);
        //  System.out.println(acc.getPhienDauGias());
         
