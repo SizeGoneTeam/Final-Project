@@ -30,12 +30,6 @@ public class TbAccount implements Serializable {
     @Column(name="HoTen")
     private String hoTen;
 
-    @Column(name="NamSinh")
-    private Integer namSinh;
-
-    @Column(name="NgaySinh")
-    private Integer ngaySinh;
-
     @Column(name="Phone")
     private String phone;
     
@@ -44,9 +38,6 @@ public class TbAccount implements Serializable {
 
     @Column(name="Sao")
     private Float sao;
-
-    @Column(name="ThangSinh")
-    private Integer thangSinh;
 
     @Column(name="Tien")
     private Double tien;
@@ -71,18 +62,7 @@ public class TbAccount implements Serializable {
 
 
     public TbAccount() {
-        maTK = null;
-        email = null;
-        hoTen = null;
-        namSinh = null;
-        ngaySinh = null;
-        phone = null;
-        PWord = null;
-        sao = null;
-        thangSinh = null;
-        tien = null;
-        UName = null;
-        phienDauGias= null;
+
     }
 
 
@@ -118,22 +98,6 @@ public class TbAccount implements Serializable {
         this.hoTen = hoTen;
     }
 
-    public int getNamSinh() {
-        return this.namSinh;
-    }
-
-    public void setNamSinh(int namSinh) {
-        this.namSinh = namSinh;
-    }
-
-    public int getNgaySinh() {
-        return this.ngaySinh;
-    }
-
-    public void setNgaySinh(int ngaySinh) {
-        this.ngaySinh = ngaySinh;
-    }
-
     public String getPhone() {
         return this.phone;
     }
@@ -158,13 +122,6 @@ public class TbAccount implements Serializable {
         this.sao = sao;
     }
 
-    public int getThangSinh() {
-        return this.thangSinh;
-    }
-
-    public void setThangSinh(int thangSinh) {
-        this.thangSinh = thangSinh;
-    }
 
     public double getTien() {
         return this.tien;
@@ -201,10 +158,12 @@ public class TbAccount implements Serializable {
 
     @Override
     public String toString() {
-        return "TbAccount [maTK=" + maTK + ", email=" + email + ", hoTen=" + hoTen + ", namSinh=" + namSinh
-                + ", ngaySinh=" + ngaySinh + ", phone=" + phone + ", PWord=" + PWord + ", sao=" + sao + ", thangSinh="
-                + thangSinh + ", tien=" + tien + ", UName=" + UName + "]";
+        return "TbAccount [maTK=" + maTK + ", email=" + email + ", hoTen=" + hoTen + ", phone=" + phone + ", PWord="
+                + PWord + ", sao=" + sao + ", tien=" + tien + ", UName=" + UName + ", dateOfBirth=" + dateOfBirth
+                + "]";
     }
+
+
 
     
 

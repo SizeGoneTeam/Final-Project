@@ -5,16 +5,24 @@ MaTK int auto_increment primary key,
 HoTen varchar(40),
 Phone varchar(10),
 Email varchar(20),
-NgaySinh int,
-ThangSinh int,
-NamSinh int,
 UName varchar(15) unique,
 PWord varchar(20),
 Tien double(10,3) default 0,
 Sao float(2,1),
+DateOfBirth date DEFAULT NULL,
 isAdmin bit
 );
-
+create table tbPhienDauGia(
+MaPhien int auto_increment primary key,
+MaTK int,
+LoaiPhien int,
+MaSach int,
+GiaKhoiDiem bigint,
+GiaChot bigint,
+NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
+NgayKetThuc timestamp default null,
+foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
+);
 create table tbSach(
 MaSach int auto_increment primary key,
 TenSach varchar(120),
@@ -22,7 +30,9 @@ Anh varchar(200),
 DonGia bigint,
 MoTa text,
 NguoiSoHuu int,
-foreign key(NguoiSoHuu) references tbAccount(MaTK) ON DELETE CASCADE
+MaPhien_id int,
+foreign key(NguoiSoHuu) references tbAccount(MaTK) ON DELETE CASCADE,
+foreign key(MaPhien_id) references tbPhienDauGia(MaPhien) ON DELETE CASCADE
 );
 -- Tạo thực thể Thể loại
 create table tbTheLoai(
@@ -70,12 +80,14 @@ foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE
 );
 
 create table tbDiaChiKH(
+ID int NOT NULL AUTO_INCREMENT primary key,
 MaTK int,
-TenDuong varchar(50),
+HoVaTen varchar(100),
+SDT varchar(15),
+DiaChi varchar(50),
 TenPhuong varchar(50),
 TenQuan varchar(50),
 TenTP varchar(50),
-TenTinh varchar(50),
 foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
 );
 
@@ -96,19 +108,6 @@ create table tbThanhToan(
 MaTT int auto_increment primary key,
 PhuongThuc varchar(20),
 NgayTT timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00'))
-);
-
-create table tbPhienDauGia(
-MaPhien int auto_increment primary key,
-LoaiPhien int,
-MaTK int,
-MaSach int,
-GiaKhoiDiem bigint,
-GiaChot bigint,
-NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-NgayKetThuc timestamp,
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
 );
 
 -- Tạo thực thể Hoá đơn
@@ -142,6 +141,14 @@ create table tbLichSuXem(
 MaTK int,
 MaSach int,
 NgayXem timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
+primary key(MaTK,MaSach),
+foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
+foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
+);
+
+create table tbYeuThich(
+MaTK int,
+MaSach int,
 primary key(MaTK,MaSach),
 foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
 foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
