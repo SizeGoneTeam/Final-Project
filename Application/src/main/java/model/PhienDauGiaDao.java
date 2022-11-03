@@ -39,6 +39,23 @@ public class PhienDauGiaDao {
         }
     }
     
+    public void update(TbPhienDauGia phienDauGia) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(phienDauGia);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
     
     public static void main(String[] args) {
         /*

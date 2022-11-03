@@ -85,6 +85,24 @@ public class BookDao {
                 em.close();
             }
         }
+    
+    public void update(TbSach sach) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(sach);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+
 
     public void insert(TbLichSuXem xem) {
         EntityTransaction trans = em.getTransaction();

@@ -55,6 +55,7 @@ public class TaoPhienDauGia extends HttpServlet {
         
         if (acc!=null)
         {
+            request.setCharacterEncoding("UTF-8");
             String TenSach = request.getParameter("title");
             String Mota = request.getParameter("MoTa");
             String TinhTrang = request.getParameter("TinhTrang");
@@ -118,16 +119,19 @@ public class TaoPhienDauGia extends HttpServlet {
             PhienDauGiaDao dao = new PhienDauGiaDao();
             UserDao dao1 = new UserDao();
             TbPhienDauGia phien = new TbPhienDauGia(GiaKhoiDiem, LoaiPhien, new Timestamp(end.getTime().getTime()), NowTime, ThoiGian, GiaGiam, GiaThapNhat, ThoiGianGiam);
-            /*
-             * MyTask myTask = new MyTask(end.getTime());
-             * Timer timer = new Timer();
-             * timer.schedule(myTask, 1000, ThoiGianGiam * 1000);
-             */
+
+             
             TbSach sach = new TbSach(Anh, GiaKhoiDiem, Mota, TenSach);
             phien.setMaSach(sach);
             dao.insert(phien);
             acc = dao1.findById(acc.getMaTK());
             acc.add(phien);
+            
+            // tạo task tự đông
+              MyTask myTask = new MyTask(phien,sach);
+              Timer timer = new Timer();
+              timer.schedule(myTask, ThoiGianGiam * 1000, ThoiGianGiam * 1000);
+              
             dao1.update(acc);
             url = "loadSach";
         }

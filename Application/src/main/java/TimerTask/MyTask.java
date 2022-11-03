@@ -1,34 +1,51 @@
 package TimerTask;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.TimerTask;
 
+import entity.TbAccount;
+import entity.TbPhienDauGia;
+import entity.TbSach;
+import model.BookDao;
+import model.PhienDauGiaDao;
+
 public class MyTask extends TimerTask {
-    private Date TimeEnd;
-    
-    
-    public MyTask(Date timeEnd) {
-        TimeEnd = timeEnd;
+    private TbPhienDauGia phienDauGia;
+    private TbAccount acc;
+    private TbSach sach;
+
+    public MyTask(TbPhienDauGia phienDauGia, TbSach sach) {
+        this.phienDauGia = phienDauGia;
+        this.sach = sach;
     }
+
     @Override
     public void run() {
         Date now = new Date();
-        if(now.getTime() - TimeEnd.getTime() >=0)
-        {
+        if (now.getTime() - phienDauGia.getNgayKetThuc().getTime() >= 0) {
+            Boolean value = cancel();
             System.out.println("Stop");
             return;
         }
         
-        System.out.println("Run my Task Giam Gia");
-        
-    }
+        System.out.println("Gia Thap Nhat: " + phienDauGia.getGiaThapNhat());
+        System.out.println("Gia Moi: " + phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam()));
+        System.out.println(phienDauGia.getGiaThapNhat()
+                .compareTo(phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam())));
 
-    public Date getTimeEnd() {
-        return TimeEnd;
-    }
-    public void setTimeEnd(Date timeEnd) {
-        TimeEnd = timeEnd;
-    }
+        if (phienDauGia.getGiaThapNhat()
+                .compareTo(phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam())) == -1) {
+            BigInteger GiaMoi = phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam());
+            phienDauGia.setGiaKhoiDiem(GiaMoi);
+            System.out.println("Run my Task Giam Gia" + GiaMoi);
+            PhienDauGiaDao daoPhien = new PhienDauGiaDao();
+            BookDao daoSach = new BookDao();
+            daoPhien.update(phienDauGia);
+            sach.setDonGia(GiaMoi);
+            daoSach.update(sach);
+        }
 
+    }
 }
