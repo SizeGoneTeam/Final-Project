@@ -62,13 +62,14 @@ public class TbAccount implements Serializable {
 
 
     public TbAccount() {
-
+        tien = new Double(0);
     }
 
 
     public TbAccount(String uName,String pWord) {
         PWord = pWord;
         UName = uName;
+        tien = new Double(0);
     }
 
 
