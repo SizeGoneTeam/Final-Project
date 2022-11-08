@@ -19,6 +19,7 @@ import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbTheLoai;
 import model.BookDao;
+import model.UserDao;
 
 
 @WebServlet("/detail")

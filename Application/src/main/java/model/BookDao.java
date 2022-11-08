@@ -18,6 +18,7 @@ import entity.TbAccount;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbSach;
+import entity.TbTacGia;
 import entity.TbTheLoai;
 import entity.TbYeuThich;
 import entity.TbYeuThichPK;
@@ -30,6 +31,11 @@ public class BookDao {
         em.close();
         super.finalize();
     }
+    public TbSach findById(int maSach) {
+        TbSach entity = em.find(TbSach.class, maSach);
+        return entity;
+    }
+    
     
     public void insertyeuthich(TbYeuThich xem) {
         EntityTransaction trans = em.getTransaction();
@@ -91,6 +97,40 @@ public class BookDao {
         try {
             trans.begin();
             em.merge(sach);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
+    public void refresh(TbSach sach) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.refresh(sach);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
+    public void insert(TbSach sach) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(sach);
             trans.commit();
             
         } catch (Exception e) {
@@ -243,6 +283,14 @@ public class BookDao {
          }
         return dem;
     }
+    
+    public TbTheLoai findTheLoaiById(int maTheLoai) {
+        TbTheLoai entity = em.find(TbTheLoai.class, maTheLoai);
+        return entity;
+    }
+    
+   
+    
     public static void main(String[] args) {
         BookDao dao = new BookDao();
 //        String key = "2";

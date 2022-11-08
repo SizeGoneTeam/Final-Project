@@ -3,6 +3,8 @@ package entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.math.BigInteger;
 
 
@@ -51,7 +53,7 @@ public class TbPhienDauGia implements Serializable {
     @Column(name="IsEnd")
     private int isEnd;  
 	
-	@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="MaTK")
 	private TbAccount account;
 	
@@ -59,6 +61,9 @@ public class TbPhienDauGia implements Serializable {
 	@JoinColumn(name = "MaSach")
 	private TbSach maSach;
 
+   @OneToMany(mappedBy = "phienDauGia", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<TbLichSuBid> bids;
+	
 	public TbAccount getAccount() {
         return account;
     }
@@ -77,6 +82,7 @@ public class TbPhienDauGia implements Serializable {
         this.giaGiam = giaGiam;
         this.giaThapNhat = giaThapNhat;
         this.thoiGianGiam = thoiGianGiam;
+        this.giaChot = giaKhoiDiem;
     }
 
 
@@ -183,6 +189,30 @@ public class TbPhienDauGia implements Serializable {
 
     public void setIsEnd(int isEnd) {
         this.isEnd = isEnd;
+    }
+
+    public void addBid(TbLichSuBid bid)
+    {
+        if (bids == null)
+            bids = new ArrayList<>();
+        bids.add(bid);
+        bid.setPhienDauGia(this);;
+    }
+    
+    public void removeBid(TbLichSuBid bid)
+    {
+        if (bids == null)
+            return;
+        bids.remove(bid);
+        bid.setPhienDauGia(this);;
+    }
+    
+    public List<TbLichSuBid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<TbLichSuBid> bids) {
+        this.bids = bids;
     }
 
     @Override

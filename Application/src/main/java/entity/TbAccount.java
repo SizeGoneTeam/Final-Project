@@ -48,8 +48,11 @@ public class TbAccount implements Serializable {
     @Column(name="DateOfBirth")
     private Date dateOfBirth;
     
-    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<TbPhienDauGia> phienDauGias;
+    
+    @OneToMany(mappedBy = "nguoiSoHuu", cascade = { CascadeType.PERSIST})
+    private List<TbSach> sachs;
 
     public List<TbPhienDauGia> getPhienDauGias() {
         return phienDauGias;
@@ -60,28 +63,26 @@ public class TbAccount implements Serializable {
         this.phienDauGias = phienDauGias;
     }
     
-    @OneToMany(mappedBy="tbAccount")
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<TbLichSuBid> bids;
+	
+	 @OneToMany(mappedBy="tbAccount")
     private List<TbDiaChiKH> tbDiaChiKhs;
     
     public List<TbDiaChiKH> getTbDiaChiKhs() {
         return this.tbDiaChiKhs;
     }
-
     public void setTbDiaChiKhs(List<TbDiaChiKH> tbDiaChiKhs) {
         this.tbDiaChiKhs = tbDiaChiKhs;
     }
-
     public TbDiaChiKH addTbDiaChiKh(TbDiaChiKH tbDiaChiKh) {
         getTbDiaChiKhs().add(tbDiaChiKh);
         tbDiaChiKh.setTbAccount(this);
-
         return tbDiaChiKh;
     }
-
     public TbDiaChiKH removeTbDiaChiKh(TbDiaChiKH tbDiaChiKh) {
         getTbDiaChiKhs().remove(tbDiaChiKh);
         tbDiaChiKh.setTbAccount(null);
-
         return tbDiaChiKh;
     }
 
@@ -180,7 +181,25 @@ public class TbAccount implements Serializable {
         phienDauGias.add(tempPhienDG);
         tempPhienDG.setAccount(this);
     }
+    
+    
 
+    public List<TbSach> getSachs() {
+        return sachs;
+    }
+
+
+    public void setSachs(List<TbSach> sachs) {
+        this.sachs = sachs;
+    }
+    
+    public void addSach(TbSach sach)
+    {
+        if (sachs == null)
+            sachs = new ArrayList<>();
+        sachs.add(sach);
+        sach.setNguoiSoHuu(this);
+    }
 
     @Override
     public String toString() {

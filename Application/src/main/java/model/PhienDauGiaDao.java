@@ -22,6 +22,11 @@ public class PhienDauGiaDao {
         super.finalize();
     }
     
+    public TbPhienDauGia findById(int maPhien) {
+        TbPhienDauGia entity = em.find(TbPhienDauGia.class, maPhien);
+        return entity;
+    }
+    
     public void insert(TbPhienDauGia phienDauGia) {
         EntityTransaction trans = em.getTransaction();
         try {
@@ -39,11 +44,30 @@ public class PhienDauGiaDao {
         }
     }
     
+   
+    
     public void update(TbPhienDauGia phienDauGia) {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
             em.merge(phienDauGia);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
+    public void refresh(TbPhienDauGia phienDauGia) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.refresh(phienDauGia);
             trans.commit();
             
         } catch (Exception e) {

@@ -52,7 +52,7 @@
 					<div class="header__cart">
 						<ul>
 						<c:if test="${sessionScope.acc != null}">
-							<li><a href="updata.html"><i class="fa fa-book"></i> <span>2</span></a></li>
+							<li><a href="taoSach"><i class="fa fa-book"></i> <span>2</span></a></li>
 							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</c:if>
@@ -167,8 +167,8 @@
 				<c:forEach items="${listP}" var="o">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}';">
-							<div class="featured__item__pic set-bg"
-							 data-setbg="${o.getAnh()}">					
+							<div class="featured__item__pic set-bg">
+							<img src="${o.getAnh()}" alt="">					
 								<ul class="featured__item__pic__hover">
 									<li><a href="insertyt?MaTK=${sessionScope.acc.maTK}&amp;MaSach=${o.maSach }"><i class="fa fa-heart"></i></a></li>
 									

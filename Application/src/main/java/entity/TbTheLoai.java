@@ -17,13 +17,14 @@ public class TbTheLoai implements Serializable {
 
 	@Id
 	@Column(name="MaTheLoai")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maTheLoai;
 
 	@Column(name="TenTheLoai")
 	private String tenTheLoai;
 
 	//bi-directional many-to-many association to TbSach
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(
 		name="tbThuocTheLoai"
 		, joinColumns={
@@ -61,5 +62,6 @@ public class TbTheLoai implements Serializable {
 	public void setTbSaches(List<TbSach> tbSaches) {
 		this.tbSaches = tbSaches;
 	}
+	
 
 }

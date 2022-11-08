@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,13 +33,17 @@ public class TbSach implements Serializable {
 	@Column(name="MoTa")
 	private String moTa;
 
-	@Column(name="NguoiSoHuu")
-	private int nguoiSoHuu;
+    @Column(name="TinhTrang")
+    private String tinhTrang;
+	
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="NguoiSoHuu")
+    private TbAccount nguoiSoHuu;
 
 	@Column(name="TenSach")
 	private String tenSach;
     
-    @OneToOne(mappedBy = "maSach")
+    @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
     private TbPhienDauGia phienDauGia;
 	
 	//bi-directional many-to-one association to TbLichSuXem
@@ -51,23 +56,40 @@ public class TbSach implements Serializable {
 	
 
     //bi-directional many-to-many association to TbTheLoai
-    @ManyToMany(mappedBy="tbSaches")
-    
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "tbThuocTheLoai",
+            joinColumns = @JoinColumn(name = "MaSach"),
+            inverseJoinColumns = @JoinColumn(name ="MaTheLoai")
+            )
     private List<TbTheLoai> tbTheLoais;
+    
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "tbViet",
+            joinColumns = @JoinColumn(name = "MaSach"),
+            inverseJoinColumns = @JoinColumn(name ="MaTacGia")
+            )
+    private List<TbTacGia> tbTacGias;
     
     public TbSach() {
         this.anh = null;
         this.donGia = BigInteger.valueOf(0);
         this.moTa = null;
         this.tenSach = null;
-        nguoiSoHuu = 2;
     }
-    public TbSach(String anh, BigInteger donGia, String moTa, String tenSach) {
+    public TbSach(String anh, BigInteger donGia, String moTa, String tenSach, String tinhTrang) {
         this.anh = anh;
         this.donGia = donGia;
         this.moTa = moTa;
         this.tenSach = tenSach;
-        nguoiSoHuu = 2;
+        this.tinhTrang = tinhTrang;
+    }
+    public String getTinhTrang() {
+        return tinhTrang;
+    }
+    public void setTinhTrang(String tinhTrang) {
+        this.tinhTrang = tinhTrang;
     }
     public TbPhienDauGia getPhienDauGia() {
         return phienDauGia;
@@ -118,14 +140,6 @@ public class TbSach implements Serializable {
 		this.moTa = moTa;
 	}
 
-	public int getNguoiSoHuu() {
-		return this.nguoiSoHuu;
-	}
-
-	public void setNguoiSoHuu(int nguoiSoHuu) {
-		this.nguoiSoHuu = nguoiSoHuu;
-	}
-
 	public String getTenSach() {
 		return this.tenSach;
 	}
@@ -164,11 +178,43 @@ public class TbSach implements Serializable {
         this.tbTheLoais = tbTheLoais;
     }
     
+    public void addTheLoai(TbTheLoai theloai)
+    {
+        if(tbTheLoais == null)
+        {
+            tbTheLoais = new ArrayList<>();
+        }
+        tbTheLoais.add(theloai);
+    }
+
+    public void addTacGia(TbTacGia tacgia)
+    {
+        if(tbTacGias == null)
+        {
+            tbTacGias = new ArrayList<>();
+        }
+        tbTacGias.add(tacgia);
+    }
+
+    
+    public List<TbTacGia> getTbTacGias() {
+        return tbTacGias;
+    }
+    public void setTbTacGias(List<TbTacGia> tbTacGias) {
+        this.tbTacGias = tbTacGias;
+    }
+    
+    
+    
+    public TbAccount getNguoiSoHuu() {
+        return nguoiSoHuu;
+    }
+    public void setNguoiSoHuu(TbAccount nguoiSoHuu) {
+        this.nguoiSoHuu = nguoiSoHuu;
+    }
     @Override
     public String toString() {
-        return "TbSach [maSach=" + maSach + ", anh=" + anh + ", donGia=" + donGia + ", moTa=" + moTa + ", nguoiSoHuu="
-                + nguoiSoHuu + ", tenSach=" + tenSach + ", phienDauGia=" + phienDauGia + ", tbLichSuXems="
-                + tbLichSuXems + ", tbTheLoais=" + tbTheLoais + "]";
+        return "TbSach [maSach=" + maSach + ", anh=" + anh + ", donGia=" + donGia + ", moTa=" + moTa + ", tenSach=" + tenSach + ", tbTheLoais=" + tbTheLoais + "]";
     }
 
 }

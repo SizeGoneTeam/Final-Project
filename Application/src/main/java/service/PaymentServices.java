@@ -46,6 +46,7 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl("https://sizegone-bookstore.herokuapp.com/cancel.html");
+        //redirectUrls.setReturnUrl("http://localhost:8080/BookStore/review_payment");
         redirectUrls.setReturnUrl("https://sizegone-bookstore.herokuapp.com/review_payment");
         return redirectUrls;
     }

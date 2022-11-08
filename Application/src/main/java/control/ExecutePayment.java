@@ -27,8 +27,10 @@ public class ExecutePayment extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             TbAccount acc = (TbAccount) session.getAttribute("acc");
-            double oldTien = acc.getTien();
             UserDao dao = new UserDao();
+            acc = dao.findByName(acc.getUName());
+            double oldTien = acc.getTien();
+            
             
             PaymentServices paymentServices = new PaymentServices();
             Payment payment = paymentServices.executePayment(paymentId, payerId);
