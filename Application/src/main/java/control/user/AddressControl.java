@@ -20,7 +20,8 @@ import model.UserDao;
 public class AddressControl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+	    request.setCharacterEncoding("UTF-8");
+	    HttpSession session = request.getSession();
 		TbAccount account = (TbAccount) session.getAttribute("acc");
 		
 		if (account == null) {
@@ -40,7 +41,8 @@ public class AddressControl extends HttpServlet {
 		        
 		        AddressDAO.deleteAddress(deleteObject);
 		    }
-		    else {
+		    else if (!type.isEmpty()) {
+		        
 		        String fullName = checkNullString(request.getParameter("fullName"));
 	            String phone = checkNullString(request.getParameter("phone"));
 	            String province = checkNullString(request.getParameter("province"));
@@ -84,6 +86,9 @@ public class AddressControl extends HttpServlet {
 	                }
 	            }
 		    }
+		    else {
+                //Do nothing
+            }
 		    
 		    List<TbTinhThanh> provinces = AddressDAO.selectAllProvince();
 		    

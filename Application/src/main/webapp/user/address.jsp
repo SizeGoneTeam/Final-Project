@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -277,7 +277,7 @@
                                     <button class="wORiuh" style="white-space: nowrap;padding: 4px;color: #08f;border: 0;background: none;outline: none;" onclick="document.getElementById('id0${count}').style.display='block'">Cập nhật</button>
                                   </div>
                                   <div class="kTdq3r" style="margin: 0px 5px;">|</div>
-                                  <form action="address">
+                                  <form action="address" method="post">
                                     <div class="aQxJVJ" style="flex-basis: 40px;justify-content: flex-end;display: flex;">
                                       <input name="type" value="delete" hidden />
                                       <button class="wORiuh" style="white-space: nowrap;padding: 4px;color: rgb(255, 0, 0);border: 0;background: none;outline: none;" name="id" value="${o.id}">Xóa</button>
@@ -312,7 +312,7 @@
                               <div class="box modal-content animate">
                                   <div class="heading">Cập nhật địa chỉ</div>
                       
-                                  <form action="address">
+                                  <form action="address" method="post">
                                       <div class="form-inside">
                                           <div class="form-content">
 
@@ -402,7 +402,7 @@
             <div class="box modal-content animate">
                 <div class="heading">Địa chỉ mới</div>
     
-                <form action="address">
+                <form action="address" method="post">
                     <div class="form-inside">
                         <div class="form-content">
                             <input name="type" value="add" hidden />
