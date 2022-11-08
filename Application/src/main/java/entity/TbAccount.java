@@ -59,6 +59,31 @@ public class TbAccount implements Serializable {
     public void setPhienDauGias(List<TbPhienDauGia> phienDauGias) {
         this.phienDauGias = phienDauGias;
     }
+    
+    @OneToMany(mappedBy="tbAccount")
+    private List<TbDiaChiKH> tbDiaChiKhs;
+    
+    public List<TbDiaChiKH> getTbDiaChiKhs() {
+        return this.tbDiaChiKhs;
+    }
+
+    public void setTbDiaChiKhs(List<TbDiaChiKH> tbDiaChiKhs) {
+        this.tbDiaChiKhs = tbDiaChiKhs;
+    }
+
+    public TbDiaChiKH addTbDiaChiKh(TbDiaChiKH tbDiaChiKh) {
+        getTbDiaChiKhs().add(tbDiaChiKh);
+        tbDiaChiKh.setTbAccount(this);
+
+        return tbDiaChiKh;
+    }
+
+    public TbDiaChiKH removeTbDiaChiKh(TbDiaChiKH tbDiaChiKh) {
+        getTbDiaChiKhs().remove(tbDiaChiKh);
+        tbDiaChiKh.setTbAccount(null);
+
+        return tbDiaChiKh;
+    }
 
 
     public TbAccount() {

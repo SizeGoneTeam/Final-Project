@@ -10,7 +10,7 @@
         <link
           rel="stylesheet"
           data-modern="true"
-          href="./Shopee Việt Nam _ Mua và Bán Trên Ứng Dụng Di Động Hoặc Website_files/bundle.c58d9ed1d023c47b.css"
+          href="./styles_main/bundle.c58d9ed1d023c47b.css"
         />
     
         <title>
@@ -26,13 +26,13 @@
         <link
           rel="stylesheet"
           type="text/css"
-          href="./Shopee Việt Nam _ Mua và Bán Trên Ứng Dụng Di Động Hoặc Website_files/1714.48f8bc255163fcad.css"
+          href="./styles_main/1714.48f8bc255163fcad.css"
         />
     
         <script
           type="text/javascript"
           id="sp-af-c9349935"
-          src="./Shopee Việt Nam _ Mua và Bán Trên Ứng Dụng Di Động Hoặc Website_files/04d858199d5f5876b8977ff54f296aafebd498a6.js.download"
+          src="./styles_main/04d858199d5f5876b8977ff54f296aafebd498a6.js.download"
         ></script>
     
     
@@ -41,7 +41,7 @@
         <link
           rel="stylesheet"
           type="text/css"
-          href="./Shopee Việt Nam _ Mua và Bán Trên Ứng Dụng Di Động Hoặc Website_files/2825.c1fba5fdd46028ab.css"
+          href="./styles_main/2825.c1fba5fdd46028ab.css"
         />
         
         <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css"/>

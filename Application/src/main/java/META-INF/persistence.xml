@@ -13,6 +13,8 @@
     <class>entity.TbAccount</class>
     <class>entity.TbYeuThich</class>
     <class>entity.TbYeuThichPK</class>
+    <class>entity.TbDiaChiKH</class>
+    <class>entity.TbTinhThanh</class>
     <properties>
         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com:3306/dbbook"/>
         <property name="javax.persistence.jdbc.user" value="admin"/>
