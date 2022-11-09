@@ -218,7 +218,7 @@ public class BookDao {
     
     
     public List<TbSach> seachTilte(String keyword, String page) {
-        String jpql = "SELECT o FROM TbSach o where o.tenSach like :keyword and o.phienDauGia.isEnd = 1";
+        String jpql = "SELECT o FROM TbSach o where o.tenSach like :keyword and o.phienDauGia.isEnd = 0";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("keyword","%" + keyword + "%" );
         List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
