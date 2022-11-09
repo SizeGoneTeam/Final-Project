@@ -218,7 +218,7 @@ public class BookDao {
     
     
     public List<TbSach> seachTilte(String keyword, String page) {
-        String jpql = "SELECT o FROM TbSach o where o.tenSach like :keyword";
+        String jpql = "SELECT o FROM TbSach o where o.tenSach like :keyword and o.phienDauGia.isEnd = 1";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("keyword","%" + keyword + "%" );
         List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
@@ -304,9 +304,13 @@ public class BookDao {
 //        dao.update(xem);
 //        dao.insert(xem);
       
-        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
-        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
-        dao.deleteyeuthich(tbYeuThichPK);
+//        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
+//        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
+//        dao.deleteyeuthich(tbYeuThichPK);
+        List<TbSach> list = dao.seachTilte("", "0");
+        for (TbSach product : list) {
+        System.out.println(product.getPhienDauGia().getMaPhien());
+        }
 //        List<TbYeuThich> list = dao.findyeuthich("2","12");
 //          for (TbYeuThich product : list) {
 //          System.out.println(product.getId());

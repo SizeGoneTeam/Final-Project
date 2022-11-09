@@ -45,6 +45,8 @@ public class TbSach implements Serializable {
     
     @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
     private TbPhienDauGia phienDauGia;
+    
+
 	
 	//bi-directional many-to-one association to TbLichSuXem
 	@OneToMany(mappedBy="tbSach")
@@ -84,6 +86,7 @@ public class TbSach implements Serializable {
         this.moTa = moTa;
         this.tenSach = tenSach;
         this.tinhTrang = tinhTrang;
+        
     }
     public String getTinhTrang() {
         return tinhTrang;
