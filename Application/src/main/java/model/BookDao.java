@@ -191,6 +191,38 @@ public class BookDao {
         List<TbSach> entity = query.setMaxResults(4).getResultList();
         return entity;
     }
+    public List<TbSach> SellingTop3(String MaTK) {
+        String jpql = "SELECT o FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 0 order by o.maSach desc";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        List<TbSach> entity = query.setMaxResults(3).getResultList();
+        return entity;
+    }
+    public List<TbSach> SellingTop9(String MaTK) {
+        String jpql = "SELECT o FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 0 order by o.maSach desc";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        List<TbSach> entity = query.setMaxResults(9).getResultList();
+        return entity;
+    }
+    public List<TbSach> SoldTop3(String MaTK) {
+        String jpql = "SELECT o FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.maSach desc";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        List<TbSach> entity = query.setMaxResults(3).getResultList();
+        return entity;
+    }
+    public List<TbSach> SoldTop9(String MaTK) {
+        String jpql = "SELECT o FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.maSach desc";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        List<TbSach> entity = query.setMaxResults(9).getResultList();
+        return entity;
+    }
     public List<TbSach> getLastSeen(String MaTK) {
         String jpql = "SELECT o FROM TbLichSuXem o "
                 + "where o.id.maTK = :MaTK "
@@ -199,6 +231,20 @@ public class BookDao {
         TypedQuery<TbLichSuXem> query = em.createQuery(jpql,TbLichSuXem.class);
         query.setParameter("MaTK",Integer.parseInt(MaTK));
         List<TbLichSuXem> entity = query.setMaxResults(4).getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbLichSuXem product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
+    public List<TbSach> getLastSeenTop9(String MaTK) {
+        String jpql = "SELECT o FROM TbLichSuXem o "
+                + "where o.id.maTK = :MaTK "
+                + "order by o.ngayXem desc";
+        
+        TypedQuery<TbLichSuXem> query = em.createQuery(jpql,TbLichSuXem.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbLichSuXem> entity = query.setMaxResults(9).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbLichSuXem product : entity) {
             entity1.add(product.getTbSach());
@@ -307,7 +353,7 @@ public class BookDao {
 //        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
 //        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
 //        dao.deleteyeuthich(tbYeuThichPK);
-        List<TbSach> list = dao.seachTilte("", "0");
+        List<TbSach> list = dao.SoldTop3("1");
         for (TbSach product : list) {
         System.out.println(product.getPhienDauGia().getMaPhien());
         }
