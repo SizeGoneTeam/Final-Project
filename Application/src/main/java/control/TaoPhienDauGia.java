@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
@@ -26,6 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import TimerTask.GiamGia;
 import TimerTask.KetThucPhien;
 import entity.TbAccount;
@@ -37,6 +42,7 @@ import model.BookDao;
 import model.PhienDauGiaDao;
 import model.TacGiaDao;
 import model.UserDao;
+import utils.CloudinaryUtil;
 
 /**
  * Servlet implementation class TaoPhienDauGia
@@ -209,7 +215,22 @@ public class TaoPhienDauGia extends HttpServlet {
                 
                 part.write(realPath + "/" + filename);
                 System.out.println(realPath + "/" + filename);
-                 Anh+= filename;
+                Cloudinary cloudinary = CloudinaryUtil.getCloudinary();
+                try {
+                   Map uploadResult = cloudinary.uploader().upload(realPath + "/" + filename, ObjectUtils.emptyMap());
+                   System.out.println(uploadResult.get("url"));
+                   Anh = uploadResult.get("url").toString();
+                } catch (Exception e) {
+                   System.out.println(e.getMessage());
+               }
+                File file = new File(realPath + "/" + filename);
+                if(file.delete()) System.out.println("Xoá thành công");
+                
+                System.out.println(realPath + "/" + filename);
+                 //Anh+= filename;
+                
+                
+                 
             } catch (Exception e) {
                 e.printStackTrace();
             }

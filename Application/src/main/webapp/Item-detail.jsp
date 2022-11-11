@@ -177,7 +177,7 @@ th {
 								class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 								class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
 						</div>
-						<div class="product__details__price">${detail.price}VNĐ</div>
+						<div class="product__details__price">${detail.donGia}VNĐ</div>
 						<c:if test="${sessionScope.acc == null}">
 							<h5>Vui lòng đăng nhập trước khi đấu giá</h5>
 						</c:if>
@@ -185,20 +185,28 @@ th {
 							<form action="placeBid">
 								<div class="product__details__quantity">
 									<div class="quantity">
+									<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 										<div class="pro-qty">
-											<input name="new_price" type="text" value=""> 
+											<input name="new_price" type="Number" value="">
 											<input name="maSach" value="${detail.maSach}" hidden> 
 											<input name="id" value="${sessionScope.acc.getMaTK()}" hidden>
 										</div>
+										</c:if>
+										<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
+											<input name="maSach" value="${detail.maSach}" hidden> 
+											<input name="id" value="${sessionScope.acc.getMaTK()}" hidden>
+										</c:if>  
 									</div>
 								</div>
+								<c:if test="${detail.getPhienDauGia().getIsEnd() == 0}">
 								<input type="submit" class="primary-btn" style="color: #66FFFF"
 									value="Đấu Giá">
+								</c:if>
+								<c:if test="${detail.getPhienDauGia().getIsEnd() == 1}">
+								<h2>Phiên đấu giá đã kết thúc</h2>
+								</c:if>  
 							</form>
-							Vui lòng nhập hơn ${detail.price} VNĐ<br>
 						</c:if>
-
-						 <a href="#"class="primary-btn">Thêm vào giỏ hàng</a> 
 						 <a href="insertytdetail?MaSach=${detail.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="heart-icon"><span class="icon_heart_alt"></span></a>
 					</div>
 					<hr>
@@ -211,8 +219,8 @@ th {
 							</tr>
 							<c:forEach items="${BidHistory}" var="o">
 								<tr>
-									<td>${o.tenKH}</td>
-									<td>${o.price} VNĐ</td>
+									<td>${o.account}</td>
+									<td>${o.bid} VNĐ</td>
 									<td>${o.ngayTao}</td>
 								</tr>
 							</c:forEach>

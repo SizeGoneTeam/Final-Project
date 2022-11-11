@@ -46,8 +46,6 @@ public class TbSach implements Serializable {
     @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
     private TbPhienDauGia phienDauGia;
     
-
-	
 	//bi-directional many-to-one association to TbLichSuXem
 	@OneToMany(mappedBy="tbSach")
 	private List<TbLichSuXem> tbLichSuXems;
@@ -73,6 +71,9 @@ public class TbSach implements Serializable {
             inverseJoinColumns = @JoinColumn(name ="MaTacGia")
             )
     private List<TbTacGia> tbTacGias;
+    
+    @OneToMany(mappedBy = "tbSach")
+    private List<TbGioHang> gioHang;
     
     public TbSach() {
         this.anh = null;
@@ -214,6 +215,16 @@ public class TbSach implements Serializable {
     }
     public void setNguoiSoHuu(TbAccount nguoiSoHuu) {
         this.nguoiSoHuu = nguoiSoHuu;
+    }
+    
+    
+    
+   
+    public List<TbGioHang> getGioHang() {
+        return gioHang;
+    }
+    public void setGioHang(List<TbGioHang> gioHang) {
+        this.gioHang = gioHang;
     }
     @Override
     public String toString() {

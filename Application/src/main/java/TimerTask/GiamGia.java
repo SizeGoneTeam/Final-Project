@@ -41,6 +41,7 @@ public class GiamGia extends TimerTask {
             System.out.println("Run my Task Giam Gia" + phienDauGia.getGiaChot());
             sach.setDonGia(phienDauGia.getGiaChot());
             TbLichSuBid bid = new TbLichSuBid(phienDauGia.getGiaChot(), null);
+            System.out.println("Ma Sach" + sach.getMaSach());
             phienDauGia.addBid(bid);
             phienDauGia.setMaSach(sach);
             daoPhien.update(phienDauGia);

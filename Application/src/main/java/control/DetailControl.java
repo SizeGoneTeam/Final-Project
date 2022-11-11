@@ -15,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import dao.dao;
 import entity.BidHistory;
 import entity.Product;
+import entity.TbLichSuBid;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
+import entity.TbSach;
 import entity.TbTheLoai;
 import model.BookDao;
+import model.PhienDauGiaDao;
 import model.UserDao;
 
 
@@ -29,9 +32,10 @@ public class DetailControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("pid");
 		String maKH = request.getParameter("maKH");
-		dao Dao = new dao();
-		Product p = Dao.getProductbyID(id);
-		List<BidHistory> list = Dao.getTopBid(p.getMaSach());
+		BookDao daoSach = new BookDao();
+		PhienDauGiaDao daoPhien = new PhienDauGiaDao();
+		TbSach sach = daoSach.findById(Integer.valueOf(id));
+		List<TbLichSuBid> list = daoPhien.getTopBid(sach.getPhienDauGia().getMaPhien());
 		//List<Product> last = Dao.getLast(maKH, id);
 		BookDao detail = new BookDao();
 		List<TbTheLoai> category = detail.GetCategory();
@@ -53,7 +57,7 @@ public class DetailControl extends HttpServlet {
 		}
 		
 		request.setAttribute("BidHistory", list);
-		request.setAttribute("detail", p);
+		request.setAttribute("detail", sach);
 		request.setAttribute("category", category);
 
 

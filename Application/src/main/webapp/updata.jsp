@@ -233,7 +233,7 @@
 																				<div class="eifd-wrap">
 																					<div style="margin-top: 2px; margin-bottom: 3px">
 																						<h2 class="reqd pad-t8 eifd-ttl">
-																							<label for="format">Kiểu bán</label>
+																							<label for="format">Kiểu đấu giá</label>
 																						</h2>
 																						<div class="mr255">
 																							<span class="combo-lrg"><select
@@ -302,7 +302,7 @@
 																																							vld="1" maxlength="10"
 																																							aria-required="true"
 																																							aria-labelledby="startPrice_currencySymbol"
-																																							required="required">
+																																							required="required" onblur="{this.startPrice}">
 																																					</div>
 																																				</div>
 																																			</div>
@@ -324,11 +324,7 @@
 																																					<div style="display: inline">
 																																						<span style="margin-right: 4px">$</span><input
 																																							type="number" name="GiaThapNhat"
-																																							id="binPrice"
-																																							aria-describedby="err_binPrice"
-																																							md="dt|DOUBLE||vm|Please enter a valid Buy It Now price.||gdn|priceQtyPrntCell"
-																																							vld="1" maxlength="10"
-																																							aria-labelledby="binPrice_currencySymbol"
+																																							id="minPrice" min=1
 																																							required="required">
 																																					</div>
 																																				</div>
@@ -349,8 +345,9 @@
 																																		</div>
 																																	</td>
 																																</tr>
-																															</tbody>
+																															</tbody>	
 																														</table>
+																														
 																													</div>
 																												</div>
 																											</div>
@@ -444,5 +441,16 @@
 	</div>
 
 </body>
+<script>
+	document.getElementById("startPrice").addEventListener('blur',(e)=> 
+	{
+		console.log("1");
+		console.log(e.target.value);
+	var start = document.getElementById("startPrice");
+	var min = document.getElementById("minPrice");
+	min.setAttribute("max",e.target.value);
+	});
+
+</script>
 
 </html>

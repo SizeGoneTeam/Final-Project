@@ -1,37 +1,36 @@
 package service;
 
+import java.awt.print.Book;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Map;
 
-import entity.TbLichSuBid;
-import entity.TbPhienDauGia;
-import entity.TbTacGia;
-import model.PhienDauGiaDao;
-import model.TacGiaDao;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
+import entity.GioHangPK;
+import entity.TbAccount;
+import entity.TbGioHang;
+import entity.TbSach;
+import model.BookDao;
+import model.GioHangDao;
 import model.UserDao;
+import utils.CloudinaryUtil;
 
 public class test3 {
-    public static void main(String[] args) {
-        PhienDauGiaDao dao = new PhienDauGiaDao();
-        UserDao dao1 = new UserDao();
-        TbPhienDauGia phien = dao.findById(168);
-        TbLichSuBid bid1 = new TbLichSuBid(BigInteger.valueOf(100), null);
-        TbLichSuBid bid2 = new TbLichSuBid(BigInteger.valueOf(200), null);
-        TbLichSuBid bid3 = new TbLichSuBid(BigInteger.valueOf(300), null);
-        TbLichSuBid bid4 = new TbLichSuBid(BigInteger.valueOf(400), null);
-        TbLichSuBid bid5 = new TbLichSuBid(BigInteger.valueOf(500), null);
-        bid1.setAccount(dao1.findById(Long.valueOf(1)));
-        bid2.setAccount(dao1.findById(Long.valueOf(1)));
-        bid3.setAccount(dao1.findById(Long.valueOf(1)));
-        bid4.setAccount(dao1.findById(Long.valueOf(1)));
-        bid5.setAccount(dao1.findById(Long.valueOf(1)));
-        phien.addBid(bid1);
-        phien.addBid(bid2);
-        dao.update(phien);
-        phien.addBid(bid3);
-        phien.addBid(bid4);
-        dao.update(phien);
-        
+    public static void main(String[] args) throws IOException {
+        Date now = new Date();
+        Timestamp NowTime = new Timestamp(now.getTime());
+        BookDao daoSach = new BookDao();
+        UserDao daoUser = new UserDao();
+        GioHangDao daoGioHang = new GioHangDao();
+
+          GioHangPK gioHangPK = new GioHangPK(1,330);
+          TbGioHang giohang = new TbGioHang(gioHangPK);
+          if(daoGioHang.findGioHang("1", "330").isEmpty()) {daoGioHang.insert(giohang); System.out.println("thêm giỏ hàng");}
+         
     }
 }

@@ -18,6 +18,7 @@
     <class>entity.TbDiaChiKH</class>
     <class>entity.TbTinhThanh</class>
     <class>entity.TbGioHang</class>
+    <class>entity.GioHangPK</class>
     <properties>
         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com:3306/dbbook"/>
         <property name="javax.persistence.jdbc.user" value="admin"/>

@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -15,38 +16,51 @@ import java.sql.Timestamp;
 public class TbGioHang implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="MaSach")
-	private int maSach;
+	@EmbeddedId
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private GioHangPK gioHangPK;
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name = "MaSach", insertable=false, updatable=false)
+	private TbSach tbSach;
+	
+	@OneToOne
+    @JoinColumn(name = "MaTK", insertable=false, updatable=false)
+    private TbAccount tbAccount;
 
 	@Column(name="NgayThem")
 	private Timestamp ngayThem;
 
 	@Column(name="TrangThaiThanhToan")
-	private byte trangThaiThanhToan;
-
-	//bi-directional many-to-one association to TbAccountNew
-	@ManyToOne
-	@JoinColumn(name="MaTK")
-	private TbAccount tbAccount;
-
-	//bi-directional one-to-one association to TbSachNew
-	@OneToOne
-	@JoinColumn(name="MaSach")
-	private TbSach tbSach;
+	private int trangThaiThanhToan;
 
 	public TbGioHang() {
+	    Date now = new Date();
+        Timestamp NowTime = new Timestamp(now.getTime());
+        ngayThem = NowTime;
+        trangThaiThanhToan =0;
 	}
+	
+	public TbGioHang(GioHangPK gioHangPK) {
+	    Date now = new Date();
+        Timestamp NowTime = new Timestamp(now.getTime());
+        ngayThem = NowTime;
+	    this.gioHangPK = gioHangPK;
+	    trangThaiThanhToan =0;
+    }
 
-	public int getMaSach() {
-		return this.maSach;
-	}
 
-	public void setMaSach(int maSach) {
-		this.maSach = maSach;
-	}
+	public GioHangPK getGioHangPK() {
+        return gioHangPK;
+    }
 
-	public Timestamp getNgayThem() {
+
+    public void setGioHangPK(GioHangPK gioHangPK) {
+        this.gioHangPK = gioHangPK;
+    }
+
+
+    public Timestamp getNgayThem() {
 		return this.ngayThem;
 	}
 
@@ -54,28 +68,33 @@ public class TbGioHang implements Serializable {
 		this.ngayThem = ngayThem;
 	}
 
-	public byte getTrangThaiThanhToan() {
+	public int getTrangThaiThanhToan() {
 		return this.trangThaiThanhToan;
 	}
 
-	public void setTrangThaiThanhToan(byte trangThaiThanhToan) {
+	public void setTrangThaiThanhToan(int trangThaiThanhToan) {
 		this.trangThaiThanhToan = trangThaiThanhToan;
 	}
 
-	public TbAccount getTbAccount() {
-		return this.tbAccount;
-	}
 
-	public void setTbAccount(TbAccount tbAccount) {
-		this.tbAccount = tbAccount;
-	}
+    public TbSach getMaSach() {
+        return tbSach;
+    }
 
-	public TbSach getTbSach() {
-		return this.tbSach;
-	}
 
-	public void setTbSach(TbSach tbSach) {
-		this.tbSach = tbSach;
-	}
+    public void setMaSach(TbSach tbSach) {
+        this.tbSach = tbSach;
+    }
+
+
+    public TbAccount getMaTK() {
+        return tbAccount;
+    }
+
+
+    public void setMaTK(TbAccount tbAccount) {
+        this.tbAccount = tbAccount;
+    }
+	
 
 }

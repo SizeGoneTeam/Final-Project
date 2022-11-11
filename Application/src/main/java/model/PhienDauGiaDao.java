@@ -9,6 +9,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entity.TbAccount;
+import entity.TbLichSuBid;
+import entity.TbLichSuXem;
 import entity.TbPhienDauGia;
 import entity.TbSach;
 import entity.TbTheLoai;
@@ -78,6 +80,17 @@ public class PhienDauGiaDao {
         finally {
             em.close();
         }
+    }
+    
+    public List<TbLichSuBid> getTopBid(int maPhien) {
+        String jpql = "SELECT o FROM TbLichSuBid o "
+                + "where o.phienDauGia.maPhien = :maPhien "
+                + "order by o.ngayTao desc";
+
+        TypedQuery<TbLichSuBid> query = em.createQuery(jpql,TbLichSuBid.class);
+        query.setParameter("maPhien",maPhien);
+        List<TbLichSuBid> entity = query.setMaxResults(8).getResultList();
+        return entity;
     }
     
     

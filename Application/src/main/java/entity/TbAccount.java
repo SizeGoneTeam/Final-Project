@@ -68,6 +68,9 @@ public class TbAccount implements Serializable {
 	
 	 @OneToMany(mappedBy="tbAccount")
     private List<TbDiaChiKH> tbDiaChiKhs;
+	 
+	@OneToMany(mappedBy = "tbAccount")
+	private List<TbGioHang> gioHang;
     
     public List<TbDiaChiKH> getTbDiaChiKhs() {
         return this.tbDiaChiKhs;
@@ -182,7 +185,31 @@ public class TbAccount implements Serializable {
         tempPhienDG.setAccount(this);
     }
     
-    
+
+    public List<TbLichSuBid> getBids() {
+        return bids;
+    }
+
+
+    public void setBids(List<TbLichSuBid> bids) {
+        this.bids = bids;
+    }
+
+
+    public List<TbGioHang> getGioHang() {
+        return gioHang;
+    }
+
+
+    public void setGioHang(List<TbGioHang> gioHang) {
+        this.gioHang = gioHang;
+    }
+
+
+    public void setTien(Double tien) {
+        this.tien = tien;
+    }
+
 
     public List<TbSach> getSachs() {
         return sachs;
@@ -200,6 +227,9 @@ public class TbAccount implements Serializable {
         sachs.add(sach);
         sach.setNguoiSoHuu(this);
     }
+    
+    
+
 
     @Override
     public String toString() {
