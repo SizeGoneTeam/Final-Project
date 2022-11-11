@@ -75,6 +75,9 @@ public class TbSach implements Serializable {
     @OneToMany(mappedBy = "tbSach")
     private List<TbGioHang> gioHang;
     
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
     public TbSach() {
         this.anh = null;
         this.donGia = BigInteger.valueOf(0);

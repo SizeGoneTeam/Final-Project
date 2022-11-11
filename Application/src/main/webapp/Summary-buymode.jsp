@@ -49,8 +49,8 @@
             <ul>
               <li class="selected"><a href="SummarybuysideControl?MaTK=${MaTK}">Tóm tắt</a></li>
               <li><a href="RecentlyviewedControl?MaTK=${MaTK}">Đã xem gần đây</a></li>
-              <li><a href="oder.html">Đã mua</a></li>
-              <li><a href="oder.html">Chưa thanh toán</a></li>
+              <li><a href="OrderControl?MaTK=${MaTK}">Đã mua</a></li>
+              <li><a href="NopayControlMaTK=${MaTK}">Chưa thanh toán</a></li>
             </ul>
           </section>
         </div>
@@ -114,15 +114,16 @@
                   <h2 class="title large-text-2">Đã mua</h2>
                 </div>
                 <div class="container-actions border-header bottom-padding"></div>
+               <c:forEach items="${OrderTop3}" var="o">
                 <div class="m-container__body">
                   <div class="m-container__body--items">
-                    <div class="m-container-items">
-                      <div class="m-item-card MyebayActivityItemCard">
+                    <div class="m-container-items BuyingActivityDwebModule">
+                      <div class="m-item-card">
                         <div class="m-container-item-layout-row m-container-item-layout-row__body">
                           <div class="container-item-col container-item-col-img">
-                            <a href="#">
+                            <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="https://salt.tikicdn.com/cache/750x750/ts/product/99/10/67/aa71f851071fc05bec537bec76dc4234.jpg.webp"
+                                  src="${o.getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>
@@ -130,13 +131,12 @@
                           <div class="container-item-col container-item-col-item-info">
                             <div
                               class="container-item-col__info-item-info-primary container-item-col__info-item-info-title">
-                              <div><a href="#" class="nav-link">Nghĩ giàu và làm giàu</a></div>
+                              <div><a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="nav-link">${o.getTenSach() }</a></div>
                             </div>
                           </div>
-
                           <div class="container-item-col container-item-col-orderTotal">
                             <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">874,750.00 VND*</span></div>
+                              <div><span class="POSITIVE BOLD">${o.getDonGia()} VNĐ</span></div>
                             </div>
 
 
@@ -144,7 +144,7 @@
                           <div class="container-item-col container-item-col-cta">
                             <div class="container-item-col-cta__item">
                               <div class="m-cta">
-                                <a href="#" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
+                                <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
                                   Xem chi tiết
                                 </a>
                               </div>
@@ -155,6 +155,7 @@
                     </div>
                   </div>
                 </div>
+                </c:forEach>
               </div>
               <div class="m-container container-3" id="container-2-anchor" type="MyebayWatchlistModule"
                 name="ITEM_CONTAINER" container-id="container-2">
@@ -162,15 +163,16 @@
                   <h2 class="title large-text-2">Chưa thanh toán</h2>
                 </div>
                 <div class="container-actions border-header bottom-padding"></div>
+               <c:forEach items="${NopayTop3}" var="o">
                 <div class="m-container__body">
                   <div class="m-container__body--items">
-                    <div class="m-container-items">
-                      <div class="m-item-card MyebayActivityItemCard">
+                    <div class="m-container-items BuyingActivityDwebModule">
+                      <div class="m-item-card">
                         <div class="m-container-item-layout-row m-container-item-layout-row__body">
                           <div class="container-item-col container-item-col-img">
-                            <a href="#">
+                            <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="https://salt.tikicdn.com/cache/750x750/ts/product/99/10/67/aa71f851071fc05bec537bec76dc4234.jpg.webp"
+                                  src="${o.getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>
@@ -178,13 +180,12 @@
                           <div class="container-item-col container-item-col-item-info">
                             <div
                               class="container-item-col__info-item-info-primary container-item-col__info-item-info-title">
-                              <div><a href="#" class="nav-link">Nghĩ giàu và làm giàu</a></div>
+                              <div><a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="nav-link">${o.getTenSach() }</a></div>
                             </div>
                           </div>
-
                           <div class="container-item-col container-item-col-orderTotal">
                             <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">874,750.00 VND*</span></div>
+                              <div><span class="POSITIVE BOLD">${o.getDonGia()} VNĐ</span></div>
                             </div>
 
 
@@ -192,7 +193,7 @@
                           <div class="container-item-col container-item-col-cta">
                             <div class="container-item-col-cta__item">
                               <div class="m-cta">
-                                <a href="#" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
+                                <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
                                   Xem chi tiết
                                 </a>
                               </div>
@@ -203,6 +204,7 @@
                     </div>
                   </div>
                 </div>
+                </c:forEach>
               </div>
             </div>
           </div>

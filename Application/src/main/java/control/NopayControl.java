@@ -9,29 +9,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.dao;
 import entity.TbSach;
 import model.BookDao;
 
 /**
- * Servlet implementation class SummarybuysideControl
+ * Servlet implementation class NopayControl
  */
-@WebServlet("/SummarybuysideControl")
-public class SummarybuysideControl extends HttpServlet {
+@WebServlet("/NopayControl")
+public class NopayControl extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String MaTK = request.getParameter("MaTK");
         BookDao dao = new BookDao();
-        List<TbSach> lastSeen = dao.getLastSeen(MaTK);
-        List<TbSach> OrderTop3 = dao.OrderTop3(MaTK);
-        List<TbSach> NopayTop3= dao.NoPayTop3(MaTK);
-        request.setAttribute("OrderTop3", OrderTop3);
-        request.setAttribute("NopayTop3", NopayTop3);
-        request.setAttribute("lastSeen", lastSeen);
+
+        List<TbSach> NoPay = dao.NoPayTop9(MaTK);
+
+        request.setAttribute("NoPay", NoPay);
+
+
         request.setAttribute("MaTK", MaTK);
 
-        request.getRequestDispatcher("Summary-buymode.jsp").forward(request, response);
+        request.getRequestDispatcher("NoPay.jsp").forward(request, response);
     }
 
     /**

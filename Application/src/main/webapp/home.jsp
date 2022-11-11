@@ -101,10 +101,13 @@
 							</form>
 						</div>
 						<div class="hero__search__login">
-							<div class="hero__search__login__icon">
-								<i class="fa fa-user"></i>
-							</div>
+							
 							<c:if test="${sessionScope.acc != null}">
+							<a href="SummarybuysideControl?MaTK=${sessionScope.acc.maTK}">
+									<div class="hero__search__login__icon">
+										<i class="fa fa-user"></i>
+									</div>
+								</a>
 								<div class="hero__search__login__text hello_user">
 									<h5>Xin chào ${sessionScope.acc.UName}</h5>
 								</div>
@@ -118,6 +121,7 @@
 
 							</c:if>
 							<c:if test="${sessionScope.acc == null}">
+							
 								<div class="hero__search__login__text">
 									<h5>
 										<a href="login">Đăng Nhập</a>

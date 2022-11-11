@@ -55,6 +55,26 @@ public class TbGioHang implements Serializable {
     }
 
 
+    public TbSach getTbSach() {
+        return tbSach;
+    }
+
+    public void setTbSach(TbSach tbSach) {
+        this.tbSach = tbSach;
+    }
+
+    public TbAccount getTbAccount() {
+        return tbAccount;
+    }
+
+    public void setTbAccount(TbAccount tbAccount) {
+        this.tbAccount = tbAccount;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
     public void setGioHangPK(GioHangPK gioHangPK) {
         this.gioHangPK = gioHangPK;
     }

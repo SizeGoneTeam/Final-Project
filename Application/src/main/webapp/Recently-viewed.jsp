@@ -48,8 +48,8 @@
             <ul>
               <li><a href="SummarybuysideControl?MaTK=${MaTK}">Tóm tắt</a></li>
               <li class="selected"><a href="RecentlyviewedControl?MaTK=${MaTK}">Đã xem gần đây</a></li>
-              <li><a href="#">Đã mua</a></li>
-              <li><a href="#">Chưa thanh toán</a></li>
+              <li><a href="OrderControl?MaTK=${MaTK}">Đã mua</a></li>
+              <li><a href="NopayControl?MaTK=${MaTK}">Chưa thanh toán</a></li>
             </ul>
           </section>
         </div>

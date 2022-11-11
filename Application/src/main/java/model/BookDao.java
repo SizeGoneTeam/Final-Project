@@ -15,6 +15,7 @@ import javax.persistence.TypedQuery;
 import org.hibernate.engine.spi.EntityEntryFactory;
 
 import entity.TbAccount;
+import entity.TbGioHang;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbSach;
@@ -223,6 +224,54 @@ public class BookDao {
         List<TbSach> entity = query.setMaxResults(9).getResultList();
         return entity;
     }
+    public List<TbSach> OrderTop3(String MaTK) {
+        String jpql = "SELECT o FROM TbGioHang o "
+                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 1 order by o.gioHangPK desc";
+        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGioHang> entity = query.setMaxResults(3).getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbGioHang product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
+    public List<TbSach> OrderTop9(String MaTK) {
+        String jpql = "SELECT o FROM TbGioHang o "
+                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 1 order by o.gioHangPK desc";
+        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGioHang> entity = query.setMaxResults(9).getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbGioHang product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
+    public List<TbSach> NoPayTop3(String MaTK) {
+        String jpql = "SELECT o FROM TbGioHang o "
+                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 0 order by o.gioHangPK desc";
+        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGioHang> entity = query.setMaxResults(3).getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbGioHang product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
+    public List<TbSach> NoPayTop9(String MaTK) {
+        String jpql = "SELECT o FROM TbGioHang o "
+                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 0 order by o.gioHangPK desc";
+        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGioHang> entity = query.setMaxResults(9).getResultList();
+        List<TbSach> entity1 = new ArrayList<TbSach>();
+        for (TbGioHang product : entity) {
+            entity1.add(product.getTbSach());
+        }
+        return entity1;
+    }
     public List<TbSach> getLastSeen(String MaTK) {
         String jpql = "SELECT o FROM TbLichSuXem o "
                 + "where o.id.maTK = :MaTK "
@@ -353,9 +402,9 @@ public class BookDao {
 //        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
 //        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
 //        dao.deleteyeuthich(tbYeuThichPK);
-        List<TbSach> list = dao.SoldTop3("1");
+        List<TbSach> list = dao.OrderTop3("1");
         for (TbSach product : list) {
-        System.out.println(product.getPhienDauGia().getMaPhien());
+        System.out.println(product.getMaSach());
         }
 //        List<TbYeuThich> list = dao.findyeuthich("2","12");
 //          for (TbYeuThich product : list) {

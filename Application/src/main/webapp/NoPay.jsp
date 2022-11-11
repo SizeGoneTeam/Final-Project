@@ -49,9 +49,8 @@
             <ul>
               <li><a href="SummarybuysideControl?MaTK=${MaTK}">Tóm tắt</a></li>
               <li><a href="RecentlyviewedControl?MaTK=${MaTK}">Đã xem gần đây</a></li>
-
-              <li class="selected"><a href="OrderControl?MaTK=${MaTK}">Đã mua</a></li>
-              <li><a href="NopayControl?MaTK=${MaTK}">Chưa thanh toán</a></li>
+              <li><a href="OrderControl?MaTK=${MaTK}">Đã mua</a></li>
+              <li class="selected"><a href="NopayControl?MaTK=${MaTK}">Chưa thanh toán</a></li>
 
             </ul>
           </section>
@@ -59,14 +58,15 @@
         <div class="grid__cell grid__cell--13of16 m-page-middle full-width">
           <div class="m-river summary ">
             <div class="m-river__body">
-              <div class="m-container container-1">
-                <div class="m-container__header border-header">
-                  <div class="title-container">
-                    <h2 class="title large-text-2">Đã thanh toán</h2>
-                    <div class="sub-title regular-text"></div>
-                  </div>
+              
+
+              <div class="m-container container-2" id="container-2-anchor" type="MyebayWatchlistModule"
+                name="ITEM_CONTAINER" container-id="container-2">
+                <div class="title-container">
+                  <h2 class="title large-text-2">Chưa thanh toán</h2>
                 </div>
-                <c:forEach items="${Order}" var="o">
+                <div class="container-actions border-header bottom-padding"></div>
+               <c:forEach items="${NoPay}" var="o">
                 <div class="m-container__body">
                   <div class="m-container__body--items">
                     <div class="m-container-items BuyingActivityDwebModule">
@@ -99,6 +99,13 @@
                           <div class="container-item-col container-item-col-cta">
                             <div class="container-item-col-cta__item">
                               <div class="m-cta">
+                                <a href="cart" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
+                                  Thanh toán
+                                </a>
+                              </div>
+                            </div>
+                           <div class="container-item-col-cta__item">
+                              <div class="m-cta">
                                 <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
                                   Xem chi tiết
                                 </a>
@@ -112,7 +119,6 @@
                 </div>
                 </c:forEach>
               </div>
-
             </div>
           </div>
         </div>
