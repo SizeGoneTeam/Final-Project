@@ -4,49 +4,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="com.google.gson.JsonObject"%>
-<%
-Gson gsonObj = new Gson();
-Map<Object,Object> map = null;
-List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
- 
-	map = new HashMap<Object,Object>(); map.put("label", "1/2022"); map.put("y", 1883.96); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "2/2022"); map.put("y", 1814.907); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "3/2022"); map.put("y", 1679.773); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "4/2022"); map.put("y", 1794.96); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "5/2022"); map.put("y", 1844.13); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "6/2022"); map.put("y", 1829.944); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "7/2022"); map.put("y", 1911.103); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "8/2022"); map.put("y", 1776.497); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "9/2022"); map.put("y", 1698.761); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "10/2022"); map.put("y", 1501.657); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "11/2022"); map.put("y", 1473.308); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "12/2022"); map.put("y", 1603.901); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "1/2023"); map.put("y", 1558.17); list.add(map);
-	map = new HashMap<Object,Object>(); map.put("label", "2/2023"); map.put("y", 1510.808); list.add(map);
 
- 
-String dataPoints = gsonObj.toJson(list);
-
-List<Map<Object,Object>> list1 = new ArrayList<Map<Object,Object>>();
-
-map = new HashMap<Object,Object>(); map.put("label", "1/2022"); map.put("y", 1883.96); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "2/2022"); map.put("y", 1814.907); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "3/2022"); map.put("y", 1679.773); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "4/2022"); map.put("y", 1794.96); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "5/2022"); map.put("y", 1844.13); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "6/2022"); map.put("y", 1829.944); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "7/2022"); map.put("y", 1911.103); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "8/2022"); map.put("y", 1776.497); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "9/2022"); map.put("y", 1698.761); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "10/2022"); map.put("y", 1501.657); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "11/2022"); map.put("y", 1473.308); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "12/2022"); map.put("y", 1603.901); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "1/2023"); map.put("y", 1558.17); list1.add(map);
-map = new HashMap<Object,Object>(); map.put("label", "2/2023"); map.put("y", 1510.808); list1.add(map);
-
-
-String dataPoints1 = gsonObj.toJson(list1);
-%>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -70,67 +28,16 @@ String dataPoints1 = gsonObj.toJson(list1);
 
 <!-- Custom styles for this template-->
 <link href="<%=request.getContextPath()%>/adminpage/css/sb-admin-2.min.css" rel="stylesheet">
-<script type="text/javascript">
-window.onload = function() { 
- 
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	theme: "light2",
-	title: {
-		text: "Tổng doanh thu (Theo tháng)"
-	},
-	axisX: {
-		crosshair: {
-			enabled: true,
-			snapToDataPoint: true
-		}
-	},
-	axisY: {
-		title: "Doanh thu (Tỷ VND)",
-		crosshair: {
-			enabled: true,
-			snapToDataPoint: true,
-			valueFormatString: "##0.00",
-		}
-	},
-	data: [{
-		type: "area",
-		yValueFormatString: "##0.00 Tỷ VND",
-		dataPoints: <%out.print(dataPoints);%> 
-	}]
-});
-chart.render();
-var chart1 = new CanvasJS.Chart("chartContainer1", {
-	animationEnabled: true,
-	theme: "light2",
-	title: {
-		text: "Tổng số tài khoản đăng ký mới (Theo tháng)"
-	},
-	axisX: {
-		crosshair: {
-			enabled: true,
-			snapToDataPoint: true
-		}
-	},
-	axisY: {
-		title: "Số tài khoản (nghìn)",
-		crosshair: {
-			enabled: true,
-			snapToDataPoint: true,
-			valueFormatString: "##0.00",
-		}
-	},
-	data: [{
-		type: "area",
-		yValueFormatString: "##0 nghìn",
-		dataPoints: <%out.print(dataPoints1);%> 
-	}]
-});
-chart1.render();
+<script>
+window.onload = function () {
+
+var options = {
+		<%=(String)request.getAttribute("charts")%>
+};
+$("#chartContainer").CanvasJSChart(options);
 
 }
 </script>
-
 
 
 </head>
@@ -140,115 +47,118 @@ chart1.render();
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
-		<!-- Sidebar -->
-		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-			id="accordionSidebar">
+		 <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">
-					SB Admin <sup>2</sup>
-				</div>
-			</a>
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+      </a>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
 
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="index.html">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider">
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
-			<!-- Heading -->
-			<div class="sidebar-heading">Interface</div>
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Interface
+      </div>
 
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseTwo"
-				aria-expanded="true" aria-controls="collapseTwo"> <i
-					class="fas fa-fw fa-cog"></i> <span>Components</span>
-			</a>
-				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Components:</h6>
-						<a class="collapse-item" href="buttons.html">Buttons</a> <a
-							class="collapse-item" href="cards.html">Cards</a>
-					</div>
-				</div></li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Components</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="buttons.html">Buttons</a>
+            <a class="collapse-item" href="cards.html">Cards</a>
+          </div>
+        </div>
+      </li>
 
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseUtilities"
-				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
-			</a>
-				<div id="collapseUtilities" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Utilities:</h6>
-						<a class="collapse-item" href="utilities-color.html">Colors</a> <a
-							class="collapse-item" href="utilities-border.html">Borders</a> <a
-							class="collapse-item" href="utilities-animation.html">Animations</a>
-						<a class="collapse-item" href="utilities-other.html">Other</a>
-					</div>
-				</div></li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Utilities</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
+        </div>
+      </li>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider">
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
-			<!-- Heading -->
-			<div class="sidebar-heading">Addons</div>
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Addons
+      </div>
 
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item active"><a class="nav-link" href="#"
-				data-toggle="collapse" data-target="#collapsePages"
-				aria-expanded="true" aria-controls="collapsePages"> <i
-					class="fas fa-fw fa-folder"></i> <span>Pages</span>
-			</a>
-				<div id="collapsePages" class="collapse show"
-					aria-labelledby="headingPages" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Login Screens:</h6>
-						<a class="collapse-item" href="login.html">Login</a> <a
-							class="collapse-item" href="register.html">Register</a> <a
-							class="collapse-item" href="forgot-password.html">Forgot
-							Password</a>
-						<div class="collapse-divider"></div>
-						<h6 class="collapse-header">Other Pages:</h6>
-						<a class="collapse-item" href="404.html">404 Page</a> <a
-							class="collapse-item active" href="blank.html">Blank Page</a>
-					</div>
-				</div></li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Login Screens:</h6>
+            <a class="collapse-item" href="login.html">Login</a>
+            <a class="collapse-item" href="register.html">Register</a>
+            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Other Pages:</h6>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
+          </div>
+        </div>
+      </li>
 
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-			</a></li>
+      <!-- Nav Item - Charts -->
+      <li class="nav-item active">
+        <a class="nav-link" href="ChartControl">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li>
 
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i> <span>Tables</span>
-			</a></li>
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+      </li>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
 
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
 
-		</ul>
+    </ul>
 		<!-- End of Sidebar -->
 
 		<!-- Content Wrapper -->
@@ -459,8 +369,7 @@ chart1.render();
 
 					<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 					<br>
-					<div id="chartContainer1" style="height: 370px; width: 100%;"></div>
-					
+
 
 				</div>
 				<!-- /.container-fluid -->
@@ -530,7 +439,8 @@ chart1.render();
 		}
 	}
 </script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </body>
 
 </html>
