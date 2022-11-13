@@ -367,7 +367,7 @@ $("#chartContainer").CanvasJSChart(options);
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
-					<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+					<div id="chartContainer" style="height: 370px; width: 1000px;"></div>
 					<br>
 
 

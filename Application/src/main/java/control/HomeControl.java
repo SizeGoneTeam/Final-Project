@@ -28,11 +28,7 @@ public class HomeControl extends HttpServlet{
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
-		dao Dao = new dao();
-		List<Product> list = Dao.getALLProduct();
-		List<Product> listLast = Dao.getLatestProduct();
-		List<Product> listNew = Dao.getTopNew();
-		List<Product> listBid = Dao.getTopBid();
+
 		BookDao home = new BookDao();
 		List<TbSach> all = home.GetAll();
 		List<TbSach> lastAdd = home.LastAdd();
@@ -43,16 +39,15 @@ public class HomeControl extends HttpServlet{
 		if(account != null) {
 		    int dem = home.countyeuthich(account.getMaTK().toString());
 			String maKH = String.valueOf(account.getMaTK());
-			List<Product> lastSeen = Dao.getTopLast(maKH);
+			List<TbSach> lastSeen = home.getLastSeen(maKH);
 			req.setAttribute("lastSeen", lastSeen);
 			req.setAttribute("dem", dem);
 		}
 		
 		req.setAttribute("listP", all);
 		req.setAttribute("category", category);
-		req.setAttribute("listLast", listLast);
 		req.setAttribute("listNew", lastAdd);
-		req.setAttribute("listBid", listBid);
+
 
 		req.getRequestDispatcher("home.jsp").forward(req, resp);
 	}

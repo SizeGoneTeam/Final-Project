@@ -211,7 +211,7 @@
 									</div>
 									<div class="latest-product__item__text">
 										<h6>${o.getTenSach()}</h6>
-										<span>${o.price}VNĐ</span>
+										<span>${o.getDonGia()}VNĐ</span>
 									</div>
 								</a>
 							</c:forEach>

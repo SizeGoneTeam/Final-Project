@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.dao;
+import entity.TbAccount;
 import entity.TbSach;
 import model.BookDao;
 
@@ -21,7 +23,9 @@ public class SummarybuysideControl extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String MaTK = request.getParameter("MaTK");
+        HttpSession session = request.getSession();
+        TbAccount account = (TbAccount) session.getAttribute("acc");
+        String MaTK = account.getMaTK().toString();
         BookDao dao = new BookDao();
         List<TbSach> lastSeen = dao.getLastSeen(MaTK);
         List<TbSach> OrderTop3 = dao.OrderTop3(MaTK);
