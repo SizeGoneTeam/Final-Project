@@ -26,10 +26,10 @@
               <div class="fake-tabs">
                 <ul class="fake-tabs__items">
                   <li class="medium-text m-tab selected m-tab__title fake-tabs__item">  
-                    <a aria-current="page" href="SummarybuysideControl?MaTK=${MaTK}">Buy mode</a>
+                    <a aria-current="page" href="SummarybuysideControl">Buy mode</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
-                    <a href="SummarysellsideControl?MaTK=${MaTK}">Sell mode</a>
+                    <a href="SummarysellsideControl">Sell mode</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
                     <a href="#">Account</a>
@@ -47,9 +47,9 @@
         <div class="grid__cell grid__cell--3of16 m-page-left">
           <section class="m-links-accordion">
             <ul>
-              <li class="selected"><a href="SummarybuysideControl?MaTK=${MaTK}">Tóm tắt</a></li>
-              <li><a href="RecentlyviewedControl?MaTK=${MaTK}">Đã xem gần đây</a></li>
-              <li><a href="OrderControl?MaTK=${MaTK}">Đã mua</a></li>
+              <li class="selected"><a href="SummarybuysideControl">Tóm tắt</a></li>
+              <li><a href="RecentlyviewedControl">Đã xem gần đây</a></li>
+              <li><a href="OrderControl">Đã mua</a></li>
               <li><a href="NopayControlMaTK=${MaTK}">Chưa thanh toán</a></li>
             </ul>
           </section>
