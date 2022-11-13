@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Nạp Tiền</title>
+<title>Rút Tiền</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/recharge.css">
 <link
@@ -14,7 +14,7 @@
 <style>
 body {
 	background-image:
-		url("image/hinh-nen-cho-dien-thoai-Samsung-Galaxy-S21-41.jpg");
+		url("image/hinh-nen-may-cuc-dep.jpg");
 	background-color: #cccccc;
 	background-position: center;
 }
@@ -23,7 +23,7 @@ body {
 <body>
 	<div class="container">
 		<c:if test="${sessionScope.acc != null}">
-			<form action="authorize_payment" method="post">
+			<form action="Withdraw" method="post">
 				<div class="main-body" align="center">
 					<div class="w-50">
 						<div class="card">
@@ -46,14 +46,17 @@ body {
 								</div>
 								<div class="">
 									<div align="center">
-										<h6>Số tiền muốn nạp</h6>
+										<h6>Email Người nhận</h6>
+										<input class="col-sm-5 text-secondary" type="email"
+											name="email" value="${sessionScope.acc.email }">
+										<h6>Số tiền muốn rút</h6>
 										<input class="col-sm-5 text-secondary" type="Number"
-											name="total" value="100" min =10>
+											name="total" value="10" step="0.01" min = 10 max =${sessionScope.acc.tien }>
 										<hr>
-										<input class="btn btn-info " type="submit" value="Nạp Ngay">
+										<input class="btn btn-info " type="submit" value="Rút Ngay">
 										
 									</div>
-									<a href="RutTien.jsp">Rút Tiền</a>
+									<a href="NapTien.jsp">Nạp Tiền</a>
 								</div>
 							</div>
 						</div>

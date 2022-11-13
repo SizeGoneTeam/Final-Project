@@ -1,27 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Payment Error</title>
-<style>
-body {
-	background-image: url("https://hinhnen123.com/wp-content/uploads/2021/10/Tong-hop-88-hinh-nen-xanh-duong-cute-dep-tuyet-voi-11.jpg");
-}
-h1{
-color: red;
-}
+<html lang="en">
 
-</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Error payment</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/errorpayment.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 </head>
+
 <body>
-	<div align="center">
-		<h1> Payment Error:</h1>
-		<br>
-		<h1>${errorMessage}</h1>
-		<br>
-		<img alt="" src="https://cdn.tgdd.vn/Files/2019/07/16/1179841/636629240000820088-760x367.jpg">
-	</div>
+    <!-- partial:index.partial.html -->
+    <div class="background"></div>
+    <div class="container">
+        
+        <!--/.row-->
+        <div class="row">
+            <div class="modalbox error center animate">
+                <div class="icon" style="text-align:center">
+                    <span class="material-icons">mood_bad</span>
+                </div>
+                <!--/.icon-->
+                <h1>Oh no!</h1>
+                <p>Đã có lỗi xảy ra
+                    <br>Bạn vui lòng thử lại sau
+                </p>
+                <p style="color: red;">${mess}</p>
+                <button type="button" > <a href="loadSach">Go home</button>
+            </div>
+            <!--/.success-->
+        </div>
+        <!--/.row-->
+    </div>
+    <!--/.container-->
+    <!-- partial -->
 </body>
+
 </html>

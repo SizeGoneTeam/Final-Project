@@ -6,6 +6,7 @@ import com.paypal.api.payments.*;
 import com.paypal.base.rest.*;
 
 import entity.OrderDetail;
+import entity.TbAccount;
 
 public class PaymentServices {
     private static final String CLIENT_ID = "AacQ0Q5c7wRMX2tCwE8AVLPaOQ0rwaQRZhDoXtb78HD17Jba9BoDUNGgKWoFgmgvoTQ6ERQMhdYtwWuh";
@@ -38,7 +39,7 @@ public class PaymentServices {
         payer.setPaymentMethod("paypal");
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName("William")
-                .setLastName("Peterson").setEmail("ec2-buyer@gmail.com");
+                .setLastName("Peterson").setEmail("");
         payer.setPayerInfo(payerInfo);
         return payer;
     }

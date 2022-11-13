@@ -12,7 +12,6 @@ import javax.mail.internet.MimeMessage;
 public class SendMail {
 
     public static void sendMail(String recieverMail) {
-
         // Recipient's email ID needs to be mentioned.
         String to = recieverMail;
 
@@ -74,7 +73,7 @@ public class SendMail {
     
     public static void main(String[] args)
     {
-        SendMail.sendMail("20110517@student.hcmute.edu.vn");
+        SendMail.sendMail("20110467@student.hcmute.edu.vn");
     }
 
 }
