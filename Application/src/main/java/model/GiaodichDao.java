@@ -21,6 +21,14 @@ public class GiaodichDao {
         super.finalize();
     }
     
+    public TbHoaDon gethoadon(int MaHD) {
+        String jpql = "SELECT o FROM TbHoaDon o where o.maHD = : MaHD";
+        Query query = em.createQuery(jpql);
+        query.setParameter("MaHD",MaHD);
+        TbHoaDon entity = (TbHoaDon) query.getSingleResult();
+        return entity;
+    }
+    
     public Double Doanhthutheothang(int thang, int nam) {
         String jpql = "SELECT SUM(tienHoaHong) FROM TbGiaoDich o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
         Query query = em.createQuery(jpql);
@@ -100,8 +108,13 @@ public class GiaodichDao {
     }
     public static void main(String[] args) {
         GiaodichDao dao = new GiaodichDao();
-        Long list = dao.taikhoadangkymoi(11,2022);
-        System.out.println(list);
+        TbHoaDon list = dao.gethoadon(1);
+        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
+        chiTietHDs.addAll(list.getTbChiTietHds());
+        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
+            System.out.println(tbChiTietHD.getMaSach().getAnh());
+        }
+        System.out.println(list.getAccount().getEmail());
 
 
     }

@@ -28,7 +28,7 @@ public class TbSach implements Serializable {
 
 	@Column(name="DonGia")
 	private BigInteger donGia;
-
+	
 	@Lob
 	@Column(name="MoTa")
 	private String moTa;
@@ -45,7 +45,8 @@ public class TbSach implements Serializable {
     
     @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
     private TbPhienDauGia phienDauGia;
-    
+    @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
+    private TbChiTietHD chiTietHD;
 	//bi-directional many-to-one association to TbLichSuXem
 	@OneToMany(mappedBy="tbSach")
 	private List<TbLichSuXem> tbLichSuXems;

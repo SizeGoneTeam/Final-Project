@@ -21,9 +21,9 @@ public class TbHoaDon implements Serializable {
 
 	@Column(name="MaGD")
 	private int maGD;
-
-	@Column(name="MaTK")
-	private int maTK;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="MaTK")
+    private TbAccount account;
 
 	@Column(name="TienHD")
 	private double tienHD;
@@ -57,15 +57,16 @@ public class TbHoaDon implements Serializable {
 		this.maGD = maGD;
 	}
 
-	public int getMaTK() {
-		return this.maTK;
-	}
 
-	public void setMaTK(int maTK) {
-		this.maTK = maTK;
-	}
+	public TbAccount getAccount() {
+        return account;
+    }
 
-	public double getTienHD() {
+    public void setAccount(TbAccount account) {
+        this.account = account;
+    }
+
+    public double getTienHD() {
 		return this.tienHD;
 	}
 

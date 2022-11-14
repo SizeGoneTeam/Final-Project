@@ -61,7 +61,8 @@ public class TbAccount implements Serializable {
 
     @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<TbPhienDauGia> phienDauGias;
-    
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<TbHoaDon> hoaDons;
     @OneToMany(mappedBy = "nguoiSoHuu", cascade = { CascadeType.PERSIST})
     private List<TbSach> sachs;
 

@@ -20,14 +20,15 @@ public class TbChiTietHD implements Serializable {
 	@Column(name="GiaVC")
 	private double giaVC;
 
-	@Column(name="MaSach")
-	private int maSach;
+
 
 	//bi-directional many-to-one association to TbHoaDon
 	@ManyToOne
 	@JoinColumn(name="MaHD",insertable=false, updatable=false)
 	private TbHoaDon tbHoaDon;
-
+	@OneToOne(cascade = CascadeType.ALL )  
+	@JoinColumn(name = "MaSach")
+	private TbSach maSach;
 	public TbChiTietHD() {
 	}
 
@@ -47,15 +48,16 @@ public class TbChiTietHD implements Serializable {
 		this.giaVC = giaVC;
 	}
 
-	public int getMaSach() {
-		return this.maSach;
-	}
 
-	public void setMaSach(int maSach) {
-		this.maSach = maSach;
-	}
+	public TbSach getMaSach() {
+        return maSach;
+    }
 
-	public TbHoaDon getTbHoaDon() {
+    public void setMaSach(TbSach maSach) {
+        this.maSach = maSach;
+    }
+
+    public TbHoaDon getTbHoaDon() {
 		return this.tbHoaDon;
 	}
 
