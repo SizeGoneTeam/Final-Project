@@ -101,9 +101,6 @@ public class TbAccount implements Serializable {
         tien = new Double(0);
     }
 
-
-
-
     public Long getMaTK() {
         return this.maTK;
     }

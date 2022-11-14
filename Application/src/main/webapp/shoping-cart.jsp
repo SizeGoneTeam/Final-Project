@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    
+    <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -32,65 +34,6 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
-    <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
-        </div>
-        <div class="humberger__menu__cart">
-            <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
-        </div>
-        <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
-        </div>
-        <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="loadSach">Home</a></li>
-                <li><a href="search?key=">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="#">Shop Details</a></li>
-                        <li><a href="#">Shoping Cart</a></li>
-                        <li><a href="#">Check Out</a></li>
-                        <li><a href="#">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Humberger End -->
-
     <%@include file="header.jsp" %>
 
     <!-- Shoping Cart Section Begin -->
@@ -98,12 +41,18 @@
         function totalPrice() {
             var input = document.getElementsByClassName('shoping__cart__price');
             var total = 0;
+            var totalShipping = 0;
             for (var i = 0; i < input.length; i++) {
                 if (document.getElementsByClassName('shoping__cart__price').item(i).parentElement.firstElementChild.firstElementChild.checked) {
-                    total += Number(document.getElementsByClassName('shoping__cart__price').item(i).innerText);
+                    total += Number(document.getElementsByClassName('shoping__cart__price').item(i).innerText.replace('VND', ''));
+                    totalShipping += Number(document.getElementsByClassName('shipping_cost').item(i).innerText.replace('VND', ''));
                 }
             }
-                document.getElementsByClassName('shoping__checkout').item(0).firstElementChild.firstElementChild.innerText= "$" + total;
+            document.getElementsByClassName('shoping__checkout').item(0).children.item(1).firstElementChild.firstElementChild.innerText= total;
+            document.getElementsByClassName('shoping__checkout').item(0).children.item(1).children.item(1).firstElementChild.innerText= totalShipping;
+            document.getElementsByClassName('shoping__checkout').item(0).children.item(1).lastElementChild.firstElementChild.innerText = total + totalShipping;
+
+            setPrice();
         }
         function checkAll() {
             var input = document.getElementsByClassName('shoping__cart__price');
@@ -119,6 +68,14 @@
             }
             totalPrice();
         }
+        function setPrice() {
+            var input = document.getElementsByClassName('price').item(0).innerText;
+            for (var i = 0; i < input.length; i++) {
+                if (!document.getElementsByClassName('price').item(i).innerText.includes('VND')) {
+                    document.getElementsByClassName('price').item(i).innerText += ' VND';
+                }   
+            }
+        }
     </script>
     <section class="shoping-cart spad">
         <div class="container">
@@ -131,9 +88,9 @@
                                     <th style="width:10px;">
                                         <input type="checkbox" title="Check all" onclick="checkAll()" />
                                     </th>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th style="width:10px;"></th>
+                                    <th class="shoping__product">Sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Phí ship</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,24 +98,38 @@
                                     <tr>
                                         <td>
                                             <input type="checkbox" onclick="totalPrice()" />
+                                            <div id='startUserID${o.tbSach.maSach}' style='display: none;'>${o.tbSach.nguoiSoHuu.maTK}</div>
                                         </td>
                                         <td class="shoping__cart__item">
-                                            <a href="#" class="latest-product__item">
+                                            <a href="detail?pid=${o.tbSach.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
                                                 <div class="latest-product__item__pic">
-                                                    <img src="" alt="">
+                                                    <img src="${o.tbSach.anh}" alt="">
                                                 </div>
                                                 <div class="latest-product__item__text">
                                                     <h6>${o.tbSach.tenSach}</h6>
                                                 </div>
                                             </a>
                                         </td>
-                                        <td class="shoping__cart__price">
+                                        <td class="shoping__cart__price price">
                                             ${o.tbSach.donGia}
                                         </td>
-                                        <td class="shoping__cart__item__close">
-                                            <span class="icon_close"></span>
-                                        </td>
+                                        <td id="shipping_cost${o.tbSach.maSach}" class="shipping_cost price">0<td>
                                     </tr>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $.ajax({
+                                                url : 'shipping',
+                                                data : {
+                                                    startUserID : $('#startUserID${o.tbSach.maSach}').text(),
+                                                    targetUserID: '${sessionScope.acc.maTK}'
+                                                },
+                                                success : function(responseText) {
+                                                    $('#shipping_cost${o.tbSach.maSach}').text(responseText);
+                                                    setPrice();
+                                                }
+                                            });
+                                        });
+                                    </script>
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -167,9 +138,48 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
+                    <div style="padding: 28px 30px 24px;">
+                        <div style="display: flex;
+                        align-items: center;
+                        justify-content: space-between;">
+                            <div style="display: flex;
+                            align-items: center;
+                            font-size: 1.25rem;
+                            color: #ee4d2d;
+                            margin-bottom: 20px;
+                            text-transform: capitalize;
+                            flex: 1 1 auto;">
+                                <div>
+                                    Địa chỉ nhận hàng
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex;
+                        align-items: center;">
+                            <div>
+                                <div style="display: flex;
+                                align-items: center;
+                                font-size: 1rem;
+                                word-break: break-word;">
+                                    <div style="font-weight: 700;
+                                    color: #222;">${addresses[0].hoVaTen} ${addresses[0].sdt}</div>
+                                    <div style="margin-left: 20px;
+                                    word-break: break-word;">${addresses[0].diaChi} ${addresses[0].tenPhuong} ${addresses[0].tenQuan} ${addresses[0].tbTinhThanh.tinhThanh}</div>
+                                </div>          
+                            </div>
+                            <div style="color: #4080ee;
+                            text-transform: capitalize;
+                            margin-left: 2.5rem;
+                            cursor: pointer;">Thay đổi</div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="." class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="cart" class="primary-btn cart-btn cart-btn-right">Upadate Cart</a>
+                        <a href="." class="primary-btn cart-btn">Tiếp tục mua hàng</a>
+                        <a href="cart" class="primary-btn cart-btn cart-btn-right">Cập nhật giỏ hàng</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -185,8 +195,13 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="shoping__checkout">
-                        <h5>Cart Total <span></span></h5>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <h5>Tổng tiền</h5>
+                        <ul>
+                            <li>Tổng tiền hàng <span class="price">0</span></li>
+                            <li>Phí ship <span class="price">${shipping}</span></li>
+                            <li>Tổng thanh toán <span class="price">0</span></li>
+                        </ul>
+                        <a href="#" class="primary-btn">Thanh toán</a>
                     </div>
                 </div>
             </div>
@@ -261,6 +276,10 @@
         </div>
     </footer>
     <!-- Footer Section End -->
+
+    <script>
+        totalPrice();
+    </script>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

@@ -2,10 +2,23 @@ package TinhTien;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import entity.TbAccount;
+import model.AddressDAO;
+import model.UserDao;
+
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
 
-public class GiaoHang {
+@WebServlet("/shipping")
+public class GiaoHang extends HttpServlet {
 
    
     public GiaoHang() {
@@ -670,14 +683,44 @@ public class GiaoHang {
                 break;
         }
         return a;
-
-
-
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String startUserID = checkNullString(request.getParameter("startUserID"));
+        String targetUserID = checkNullString(request.getParameter("targetUserID"));
+        if (startUserID.isBlank() || targetUserID.isBlank()) {
+            
+        }
+        else {
+            GiaoHang giaoHang = new GiaoHang();
+            
+            TbAccount startUser = UserDao.selectAccount(startUserID);
+            TbAccount targetUser = UserDao.selectAccount(targetUserID);
+            
+            String cal = giaoHang.dijkstra(AddressDAO.selectAddress(startUser).get(0).getTbTinhThanh().getId(), AddressDAO.selectAddress(targetUser).get(0).getTbTinhThanh().getId()).toString();
+            
+            response.setContentType("text/plain");
+            response.getWriter().write(cal);
+        }
+        
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+    
+    String checkNullString(String string) {
+        if (string == null) {
+            return "";
+        }
+        return string;
+    }
+    
 
     public static void main(String[] args) {
         GiaoHang giaoHang = new GiaoHang();
         System.out.println("A đến E: " + giaoHang.dijkstra(24, 58).toString());
-        ;
     }
 }

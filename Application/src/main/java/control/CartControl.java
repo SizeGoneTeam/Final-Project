@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,8 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import TinhTien.GiaoHang;
 import entity.TbAccount;
+import entity.TbDiaChiKH;
 import entity.TbGioHang;
+import entity.TbTinhThanh;
+import model.AddressDAO;
 import model.CartDAO;
 import model.UserDao;
 
@@ -26,7 +31,18 @@ public class CartControl extends HttpServlet  {
             response.sendRedirect("login");
         }
         else {
-            List<TbGioHang> carts = CartDAO.selectCart(account);
+            TbAccount user = UserDao.selectAccount(Long.toString(account.getMaTK()));
+            session.setAttribute("acc", user);            
+            
+            List<TbGioHang> carts = CartDAO.selectCart(user);
+            
+            List<TbTinhThanh> provinces = AddressDAO.selectAllProvince();
+            
+            List<TbDiaChiKH> addresses = AddressDAO.selectAddress(user);
+
+            request.setAttribute("provinces", provinces);
+            
+            request.setAttribute("addresses", addresses);
             
             request.setAttribute("carts", carts);
             

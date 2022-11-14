@@ -7,7 +7,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import entity.TbAccount;
-import entity.TbDiaChiKH;
 import entity.TbGioHang;
 import utils.JpaUntils;
 
@@ -18,8 +17,8 @@ public class CartDAO {
         TypedQuery<TbGioHang> q = em.createQuery(qString, TbGioHang.class);
         q.setParameter("account", account);
         try {
-            List<TbGioHang> addresses = q.getResultList();
-            return addresses;
+            List<TbGioHang> carts = q.getResultList();
+            return carts;
         } catch (NoResultException e) {
             return null;
         } finally {
