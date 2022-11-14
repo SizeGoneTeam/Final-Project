@@ -59,6 +59,17 @@ public class GiaodichDao {
         }
         return (long) 0;
     }
+    public Long taikhoadangkymoi(int thang, int nam) {
+        String jpql = "SELECT  Count(o) FROM TbGiaoDich o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
+        Query query = em.createQuery(jpql);
+        query.setParameter("thang",thang);
+        query.setParameter("nam",nam);
+        if(query.getSingleResult() != null) {
+            Long entity = (Long) query.getSingleResult();
+            return entity;
+        }
+        return (long) 0;
+    }
     public int Tongsachmua(String MaTK) {
         String jpql = "SELECT o FROM TbHoaDon o where o.maTK = :MaTK";
         TypedQuery<TbHoaDon> query = em.createQuery(jpql, TbHoaDon.class);
@@ -89,7 +100,7 @@ public class GiaodichDao {
     }
     public static void main(String[] args) {
         GiaodichDao dao = new GiaodichDao();
-        int list = dao.Tongsachmua("1");
+        Long list = dao.taikhoadangkymoi(11,2022);
         System.out.println(list);
 
 

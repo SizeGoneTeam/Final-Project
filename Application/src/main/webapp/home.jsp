@@ -44,7 +44,9 @@
 									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
 							<li><a href="FAQ.jsp">FAQ</a></li>
-							<li><a href="AdminProduct">Admin</a></li>
+							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
+								<li><a href="adminpage/DashboardControl">Admin</a></li>
+							</c:if>
 						</ul>
 					</nav>
 				</div>

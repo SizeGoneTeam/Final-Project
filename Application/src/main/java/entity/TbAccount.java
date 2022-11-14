@@ -47,7 +47,18 @@ public class TbAccount implements Serializable {
     
     @Column(name="DateOfBirth")
     private Date dateOfBirth;
+    @Column(name="isAdmin")
+    private int isAdmin;
     
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<TbPhienDauGia> phienDauGias;
     
@@ -92,6 +103,7 @@ public class TbAccount implements Serializable {
 
     public TbAccount() {
         tien = new Double(0);
+        isAdmin = 0;
     }
 
 
@@ -99,6 +111,7 @@ public class TbAccount implements Serializable {
         PWord = pWord;
         UName = uName;
         tien = new Double(0);
+        isAdmin = 0;
     }
 
     public Long getMaTK() {

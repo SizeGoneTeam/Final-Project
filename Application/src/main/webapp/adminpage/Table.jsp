@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.*" %>
-<%@ page import="com.google.gson.Gson"%>
-<%@ page import="com.google.gson.JsonObject"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,24 +12,18 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin  - Dashboard</title>
+  <title>SB Admin 2 - Tables</title>
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-	<script>
-	window.onload = function () {
-	
-	var options = {
-			<%=(String)request.getAttribute("charts")%>
-	};
-	$("#chartContainer").CanvasJSChart(options);
-	
-	}
-</script>
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -55,7 +46,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="DashboardControl">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -64,10 +55,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-
-
-      <!-- Heading -->
-  
+    
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="ChartControl">
@@ -76,7 +64,7 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="TableControl">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
@@ -94,7 +82,7 @@
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+<div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
@@ -138,86 +126,59 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Doanh thu tháng hiện tại</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${doanhthuhientai} VNĐ</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+  
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Data Sách</h6>
             </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Mã Sách</th>
+                      <th>Tên Sách</th>
+                      <th>Đơn giá</th>
+                      <th>Tình trạng</th>
+                      <th>Người sở hữu</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Mã Sách</th>
+                      <th>Tên Sách</th>
+                      <th>Đơn giá</th>
+                      <th>Tình trạng</th>
+                      <th>Người sở hữu</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  	<c:forEach items="${sachs}" var="o">
+                    <tr>
+                      <td>${o.getMaSach()}</td>
+                      <td>${o.getTenSach()}</td>
+                      <td>${o.getDonGia()}</td>
+                      <td>${o.getTinhTrang()}</td>
+                      <td>${o.getNguoiSoHuu().UName}</td>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Doanh thu trung bình 12 tháng</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${trungbinh} VNĐ</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Số tài khoản đăng kí mới trong tháng</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${taikhoan }</div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
+                    </tr>
+                 	</c:forEach>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
 
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-              <div id="chartContainer" style="height: 370px; width: 1000px;"></div>
-            </div>
-
-           
-
-          <!-- Content Row -->
-          
+        </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
 
-     
-      <!-- End of Footer -->
+      <!-- Footer -->
+            <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -226,7 +187,10 @@
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
- 
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -239,13 +203,11 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
-  <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
