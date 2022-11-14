@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import entity.TbAccount;
 import entity.TbSach;
 import model.BookDao;
+import model.GiaodichDao;
+import model.PhienDauGiaDao;
 
 /**
  * Servlet implementation class SummarysellsideControl
@@ -28,12 +30,15 @@ public class SummarysellsideControl extends HttpServlet {
         BookDao dao = new BookDao();
         List<TbSach> Topselling = dao.SellingTop3(MaTK);
         List<TbSach> Topsold = dao.SoldTop3(MaTK);
-        
+        GiaodichDao giaodichDao = new GiaodichDao();
+        Long sachdadangLong = giaodichDao.Tongsachdang(MaTK);
+        Double tongdoanhthu = giaodichDao.Tongdoanthu(MaTK);
 
         
         request.setAttribute("Topselling", Topselling);
         request.setAttribute("Topsold", Topsold);
-        request.setAttribute("MaTK", MaTK);
+        request.setAttribute("sachdadangLong", sachdadangLong);
+        request.setAttribute("tongdoanhthu", tongdoanhthu);
         request.getRequestDispatcher("Summary-sellmode.jsp").forward(request, response);
     }
 

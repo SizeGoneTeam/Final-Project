@@ -53,7 +53,7 @@
 						<ul>
 						<c:if test="${sessionScope.acc != null}">
 							<li><a href="taoSach"><i class="fa fa-book"></i> <span>2</span></a></li>
-							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
+							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</c:if>
 							

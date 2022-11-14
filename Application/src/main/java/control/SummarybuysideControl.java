@@ -14,6 +14,7 @@ import dao.dao;
 import entity.TbAccount;
 import entity.TbSach;
 import model.BookDao;
+import model.GiaodichDao;
 
 /**
  * Servlet implementation class SummarybuysideControl
@@ -30,10 +31,18 @@ public class SummarybuysideControl extends HttpServlet {
         List<TbSach> lastSeen = dao.getLastSeen(MaTK);
         List<TbSach> OrderTop3 = dao.OrderTop3(MaTK);
         List<TbSach> NopayTop3= dao.NoPayTop3(MaTK);
+        GiaodichDao giaodichDao = new GiaodichDao();
+        int Tongsachmua = giaodichDao.Tongsachmua(MaTK);
+        Double Tongmua = giaodichDao.Tongmua(MaTK);
+        request.setAttribute("Tongsachmua", Tongsachmua);
+        request.setAttribute("Tongmua", Tongmua);
+
+        
+        
         request.setAttribute("OrderTop3", OrderTop3);
         request.setAttribute("NopayTop3", NopayTop3);
         request.setAttribute("lastSeen", lastSeen);
-        request.setAttribute("MaTK", MaTK);
+        
 
         request.getRequestDispatcher("Summary-buymode.jsp").forward(request, response);
     }

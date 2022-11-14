@@ -57,6 +57,19 @@
         <div class="grid__cell grid__cell--13of16 m-page-middle full-width">
           <div class="m-river summary ">
             <div class="m-river__body">
+            <div class="m-container__header border-header">
+                  <div class="title-container">
+                    <h2 class="title large-text-2">Tổng số sách đã mua: ${Tongsachmua}</h2>
+                    <div class="sub-title regular-text"></div>
+                  </div>
+                </div>
+                <br>
+                <div class="m-container__header border-header">
+                  <div class="title-container">
+                    <h2 class="title large-text-2">Tổng số tiền đã mua: ${Tongmua}</h2>
+                    <div class="sub-title regular-text"></div>
+                  </div>
+                </div>
               <div class="m-container container-1">
                 <div class="m-container__header border-header">
                   <div class="title-container">
