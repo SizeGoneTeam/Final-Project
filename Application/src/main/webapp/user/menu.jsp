@@ -3,7 +3,7 @@
     <div class="rhmIbk">
       <div class="stardust-dropdown stardust-dropdown--open">
         <div class="stardust-dropdown__item-header">
-          <a class="+1U02e" href="https://shopee.vn/user/account/profile">
+          <a class="+1U02e" href="profile">
 
             <div class="bfikuD">
               <svg style="width: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -28,7 +28,7 @@
       </div>
       <div class="stardust-dropdown">
         <div class="stardust-dropdown__item-header">
-          <a class="+1U02e" href="https://shopee.vn/user/purchase">
+          <a class="+1U02e" href="#">
             <div class="bfikuD">
               <svg style="width:16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                 <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->

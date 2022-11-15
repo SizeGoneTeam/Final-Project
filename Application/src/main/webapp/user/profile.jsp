@@ -3,6 +3,8 @@
     <html>
 
     <head>
+      <link rel="stylesheet" type="text/css" href="../css/style.css"/>    
+      <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <meta name="viewport" content="width=1240,shrink-to-fit=no" />
@@ -49,6 +51,7 @@
     </head>
 
     <body>
+      <%@include file="../header.jsp" %>
         <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-WJZQSJF"

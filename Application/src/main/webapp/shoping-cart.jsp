@@ -26,6 +26,203 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     
     <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+
+    <style>
+        .form-container {
+            z-index: 1;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 54%);
+            border-radius: 3px;
+            width: 500px;
+        }
+
+        .heading {
+            align-items: center;
+            display: flex;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .form-inside {
+            position: relative;
+            padding-top: 15px;
+            height: auto;
+            box-sizing: border-box;
+        }
+
+        .form-content {
+            flex: 1;
+            padding-bottom: 66px;
+        }
+
+        .form-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(hsla(0, 0%, 100%, .7), #fff);
+            height: 66px;
+            justify-content: flex-end;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .form-nav-back {
+            color: #555;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            outline: none;
+            padding: 10px;
+            border: 0;
+            background: none;
+            border-radius: 2px;
+            min-width: 140px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .form-nav-submit {
+            color: #fff;
+            background-color: #ee4d2d;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            outline: none;
+            padding: 10px;
+            border: 0;
+            border-radius: 2px;
+            min-width: 140px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .form-field {
+            width: 100%;
+            display: flex;
+        }
+
+        .form-input {
+            flex: 1;
+            position: relative;
+            margin-bottom: 15px;
+            margin-top: 6px;
+        }
+
+        .form-input-box {
+            position: relative;
+            box-shadow: inset 0 2px 0 0 rgb(0 0 0 / 2%);
+            border-radius: 2px;
+            height: 40px;
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, .14);
+            transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out, background-color .3s ease-in-out;
+            align-items: center;
+            display: flex;
+        }
+
+        .form-input-content {
+            height: 38px;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            flex: 1;
+            outline: none;
+            font-size: 14px;
+            min-width: 0;
+            color: #222;
+            border: 0;
+            word-break: break-all;
+            line-height: normal;
+            margin: 0;
+
+            writing-mode: horizontal-tb !important;
+            text-rendering: auto;
+            color: fieldtext;
+            letter-spacing: normal;
+            word-spacing: normal;
+            line-height: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            appearance: auto;
+            -webkit-rtl-ordering: logical;
+            cursor: text;
+        }
+
+        .form-space {
+            width: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5px auto;
+            /* 15% from the top and centered */
+            border: 1px solid #888;
+            width: 35%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -170,7 +367,7 @@
                             <div style="color: #4080ee;
                             text-transform: capitalize;
                             margin-left: 2.5rem;
-                            cursor: pointer;">Thay đổi</div>
+                            cursor: pointer;" onclick="document.getElementById('id00').style.display='block'">Thay đổi</div>
                         </div> 
                     </div>
                 </div>
@@ -276,6 +473,76 @@
         </div>
     </footer>
     <!-- Footer Section End -->
+
+    <c:forEach items="${addresses}" var="o">
+        <div id="id00" class="form-container modal">
+            <div class="box modal-content animate">
+                <div class="heading">Chọn địa chỉ</div>
+
+                <form action="address" method="post">
+                    <div class="form-inside">
+                        <div class="form-content">
+                            <div class="ApAubL nn3Z+6"
+                            style="display:flex;padding: 18px 0 20px;border-top: 1px solid rgba(0,0,0,.09);">
+                            <div style="padding: 0px 10px 0px 0px;">
+                            <input type='radio' name='' />
+                            </div>
+                            <div class="_221a6W" style="min-width: 0;width: 100%; display: block;">
+                                <div role="heading" class="FSlv-V m3QHyX"
+                                    style="margin-bottom: 4px; justify-content: space-between;display: flex;">
+                                    <div class="nFbAe4 beZuCH"
+                                        style="    margin-right: 8px; flex-grow: 1; overflow-x: hidden; display: flex;">
+                                        <span class="_30MS7O VKNC5l" style="display: inline-flex;align-items: center;">
+                                            <div class="tziqvJ"
+                                                style="    overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                                ${o.hoVaTen}</div>
+                                        </span>
+                                        <div class="kTdq3r" style="margin: 0px 5px;">|</div>
+                                        <div role="row" class="bRMEUm _2bzRo+ _4DcXuJ"
+                                            style="white-space: nowrap;display: flex;align-items: center;">${o.sdt}</div>
+                                    </div>
+                                </div>
+
+                                <div role="heading" class="FSlv-V m3QHyX"
+                                    style="    margin-bottom: 4px;    justify-content: space-between;display: flex;">
+                                    <div class="nFbAe4 beZuCH"
+                                        style="margin-right: 8px;    flex-grow: 1;overflow-x: hidden;display: flex;">
+                                        <div class="xk89A1">
+                                            <div role="row" class="_4DcXuJ" style="display: flex;align-items: center;">
+                                                ${o.diaChi}</div>
+                                            <div role="row" class="_4DcXuJ"
+                                                style="    display: flex;    align-items: center;">
+                                                ${o.tenPhuong}, ${o.tenQuan}, ${o.tbTinhThanh.tinhThanh}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="_5txhTu aQxJVJ"
+                                        style="padding-top: 4px;    flex-basis: 40px;justify-content: flex-end;display: flex; display:none;">
+                                        <button class="WTM1cN amiqmV EfkdTP" disabled=""
+                                            style="white-space: nowrap;    background-color: #fff;    padding: 4px 12px;color: rgba(0,0,0,.87);border: 1px solid rgba(0,0,0,.26);opacity: .7;">
+                                            Thiết lập mặc định
+                                        </button>
+                                    </div>
+                                </div>
+                                <div role="row" class="GM70BR _4DcXuJ"
+                                    style="margin-top: 4px;flex-wrap: wrap;display: flex;align-items: center; display:none;">
+                                    <span role="mark" class="BQozJg D+-Kud _8-tEK7"
+                                        style="margin-right: 0;color: #ee4d2d;border-color: #ee4d2d;margin: 0 4px 4px 0;border-radius: 1px;padding: 2px 4px;border: .5px solid;">Mặc
+                                        định</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-nav">
+                            <button class="form-nav-back" onclick="document.getElementById('id00').style.display='none'"
+                                type="button">Hủy</button>
+                            <button class="form-nav-submit" type="submit">Xác nhận</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </c:forEach>
 
     <script>
         totalPrice();
