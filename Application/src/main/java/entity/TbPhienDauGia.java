@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.math.BigInteger;
 
 
 /**
@@ -24,10 +23,10 @@ public class TbPhienDauGia implements Serializable {
 	private int maPhien;
 
 	@Column(name="GiaChot")
-	private BigInteger giaChot;
+	private Double giaChot;
 
 	@Column(name="GiaKhoiDiem")
-	private BigInteger giaKhoiDiem;
+	private Double giaKhoiDiem;
 
 	@Column(name="LoaiPhien")
 	private int loaiPhien;
@@ -42,13 +41,13 @@ public class TbPhienDauGia implements Serializable {
     private Integer thoiGian;
     
     @Column(name="GiaGiam")
-    private BigInteger giaGiam;   
+    private Double giaGiam;   
     
     @Column(name="ThoiGianGiam")
     private Integer thoiGianGiam;
     
     @Column(name="GiaThapNhat")
-    private BigInteger giaThapNhat;  
+    private Double giaThapNhat;  
     
     @Column(name="IsEnd")
     private int isEnd;  
@@ -72,8 +71,8 @@ public class TbPhienDauGia implements Serializable {
 
     }	
 
-    public TbPhienDauGia(BigInteger giaKhoiDiem, int loaiPhien,
-            Timestamp ngayKetThuc, Timestamp ngayTao, Integer thoiGian, BigInteger giaGiam, BigInteger giaThapNhat, Integer thoiGianGiam) {
+    public TbPhienDauGia(Double giaKhoiDiem, int loaiPhien,
+            Timestamp ngayKetThuc, Timestamp ngayTao, Integer thoiGian, Double giaGiam, Double giaThapNhat, Integer thoiGianGiam) {
         this.giaKhoiDiem = giaKhoiDiem;
         this.loaiPhien = loaiPhien;
         this.ngayKetThuc = ngayKetThuc;
@@ -100,19 +99,19 @@ public class TbPhienDauGia implements Serializable {
 		this.maPhien = maPhien;
 	}
 
-	public BigInteger getGiaChot() {
+	public Double getGiaChot() {
 		return this.giaChot;
 	}
 
-	public void setGiaChot(BigInteger giaChot) {
+	public void setGiaChot(Double giaChot) {
 		this.giaChot = giaChot;
 	}
 
-	public BigInteger getGiaKhoiDiem() {
+	public Double getGiaKhoiDiem() {
 		return this.giaKhoiDiem;
 	}
 
-	public void setGiaKhoiDiem(BigInteger giaKhoiDiem) {
+	public void setGiaKhoiDiem(Double giaKhoiDiem) {
 		this.giaKhoiDiem = giaKhoiDiem;
 	}
 
@@ -159,11 +158,11 @@ public class TbPhienDauGia implements Serializable {
         this.thoiGian = thoiGian;
     }
 
-    public BigInteger getGiaGiam() {
+    public Double getGiaGiam() {
         return giaGiam;
     }
 
-    public void setGiaGiam(BigInteger giaGiam) {
+    public void setGiaGiam(Double giaGiam) {
         this.giaGiam = giaGiam;
     }
 
@@ -175,11 +174,11 @@ public class TbPhienDauGia implements Serializable {
         this.thoiGianGiam = thoiGianGiam;
     }
 
-    public BigInteger getGiaThapNhat() {
+    public Double getGiaThapNhat() {
         return giaThapNhat;
     }
 
-    public void setGiaThapNhat(BigInteger giaThapNhat) {
+    public void setGiaThapNhat(Double giaThapNhat) {
         this.giaThapNhat = giaThapNhat;
     }
 

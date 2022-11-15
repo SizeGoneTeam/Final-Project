@@ -82,7 +82,7 @@ public class PhienDauGiaDao {
         }
     }
     
-    public List<TbLichSuBid> getTopBid(int maPhien) {
+    public List<TbLichSuBid> getTop8Bid(int maPhien) {
         String jpql = "SELECT o FROM TbLichSuBid o "
                 + "where o.phienDauGia.maPhien = :maPhien "
                 + "order by o.ngayTao desc";
@@ -93,26 +93,21 @@ public class PhienDauGiaDao {
         return entity;
     }
     
+    public TbLichSuBid getTopBid(int maPhien)
+    {
+        String jpql = "SELECT o FROM TbLichSuBid o "
+                + "where o.phienDauGia.maPhien = :maPhien "
+                + "order by o.ngayTao desc";
+        TypedQuery<TbLichSuBid> query = em.createQuery(jpql,TbLichSuBid.class); 
+        query.setParameter("maPhien",maPhien);
+        TbLichSuBid entity = query.setMaxResults(1).getSingleResult();
+        return entity;
+    }
     
     public static void main(String[] args) {
-        /*
-         * BookDao dao2 = new BookDao();
-         * PhienDauGiaDao dao = new PhienDauGiaDao();
-         * UserDao dao1 = new UserDao();
-         * TbPhienDauGia phien = new TbPhienDauGia(null, BigInteger.valueOf(100), 0,
-         * null, Timestamp.valueOf("2022-10-25 11:44:10"));
-         * TbSach sach = new TbSach(null, BigInteger.valueOf(100), null, "Deromon 2");
-         * //dao2.insert(sach);
-         * System.out.println(sach);
-         * TbAccount acc = dao1.findByName("hai");
-         * phien.setMaSach(sach);
-         * dao.insert(phien);
-         * System.out.println(phien);
-         * acc.add(phien);
-         * dao1.update(acc);
-         */
-        // System.out.println(acc);
-       //  System.out.println(acc.getPhienDauGias());
+        PhienDauGiaDao dao = new PhienDauGiaDao();
+        TbLichSuBid bid = dao.getTopBid(18);
+        System.out.println(bid.getAccount().getMaTK());
         
     }
 }

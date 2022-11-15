@@ -78,7 +78,7 @@ th {
 					<div class="header__cart">
 						<ul>
 							<c:if test="${sessionScope.acc != null}">
-							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
+							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</c:if>
 						</ul>
@@ -171,30 +171,33 @@ th {
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
-						<h3>${detail.tenSach}</h3>
+						<h2 style="color: black;">${detail.tenSach}</h2>
 						<div class="product__details__rating">
-							<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
+							<h5 style="color: #0066ff;">Ngày kết thúc: ${detail.getPhienDauGia().getNgayKetThuc()}</h4>
 						</div>
-						<div class="product__details__price">${detail.donGia}VNĐ</div>
+						<div class="product__details__price">${detail.donGia}$</div>
+						<c:if test="${sessionScope.acc.getMaTK() != detail.getNguoiSoHuu().getMaTK()}">
+						
 						<c:if test="${sessionScope.acc == null}">
 							<h5>Vui lòng đăng nhập trước khi đấu giá</h5>
 						</c:if>
 						<c:if test="${sessionScope.acc != null}">
+						<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 							<form action="placeBid">
+						</c:if>
+						<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
+							<form action="DauGia">
+						</c:if>
 								<div class="product__details__quantity">
 									<div class="quantity">
 									<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 										<div class="pro-qty">
-											<input name="new_price" type="Number" value="">
+											<input name="new_price" type="Number" value="${detail.donGia +1}" min="${detail.donGia+0.01}" step = "0.01">
 											<input name="maSach" value="${detail.maSach}" hidden> 
-											<input name="id" value="${sessionScope.acc.getMaTK()}" hidden>
 										</div>
 										</c:if>
 										<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
 											<input name="maSach" value="${detail.maSach}" hidden> 
-											<input name="id" value="${sessionScope.acc.getMaTK()}" hidden>
 										</c:if>  
 									</div>
 								</div>
@@ -207,7 +210,10 @@ th {
 								</c:if>  
 							</form>
 						</c:if>
-						 <a href="insertytdetail?MaSach=${detail.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="heart-icon"><span class="icon_heart_alt"></span></a>
+						
+						</c:if>
+						
+						 <a href="insertytdetail?MaSach=${detail.maSach }" class="heart-icon"><span class="icon_heart_alt"></span></a>
 					</div>
 					<hr>
 					<div class="bid-history">
@@ -219,8 +225,8 @@ th {
 							</tr>
 							<c:forEach items="${BidHistory}" var="o">
 								<tr>
-									<td>${o.account}</td>
-									<td>${o.bid} VNĐ</td>
+									<td>${o.account.getMaTK()}</td>
+									<td>${o.bid} $</td>
 									<td>${o.ngayTao}</td>
 								</tr>
 							</c:forEach>

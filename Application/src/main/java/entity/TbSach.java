@@ -27,8 +27,8 @@ public class TbSach implements Serializable {
 	private String anh;
 
 	@Column(name="DonGia")
-	private BigInteger donGia;
-	
+	private Double donGia;
+
 	@Lob
 	@Column(name="MoTa")
 	private String moTa;
@@ -45,8 +45,7 @@ public class TbSach implements Serializable {
     
     @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
     private TbPhienDauGia phienDauGia;
-    @OneToOne(mappedBy = "maSach", cascade = CascadeType.ALL)
-    private TbChiTietHD chiTietHD;
+    
 	//bi-directional many-to-one association to TbLichSuXem
 	@OneToMany(mappedBy="tbSach")
 	private List<TbLichSuXem> tbLichSuXems;
@@ -81,11 +80,11 @@ public class TbSach implements Serializable {
     }
     public TbSach() {
         this.anh = null;
-        this.donGia = BigInteger.valueOf(0);
+        this.donGia = Double.valueOf(0);
         this.moTa = null;
         this.tenSach = null;
     }
-    public TbSach(String anh, BigInteger donGia, String moTa, String tenSach, String tinhTrang) {
+    public TbSach(String anh, Double donGia, String moTa, String tenSach, String tinhTrang) {
         this.anh = anh;
         this.donGia = donGia;
         this.moTa = moTa;
@@ -126,11 +125,11 @@ public class TbSach implements Serializable {
 		this.anh = anh;
 	}
 
-	public BigInteger getDonGia() {
+	public Double getDonGia() {
 		return this.donGia;
 	}
 
-	public void setDonGia(BigInteger donGia) {
+	public void setDonGia(Double donGia) {
 		this.donGia = donGia;
 	}
 

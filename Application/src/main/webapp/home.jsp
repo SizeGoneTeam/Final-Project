@@ -44,9 +44,7 @@
 									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
 							<li><a href="FAQ.jsp">FAQ</a></li>
-							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
-								<li><a href="adminpage/DashboardControl">Admin</a></li>
-							</c:if>
+							<li><a href="AdminProduct">Admin</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -56,13 +54,13 @@
 						<c:if test="${sessionScope.acc != null}">
 							<li><a href="taoSach"><i class="fa fa-book"></i> <span>2</span></a></li>
 							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
-							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</c:if>
 							
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
-							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
+							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
 						</c:if>
 						<c:if test="${sessionScope.acc == null}">
 							item: <span>$0.00</span>
@@ -105,7 +103,7 @@
 						<div class="hero__search__login">
 							
 							<c:if test="${sessionScope.acc != null}">
-							<a href="SummarybuysideControl?MaTK=${sessionScope.acc.maTK}">
+							<a href="SummarybuysideControl">
 									<div class="hero__search__login__icon">
 										<i class="fa fa-user"></i>
 									</div>
@@ -172,17 +170,17 @@
 			<div class="row featured__filter">
 				<c:forEach items="${listP}" var="o">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}';">
+						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }';">
 							<div class="featured__item__pic set-bg">
 							<img src="${o.getAnh()}" alt="">					
 								<ul class="featured__item__pic__hover">
-									<li><a href="insertyt?MaTK=${sessionScope.acc.maTK}&amp;MaSach=${o.maSach }"><i class="fa fa-heart"></i></a></li>
+									<li><a href="insertyt?MaSach=${o.maSach }"><i class="fa fa-heart"></i></a></li>
 									
 								</ul>
 							</div>
 							<div class="featured__item__text">
 								<h6>
-									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}"">${o.getTenSach() }</a>
+									<a href="detail?pid=${o.maSach }">${o.getTenSach() }</a>
 								</h6>
 								<h5 >${o.getDonGia()}VNĐ</h5>
 							</div>
@@ -207,7 +205,7 @@
 						<!--  <div class="latest-product__slider owl-carousel">-->
 						<div class="latest-prdouct__slider__item">
 							<c:forEach items="${lastSeen}" var="o">
-								<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}""  class="latest-product__item">
+								<a href="detail?pid=${o.maSach }"  class="latest-product__item">
 									<div class="latest-product__item__pic">
 										<img src="${o.getAnh()}" alt="">
 									</div>
@@ -229,7 +227,7 @@
 						<div>
 							<div class="latest-prdouct__slider__item">
 								<c:forEach items="${listBid}" var="o">
-									<a href="detail?pid=${o.maSach}&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
+									<a href="detail?pid=${o.maSach}&amp" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.anh}" alt="">
 										</div>
@@ -251,7 +249,7 @@
 						<div>
 							<div class="latest-prdouct__slider__item">
 								<c:forEach items="${listNew}" var="o">
-									<a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
+									<a href="detail?pid=${o.maSach }" class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${o.getAnh()}" alt="">
 										</div>
@@ -364,6 +362,5 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/toast.js"></script>
     <script src="js/main.js"></script>
-	
 </body>
 </html>

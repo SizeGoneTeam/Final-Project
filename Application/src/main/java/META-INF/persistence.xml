@@ -24,6 +24,7 @@
     <class>entity.TbChiTietHDPK</class>
     <class>entity.TbHoaDon</class>
     <properties>
+    	<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-1.cluster-cgn1djdowz61.us-east-1.rds.amazonaws.com:3306/dbbook"/> -->
         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com:3306/dbbook"/>
         <property name="javax.persistence.jdbc.user" value="admin"/>
         <property name="javax.persistence.jdbc.password" value="Enter0123"/>

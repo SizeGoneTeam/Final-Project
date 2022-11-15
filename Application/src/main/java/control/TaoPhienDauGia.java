@@ -3,7 +3,6 @@ package control;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,7 +31,8 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import TimerTask.GiamGia;
-import TimerTask.KetThucPhien;
+import TimerTask.KetThucPhienAnh;
+import TimerTask.KetThucPhienHaLan;
 import entity.TbAccount;
 import entity.TbPhienDauGia;
 import entity.TbSach;
@@ -77,12 +77,13 @@ public class TaoPhienDauGia extends HttpServlet {
             String Mota = request.getParameter("MoTa");
             String TinhTrang = request.getParameter("TinhTrang");
             String Anh = "image/UploadSach/";
-            BigInteger GiaKhoiDiem = new BigInteger(request.getParameter("startPrice"));
-            BigInteger GiaThapNhat = new BigInteger(request.getParameter("GiaThapNhat"));
             Integer LoaiPhien = Integer.valueOf(request.getParameter("LoaiPhien"));
+            Double GiaKhoiDiem = new Double(request.getParameter("startPrice"));
+            Double GiaThapNhat = Double.valueOf(0);
+            if(LoaiPhien == 2) GiaThapNhat = new Double(request.getParameter("GiaThapNhat"));
             Integer ThoiGian = Integer.valueOf(request.getParameter("ThoiGian"));
             Integer ThoiGianGiam = Integer.valueOf(request.getParameter("ThoiGianGiam"));
-            BigInteger GiaGiam = new BigInteger(request.getParameter("GiaGiam"));
+            Double GiaGiam = new Double(request.getParameter("GiaGiam"));
             
             // Xử lý tác giả
 
@@ -183,6 +184,7 @@ public class TaoPhienDauGia extends HttpServlet {
             System.out.println(end.getTime());
 
             Long NguoiSoHuu = acc.getMaTK();
+            System.out.println("nguoi dang:" + NguoiSoHuu);
             
 
             // upload ảnh
@@ -285,11 +287,20 @@ public class TaoPhienDauGia extends HttpServlet {
             
             // tạo task tự đông
             
-              GiamGia giamGia = new GiamGia(phien,sach);
-              KetThucPhien ketThucPhien = new KetThucPhien(phien);
-              Timer timer = new Timer();
-              timer.schedule(giamGia, ThoiGianGiam * 1000, ThoiGianGiam * 1000);
-              timer.schedule(ketThucPhien, ThoiGian * 1000);
+            if(LoaiPhien == 1){
+                Timer timer = new Timer();
+                KetThucPhienAnh ketThucPhien = new KetThucPhienAnh(phien);
+                timer.schedule(ketThucPhien, (ThoiGian + 2) * 1000);
+            }
+            else {
+                GiamGia giamGia = new GiamGia(phien,sach);
+                KetThucPhienHaLan ketThucPhien = new KetThucPhienHaLan(phien);
+                Timer timer = new Timer();
+                timer.schedule(giamGia, ThoiGianGiam * 1000, ThoiGianGiam * 1000);
+                timer.schedule(ketThucPhien, ThoiGian * 1000);
+            }
+            
+              
              
             url = "loadSach";
         }

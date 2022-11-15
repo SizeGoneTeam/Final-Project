@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -9,12 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.dao;
 import entity.GioHangPK;
 import entity.Product;
 import entity.TbAccount;
 import entity.TbGioHang;
+import entity.TbLichSuBid;
 import entity.TbPhienDauGia;
 import entity.TbSach;
 import model.BookDao;
@@ -24,37 +27,52 @@ import model.UserDao;
 @WebServlet(urlPatterns = {"/placeBid"})
 public class placeBid extends HttpServlet{
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    Date now = new Date();
-	    Timestamp NowTime = new Timestamp(now.getTime());
-		dao Dao = new dao();
-		BookDao daoSach = new BookDao();
-		UserDao daoUser = new UserDao();
-		PhienDauGiaDao daoPhien = new PhienDauGiaDao();
-		GioHangDao daoGioHang = new GioHangDao();
-		int price;
-		try {
-		    price = Integer.parseInt(req.getParameter("new_price"));
-		}
-		catch (Exception e) {
-            // TODO: handle exception
+	protected synchronized void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    String url ="";
+	    HttpSession session = req.getSession();
+        TbAccount account = (TbAccount) session.getAttribute("acc");
+        String maKH = account.getMaTK().toString();
+        if(maKH != null)
+        {
+            Date now = new Date();
+            BookDao daoSach = new BookDao();
+            UserDao daoUser = new UserDao();
+            PhienDauGiaDao daoPhien = new PhienDauGiaDao();
+            Double price = Double.valueOf(req.getParameter("new_price"));
+             
+            String maSach = req.getParameter("maSach");
+            TbAccount acc = daoUser.findById(Long.valueOf(maKH));
+            TbSach sach = daoSach.findById(Integer.valueOf(maSach));
+            TbPhienDauGia phien = daoPhien.findById(sach.getPhienDauGia().getMaPhien());
+            System.out.println(phien.getNgayKetThuc().getTime() - now.getTime());
+            if(phien.getNgayKetThuc().getTime() - now.getTime() < 0 || daoPhien.findById(phien.getMaPhien()).getIsEnd() == 1)
+            {
+                phien.setGiaChot(price);
+                daoPhien.update(phien);
+                url = "ErrorPayment.jsp";
+                req.setAttribute("mess", "Phiên đấu giá đã kết thúc");
+            }else {
+                if(price - sach.getDonGia() >0)
+                {
+                    TbLichSuBid bid = new TbLichSuBid(price, acc);
+                    phien.addBid(bid);
+                    phien.setGiaChot(price);
+                    phien.getMaSach().setDonGia(price);
+                    daoPhien.update(phien);
+                    url = "detail?pid=" + sach.getMaSach();
+                }else {
+                    url = "ErrorPayment.jsp";
+                    req.setAttribute("mess", "Có người đã đặt giá cao hơn bạn\r\n"
+                            + "Bạn vui lòng thử lại sau");
+                }
+            }
+            
+        }else {
+            url = "login";
         }
-		 
-		String maSach = req.getParameter("maSach");
-		String maKH = req.getParameter("id");
-		TbAccount acc = daoUser.findById(Long.valueOf(maKH));
-		TbSach sach = daoSach.findById(Integer.valueOf(maSach));
-		GioHangPK gioHangPK = new GioHangPK(acc.getMaTK().intValue(),sach.getMaSach());
-		TbGioHang giohang = new TbGioHang(gioHangPK);
-		TbPhienDauGia phien = daoPhien.findById(sach.getPhienDauGia().getMaPhien());
-		if(sach.getPhienDauGia().getLoaiPhien() == 2)
-		{
-		    phien.setIsEnd(1);
-	        if(daoGioHang.findGioHang(maKH, maSach).isEmpty()) {daoGioHang.insert(giohang); System.out.println("thêm giỏ hàng");}
-	        daoPhien.update(phien);
-		}
-	
-		resp.sendRedirect("loadSach");
+	    
+        
+		req.getRequestDispatcher(url).forward(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

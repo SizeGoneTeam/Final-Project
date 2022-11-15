@@ -237,7 +237,7 @@
 																						</h2>
 																						<div class="mr255">
 																							<span class="combo-lrg"><select
-																								id="format" name="LoaiPhien"
+																								id="LoaiPhien" name="LoaiPhien" onchange="editInput()"
 																								aria-required="true">
 																									<option value="1" selected="selected">Mặc
 																										Định</option>
@@ -302,7 +302,25 @@
 																																							vld="1" maxlength="10"
 																																							aria-required="true"
 																																							aria-labelledby="startPrice_currencySymbol"
-																																							required="required" onblur="{this.startPrice}">
+																																							required="required" onblur="{this.startPrice}" step="0.01">
+																																					</div>
+																																				</div>
+																																			</div>
+																																			<br>
+																																			<div id="minPriceDisplay" style="display: none;">
+																																				<div id="l_binPrice">
+																																					<label for="binPrice">
+																																						<div id="minPrice2" class="epqi-captionSpan">
+																																							Giá thấp nhất</div>
+																																					</label>
+																																				</div>
+																																				
+																																				<div class="cell-lblTopFldDiv">
+																																					<div style="display: inline">
+																																						<span id="minPrice1" style="margin-right: 4px;">$</span><input
+																																							type="number" name="GiaThapNhat"
+																																							id="minPrice" min=1
+																																							 step="0.01">
 																																					</div>
 																																				</div>
 																																			</div>
@@ -313,22 +331,7 @@
 																																	<td>
 																																		<div id="editpane_binPrice"
 																																			class="epqi-syiDivField epqi-inpWidth">
-																																			<div>
-																																				<div id="l_binPrice">
-																																					<label for="binPrice">
-																																						<div class="epqi-captionSpan">
-																																							Giá thấp nhất</div>
-																																					</label>
-																																				</div>
-																																				<div class="cell-lblTopFldDiv">
-																																					<div style="display: inline">
-																																						<span style="margin-right: 4px">$</span><input
-																																							type="number" name="GiaThapNhat"
-																																							id="minPrice" min=1
-																																							required="required">
-																																					</div>
-																																				</div>
-																																			</div>
+																																			
 																																			<div class="err-lbl"
 																																				id="err_binPrice"></div>
 																																			<div
@@ -351,9 +354,9 @@
 																													</div>
 																												</div>
 																											</div>
-																											<div id="editpane_quantity"
+																											<div id="editpane_quantity" 
 																												class="epqi-syiDivFieldQuantity qty epqi-inpWidth">
-																												<div>
+																												<div id ="BuocGiam" style="display: none">
 																													<div id="l_quantity">
 																														<label for="quantity">
 																															<h2 class="epqi-captionSpan">Bước
@@ -439,6 +442,25 @@
 			</div>
 		</div>
 	</div>
+<script>
+function editInput() {
+  var x = document.getElementById("minPriceDisplay");
+  var y = document.getElementById("BuocGiam");
+  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+  if (y.style.display === "none") {
+	    y.style.display = "block";
+	    document.getElementById("minPrice").required = true;
+	  } else {
+	    y.style.display = "none";
+	    document.getElementById("minPrice").required = false;
+	  }
+
+}
+</script>
 
 </body>
 <script>
@@ -450,6 +472,7 @@
 	var min = document.getElementById("minPrice");
 	min.setAttribute("max",e.target.value);
 	});
+	
 
 </script>
 

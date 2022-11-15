@@ -31,13 +31,13 @@ public class MyTask extends TimerTask {
         }
         
         System.out.println("Gia Thap Nhat: " + phienDauGia.getGiaThapNhat());
-        System.out.println("Gia Moi: " + phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam()));
+        System.out.println("Gia Moi: " + (phienDauGia.getGiaKhoiDiem()-phienDauGia.getGiaGiam()));
         System.out.println(phienDauGia.getGiaThapNhat()
-                .compareTo(phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam())));
+                .compareTo(phienDauGia.getGiaKhoiDiem() -(phienDauGia.getGiaGiam())));
 
         if (phienDauGia.getGiaThapNhat()
-                .compareTo(phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam())) == -1) {
-            BigInteger GiaMoi = phienDauGia.getGiaKhoiDiem().subtract(phienDauGia.getGiaGiam());
+                .compareTo(phienDauGia.getGiaKhoiDiem() -(phienDauGia.getGiaGiam())) == -1) {
+            Double GiaMoi = phienDauGia.getGiaKhoiDiem() -(phienDauGia.getGiaGiam());
             phienDauGia.setGiaKhoiDiem(GiaMoi);
             System.out.println("Run my Task Giam Gia" + GiaMoi);
             PhienDauGiaDao daoPhien = new PhienDauGiaDao();

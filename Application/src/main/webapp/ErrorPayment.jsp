@@ -26,8 +26,7 @@
                 </div>
                 <!--/.icon-->
                 <h1>Oh no!</h1>
-                <p>Đã có lỗi xảy ra
-                    <br>Bạn vui lòng thử lại sau
+                <p>Đã có lỗi xảy ra, Bạn vui lòng thử lại sau
                 </p>
                 <p style="color: red;">${mess}</p>
                 <button type="button" > <a href="loadSach">Go home</button>

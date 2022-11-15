@@ -33,10 +33,12 @@ public class GiamGia extends TimerTask {
             return;
         }
         
-
+     // Kiểm tra có giảm được tiếp hay không
         if (phienDauGia.getGiaThapNhat()
-                .compareTo(phienDauGia.getGiaChot().subtract(phienDauGia.getGiaGiam())) == -1) {
-            phienDauGia.setGiaChot(phienDauGia.getGiaChot().subtract(phienDauGia.getGiaGiam()));
+                .compareTo(phienDauGia.getGiaChot() -(phienDauGia.getGiaGiam())) == -1) {
+            
+            // Nếu giảm xong vẫn lơn hơn giá thấp nhất
+            phienDauGia.setGiaChot(phienDauGia.getGiaChot() - (phienDauGia.getGiaGiam()));
             
             System.out.println("Run my Task Giam Gia" + phienDauGia.getGiaChot());
             sach.setDonGia(phienDauGia.getGiaChot());
@@ -49,6 +51,7 @@ public class GiamGia extends TimerTask {
         }
         else if (phienDauGia.getGiaThapNhat().compareTo(phienDauGia.getGiaChot()) != 0)
         {
+            //Nếu bị thấp giá thấp nhất thì dừng giảm giá đặt về giá thấp nhất
             phienDauGia.setGiaChot(phienDauGia.getGiaThapNhat());
             System.out.println("Gia thap nhat" + phienDauGia.getGiaChot());
             sach.setDonGia(phienDauGia.getGiaChot());

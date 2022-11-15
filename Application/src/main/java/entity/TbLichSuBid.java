@@ -24,7 +24,7 @@ public class TbLichSuBid implements Serializable {
 	private int maBid;
 
 	@Column(name="Bid")
-	private BigInteger bid;
+	private Double bid;
 
 	@Column(name="NgayTao")
 	private Timestamp ngayTao;
@@ -45,7 +45,7 @@ public class TbLichSuBid implements Serializable {
 	
 	
 	
-    public TbLichSuBid(BigInteger bid, TbAccount account) {
+    public TbLichSuBid(Double bid, TbAccount account) {
         Date now = new Date();
         this.bid = bid;
         this.account = account;
@@ -62,11 +62,11 @@ public class TbLichSuBid implements Serializable {
 		this.maBid = maBid;
 	}
 
-	public BigInteger getBid() {
+	public Double getBid() {
 		return this.bid;
 	}
 
-	public void setBid(BigInteger bid) {
+	public void setBid(Double bid) {
 		this.bid = bid;
 	}
 

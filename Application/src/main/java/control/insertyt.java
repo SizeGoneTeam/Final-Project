@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import entity.TbAccount;
 import entity.TbSach;
 import entity.TbYeuThich;
 import entity.TbYeuThichPK;
@@ -23,9 +25,10 @@ public class insertyt extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String maSach = request.getParameter("MaSach");
-        String MaTK = request.getParameter("MaTK");
+        HttpSession session = request.getSession();
+        TbAccount account = (TbAccount) session.getAttribute("acc");
+        String MaTK = account.getMaTK().toString();
         BookDao dao = new BookDao();
-        List<TbSach> getyeuthichList = dao.GetYeuThich(MaTK);
         TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(Integer.parseInt(MaTK),Integer.parseInt(maSach));
         TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
         if(dao.findyeuthich(MaTK, maSach).isEmpty()) {

@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.dao;
 import entity.BidHistory;
 import entity.Product;
+import entity.TbAccount;
 import entity.TbSach;
 import entity.TbTheLoai;
 import entity.TbYeuThich;
@@ -27,7 +29,9 @@ public class insertytdetail extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String maSach = request.getParameter("MaSach");
-        String MaTK = request.getParameter("maKH");
+        HttpSession session = request.getSession();
+        TbAccount account = (TbAccount) session.getAttribute("acc");
+        String MaTK = account.getMaTK().toString();
         BookDao dao = new BookDao();
         List<TbSach> getyeuthichList = dao.GetYeuThich(MaTK);
         TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(Integer.parseInt(MaTK),Integer.parseInt(maSach));
@@ -35,18 +39,8 @@ public class insertytdetail extends HttpServlet {
         if(dao.findyeuthich(MaTK, maSach).isEmpty()) {
             dao.insertyeuthich(tbYeuThich);
         }
-        dao Dao = new dao();
-        Product p = Dao.getProductbyID(maSach);
-        int dem = dao.countyeuthich(MaTK);
-        List<BidHistory> list = Dao.getTopBid(p.getMaSach());
-        List<TbTheLoai> category = dao.GetCategory();
-        request.setAttribute("dem", dem);
-        request.setAttribute("BidHistory", list);
-        request.setAttribute("detail", p);
-        request.setAttribute("category", category);
 
-
-        request.getRequestDispatcher("Item-detail.jsp").forward(request, response);
+        request.getRequestDispatcher("detail?pid=" + maSach).forward(request, response);
     }
 
     /**
