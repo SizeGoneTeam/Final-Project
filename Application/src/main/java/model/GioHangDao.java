@@ -84,14 +84,14 @@ public class GioHangDao {
         }
         return entity1;
     }
-    public List<TbGioHang> findGioHang(String MaTK, String MaSach) {
+    public TbGioHang findGioHang(String MaTK, String MaSach) {
         String jpql = "SELECT o FROM TbGioHang o "
                 + "where o.gioHangPK.maTK = :MaTK and o.gioHangPK.maSach= :MaSach ";
 
         TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
         query.setParameter("MaTK",Integer.parseInt(MaTK));
         query.setParameter("MaSach",Integer.parseInt(MaSach));
-        List<TbGioHang> entity = query.getResultList();
+        TbGioHang entity = query.getSingleResult();
         return entity;
     }
     

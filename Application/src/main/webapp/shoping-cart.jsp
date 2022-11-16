@@ -291,12 +291,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <form action="ThanhToan" id="form_check_out">
                                 <c:forEach items="${carts}" var="o">
                                     <tr>
                                         <td>
-                                            <input type="checkbox" onclick="totalPrice()" />
+                                            <input type="checkbox" onclick="totalPrice()" name="MaSach" id = 'input${o.tbSach.maSach}'  value ="${o.tbSach.maSach}" />
                                             <div id='startUserID${o.tbSach.maSach}' style='display: none;'>${o.tbSach.nguoiSoHuu.maTK}</div>
-                                            <input name="MaSach" id = 'input${o.tbSach.maSach}' type="text" value ="${o.tbSach.maSach}">
                                         </td>
                                         <td class="shoping__cart__item">
                                             <a href="detail?pid=${o.tbSach.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
@@ -329,6 +329,7 @@
                                         });
                                     </script>
                                 </c:forEach>
+                              </form>
                             </tbody>
                         </table>
                     </div>
@@ -399,7 +400,7 @@
                             <li>Phí ship <span class="price">${shipping}</span></li>
                             <li>Tổng thanh toán <span class="price">0</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Thanh toán</a>
+                        <button type="submit" form="form_check_out" class="primary-btn">Thanh toán</button>
                     </div>
                 </div>
             </div>

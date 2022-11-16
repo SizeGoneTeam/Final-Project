@@ -150,9 +150,9 @@ public class GiaodichDao {
         return (long) 0;
     }
     public int Tongsachmua(String MaTK) {
-        String jpql = "SELECT o FROM TbHoaDon o where o.maTK = :MaTK";
+        String jpql = "SELECT o FROM TbHoaDon o where o.account.maTK = :MaTK";
         TypedQuery<TbHoaDon> query = em.createQuery(jpql, TbHoaDon.class);
-        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        query.setParameter("MaTK",Long.valueOf(MaTK));
         List<TbHoaDon> entity = query.getResultList();
         List<TbChiTietHD> entity1 = new ArrayList<TbChiTietHD>();
         for (TbHoaDon product : entity) {

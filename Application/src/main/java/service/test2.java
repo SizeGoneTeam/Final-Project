@@ -35,42 +35,75 @@ public class test2 {
     public static void main(String[] args) {
         GiaoHang giaoHang = new GiaoHang();
         UserDao userDao = new UserDao();
-        BookDao bookDao = new BookDao();
         GioHangDao gioHangDao = new GioHangDao();
-        PhienDauGiaDao phienDauGiaDao = new PhienDauGiaDao();
         GiaodichDao daoGD = new GiaodichDao();
-        TbAccount acc = userDao.findById(Long.valueOf(5));
+        TbAccount acc = userDao.findById(Long.valueOf(1));
         int i = 0;
         List<TbGioHang> gioHangs = gioHangDao.findGioHang(acc.getMaTK().toString());
         List<TbSach> sachs = new ArrayList<TbSach>();
+        for (TbGioHang tbGioHang : gioHangs) {
+            sachs.add(tbGioHang.getMaSach());
+        }
         TbGiaoDich giaoDich;
         TbChiTietHD chiTietHD;
         TbHoaDon hoaDon= new TbHoaDon(acc);
         daoGD.insert(hoaDon);
-        System.out.println("ma hd" + hoaDon.getMaHD());
         double TienVC = 0;
         double Tong=0;
-        for (TbGioHang tbGioHang : gioHangs) {
-            sachs.add(tbGioHang.getMaSach());
-        }
         for (TbSach sach : sachs) {
-            TienVC=giaoHang.dijkstra(acc.getTbDiaChiKhs().get(0).getTbTinhThanh().getId(), sach.getNguoiSoHuu().getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).intValue();
+            TienVC+=giaoHang.dijkstra(acc.getTbDiaChiKhs().get(0).getTbTinhThanh().getId(), sach.getNguoiSoHuu().getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).intValue();
             TienVC= (double)Math.round((TienVC/23000) *100) /100;
-            Tong = TienVC + sach.getDonGia();
-            System.out.println(TienVC);
-            System.out.println(sach.getMaSach()+" - "+sach.getDonGia());
-            giaoDich = new TbGiaoDich(2, acc.getMaTK().intValue(), sach.getNguoiSoHuu().getMaTK().intValue() , Tong);
-            chiTietHD = new TbChiTietHD(hoaDon,TienVC, giaoDich, sach);
-            daoGD.insert(chiTietHD);
-            acc.setTien(acc.getTien()-Tong);
-            userDao.update(acc);
-            sach.getNguoiSoHuu().setTien(sach.getNguoiSoHuu().getTien()+ Tong * 0.8);
-            userDao.update( sach.getNguoiSoHuu());
-            gioHangDao.remove(gioHangs.get(i++));
-            
-            
-            System.out.println("Giao dich: " + giaoDich.toString());
+            Tong+= TienVC + sach.getDonGia();
         }
+        System.out.println(Tong);
+        
+        
+        /*
+         * for (TbSach sach : sachs) {
+         * TienVC=giaoHang.dijkstra(acc.getTbDiaChiKhs().get(0).getTbTinhThanh().getId()
+         * , sach.getNguoiSoHuu().getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).
+         * intValue();
+         * TienVC= (double)Math.round((TienVC/23000) *100) /100;
+         * Tong = TienVC + sach.getDonGia();
+         * System.out.println(TienVC);
+         * System.out.println(sach.getMaSach()+" - "+sach.getDonGia());
+         * giaoDich = new TbGiaoDich(2, acc.getMaTK().intValue(),
+         * sach.getNguoiSoHuu().getMaTK().intValue() , Tong);
+         * chiTietHD = new TbChiTietHD(hoaDon,TienVC, giaoDich, sach);
+         * daoGD.insert(chiTietHD);
+         * acc.setTien(acc.getTien()-Tong);
+         * userDao.update(acc);
+         * sach.getNguoiSoHuu().setTien(sach.getNguoiSoHuu().getTien()+ Tong * 0.8);
+         * userDao.update( sach.getNguoiSoHuu());
+         * gioHangDao.remove(gioHangs.get(i++));
+         * 
+         * 
+         * System.out.println("Giao dich: " + giaoDich.toString());
+         * }
+         */
+          
+          for (TbSach sach : sachs) {
+              TienVC=giaoHang.dijkstra(acc.getTbDiaChiKhs().get(0).getTbTinhThanh().getId()
+              , sach.getNguoiSoHuu().getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).
+              intValue();
+              TienVC= (double)Math.round((TienVC/23000) *100) /100;
+              Tong = TienVC + sach.getDonGia();
+              System.out.println(TienVC);
+              System.out.println(sach.getMaSach()+" - "+sach.getDonGia());
+              giaoDich = new TbGiaoDich(2, acc.getMaTK().intValue(),
+              sach.getNguoiSoHuu().getMaTK().intValue() , Tong);
+              chiTietHD = new TbChiTietHD(hoaDon,TienVC, giaoDich, sach);
+              daoGD.insert(chiTietHD);
+              acc.setTien(acc.getTien()-Tong);
+              userDao.update(acc);
+              sach.getNguoiSoHuu().setTien(sach.getNguoiSoHuu().getTien()+ Tong * 0.8);
+              userDao.update( sach.getNguoiSoHuu());
+              gioHangDao.remove(gioHangs.get(i++));
+              
+              
+              System.out.println("Giao dich: " + giaoDich.toString());
+              }
+         
         
         
         

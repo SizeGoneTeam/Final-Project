@@ -11,22 +11,22 @@ import java.util.Timer;
 
 import TimerTask.GiamGia;
 import entity.TbAccount;
+import entity.TbGioHang;
 import entity.TbPhienDauGia;
 import entity.TbSach;
 import entity.TbTacGia;
 import entity.TbTheLoai;
 import model.BookDao;
+import model.GioHangDao;
 import model.PhienDauGiaDao;
 import model.TacGiaDao;
 import model.UserDao;
 
 public class test {
     public static void main(String[] args) {
-        Double a = Double.valueOf("9111111111");
-        Double b = Double.valueOf("9111111111");
-        System.out.println(a.compareTo(b));
-        System.out.println(a -b);
-        
+        GioHangDao gioHangDao = new GioHangDao();
+        TbGioHang TbGioHang = gioHangDao.findGioHang("1","20");
+        System.out.println(TbGioHang.getMaTK());
     }
 
 }
