@@ -1,7 +1,12 @@
 package entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,32 +21,35 @@ public class TbHoaDon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="MaHD", insertable=false, updatable=false)
+	@Column(name="MaHD") 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maHD;
 
-	@Column(name="MaGD")
-	private int maGD;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MaTK")
     private TbAccount account;
-
-	@Column(name="TienHD")
-	private double tienHD;
-
-	@Column(name="TienSach")
-	private double tienSach;
-
-	@Column(name="TienVC")
-	private double tienVC;
+    
+    @Column(name="NgayTao")
+    private Timestamp NgayTao;
 
 	//bi-directional many-to-one association to TbChiTietHD
-	@OneToMany(mappedBy="tbHoaDon")
+	@OneToMany(mappedBy="tbHoaDon", cascade = CascadeType.ALL)
 	private List<TbChiTietHD> tbChiTietHds;
 
 	public TbHoaDon() {
 	}
+	
+	
 
-	public int getMaHD() {
+	public TbHoaDon(TbAccount account) {
+	    Date now = new Date();
+        this.account = account;
+        NgayTao = new Timestamp(now.getTime());
+    }
+
+
+
+    public int getMaHD() {
 		return this.maHD;
 	}
 
@@ -49,16 +57,7 @@ public class TbHoaDon implements Serializable {
 		this.maHD = maHD;
 	}
 
-	public int getMaGD() {
-		return this.maGD;
-	}
-
-	public void setMaGD(int maGD) {
-		this.maGD = maGD;
-	}
-
-
-	public TbAccount getAccount() {
+    public TbAccount getAccount() {
         return account;
     }
 
@@ -66,29 +65,6 @@ public class TbHoaDon implements Serializable {
         this.account = account;
     }
 
-    public double getTienHD() {
-		return this.tienHD;
-	}
-
-	public void setTienHD(double tienHD) {
-		this.tienHD = tienHD;
-	}
-
-	public double getTienSach() {
-		return this.tienSach;
-	}
-
-	public void setTienSach(double tienSach) {
-		this.tienSach = tienSach;
-	}
-
-	public double getTienVC() {
-		return this.tienVC;
-	}
-
-	public void setTienVC(double tienVC) {
-		this.tienVC = tienVC;
-	}
 
 	public List<TbChiTietHD> getTbChiTietHds() {
 		return this.tbChiTietHds;
@@ -98,11 +74,13 @@ public class TbHoaDon implements Serializable {
 		this.tbChiTietHds = tbChiTietHds;
 	}
 
-	public TbChiTietHD addTbChiTietHd(TbChiTietHD tbChiTietHd) {
-		getTbChiTietHds().add(tbChiTietHd);
-		tbChiTietHd.setTbHoaDon(this);
+	public void addTbChiTietHd(TbChiTietHD tbChiTietHd) {
+	    if(tbChiTietHds == null)
+        {
+	        tbChiTietHds = new ArrayList<>();
+        }
 
-		return tbChiTietHd;
+		tbChiTietHds.add(tbChiTietHd);
 	}
 
 	public TbChiTietHD removeTbChiTietHd(TbChiTietHD tbChiTietHd) {

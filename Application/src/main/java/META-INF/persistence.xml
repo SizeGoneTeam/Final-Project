@@ -21,7 +21,6 @@
     <class>entity.GioHangPK</class>
     <class>entity.TbGiaoDich</class>
     <class>entity.TbChiTietHD</class>
-    <class>entity.TbChiTietHDPK</class>
     <class>entity.TbHoaDon</class>
     <properties>
     	<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-1.cluster-cgn1djdowz61.us-east-1.rds.amazonaws.com:3306/dbbook"/> -->

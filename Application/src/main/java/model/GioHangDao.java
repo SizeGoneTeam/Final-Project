@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import entity.TbAccount;
 import entity.TbGioHang;
+import entity.TbHoaDon;
 import entity.TbSach;
 import entity.TbYeuThich;
 import utils.JpaUntils;
@@ -21,11 +22,45 @@ public class GioHangDao {
         super.finalize();
     }
     
+    public void remove(TbGioHang gioHang) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.remove(gioHang);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            //em.close();
+        }
+    }
+    
     public void insert(TbGioHang gioHang) {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
             em.persist(gioHang);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            em.close();
+        }
+    }
+    
+    public void insertHD(TbHoaDon hoaDon) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(hoaDon);
             trans.commit();
             
         } catch (Exception e) {
@@ -60,5 +95,14 @@ public class GioHangDao {
         return entity;
     }
     
+    public List<TbGioHang> findGioHang(String MaTK) {
+        String jpql = "SELECT o FROM TbGioHang o "
+                + "where o.gioHangPK.maTK = :MaTK ";
+
+        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGioHang> entity = query.getResultList();
+        return entity;
+    }
 
 }

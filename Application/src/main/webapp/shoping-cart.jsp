@@ -241,8 +241,8 @@
             var totalShipping = 0;
             for (var i = 0; i < input.length; i++) {
                 if (document.getElementsByClassName('shoping__cart__price').item(i).parentElement.firstElementChild.firstElementChild.checked) {
-                    total += Number(document.getElementsByClassName('shoping__cart__price').item(i).innerText.replace('VND', ''));
-                    totalShipping += Number(document.getElementsByClassName('shipping_cost').item(i).innerText.replace('VND', ''));
+                    total += Number(document.getElementsByClassName('shoping__cart__price').item(i).innerText.replace('$', ''));
+                    totalShipping += Number(document.getElementsByClassName('shipping_cost').item(i).innerText.replace('$', ''));
                 }
             }
             document.getElementsByClassName('shoping__checkout').item(0).children.item(1).firstElementChild.firstElementChild.innerText= total;
@@ -268,8 +268,8 @@
         function setPrice() {
             var input = document.getElementsByClassName('price').item(0).innerText;
             for (var i = 0; i < input.length; i++) {
-                if (!document.getElementsByClassName('price').item(i).innerText.includes('VND')) {
-                    document.getElementsByClassName('price').item(i).innerText += ' VND';
+                if (!document.getElementsByClassName('price').item(i).innerText.includes('$')) {
+                    document.getElementsByClassName('price').item(i).innerText += ' $';
                 }   
             }
         }
@@ -296,6 +296,7 @@
                                         <td>
                                             <input type="checkbox" onclick="totalPrice()" />
                                             <div id='startUserID${o.tbSach.maSach}' style='display: none;'>${o.tbSach.nguoiSoHuu.maTK}</div>
+                                            <input name="MaSach" id = 'input${o.tbSach.maSach}' type="text" value ="${o.tbSach.maSach}">
                                         </td>
                                         <td class="shoping__cart__item">
                                             <a href="detail?pid=${o.tbSach.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
@@ -310,7 +311,7 @@
                                         <td class="shoping__cart__price price">
                                             ${o.tbSach.donGia}
                                         </td>
-                                        <td id="shipping_cost${o.tbSach.maSach}" class="shipping_cost price">0<td>
+                                        <td id="shipping_cost${o.tbSach.maSach}" class="shipping_cost price">0<td></td>
                                     </tr>
                                     <script>
                                         $(document).ready(function() {

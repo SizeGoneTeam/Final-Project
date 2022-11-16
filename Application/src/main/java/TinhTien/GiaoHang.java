@@ -14,6 +14,7 @@ import model.AddressDAO;
 import model.UserDao;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -687,23 +688,21 @@ public class GiaoHang extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String startUserID = checkNullString(request.getParameter("startUserID"));
-        String targetUserID = checkNullString(request.getParameter("targetUserID"));
-        if (startUserID.isBlank() || targetUserID.isBlank()) {
-            
-        }
-        else {
+        UserDao daoUser = new UserDao();
+        String startUserID = request.getParameter("startUserID");
+        String targetUserID = request.getParameter("targetUserID");
+        System.out.println(startUserID + " - " + targetUserID);
             GiaoHang giaoHang = new GiaoHang();
             
-            TbAccount startUser = UserDao.selectAccount(startUserID);
-            TbAccount targetUser = UserDao.selectAccount(targetUserID);
+            TbAccount startUser = daoUser.findById(Long.valueOf(startUserID));
+            TbAccount targetUser = daoUser.findById(Long.valueOf(targetUserID));
             
-            String cal = giaoHang.dijkstra(AddressDAO.selectAddress(startUser).get(0).getTbTinhThanh().getId(), AddressDAO.selectAddress(targetUser).get(0).getTbTinhThanh().getId()).toString();
-            
+            double TienVC = giaoHang.dijkstra(startUser.getTbDiaChiKhs().get(0).getTbTinhThanh().getId(), targetUser.getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).intValue();
+            TienVC = (double)Math.round((TienVC/23000) *100) /100;
+            System.out.println(TienVC);
             response.setContentType("text/plain");
-            response.getWriter().write(cal);
-        }
-        
+            PrintWriter out = response.getWriter();
+            out.print(TienVC);
     }
     
     @Override

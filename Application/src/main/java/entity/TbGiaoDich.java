@@ -2,7 +2,9 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -16,6 +18,7 @@ public class TbGiaoDich implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="MaGD")
 	private int maGD;
 
@@ -36,11 +39,27 @@ public class TbGiaoDich implements Serializable {
 
 	@Column(name="TienHoaHong")
 	private double tienHoaHong;
+	
+	@OneToOne(mappedBy = "giaoDich")
+    private TbChiTietHD chiTietHD;
 
 	public TbGiaoDich() {
 	}
 
-	public int getMaGD() {
+	
+	public TbGiaoDich(int loaiGD, int nguoiGui, int nguoiNhan, double tienGD) {
+        super();
+        Date now = new Date();
+        this.loaiGD = loaiGD;
+        this.ngayTao = new Timestamp(now.getTime());
+        this.nguoiGui = nguoiGui;
+        this.nguoiNhan = nguoiNhan;
+        this.tienGD = tienGD;
+        this.tienHoaHong = tienGD*20/100;
+    }
+
+
+    public int getMaGD() {
 		return this.maGD;
 	}
 
@@ -92,14 +111,28 @@ public class TbGiaoDich implements Serializable {
 		return this.tienHoaHong;
 	}
 
-	public int month() {
-        return getNgayTao().getMonth();
-    }
-	public int year() {
-	    return getNgayTao().getYear();
-	}
 	public void setTienHoaHong(double tienHoaHong) {
 		this.tienHoaHong = tienHoaHong;
 	}
 
+
+
+    public TbChiTietHD getChiTietHD() {
+        return chiTietHD;
+    }
+
+
+    public void setChiTietHD(TbChiTietHD chiTietHD) {
+        this.chiTietHD = chiTietHD;
+    }
+
+
+    @Override
+    public String toString() {
+        return "TbGiaoDich [maGD=" + maGD + ", loaiGD=" + loaiGD + ", ngayTao=" + ngayTao + ", nguoiGui=" + nguoiGui
+                + ", nguoiNhan=" + nguoiNhan + ", tienGD=" + tienGD + ", tienHoaHong=" + tienHoaHong + "]";
+    }
+
+    
+	
 }

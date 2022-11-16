@@ -32,7 +32,7 @@ public class TbDiaChiKH implements Serializable {
 
 	@Column(name="TenQuan")
 	private String tenQuan;
-
+	
 	//bi-directional many-to-one association to TbAccountNew
 	@ManyToOne
 	@JoinColumn(name="MaTK")
@@ -109,5 +109,6 @@ public class TbDiaChiKH implements Serializable {
 	public void setTbTinhThanh(TbTinhThanh tbTinhThanh) {
 		this.tbTinhThanh = tbTinhThanh;
 	}
+		
 
 }

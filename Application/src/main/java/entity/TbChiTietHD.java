@@ -14,31 +14,37 @@ import javax.persistence.*;
 public class TbChiTietHD implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private TbChiTietHDPK id;
+	@Id
+    @Column(name="MaCT") 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int maCT;
 
 	@Column(name="GiaVC")
 	private double giaVC;
 
-
-
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "MaGD")
+    private TbGiaoDich giaoDich;
+    
 	//bi-directional many-to-one association to TbHoaDon
-	@ManyToOne
-	@JoinColumn(name="MaHD",insertable=false, updatable=false)
+	@ManyToOne()
+	@JoinColumn(name="MaHD")
 	private TbHoaDon tbHoaDon;
-	@OneToOne(cascade = CascadeType.ALL )  
+	
+	@OneToOne()  
 	@JoinColumn(name = "MaSach")
 	private TbSach maSach;
 	public TbChiTietHD() {
 	}
+	
+	
 
-	public TbChiTietHDPK getId() {
-		return this.id;
-	}
-
-	public void setId(TbChiTietHDPK id) {
-		this.id = id;
-	}
+	public TbChiTietHD(TbHoaDon hoaDon,double giaVC, TbGiaoDich giaoDich, TbSach maSach) {
+	    this.tbHoaDon = hoaDon;
+        this.giaVC = giaVC;
+        this.giaoDich = giaoDich;
+        this.maSach = maSach;
+    }
 
 	public double getGiaVC() {
 		return this.giaVC;
@@ -65,4 +71,31 @@ public class TbChiTietHD implements Serializable {
 		this.tbHoaDon = tbHoaDon;
 	}
 
+
+
+    public int getMaCT() {
+        return maCT;
+    }
+
+
+
+    public void setMaCT(int maCT) {
+        this.maCT = maCT;
+    }
+
+
+
+    public TbGiaoDich getGiaoDich() {
+        return giaoDich;
+    }
+
+
+
+    public void setGiaoDich(TbGiaoDich giaoDich) {
+        this.giaoDich = giaoDich;
+    }
+    
+    
+
+	
 }

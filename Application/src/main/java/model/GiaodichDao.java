@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import entity.TbChiTietHD;
 import entity.TbGioHang;
 import entity.TbHoaDon;
+import entity.TbLichSuXem;
 import entity.TbSach;
 import utils.JpaUntils;
 
@@ -19,6 +21,75 @@ public class GiaodichDao {
     protected void finalize() throws Throwable {
         em.close();
         super.finalize();
+    }
+    
+    public void insert(TbChiTietHD chiTietHD) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(chiTietHD);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error:"+ e.toString());
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            //em.close();
+        }
+    }
+    
+    public void update(TbHoaDon hoaDon) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(hoaDon);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+           // //em.close();
+        }
+    }
+    
+    public void update(TbChiTietHD chiTietHD) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(chiTietHD);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            //em.close();
+        }
+    }
+    
+    public void insert(TbHoaDon hoaDon) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(hoaDon);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            //em.close();
+        }
     }
     
     public TbHoaDon gethoadon(int MaHD) {
@@ -67,19 +138,8 @@ public class GiaodichDao {
         }
         return (long) 0;
     }
-    public Long giaodichmoi(int thang, int nam) {
+    public Long taikhoadangkymoi(int thang, int nam) {
         String jpql = "SELECT  Count(o) FROM TbGiaoDich o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
-        Query query = em.createQuery(jpql);
-        query.setParameter("thang",thang);
-        query.setParameter("nam",nam);
-        if(query.getSingleResult() != null) {
-            Long entity = (Long) query.getSingleResult();
-            return entity;
-        }
-        return (long) 0;
-    }
-    public Long taikhoandangkimoi(int thang, int nam) {
-        String jpql = "SELECT  Count(o) FROM TbAccount o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
         Query query = em.createQuery(jpql);
         query.setParameter("thang",thang);
         query.setParameter("nam",nam);
@@ -119,14 +179,13 @@ public class GiaodichDao {
     }
     public static void main(String[] args) {
         GiaodichDao dao = new GiaodichDao();
-        long a = dao.taikhoandangkimoi(11, 2022);
-//        TbHoaDon list = dao.gethoadon(1);
-//        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
-//        chiTietHDs.addAll(list.getTbChiTietHds());
-//        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
-//            System.out.println(tbChiTietHD.getMaSach().getAnh());
-//        }
-        System.out.println(a);
+        TbHoaDon list = dao.gethoadon(1);
+        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
+        chiTietHDs.addAll(list.getTbChiTietHds());
+        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
+            System.out.println(tbChiTietHD.getMaSach().getAnh());
+        }
+        System.out.println(list.getAccount().getEmail());
 
 
     }

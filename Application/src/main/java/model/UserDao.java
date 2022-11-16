@@ -91,7 +91,7 @@ public class UserDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
+            //em.close();
         }
     }
     
