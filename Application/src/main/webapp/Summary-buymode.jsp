@@ -99,7 +99,7 @@
                           </div>
                           <div class="container-item-col container-item-col-orderTotal">
                             <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">${o.getDonGia()} VNĐ</span></div>
+                              <div><span class="POSITIVE BOLD">${o.getDonGia()} $</span></div>
                             </div>
 
 
@@ -149,7 +149,7 @@
                           </div>
                           <div class="container-item-col container-item-col-orderTotal">
                             <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">${o.getDonGia()} VNĐ</span></div>
+                              <div><span class="POSITIVE BOLD">${o.getDonGia()} $</span></div>
                             </div>
 
 
@@ -198,7 +198,7 @@
                           </div>
                           <div class="container-item-col container-item-col-orderTotal">
                             <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">${o.getDonGia()} VNĐ</span></div>
+                              <div><span class="POSITIVE BOLD">${o.getDonGia()} $</span></div>
                             </div>
 
 

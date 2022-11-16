@@ -72,7 +72,7 @@
                       <a href="#">${o.getTenSach() }</a>
                     </div>
                     <div class="container-item__locator">
-                      <span class="BOLD">${o.getDonGia()} VNĐ</span>
+                      <span class="BOLD">${o.getDonGia()} $</span>
                     </div>
                   </a></div>
               </div>

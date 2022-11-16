@@ -62,7 +62,7 @@
               <div class="m-container container-1">
                 <div class="m-container__header border-header">
                   <div class="title-container">
-                    <h2 class="title large-text-2">Đã thanh toán</h2>
+                    <h2 class="title large-text-2">Đã mua</h2>
                     <div class="sub-title regular-text"></div>
                   </div>
                 </div>
@@ -92,7 +92,7 @@
                           </div>
                           <div class="container-item-col container-item-col-orderTotal">
                             <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">${o.getDonGia()} VNĐ</span></div>
+                              <div><span class="POSITIVE BOLD">${o.getDonGia()} $</span></div>
                             </div>
                          
                           </div>

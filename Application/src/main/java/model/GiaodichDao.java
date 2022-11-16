@@ -138,8 +138,19 @@ public class GiaodichDao {
         }
         return (long) 0;
     }
-    public Long taikhoadangkymoi(int thang, int nam) {
+    public Long taikhoandangkimoi(int thang, int nam) {
         String jpql = "SELECT  Count(o) FROM TbGiaoDich o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
+        Query query = em.createQuery(jpql);
+        query.setParameter("thang",thang);
+        query.setParameter("nam",nam);
+        if(query.getSingleResult() != null) {
+            Long entity = (Long) query.getSingleResult();
+            return entity;
+        }
+        return (long) 0;
+    }
+    public Long giaodichmoi(int thang, int nam) {
+        String jpql = "SELECT  Count(o) FROM TbAccount o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
         Query query = em.createQuery(jpql);
         query.setParameter("thang",thang);
         query.setParameter("nam",nam);

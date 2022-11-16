@@ -15,7 +15,9 @@ import javax.persistence.TypedQuery;
 import org.hibernate.engine.spi.EntityEntryFactory;
 
 import entity.TbAccount;
+import entity.TbChiTietHD;
 import entity.TbGioHang;
+import entity.TbHoaDon;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbSach;
@@ -237,28 +239,36 @@ public class BookDao {
         return entity;
     }
     public List<TbSach> OrderTop3(String MaTK) {
-        String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 1 order by o.gioHangPK desc";
-        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
-        query.setParameter("MaTK",Integer.parseInt(MaTK));
-        List<TbGioHang> entity = query.setMaxResults(3).getResultList();
-        List<TbSach> entity1 = new ArrayList<TbSach>();
-        for (TbGioHang product : entity) {
-            entity1.add(product.getTbSach());
+        String jpql = "SELECT o FROM TbHoaDon o "
+                + "where o.account.maTK = :MaTK";
+        TypedQuery<TbHoaDon> query = em.createQuery(jpql,TbHoaDon.class);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        List<TbHoaDon> entity = query.setMaxResults(9).getResultList();
+        List<TbChiTietHD> entity1 = new ArrayList<TbChiTietHD>();
+        List<TbSach> entity2 = new ArrayList<TbSach>();
+        for (TbHoaDon product : entity) {
+            entity1.addAll(product.getTbChiTietHds());
         }
-        return entity1;
+        for (TbChiTietHD tbSach : entity1) {
+            entity2.add(tbSach.getMaSach());
+        }
+        return entity2;
     }
     public List<TbSach> OrderTop9(String MaTK) {
-        String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 1 order by o.gioHangPK desc";
-        TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
-        query.setParameter("MaTK",Integer.parseInt(MaTK));
-        List<TbGioHang> entity = query.setMaxResults(9).getResultList();
-        List<TbSach> entity1 = new ArrayList<TbSach>();
-        for (TbGioHang product : entity) {
-            entity1.add(product.getTbSach());
+        String jpql = "SELECT o FROM TbHoaDon o "
+                + "where o.account.maTK = :MaTK";
+        TypedQuery<TbHoaDon> query = em.createQuery(jpql,TbHoaDon.class);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        List<TbHoaDon> entity = query.setMaxResults(9).getResultList();
+        List<TbChiTietHD> entity1 = new ArrayList<TbChiTietHD>();
+        List<TbSach> entity2 = new ArrayList<TbSach>();
+        for (TbHoaDon product : entity) {
+            entity1.addAll(product.getTbChiTietHds());
         }
-        return entity1;
+        for (TbChiTietHD tbSach : entity1) {
+            entity2.add(tbSach.getMaSach());
+        }
+        return entity2;
     }
     public List<TbSach> NoPayTop3(String MaTK) {
         String jpql = "SELECT o FROM TbGioHang o "
