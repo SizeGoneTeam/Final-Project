@@ -1,10 +1,10 @@
 package entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -49,6 +49,9 @@ public class TbAccount implements Serializable {
     private Date dateOfBirth;
     @Column(name="isAdmin")
     private int isAdmin;
+    
+    @Column(name="NgayTao")
+    private Timestamp ngayTao;
     
     public int getIsAdmin() {
         return isAdmin;
@@ -103,16 +106,21 @@ public class TbAccount implements Serializable {
 
 
     public TbAccount() {
+        Date now = new Date();
         tien = new Double(0);
         isAdmin = 0;
+        this.ngayTao = new Timestamp(now.getTime());
+        
     }
 
 
     public TbAccount(String uName,String pWord) {
+        Date now = new Date();
         PWord = pWord;
         UName = uName;
         tien = new Double(0);
         isAdmin = 0;
+        this.ngayTao = new Timestamp(now.getTime());
     }
 
     public Long getMaTK() {
@@ -242,15 +250,20 @@ public class TbAccount implements Serializable {
     
 
 
+    public Timestamp getNgayTao() {
+        return ngayTao;
+    }
+
+
+    public void setNgayTao(Timestamp ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+
     @Override
     public String toString() {
         return "TbAccount [maTK=" + maTK + ", email=" + email + ", hoTen=" + hoTen + ", phone=" + phone + ", PWord="
                 + PWord + ", sao=" + sao + ", tien=" + tien + ", UName=" + UName + ", dateOfBirth=" + dateOfBirth
                 + "]";
     }
-
-
-
-    
-
 }

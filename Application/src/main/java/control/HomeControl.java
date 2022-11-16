@@ -31,6 +31,7 @@ public class HomeControl extends HttpServlet{
 
 		BookDao home = new BookDao();
 		List<TbSach> all = home.GetAll();
+		List<TbSach> lowest = home.Lowest();
 		List<TbSach> lastAdd = home.LastAdd();
 	    List<TbTheLoai> category = home.GetCategory();
 		HttpSession session=req.getSession();
@@ -47,6 +48,7 @@ public class HomeControl extends HttpServlet{
 		req.setAttribute("listP", all);
 		req.setAttribute("category", category);
 		req.setAttribute("listNew", lastAdd);
+		req.setAttribute("lowest", lowest);
 
 
 		req.getRequestDispatcher("home.jsp").forward(req, resp);

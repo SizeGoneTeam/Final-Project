@@ -44,7 +44,11 @@
 									<li><a href="./blog-details.html">Blog Details</a></li>
 								</ul></li>
 							<li><a href="FAQ.jsp">FAQ</a></li>
-							<li><a href="AdminProduct">Admin</a></li>
+							<c:if test="${sessionScope.acc != null}">
+							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
+								<li><a href="adminpage/DashboardControl">Admin</a></li>
+							</c:if>
+							</c:if>
 						</ul>
 					</nav>
 				</div>
@@ -156,15 +160,7 @@
 					<div class="section-title">
 						<h2>Đầu sách hay</h2>
 					</div>
-					<div class="featured__controls">
-						<ul>
-							<li class="active" data-filter="*">Tất cả</li>
-							<li data-filter=".vanhoc">Sách văn học</li>
-							<li data-filter=".kinhte">Sách kinh tế</li>
-							<li data-filter=".thieunhi">Sách thiếu nhi</li>
-							<li data-filter=".kynangsong">Sách kỹ năng sống</li>
-						</ul>
-					</div>
+
 				</div>
 			</div>
 			<div class="row featured__filter">
@@ -174,8 +170,9 @@
 							<div class="featured__item__pic set-bg">
 							<img src="${o.getAnh()}" alt="">					
 								<ul class="featured__item__pic__hover">
+								<c:if test="${sessionScope.acc != null}">
 									<li><a href="insertyt?MaSach=${o.maSach }"><i class="fa fa-heart"></i></a></li>
-									
+									</c:if>
 								</ul>
 							</div>
 							<div class="featured__item__text">
@@ -221,23 +218,23 @@
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-						<h4>Top Sách được đấu giá nhiều</h4>
+						<h4>Top Sách Có Giá Thấp Nhất</h4>
 						<!-- có class="latest-product__slider owl-carousel" thì k chạy được chả hiểu vì sao -->
 						<!-- <div class="latest-product__slider owl-carousel"> -->
-						<div>
-							<div class="latest-prdouct__slider__item">
-								<c:forEach items="${listBid}" var="o">
-									<a href="detail?pid=${o.maSach}&amp" class="latest-product__item">
-										<div class="latest-product__item__pic">
-											<img src="${o.anh}" alt="">
-										</div>
-										<div class="latest-product__item__text">
-											<h6>${o.tenSach}</h6>
-											<span>${o.price}VNĐ</span>
-										</div>
-									</a>
-								</c:forEach>
-							</div>
+						
+						<div class="latest-prdouct__slider__item">
+							<c:forEach items="${lowest}" var="o">
+								<a href="detail?pid=${o.maSach }"  class="latest-product__item">
+									<div class="latest-product__item__pic">
+										<img src="${o.getAnh()}" alt="">
+									</div>
+									<div class="latest-product__item__text">
+										<h6>${o.getTenSach()}</h6>
+										<span>${o.getDonGia()}VNĐ</span>
+									</div>
+								</a>
+							</c:forEach>
+
 						</div>
 					</div>
 				</div>

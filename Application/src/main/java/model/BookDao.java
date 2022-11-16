@@ -169,7 +169,7 @@ public class BookDao {
         return ((Long) query.getSingleResult()).intValue();
     }
     public List<TbSach> GetAll() {
-        String jpql = "SELECT o FROM TbSach o";
+        String jpql = "SELECT o FROM TbSach o where o.phienDauGia.isEnd = 0 order by o.phienDauGia.ngayTao desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         List<TbSach> entity = query.setMaxResults(12).getResultList();
         return entity;
@@ -188,6 +188,12 @@ public class BookDao {
     }
     public List<TbSach> LastAdd() {
         String jpql = "SELECT o FROM TbSach o order by o.maSach desc ";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        List<TbSach> entity = query.setMaxResults(4).getResultList();
+        return entity;
+    }
+    public List<TbSach> Lowest() {
+        String jpql = "SELECT o FROM TbSach o where o.phienDauGia.isEnd = 0 order by o.donGia asc ";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         List<TbSach> entity = query.setMaxResults(4).getResultList();
         return entity;
@@ -408,7 +414,7 @@ public class BookDao {
 //        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
 //        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
 //        dao.deleteyeuthich(tbYeuThichPK);
-        List<TbSach> list = dao.OrderTop3("1");
+        List<TbSach> list = dao.Lowest();
         for (TbSach product : list) {
         System.out.println(product.getMaSach());
         }

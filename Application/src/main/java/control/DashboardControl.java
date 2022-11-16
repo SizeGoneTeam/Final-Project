@@ -33,7 +33,8 @@ public class DashboardControl extends HttpServlet {
         now.setTime(NowTime);
         now.add(Calendar.YEAR, 1900);
         Double doanhthuhientai = dao.Doanhthutheothang(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
-        Long taikhoan = dao.taikhoadangkymoi(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
+        Long giaodich = dao.giaodichmoi(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
+        Long taikhoan = dao.taikhoandangkimoi(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
         now.add(Calendar.MONTH, -11);
         
         Double trungbinh = (double) 0;
@@ -53,7 +54,8 @@ public class DashboardControl extends HttpServlet {
             now.add(Calendar.MONTH, 1);
         }
         
-        trungbinh = trungbinh/12;
+
+        trungbinh = (double) (Math.round(trungbinh/12)*100/100);
      // System.out.println(chart);
         String tempHTML = "animationEnabled: true,  \r\n"
                 + "    title:{\r\n"
@@ -63,11 +65,11 @@ public class DashboardControl extends HttpServlet {
                 + "        valueFormatString: \"MM-YY\"\r\n"
                 + "    },\r\n"
                 + "    axisY: {\r\n"
-                + "        title: \"Doanh thu (VNĐ)\",\r\n"
+                + "        title: \"Doanh thu (USD)\",\r\n"
                 + "        prefix: \"\"\r\n"
                 + "    },\r\n"
                 + "    data: [{\r\n"
-                + "        yValueFormatString: \"#.### VNĐ\",\r\n"
+                + "        yValueFormatString: \"#.### USD\",\r\n"
                 + "        xValueFormatString: \"MM-YY\",\r\n"
                 + "        type: \"spline\",\r\n"
                 + "        dataPoints: [\r\n"
@@ -77,6 +79,7 @@ public class DashboardControl extends HttpServlet {
                 + "    }]";
         request.setAttribute("trungbinh", trungbinh);
         request.setAttribute("taikhoan", taikhoan);
+        request.setAttribute("giaodich", giaodich);
         request.setAttribute("doanhthuhientai", doanhthuhientai);
         request.setAttribute("charts", tempHTML);
         request.getRequestDispatcher("Index.jsp").forward(request, response);

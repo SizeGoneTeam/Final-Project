@@ -67,8 +67,19 @@ public class GiaodichDao {
         }
         return (long) 0;
     }
-    public Long taikhoadangkymoi(int thang, int nam) {
+    public Long giaodichmoi(int thang, int nam) {
         String jpql = "SELECT  Count(o) FROM TbGiaoDich o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
+        Query query = em.createQuery(jpql);
+        query.setParameter("thang",thang);
+        query.setParameter("nam",nam);
+        if(query.getSingleResult() != null) {
+            Long entity = (Long) query.getSingleResult();
+            return entity;
+        }
+        return (long) 0;
+    }
+    public Long taikhoandangkimoi(int thang, int nam) {
+        String jpql = "SELECT  Count(o) FROM TbAccount o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
         Query query = em.createQuery(jpql);
         query.setParameter("thang",thang);
         query.setParameter("nam",nam);
@@ -108,13 +119,14 @@ public class GiaodichDao {
     }
     public static void main(String[] args) {
         GiaodichDao dao = new GiaodichDao();
-        TbHoaDon list = dao.gethoadon(1);
-        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
-        chiTietHDs.addAll(list.getTbChiTietHds());
-        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
-            System.out.println(tbChiTietHD.getMaSach().getAnh());
-        }
-        System.out.println(list.getAccount().getEmail());
+        long a = dao.taikhoandangkimoi(11, 2022);
+//        TbHoaDon list = dao.gethoadon(1);
+//        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
+//        chiTietHDs.addAll(list.getTbChiTietHds());
+//        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
+//            System.out.println(tbChiTietHD.getMaSach().getAnh());
+//        }
+        System.out.println(a);
 
 
     }
