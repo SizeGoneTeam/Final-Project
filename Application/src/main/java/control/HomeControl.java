@@ -38,11 +38,15 @@ public class HomeControl extends HttpServlet{
 		TbAccount account;
 		account= (TbAccount) session.getAttribute("acc");
 		if(account != null) {
-		    int dem = home.countyeuthich(account.getMaTK().toString());
+		    int demyt = home.countyeuthich(account.getMaTK().toString());
+		    int demdb = home.CountDangBan(account.getMaTK().toString());
+		    int demgh = home.CountGioHang(account.getMaTK().toString());
 			String maKH = String.valueOf(account.getMaTK());
 			List<TbSach> lastSeen = home.getLastSeen(maKH);
 			req.setAttribute("lastSeen", lastSeen);
-			req.setAttribute("dem", dem);
+			req.setAttribute("demyt", demyt);
+			req.setAttribute("demdb", demdb);
+			req.setAttribute("demgh", demgh);
 		}
 		
 		req.setAttribute("listP", all);

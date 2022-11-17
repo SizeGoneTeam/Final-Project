@@ -24,9 +24,17 @@ public class yeuthichControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
+  
         String MaTK = account.getMaTK().toString();
+        BookDao dao = new BookDao();
+      
+        int demyt = dao.countyeuthich(MaTK);
+        int demdb = dao.CountDangBan(MaTK);
+        int demgh = dao.CountGioHang(MaTK);
+        request.setAttribute("demyt", demyt);
+        request.setAttribute("demdb", demdb);
+        request.setAttribute("demgh", demgh);
 	    
-	    BookDao dao = new BookDao();
 	    List<TbSach> getyeuthichList = dao.GetYeuThich(MaTK);
 	    int dem = dao.countyeuthich(MaTK);
 	    request.setAttribute("getyeuthich", getyeuthichList);

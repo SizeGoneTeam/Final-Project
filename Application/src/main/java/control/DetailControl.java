@@ -46,13 +46,18 @@ public class DetailControl extends HttpServlet {
 	        BookDao detail = new BookDao();
 	        List<TbTheLoai> category = detail.GetCategory();
 	        if(maKH != null) {
+	            int demyt = daoSach.countyeuthich(maKH);
+	            int demdb = daoSach.CountDangBan(maKH);
+	            int demgh = daoSach.CountGioHang(maKH);
 	            List<TbLichSuXem> last = detail.getlast(maKH, id);
 	            TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
 	            int dem = detail.countyeuthich(maKH);
 	            Date date = new Date();
 	            Timestamp timestamp = new Timestamp(date.getTime());
 	            TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
-	            request.setAttribute("dem", dem);
+	            request.setAttribute("demyt", demyt);
+	            request.setAttribute("demdb", demdb);
+	            request.setAttribute("demgh", demgh);
 	            if(last.isEmpty()) {
 	                detail.insert(xem);
 	                 

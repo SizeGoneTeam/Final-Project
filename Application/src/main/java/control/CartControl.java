@@ -17,6 +17,7 @@ import entity.TbDiaChiKH;
 import entity.TbGioHang;
 import entity.TbTinhThanh;
 import model.AddressDAO;
+import model.BookDao;
 import model.CartDAO;
 import model.UserDao;
 
@@ -26,12 +27,18 @@ public class CartControl extends HttpServlet  {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
-        
+        BookDao dao = new BookDao();
         if (account == null) {
             response.sendRedirect("login");
         }
         else {
             TbAccount user = UserDao.selectAccount(Long.toString(account.getMaTK()));
+            int demyt = dao.countyeuthich(account.getMaTK().toString());
+            int demdb = dao.CountDangBan(account.getMaTK().toString());
+            int demgh = dao.CountGioHang(account.getMaTK().toString());
+            request.setAttribute("demyt", demyt);
+            request.setAttribute("demdb", demdb);
+            request.setAttribute("demgh", demgh);
             session.setAttribute("acc", user);            
             
             List<TbGioHang> carts = CartDAO.selectCart(user);

@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Đăng nhập</title>
 </head>
 <link rel="stylesheet" href="css/Login-css.css" type="text/css">
 <body>
-	
+	    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 	<div class="login-wrap">
 	<div class="login-html">
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Đăng nhập</label>

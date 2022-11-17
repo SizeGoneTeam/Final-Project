@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ogani | Template</title>
+<title>Sizegone Book</title>
 
 <!-- Google Font -->
 <link
@@ -23,6 +23,9 @@
 <link rel="stylesheet" href="css/toast.css" type="text/css">
 </head>
 <body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 	<header class="header">
 		<div class="container">
 			<div class="row">
@@ -56,9 +59,9 @@
 					<div class="header__cart">
 						<ul>
 						<c:if test="${sessionScope.acc != null}">
-							<li><a href="taoSach"><i class="fa fa-book"></i> <span>2</span></a></li>
-							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
-							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
+							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
+							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
 						</c:if>
 							
 						</ul>
@@ -141,7 +144,7 @@
 							<h2>
 								Mua liền tay <br />Sách về ngay
 							</h2>
-							<p>Free ship cho đơn hàng trên 200k</p>
+							<p></p>
 							<a href="#" class="primary-btn">MUA NGAY</a>
 						</div>
 					</div>

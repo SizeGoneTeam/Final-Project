@@ -9,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.buf.StringUtils;
 import org.hibernate.annotations.common.util.StringHelper;
 
 import dao.dao;
+import entity.TbAccount;
 import entity.TbSach;
 import entity.TbTheLoai;
 import model.BookDao;
@@ -29,6 +31,9 @@ public class SearchControl extends HttpServlet {
 	    response.setContentType("text/html;charset=UTF-8");
 	    String key = request.getParameter("key");
 	    String page = request.getParameter("page");
+	    HttpSession session = request.getSession();
+        TbAccount account = (TbAccount) session.getAttribute("acc");
+        String maKH = account.getMaTK().toString();
 	    int pagecout;
 	    if(page == null) {
 	        page = "0";
@@ -46,7 +51,14 @@ public class SearchControl extends HttpServlet {
         if(count % 9!=0) {
             endPage++;
         }
-
+        if(maKH != null) {
+            int demyt = bookDao.countyeuthich(maKH);
+            int demdb = bookDao.CountDangBan(maKH);
+            int demgh = bookDao.CountGioHang(maKH);
+            request.setAttribute("demyt", demyt);
+            request.setAttribute("demdb", demdb);
+            request.setAttribute("demgh", demgh);
+        }
         String endPCategory = "0";
         request.setAttribute("category", category); 
         request.setAttribute("endPCategory", endPCategory);

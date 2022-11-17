@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 <header class="header">
 		<div class="container">
 			<div class="row">
@@ -53,8 +56,9 @@
 					<div class="header__cart">
 						<ul>
 							<c:if test="${sessionScope.acc != null}">
-							<li><a href="yeuthich?MaTK=${sessionScope.acc.maTK}""><i class="fa fa-heart"></i> <span>${dem}</span></a></li>
-							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
+							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
+							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
 						</c:if>
 						</ul>
 						<div class="header__cart__price">
@@ -153,7 +157,7 @@
                            	 	<c:forEach items="${getyeuthich}" var="o">
                                 <tr>
                                     <td class="shoping__cart__item">
-                                    <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
+                                    <a href="detail?pid=${o.maSach }">
                                     <img src="${o.getAnh()}" width="130"  height="150" alt="">
                                      <h5>${o.getTenSach() }</h5>
                                     </a>
@@ -164,7 +168,7 @@
                                        ${o.getDonGia()}VNĐ
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <a href="removeytControl?MaTK=${sessionScope.acc.maTK}&amp;MaSach=${o.maSach }"><span class="icon_close"></span></a>
+                                        <a href="removeytControl?MaSach=${o.maSach }"><span class="icon_close"></span></a>
                                     </td>
                                 </tr>
                                	</c:forEach>

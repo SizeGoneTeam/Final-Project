@@ -163,9 +163,21 @@ public class BookDao {
             em.close();
         }
     }
-
+    public int CountDangBan(String MaTK) {
+        String jpql = "SELECT count(o)  FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 0 order by o.maSach desc";
+        Query query = em.createQuery(jpql);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        return ((Long) query.getSingleResult()).intValue();
+    }
+    public int CountGioHang(String MaTK) {
+        String jpql = "SELECT count(o) FROM TbGioHang o where o.gioHangPK.maTK = :MaTK";
+        Query query = em.createQuery(jpql);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        return ((Long) query.getSingleResult()).intValue();
+    }
     public int CountAll(String keyword) {
-        String jpql = "SELECT count(o) FROM TbSach o where o.tenSach like :keyword";
+        String jpql = "SELECT count(o) FROM TbSach o where o.tenSach like :keyword and o.phienDauGia.isEnd = 0";
         Query query = em.createQuery(jpql);
         query.setParameter("keyword","%" + keyword + "%" );
         return ((Long) query.getSingleResult()).intValue();
@@ -224,7 +236,7 @@ public class BookDao {
     }
     public List<TbSach> SoldTop3(String MaTK) {
         String jpql = "SELECT o FROM TbSach o "
-                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.maSach desc";
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.ngayKetThuc desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbSach> entity = query.setMaxResults(3).getResultList();
@@ -232,7 +244,7 @@ public class BookDao {
     }
     public List<TbSach> SoldTop9(String MaTK) {
         String jpql = "SELECT o FROM TbSach o "
-                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.maSach desc";
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.ngayKetThuc desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbSach> entity = query.setMaxResults(9).getResultList();
@@ -240,7 +252,7 @@ public class BookDao {
     }
     public List<TbSach> OrderTop3(String MaTK) {
         String jpql = "SELECT o FROM TbHoaDon o "
-                + "where o.account.maTK = :MaTK";
+                + "where o.account.maTK = :MaTK order by o.NgayTao desc";
         TypedQuery<TbHoaDon> query = em.createQuery(jpql,TbHoaDon.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbHoaDon> entity = query.setMaxResults(9).getResultList();
@@ -256,7 +268,7 @@ public class BookDao {
     }
     public List<TbSach> OrderTop9(String MaTK) {
         String jpql = "SELECT o FROM TbHoaDon o "
-                + "where o.account.maTK = :MaTK";
+                + "where o.account.maTK = :MaTK order by o.NgayTao desc ";
         TypedQuery<TbHoaDon> query = em.createQuery(jpql,TbHoaDon.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbHoaDon> entity = query.setMaxResults(9).getResultList();
@@ -424,16 +436,17 @@ public class BookDao {
 //        TbYeuThichPK tbYeuThichPK = new TbYeuThichPK(2,7);
 //        TbYeuThich tbYeuThich = new TbYeuThich(tbYeuThichPK);
 //        dao.deleteyeuthich(tbYeuThichPK);
-        List<TbSach> list = dao.Lowest();
-        for (TbSach product : list) {
-        System.out.println(product.getMaSach());
-        }
+//        List<TbSach> list = dao.Lowest();
+//        for (TbSach product : list) {
+//        System.out.println(product.getMaSach());
+//        }
 //        List<TbYeuThich> list = dao.findyeuthich("2","12");
 //          for (TbYeuThich product : list) {
 //          System.out.println(product.getId());
 //          }
 ////        
-        //System.out.println(dao.countyeuthich("2"));
+        
+        System.out.println(dao.CountDangBan("1"));
     }
 }
 
