@@ -35,9 +35,12 @@ public class SendMail {
                     + "                  <td align=\"left\" width=\"38%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\"><img src=\""+tbChiTietHD.getMaSach().getAnh()+'"'+" width=\"130\"  height=\"150\" alt=\"\"></td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tbChiTietHD.getMaSach().getDonGia()+"</td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tbChiTietHD.getGiaVC()+"</td>\r\n"
-                    + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tongDouble+" VND</td>\r\n"
+                    + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tongDouble+"$</td>\r\n"
                     + "                </tr>";
+
         }
+        
+        
         // Sender's email ID needs to be mentioned
         String from = "sizegonebook@gmail.com";
 
@@ -82,9 +85,10 @@ public class SendMail {
             message.setSubject("Hóa đơn mua hàng");
 
             // Now set the actual message
-            message.setText("Vietnam opening!");
+            
+
             message.setContent("<!DOCTYPE html>\r\n"
-                    + "<html lang=\"vi\">\r\n"
+                    + "<html>\r\n"
                     + "<head>\r\n"
                     + "  <meta charset=\"utf-8\">\r\n"
                     + "  <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">\r\n"
@@ -191,14 +195,14 @@ public class SendMail {
                     + "                  <td align=\"left\" bgcolor=\"#74c99a\" width=\"8%\" style=\"padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\"><strong>Price</strong></td>\r\n"
                     + "                  <td align=\"left\" bgcolor=\"#74c99a\" width=\"8%\" style=\"padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\"><strong>Shipping</strong></td>\r\n"
                     + "                  <td align=\"left\" bgcolor=\"#74c99a\" width=\"8%\" style=\"padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\"><strong>Total</strong></td>\r\n"
-                    + "                </tr>\r\n"
+                    + "                </tr>"
                     +   table
-                    + "                <tr>\r\n"
+                    + "  <tr>\r\n"
                     + "                  <td align=\"left\" width=\"38%\" style=\"padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #74c99a; border-bottom: 2px dashed #74c99a;\"><strong>Total all</strong></td>\r\n"
                     + "                  <td align=\"left\" width=\"38%\" style=\"padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #74c99a; border-bottom: 2px dashed #74c99a;\"><strong></strong></td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #74c99a; border-bottom: 2px dashed #74c99a;\"><strong></strong></td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #74c99a; border-bottom: 2px dashed #74c99a;\"><strong></strong></td>\r\n"
-                    + "                  <td align=\"left\" width=\"8%\" style=\"padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #74c99a; border-bottom: 2px dashed #74c99a;\"><strong>"+tongALL+" VND</strong></td>\r\n"
+                    + "                  <td align=\"left\" width=\"8%\" style=\"padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #74c99a; border-bottom: 2px dashed #74c99a;\"><strong>"+tongALL+"$</strong></td>\r\n"
                     + "                </tr>\r\n"
                     + "              </table>\r\n"
                     + "            </td>\r\n"
@@ -208,8 +212,8 @@ public class SendMail {
                     + "    </tr>\r\n"
                     + "  </table>\r\n"
                     + "</body>\r\n"
-                    + "</html>","text/html");
-            
+                    + "</html>","text/html;charset=UTF-8");
+//            
 
             System.out.println("sending...");
             // Send message
@@ -223,7 +227,7 @@ public class SendMail {
     
     public static void main(String[] args)
     {
-        SendMail.sendMail(1);
+        SendMail.sendMail(32);
     }
 
 }
