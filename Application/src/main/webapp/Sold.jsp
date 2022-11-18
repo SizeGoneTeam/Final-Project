@@ -9,9 +9,13 @@
   <title>BookStore - Summary</title>
   <link rel="stylesheet" href="./My eBay - Summary_files/summary-88zDzmOw.css">
   <link rel="stylesheet" href="css/sumary.css">
+   <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+   <link rel="stylesheet" type="text/css" href="./css/style.css"/>  
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
 </head>
 
 <body>
+ <%@include file="./header.jsp" %>
   <div class="mainContent  summary" id="mainContent" role="main" currency="USD">
     <div class="grid">
       <div class="grid__group">
@@ -32,7 +36,7 @@
                     <a aria-current="page" href="SummarysellsideControl">Sell mode</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
-                    <a href="#">Account</a>
+                    <a href="user/profile">Account</a>
                   </li>
                 </ul>
               </div>

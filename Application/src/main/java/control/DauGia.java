@@ -51,7 +51,8 @@ public class DauGia extends HttpServlet{
                 GioHangPK gioHangPK = new GioHangPK(acc.getMaTK().intValue(),sach.getMaSach());
                 TbGioHang giohang = new TbGioHang(gioHangPK);
                 phien.setIsEnd(1);
-                if(daoGioHang.findGioHang(maKH, maSach) != null) {daoGioHang.insert(giohang); System.out.println("thêm giỏ hàng");}
+                daoGioHang.insert(giohang);
+                System.out.println("thêm giỏ hàng");
                 TbLichSuBid bid = new TbLichSuBid(sach.getDonGia(), acc);
                 phien.addBid(bid);
                 daoPhien.update(phien);

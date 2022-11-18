@@ -23,15 +23,15 @@
 						<p style="color:red">${mess}</p>
 					</div>
 						<label for="user" class="label">Tên đăng nhập</label>
-						<input name="user" id="user" type="text" class="input">
+						<input name="user" id="user" type="text" class="input" maxlength="10"  minlength="3">
 					</div>
 					<div class="group">
-						<label for="pass" class="label">Mật khẩu</label>
-						<input name="pass" id="pass" type="password" class="input" data-type="password">
+						<label for="pass" class="label">Mật khẩu (ít nhất 6 kí tự)</label>
+						<input name="pass" id="pass" type="password" class="input" data-type="password" maxlength="20"  minlength="6">
 					</div>
 					<div class="group">
 						<input id="check" type="checkbox" class="check" name="rememberMe" checked>
-						<label for="check"><span class="icon"></span> Nhớ mật khẩu</label>
+						<label for="check"><span class="icon"></span> Lưu đăng nhập</label>
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Đăng nhập">
@@ -47,15 +47,15 @@
 					<div class="group">
 						<p style="color:red">${mess}</p>
 						<label for="user" class="label">Tên đăng nhập</label>
-						<input name="user" id="user" type="text" class="input">
+						<input name="user" id="user" type="text" class="input" maxlength="10"  minlength="3">
 					</div>
 					<div class="group">
-						<label for="pass" class="label">Mật khẩu</label>
-						<input name="pass" id="pass" type="password" class="input" data-type="password">
+						<label for="pass" class="label">Mật khẩu (ít nhất 6 kí tự)</label>
+						<input name="pass" id="pass" type="password" class="input" data-type="password" maxlength="20"  minlength="6">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Nhập lại mật khẩu</label>
-						<input name="re_pass" id="pass" type="password" class="input" data-type="password">
+						<input name="re_pass" id="pass" type="password" class="input" data-type="password" maxlength="20"  minlength="6">
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Đăng ký">

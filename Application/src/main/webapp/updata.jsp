@@ -46,7 +46,7 @@
 															</h2>
 															<div id="editpane_titlewrap">
 																<input type="text" id="editpane_title" fnk="tt"
-																	maxlength="80" name="title"
+																	maxlength="30" name="title"
 																	aria-describedby="titCount err_editpane_title editpane_title_toolTip"
 																	aria-required="true" value="" required="required">
 															</div>

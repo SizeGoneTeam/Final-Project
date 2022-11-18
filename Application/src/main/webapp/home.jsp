@@ -131,7 +131,7 @@
 							
 								<div class="hero__search__login__text">
 									<h5>
-										<a href="login">Đăng Nhập</a>
+										<a href="Login.jsp">Đăng Nhập</a>
 									</h5>
 								</div>
 							</c:if>
@@ -179,7 +179,7 @@
 								</ul>
 							</div>
 							<div class="featured__item__text">
-								<h6>
+								<h6 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
 									<a href="detail?pid=${o.maSach }">${o.getTenSach() }</a>
 								</h6>
 								<h5 >${o.getDonGia()}VNĐ</h5>

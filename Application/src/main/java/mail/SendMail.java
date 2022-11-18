@@ -227,7 +227,7 @@ public class SendMail {
     
     public static void main(String[] args)
     {
-        SendMail.sendMail(32);
+        SendMail.sendMail(29);
     }
 
 }

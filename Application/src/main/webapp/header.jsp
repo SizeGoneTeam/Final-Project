@@ -12,7 +12,7 @@
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul>
-						<li class="active"><a href="loadSach">Home</a></li>
+						<li class="active"><a href="<%=request.getContextPath() %>/loadSach">Home</a></li>
 						<li><a href="./shop-grid.html">Shop</a></li>
 						<li><a href="#">Pages</a>
 							<ul class="header__menu__dropdown">

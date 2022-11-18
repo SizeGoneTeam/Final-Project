@@ -32,7 +32,7 @@
                     <a href="SummarysellsideControl">Sell mode</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
-                    <a href="#">Account</a>
+                    <a href="user/profile">Account</a>
                   </li>
                 </ul>
               </div>

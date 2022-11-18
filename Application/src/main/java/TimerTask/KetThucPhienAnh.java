@@ -39,7 +39,8 @@ public class KetThucPhienAnh extends TimerTask {
         System.out.println(now);
         GioHangPK gioHangPK = new GioHangPK(maTK,maSach);
         TbGioHang giohang = new TbGioHang(gioHangPK);
-        if(daoGH.findGioHang(Integer.toString(maTK), Integer.toString(maSach)) != null) {daoGH.insert(giohang); System.out.println("thêm giỏ hàng");}
+        daoGH.insert(giohang);
+        System.out.println("thêm giỏ hàng");
         
 
     }

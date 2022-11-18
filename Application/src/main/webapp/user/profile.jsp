@@ -3,6 +3,7 @@
     <html>
 
     <head>
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
       <link rel="stylesheet" type="text/css" href="../css/style.css"/>    
       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

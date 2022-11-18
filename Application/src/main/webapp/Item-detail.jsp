@@ -182,17 +182,13 @@ th {
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
-						<h2 style="color: black;">${detail.tenSach}</h2>
+						<h2 style=" word-wrap: break-word;">${detail.tenSach}</h2>
 						<div class="product__details__rating">
 							<h5 style="color: #0066ff;">Ngày kết thúc: ${detail.getPhienDauGia().getNgayKetThuc()}</h4>
 						</div>
 						<div class="product__details__price">${detail.donGia}$</div>
 						<c:if test="${sessionScope.acc.getMaTK() != detail.getNguoiSoHuu().getMaTK()}">
-						
-						<c:if test="${sessionScope.acc == null}">
-							<h5>Vui lòng đăng nhập trước khi đấu giá</h5>
-						</c:if>
-						<c:if test="${sessionScope.acc != null}">
+						<c:if test="${demgh <3}">
 						<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 							<form action="placeBid">
 						</c:if>
@@ -201,6 +197,7 @@ th {
 						</c:if>
 								<div class="product__details__quantity">
 									<div class="quantity">
+									<c:if test="${detail.getPhienDauGia().getIsEnd() == 0}">
 									<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 										<div class="pro-qty">
 											<input name="new_price" type="Number" value="${detail.donGia +1}" min="${detail.donGia+0.01}" step = "0.01">
@@ -210,19 +207,21 @@ th {
 										<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
 											<input name="maSach" value="${detail.maSach}" hidden> 
 										</c:if>  
-									</div>
-								</div>
-								<c:if test="${detail.getPhienDauGia().getIsEnd() == 0}">
+									
+								
 								<input type="submit" class="primary-btn" style="color: #66FFFF"
 									value="Đấu Giá">
-								</c:if>
+									</c:if>
+									</div>
+								</div>
 								<c:if test="${detail.getPhienDauGia().getIsEnd() == 1}">
 								<h2>Phiên đấu giá đã kết thúc</h2>
 								</c:if>  
 							</form>
+							</c:if>
+							<c:if test="${demgh ==3}"><h5>Giỏ hàng đã đạt 3 sản phẩm. Vui lòng thanh toán để tiếp tục đấu giá</h5></c:if>
 						</c:if>
 						
-						</c:if>
 						
 						 <a href="insertytdetail?MaSach=${detail.maSach }" class="heart-icon"><span class="icon_heart_alt"></span></a>
 					</div>

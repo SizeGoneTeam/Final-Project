@@ -16,12 +16,14 @@ import dao.dao;
 import entity.BidHistory;
 import entity.Product;
 import entity.TbAccount;
+import entity.TbGioHang;
 import entity.TbLichSuBid;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbSach;
 import entity.TbTheLoai;
 import model.BookDao;
+import model.GioHangDao;
 import model.PhienDauGiaDao;
 import model.UserDao;
 
@@ -40,6 +42,7 @@ public class DetailControl extends HttpServlet {
 	        String maKH = account.getMaTK().toString();
 	        BookDao daoSach = new BookDao();
 	        PhienDauGiaDao daoPhien = new PhienDauGiaDao();
+	        GioHangDao daoGH = new GioHangDao();
 	        TbSach sach = daoSach.findById(Integer.valueOf(id));
 	        List<TbLichSuBid> list = daoPhien.getTop8Bid(sach.getPhienDauGia().getMaPhien());
 	        //List<Product> last = Dao.getLast(maKH, id);
@@ -49,6 +52,7 @@ public class DetailControl extends HttpServlet {
 	            int demyt = daoSach.countyeuthich(maKH);
 	            int demdb = daoSach.CountDangBan(maKH);
 	            int demgh = daoSach.CountGioHang(maKH);
+	            
 	            List<TbLichSuXem> last = detail.getlast(maKH, id);
 	            TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
 	            int dem = detail.countyeuthich(maKH);
@@ -71,7 +75,7 @@ public class DetailControl extends HttpServlet {
 	        request.setAttribute("detail", sach);
 	        request.setAttribute("category", category);
 	    }catch (Exception e) {
-            url = "login";
+            url = "Login.jsp";
         }
 		
 
