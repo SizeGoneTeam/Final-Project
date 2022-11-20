@@ -23,7 +23,9 @@
 <link rel="stylesheet" href="css/toast.css" type="text/css">
 </head>
 <body>
-
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 	<header class="header">
 		<div class="container">
 			<div class="row">
@@ -167,11 +169,25 @@
 
               </div>
             </div>
+            <div class="product__pagination">
+                    	<c:forEach begin="1" end="${endPape}" var="o">
+	                        <a href="LichsugiaodichControl?page=${o}">${o}</a>
+                        </c:forEach>
+                    </div>
           </div>
         </div>
       </div>
     </div>
+                     
   </div>
 </body>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
 </html>

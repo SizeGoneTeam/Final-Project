@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import entity.TbChiTietHD;
+import entity.TbGiaoDich;
 import entity.TbGioHang;
 import entity.TbHoaDon;
 import entity.TbLichSuXem;
@@ -97,6 +98,19 @@ public class GiaodichDao {
         Query query = em.createQuery(jpql);
         query.setParameter("MaHD",MaHD);
         TbHoaDon entity = (TbHoaDon) query.getSingleResult();
+        return entity;
+    }
+    public int Tonggiaodich(String MaTK) {
+        String jpql = "SELECT Count(o) FROM TbGiaoDich o where o.nguoiGui = :MaTK or o.nguoiNhan = :MaTK";
+        Query query = em.createQuery(jpql);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        return ((Long) query.getSingleResult()).intValue();
+    }
+    public List<TbGiaoDich> getGiaoDichs(String MaTK, String page) {
+        String jpql = "SELECT o FROM TbGiaoDich o where o.nguoiGui = :MaTK or o.nguoiNhan = :MaTK order by o.ngayTao desc";
+        TypedQuery<TbGiaoDich> query = em.createQuery(jpql,TbGiaoDich.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGiaoDich> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(12).getResultList();
         return entity;
     }
     
@@ -190,13 +204,11 @@ public class GiaodichDao {
     }
     public static void main(String[] args) {
         GiaodichDao dao = new GiaodichDao();
-        TbHoaDon list = dao.gethoadon(1);
-        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
-        chiTietHDs.addAll(list.getTbChiTietHds());
-        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
-           // System.out.println(tbChiTietHD.getMaSach().getAnh());
-        }
-        System.out.println(list.getAccount().getEmail());
+//        TbHoaDon list = dao.gethoadon(1);
+//        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
+//        chiTietHDs.addAll(list.getTbChiTietHds());
+
+        System.out.println(dao.Tonggiaodich("1"));
 
 
     }

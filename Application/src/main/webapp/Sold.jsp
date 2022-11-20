@@ -144,7 +144,7 @@
                           <div class="container-item-col container-item-col-img">
                             <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="${o.getAnh()}"
+                                  src="${o.getAnhs().get(0).getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>
@@ -183,6 +183,11 @@
               </div>
             </div>
           </div>
+                      <div class="product__pagination">
+                    	<c:forEach begin="1" end="${endPape}" var="o">
+	                        <a href="SoldControl?page=${o}">${o}</a>
+                        </c:forEach>
+                    </div>
         </div>
       </div>
     </div>

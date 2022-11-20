@@ -27,23 +27,37 @@ public class LichsugiaodichControl extends HttpServlet {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
         String MaTK = account.getMaTK().toString();
+        String page = request.getParameter("page");
         int matk = account.getMaTK().intValue();
         BookDao dao = new BookDao();
         GiaodichDao gDao = new GiaodichDao();
-        List<TbGiaoDich> lsgd = gDao.getGiaoDichs(MaTK);
+        int pagecout;
+        if(page == null) {
+            page = "0";
+        }
+        else {
+            page = Integer.toString(Integer.parseInt(page)*12-12);
+        }
+
+        List<TbGiaoDich> lsgd = gDao.getGiaoDichs(MaTK,page);
+        int count = gDao.Tonggiaodich(MaTK);
+        int endPage = count/12;
+        if(count % 12!=0) {
+            endPage++;
+        }
+
         int demyt = dao.countyeuthich(MaTK);
         int demdb = dao.CountDangBan(MaTK);
         int demgh = dao.CountGioHang(MaTK);
 
-
+        request.setAttribute("endPape", endPage);
         request.setAttribute("demyt", demyt);
         request.setAttribute("demdb", demdb);
         request.setAttribute("demgh", demgh);
         request.setAttribute("lsgd", lsgd);
-
+        request.setAttribute("pageout", page);
 
         request.setAttribute("matk", matk);
-
         request.getRequestDispatcher("Lichsugiaodich.jsp").forward(request, response);
     }
 

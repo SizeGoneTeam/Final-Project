@@ -62,7 +62,7 @@ public class SearchControl extends HttpServlet {
         String endPCategory = "0";
         request.setAttribute("category", category); 
         request.setAttribute("endPCategory", endPCategory);
-        request.setAttribute("endPTitle", endPage);
+        request.setAttribute("endPage", endPage);
         request.setAttribute("keyout", key);
 	    request.setAttribute("search", search);
 	    request.setAttribute("pageout", page);

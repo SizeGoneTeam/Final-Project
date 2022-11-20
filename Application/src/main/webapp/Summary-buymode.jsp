@@ -120,7 +120,7 @@
               <li class="selected"><a href="SummarybuysideControl">Tóm tắt</a></li>
               <li><a href="RecentlyviewedControl">Đã xem gần đây</a></li>
               <li><a href="OrderControl">Đã mua</a></li>
-              <li><a href="NopayControlMaTK=${MaTK}">Chưa thanh toán</a></li>
+              <li><a href="NopayControl">Chưa thanh toán</a></li>
             </ul>
           </section>
         </div>
@@ -156,7 +156,7 @@
                           <div class="container-item-col container-item-col-img">
                             <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="${o.getAnh()}"
+                                  src="${o.getAnhs().get(0).getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>
@@ -206,7 +206,7 @@
                           <div class="container-item-col container-item-col-img">
                             <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="${o.getAnh()}"
+                                  src="${o.getAnhs().get(0).getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>
@@ -255,7 +255,7 @@
                           <div class="container-item-col container-item-col-img">
                             <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="${o.getAnh()}"
+                                  src="${o.getAnhs().get(0).getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>

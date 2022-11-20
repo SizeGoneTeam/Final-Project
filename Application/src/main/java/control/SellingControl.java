@@ -25,14 +25,30 @@ public class SellingControl extends HttpServlet {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
         String MaTK = account.getMaTK().toString();
+        String page = request.getParameter("page");
+
         BookDao dao = new BookDao();
+        int pagecout;
+        if(page == null) {
+            page = "0";
+        }
+        else {
+            page = Integer.toString(Integer.parseInt(page)*6-6);
+        }
         int demyt = dao.countyeuthich(MaTK);
         int demdb = dao.CountDangBan(MaTK);
         int demgh = dao.CountGioHang(MaTK);
         request.setAttribute("demyt", demyt);
         request.setAttribute("demdb", demdb);
         request.setAttribute("demgh", demgh);
-        List<TbSach> selling = dao.SellingTop9(MaTK);
+        List<TbSach> selling = dao.SellingTop9(MaTK,page);
+        int count = dao.Tongdangban(MaTK);
+        int endPage = count/6;
+        if(count % 6!=0) {
+            endPage++;
+        }
+        request.setAttribute("endPape", endPage);
+        request.setAttribute("pageout", page);
         request.setAttribute("selling", selling);
         request.setAttribute("MaTK", MaTK);
         request.getRequestDispatcher("Selling.jsp").forward(request, response);

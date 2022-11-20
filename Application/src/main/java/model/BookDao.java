@@ -227,12 +227,19 @@ public class BookDao {
         List<TbSach> entity = query.setMaxResults(3).getResultList();
         return entity;
     }
-    public List<TbSach> SellingTop9(String MaTK) {
+    public int Tongdangban(String MaTK) {
+        String jpql = "SELECT Count(o) FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 0";
+        Query query = em.createQuery(jpql);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        return ((Long) query.getSingleResult()).intValue();
+    }
+    public List<TbSach> SellingTop9(String MaTK, String page) {
         String jpql = "SELECT o FROM TbSach o "
                 + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 0 order by o.maSach desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
-        List<TbSach> entity = query.setMaxResults(9).getResultList();
+        List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(6).getResultList();
         return entity;
     }
     public List<TbSach> SoldTop3(String MaTK) {
@@ -243,12 +250,20 @@ public class BookDao {
         List<TbSach> entity = query.setMaxResults(3).getResultList();
         return entity;
     }
-    public List<TbSach> SoldTop9(String MaTK) {
+    public int Tongdaban(String MaTK) {
+        String jpql = "SELECT Count(o) FROM TbSach o "
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1";
+        Query query = em.createQuery(jpql);
+        query.setParameter("MaTK",Long.parseLong(MaTK));
+        return ((Long) query.getSingleResult()).intValue();
+    }
+    
+    public List<TbSach> SoldTop9(String MaTK, String page) {
         String jpql = "SELECT o FROM TbSach o "
                 + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.ngayKetThuc desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
-        List<TbSach> entity = query.setMaxResults(9).getResultList();
+        List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(6).getResultList();
         return entity;
     }
     public List<TbSach> OrderTop3(String MaTK) {

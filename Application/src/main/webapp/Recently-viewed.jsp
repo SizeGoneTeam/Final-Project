@@ -136,7 +136,7 @@
               <div class="container-column">
                 <div class="container-item"><a href="#">
                     <div class="m-image">
-                      <img src="${o.getAnh()}">
+                      <img src="${o.getAnhs().get(0).getAnh()}">
                     </div>
                     <div class="container-item__title medium-text">
                       <a href="#">${o.getTenSach() }</a>

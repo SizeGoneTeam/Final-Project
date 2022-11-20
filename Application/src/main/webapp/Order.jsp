@@ -145,7 +145,7 @@
                           <div class="container-item-col container-item-col-img">
                             <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
                               <div class="m-image"><img
-                                  src="${o.getAnh()}"
+                                  src="${o.getAnhs().get(0).getAnh()}"
                                   alt="product's image">
                               </div>
                             </a>
@@ -185,6 +185,7 @@
 
             </div>
           </div>
+          
         </div>
       </div>
     </div>

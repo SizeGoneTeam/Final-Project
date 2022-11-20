@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import entity.TbAccount;
 import entity.TbSach;
 import model.BookDao;
+import model.GiaodichDao;
 
 /**
  * Servlet implementation class SoldControl
@@ -25,14 +26,32 @@ public class SoldControl extends HttpServlet {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
         String MaTK = account.getMaTK().toString();
+        String page = request.getParameter("page");
+
         BookDao dao = new BookDao();
+
+        int pagecout;
+        if(page == null) {
+            page = "0";
+        }
+        else {
+            page = Integer.toString(Integer.parseInt(page)*6-6);
+        }
+        List<TbSach> sold = dao.SoldTop9(MaTK,page);
+        int count = dao.Tongdaban(MaTK);
+        int endPage = count/6;
+        if(count % 6!=0) {
+            endPage++;
+        }
         int demyt = dao.countyeuthich(MaTK);
         int demdb = dao.CountDangBan(MaTK);
         int demgh = dao.CountGioHang(MaTK);
+        request.setAttribute("endPape", endPage);
+        request.setAttribute("pageout", page);
         request.setAttribute("demyt", demyt);
         request.setAttribute("demdb", demdb);
         request.setAttribute("demgh", demgh);
-        List<TbSach> sold = dao.SoldTop9(MaTK);
+        
         request.setAttribute("sold", sold);
         request.setAttribute("MaTK", MaTK);
         request.getRequestDispatcher("Sold.jsp").forward(request, response);
