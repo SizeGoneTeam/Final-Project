@@ -23,9 +23,14 @@ public class TbSach implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maSach;
 
-	@Column(name="Anh")
-	private String anh;
-
+    /*
+     * @Column(name="Anh")
+     * private String anh;
+     */
+	
+	@OneToMany(mappedBy = "sach", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<TbAnh> anhs;
+	
 	@Column(name="DonGia")
 	private Double donGia;
 
@@ -79,13 +84,11 @@ public class TbSach implements Serializable {
         return serialVersionUID;
     }
     public TbSach() {
-        this.anh = null;
         this.donGia = Double.valueOf(0);
         this.moTa = null;
         this.tenSach = null;
     }
-    public TbSach(String anh, Double donGia, String moTa, String tenSach, String tinhTrang) {
-        this.anh = anh;
+    public TbSach(Double donGia, String moTa, String tenSach, String tinhTrang) {
         this.donGia = donGia;
         this.moTa = moTa;
         this.tenSach = tenSach;
@@ -117,15 +120,23 @@ public class TbSach implements Serializable {
 		this.maSach = maSach;
 	}
 
-	public String getAnh() {
-		return this.anh;
-	}
+    public void addAnh(TbAnh anh)
+    {
+        if(anhs == null)
+        {
+            anhs = new ArrayList<>();
+        }
+        anhs.add(anh);
+        anh.setSach(this);
+    }
 
-	public void setAnh(String anh) {
-		this.anh = anh;
-	}
-
-	public Double getDonGia() {
+	public List<TbAnh> getAnhs() {
+        return anhs;
+    }
+    public void setAnhs(List<TbAnh> anhs) {
+        this.anhs = anhs;
+    }
+    public Double getDonGia() {
 		return this.donGia;
 	}
 
@@ -231,7 +242,7 @@ public class TbSach implements Serializable {
     }
     @Override
     public String toString() {
-        return "TbSach [maSach=" + maSach + ", anh=" + anh + ", donGia=" + donGia + ", moTa=" + moTa + ", tenSach=" + tenSach + ", tbTheLoais=" + tbTheLoais + "]";
+        return "TbSach [maSach=" + maSach + ", donGia=" + donGia + ", moTa=" + moTa + ", tenSach=" + tenSach + ", tbTheLoais=" + tbTheLoais + "]";
     }
 
 }

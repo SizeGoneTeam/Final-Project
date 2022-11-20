@@ -33,6 +33,9 @@ import model.UserDao;
 
 public class test2 {
     public static void main(String[] args) {
-        
+        BookDao bookDao = new BookDao();
+        for (TbSach sach : bookDao.searchSach("vla","0")) {
+            System.out.println(sach.toString());
+        }
     }
 }

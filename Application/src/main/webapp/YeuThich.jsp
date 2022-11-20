@@ -158,11 +158,9 @@
                                 <tr>
                                     <td class="shoping__cart__item">
                                     <a href="detail?pid=${o.maSach }">
-                                    <img src="${o.getAnh()}" width="130"  height="150" alt="">
+                                    <img src="${o.getAnhs().get(0).getAnh()}" width="130"  height="150" alt="">
                                      <h5>${o.getTenSach() }</h5>
                                     </a>
-                                        
-                                       
                                     </td>
                                     <td class="shoping__cart__price">
                                        ${o.getDonGia()}VNĐ

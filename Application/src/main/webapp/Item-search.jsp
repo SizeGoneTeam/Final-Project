@@ -171,7 +171,7 @@
 								<c:forEach items="${lastAdd}" var="o">
 									<a href="detail?pid=${o.maSach }" class="latest-product__item">
 										<div class="latest-product__item__pic">
-											<img src="${o.getAnh()}" alt="">
+											<img src="${o.getAnhs().get(0).getAnh()}" alt="">
 										</div>
 										<div class="latest-product__item__text">
 											<h6>${o.getTenSach()}</h6>

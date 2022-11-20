@@ -200,8 +200,16 @@
 															</h2>
 															<div>
 																<input type="file" id="editpane_photo" fnk="stt"
-																	maxlength="150" name="image" required="required">
+																	maxlength="150" name="image1" required="required">
+																<input type="file" id="editpane_photo" fnk="stt"
+																maxlength="150" name="image2">
+																<input type="file" id="editpane_photo" fnk="stt"
+																maxlength="150" name="image3">
+																<input type="file" id="editpane_photo" fnk="stt"
+																maxlength="150" name="image4">
 															</div>
+
+															
 														</div>
 														<div class="def" id="editpaneSect_Description" sec="1">
 															<h2 class="reqd">

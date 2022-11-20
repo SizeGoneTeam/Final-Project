@@ -182,6 +182,7 @@ public class BookDao {
         query.setParameter("keyword","%" + keyword + "%" );
         return ((Long) query.getSingleResult()).intValue();
     }
+    
     public List<TbSach> GetAll() {
         String jpql = "SELECT o FROM TbSach o where o.phienDauGia.isEnd = 0 order by o.phienDauGia.ngayTao desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
@@ -353,6 +354,31 @@ public class BookDao {
         List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
         return entity;
     }
+    
+    public List<TbSach> searchSach(String keyword,Double tien, String page) {
+        String jpql = "SELECT o FROM TbSach o JOIN o.tbTacGias tb where (o.tenSach like :keyword or tg.tenTacGia like :keyword  or o.donGia <= :tien) and o.phienDauGia.isEnd = 0";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        query.setParameter("keyword", "%" + keyword + "%"  );
+        query.setParameter("tien", tien);
+        List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
+        return entity;
+    }
+    
+    public List<TbSach> searchSach(String keyword, String page) {
+        String jpql = "SELECT o FROM TbSach o LEFT JOIN o.tbTacGias tg where (o.tenSach like :keyword or tg.tenTacGia like :keyword) and o.phienDauGia.isEnd = 0";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        query.setParameter("keyword", "%" + keyword + "%"  );
+        List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
+        return entity;
+    }
+    public List<TbTacGia> searchTG(String keyword, String page) {
+        String jpql = "SELECT o FROM TbTacGia o JOIN o.tbSachs sach where o.tenTacGia like :keyword or sach.tenSach like :keyword";
+        TypedQuery<TbTacGia> query = em.createQuery(jpql,TbTacGia.class);
+        query.setParameter("keyword", "%" + keyword + "%"  );
+        List<TbTacGia> entity = query.getResultList();
+        return entity;
+    }
+    
     public List<TbSach> seachcategory(String keyword, String page) {
         String jpql = "SELECT o FROM TbTheLoai o where o.tenTheLoai like :keyword";
         TypedQuery<TbTheLoai> query = em.createQuery(jpql,TbTheLoai.class);

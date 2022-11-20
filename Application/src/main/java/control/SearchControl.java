@@ -43,7 +43,7 @@ public class SearchControl extends HttpServlet {
         }
 
 	    BookDao bookDao = new BookDao();
-	    List<TbSach> search = bookDao.seachTilte(key,page);  
+	    List<TbSach> search = bookDao.searchSach(key,page);  
 	    List<TbSach> lastAdd = bookDao.LastAdd();
         List<TbTheLoai> category = bookDao.GetCategory();
         int count = bookDao.CountAll(key);

@@ -16,11 +16,13 @@ import dao.dao;
 import entity.BidHistory;
 import entity.Product;
 import entity.TbAccount;
+import entity.TbAnh;
 import entity.TbGioHang;
 import entity.TbLichSuBid;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
 import entity.TbSach;
+import entity.TbTacGia;
 import entity.TbTheLoai;
 import model.BookDao;
 import model.GioHangDao;
@@ -45,9 +47,12 @@ public class DetailControl extends HttpServlet {
 	        GioHangDao daoGH = new GioHangDao();
 	        TbSach sach = daoSach.findById(Integer.valueOf(id));
 	        List<TbLichSuBid> list = daoPhien.getTop8Bid(sach.getPhienDauGia().getMaPhien());
+	        List<TbSach> lastAdd = daoSach.LastAdd();
+	        List<TbTacGia> tacGia = sach.getTbTacGias();
 	        //List<Product> last = Dao.getLast(maKH, id);
 	        BookDao detail = new BookDao();
 	        List<TbTheLoai> category = detail.GetCategory();
+	        List<TbAnh> anhs = sach.getAnhs();
 	        if(maKH != null) {
 	            int demyt = daoSach.countyeuthich(maKH);
 	            int demdb = daoSach.CountDangBan(maKH);
@@ -55,13 +60,13 @@ public class DetailControl extends HttpServlet {
 	            
 	            List<TbLichSuXem> last = detail.getlast(maKH, id);
 	            TbLichSuXemPK xem1 = new TbLichSuXemPK(Integer.parseInt(maKH),Integer.parseInt(id)); 
-	            int dem = detail.countyeuthich(maKH);
 	            Date date = new Date();
 	            Timestamp timestamp = new Timestamp(date.getTime());
 	            TbLichSuXem xem = new TbLichSuXem(xem1, timestamp);
 	            request.setAttribute("demyt", demyt);
 	            request.setAttribute("demdb", demdb);
 	            request.setAttribute("demgh", demgh);
+	            
 	            if(last.isEmpty()) {
 	                detail.insert(xem);
 	                 
@@ -74,8 +79,12 @@ public class DetailControl extends HttpServlet {
 	        request.setAttribute("BidHistory", list);
 	        request.setAttribute("detail", sach);
 	        request.setAttribute("category", category);
+	        request.setAttribute("tacGia", tacGia);
+	        request.setAttribute("listNew", lastAdd);
+	        request.setAttribute("anhs", anhs);
 	    }catch (Exception e) {
             url = "Login.jsp";
+            e.printStackTrace();
         }
 		
 

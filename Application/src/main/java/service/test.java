@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Timer;
 
 import TimerTask.GiamGia;
+import dao.dao;
 import entity.TbAccount;
+import entity.TbAnh;
 import entity.TbGioHang;
 import entity.TbPhienDauGia;
 import entity.TbSach;
@@ -24,9 +26,13 @@ import model.UserDao;
 
 public class test {
     public static void main(String[] args) {
-        GioHangDao gioHangDao = new GioHangDao();
-        TbGioHang TbGioHang = gioHangDao.findGioHang("1","20");
-        System.out.println(TbGioHang.getMaTK());
+        BookDao bookDao = new BookDao();
+        TbSach sach = bookDao.findById(52);
+        List<TbAnh> anhs = sach.getAnhs();
+        for (TbAnh tbAnh : anhs) {
+            System.out.println(tbAnh.getAnh());
+        }
+        
     }
 
 }

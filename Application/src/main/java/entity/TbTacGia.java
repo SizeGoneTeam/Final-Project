@@ -23,7 +23,7 @@ public class TbTacGia implements Serializable {
 	private int maTacGia;
 
 	@Column(name="TenTacGia")
-	private String tenTacGia;
+    private String tenTacGia;
 
 	//bi-directional many-to-one association to TbViet
     @ManyToMany(cascade = {CascadeType.MERGE})
@@ -53,4 +53,10 @@ public class TbTacGia implements Serializable {
 		this.tenTacGia = tenTacGia;
 	}
 
+    @Override
+    public String toString() {
+        return "TbTacGia [maTacGia=" + maTacGia + ", tenTacGia=" + tenTacGia + "]";
+    }
+
+	
 }

@@ -62,15 +62,13 @@
 							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
 							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
 							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
+							<li><a href="NapTien.jsp"><i class="fa-solid fa-wallet"></i></a></li>
 						</c:if>
 							
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
-							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
-						</c:if>
-						<c:if test="${sessionScope.acc == null}">
-							item: <span>$0.00</span>
+							<span><a href="NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
 						</c:if>
 							
 						</div>
@@ -171,7 +169,7 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 						<div class="featured__item" style="cursor: pointer;" onclick="window.location='detail?pid=${o.maSach }';">
 							<div class="featured__item__pic set-bg">
-							<img src="${o.getAnh()}" alt="">					
+							<img src="${o.getAnhs().get(0).getAnh()}" alt="">					
 								<ul class="featured__item__pic__hover">
 								<c:if test="${sessionScope.acc != null}">
 									<li><a href="insertyt?MaSach=${o.maSach }"><i class="fa fa-heart"></i></a></li>
@@ -182,7 +180,7 @@
 								<h6 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
 									<a href="detail?pid=${o.maSach }">${o.getTenSach() }</a>
 								</h6>
-								<h5 >${o.getDonGia()}VNĐ</h5>
+								<h5 >${o.getDonGia()}$</h5>
 							</div>
 						</div>
 					</div>
@@ -207,7 +205,7 @@
 							<c:forEach items="${lastSeen}" var="o">
 								<a href="detail?pid=${o.maSach }"  class="latest-product__item">
 									<div class="latest-product__item__pic">
-										<img src="${o.getAnh()}" alt="">
+										<img src="${o.getAnhs().get(0).getAnh()}" alt="">
 									</div>
 									<div class="latest-product__item__text">
 										<h6>${o.getTenSach()}</h6>
@@ -229,7 +227,7 @@
 							<c:forEach items="${lowest}" var="o">
 								<a href="detail?pid=${o.maSach }"  class="latest-product__item">
 									<div class="latest-product__item__pic">
-										<img src="${o.getAnh()}" alt="">
+										<img src="${o.getAnhs().get(0).getAnh()}" alt="">
 									</div>
 									<div class="latest-product__item__text">
 										<h6>${o.getTenSach()}</h6>
@@ -251,7 +249,7 @@
 								<c:forEach items="${listNew}" var="o">
 									<a href="detail?pid=${o.maSach }" class="latest-product__item">
 										<div class="latest-product__item__pic">
-											<img src="${o.getAnh()}" alt="">
+											<img src="${o.getAnhs().get(0).getAnh()}" alt="">
 										</div>
 										<div class="latest-product__item__text">
 											<h6>${o.getTenSach()}</h6>
@@ -362,5 +360,6 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/toast.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://kit.fontawesome.com/17fd3f26a2.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import TimerTask.GiamGia;
 import TimerTask.KetThucPhienAnh;
 import TimerTask.KetThucPhienHaLan;
 import entity.TbAccount;
+import entity.TbAnh;
 import entity.TbPhienDauGia;
 import entity.TbSach;
 import entity.TbTacGia;
@@ -84,6 +86,8 @@ public class TaoPhienDauGia extends HttpServlet {
             Integer ThoiGian = Integer.valueOf(request.getParameter("ThoiGian"));
             Integer ThoiGianGiam = Integer.valueOf(request.getParameter("ThoiGianGiam"));
             Double GiaGiam = new Double(request.getParameter("GiaGiam"));
+            
+            TbSach sach = new TbSach(GiaKhoiDiem, Mota, TenSach, TinhTrang);
             
             // Xử lý tác giả
 
@@ -189,59 +193,50 @@ public class TaoPhienDauGia extends HttpServlet {
 
             // upload ảnh
             try {
-                Part part = request.getPart("image");
-                String realPath = request.getServletContext().getRealPath("/image/UploadSach");
-                String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-                while(Files.exists(Paths.get(realPath + "/" + filename)))
-                {
-                    // Random chuỗi
-                    int leftLimit = 97; // letter 'a'
-                    int rightLimit = 122; // letter 'z'
-                    int targetStringLength = 2;
-                    Random random = new Random();
-                    StringBuilder buffer = new StringBuilder(targetStringLength);
-                    for (int i = 0; i < targetStringLength; i++) {
-                        int randomLimitedInt = leftLimit + (int) 
-                          (random.nextFloat() * (rightLimit - leftLimit + 1));
-                        buffer.append((char) randomLimitedInt);
-                    }
-                    String generatedString = buffer.toString();
-                    
-                    //Thêm chuỗi vào trước tên file
-                    filename = generatedString  + filename;
-                }
+                TbAnh anh = new TbAnh();
+                Collection<Part> parts = request.getParts();
+                System.out.println("1");
+                for (Part part : parts) {
+                    System.out.println("2");
+                    String realPath = request.getServletContext().getRealPath("/image/UploadSach");
+                    String filename = getFileName(part);
+                    System.out.println(filename);
 
-                if (!Files.exists(Paths.get(realPath))) {
-                    Files.createDirectory(Paths.get(realPath));
+                    if (!Files.exists(Paths.get(realPath))) {
+                        Files.createDirectory(Paths.get(realPath));
+                    }
+                    if(filename != null) {
+                        part.write(realPath + "/" + filename);
+                        System.out.println(realPath + "/" + filename);
+                        Cloudinary cloudinary = CloudinaryUtil.getCloudinary();
+                        try {
+                           Map uploadResult = cloudinary.uploader().upload(realPath + "/" + filename, ObjectUtils.emptyMap());
+                           System.out.println(uploadResult.get("url"));
+                           anh = new TbAnh(uploadResult.get("url").toString(),sach);
+                           sach.addAnh(anh);
+                           
+                        } catch (Exception e) {
+                           System.out.println(e.getMessage());
+                           url = "ErrorPayment.jsp";
+                           request.setAttribute("mess", " Up ảnh bị lỗi");
+                       }
+                        File file = new File(realPath + "/" + filename);
+                        if(file.delete()) System.out.println("Xoá thành công");
+                    }
+                    
                 }
-                
-                part.write(realPath + "/" + filename);
-                System.out.println(realPath + "/" + filename);
-                Cloudinary cloudinary = CloudinaryUtil.getCloudinary();
-                try {
-                   Map uploadResult = cloudinary.uploader().upload(realPath + "/" + filename, ObjectUtils.emptyMap());
-                   System.out.println(uploadResult.get("url"));
-                   Anh = uploadResult.get("url").toString();
-                } catch (Exception e) {
-                   System.out.println(e.getMessage());
-               }
-                File file = new File(realPath + "/" + filename);
-                if(file.delete()) System.out.println("Xoá thành công");
-                
-                System.out.println(realPath + "/" + filename);
-                 //Anh+= filename;
-                
                 
                  
             } catch (Exception e) {
-                e.printStackTrace();
+                url = "ErrorPayment.jsp";
+                request.setAttribute("mess", " Up ảnh bị lỗi");
             }
             
 
             TbPhienDauGia phien = new TbPhienDauGia(GiaKhoiDiem, LoaiPhien, new Timestamp(end.getTime().getTime()), NowTime, ThoiGian, GiaGiam, GiaThapNhat, ThoiGianGiam);
 
              
-            TbSach sach = new TbSach(Anh, GiaKhoiDiem, Mota, TenSach, TinhTrang);
+            // thêm thể loại
 
             List<TbTheLoai> theloais = new ArrayList<TbTheLoai>();
             if (theloai1 != null ) theloais.add(daoPhienBook.findTheLoaiById(Integer.valueOf(theloai1)));
@@ -309,9 +304,19 @@ public class TaoPhienDauGia extends HttpServlet {
             url = "login";
         }
        
-        response.sendRedirect(url);
+        request.getRequestDispatcher(url).forward(request, response);
 
     }
     
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        if(!contentDisposition.contains("filename="))
+        {
+            return null;
+        }
+        int beginIndex = contentDisposition.indexOf("filename=") + 10;
+        int endIndex = contentDisposition.length()-1;
+        return contentDisposition.substring(beginIndex,endIndex);
+    }
 
 }
