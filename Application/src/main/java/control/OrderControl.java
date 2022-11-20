@@ -28,7 +28,12 @@ public class OrderControl extends HttpServlet {
         BookDao dao = new BookDao();
         List<TbSach> lastSeen = dao.getLastSeen(MaTK);
         List<TbSach> Order = dao.OrderTop9(MaTK);
-
+        int demyt = dao.countyeuthich(MaTK);
+        int demdb = dao.CountDangBan(MaTK);
+        int demgh = dao.CountGioHang(MaTK);
+        request.setAttribute("demyt", demyt);
+        request.setAttribute("demdb", demdb);
+        request.setAttribute("demgh", demgh);
         request.setAttribute("Order", Order);
 
         request.setAttribute("lastSeen", lastSeen);

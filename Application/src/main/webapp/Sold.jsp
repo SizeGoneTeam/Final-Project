@@ -12,10 +12,76 @@
    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
    <link rel="stylesheet" type="text/css" href="./css/style.css"/>  
 	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/toast.css" type="text/css">
 </head>
-
 <body>
- <%@include file="./header.jsp" %>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="header__logo">
+						<a href="./index.jsp"><img src="img/logo.png" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<nav class="header__menu">
+						<ul>
+							<li class="active"><a href="loadSach">Home</a></li>
+							<li><a href="./shop-grid.html">Shop</a></li>
+							<li><a href="#">Pages</a>
+								<ul class="header__menu__dropdown">
+									<li><a href="./shop-details.html">Shop Details</a></li>
+									<li><a href="./shoping-cart.html">Shoping Cart</a></li>
+									<li><a href="./checkout.html">Check Out</a></li>
+									<li><a href="./blog-details.html">Blog Details</a></li>
+								</ul></li>
+							<li><a href="FAQ.jsp">FAQ</a></li>
+							<c:if test="${sessionScope.acc != null}">
+							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
+								<li><a href="adminpage/DashboardControl">Admin</a></li>
+							</c:if>
+							</c:if>
+						</ul>
+					</nav>
+				</div>
+				<div class="col-lg-3">
+					<div class="header__cart">
+						<ul>
+						<c:if test="${sessionScope.acc != null}">
+							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
+							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
+							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
+						</c:if>
+							
+						</ul>
+						<div class="header__cart__price">
+						<c:if test="${sessionScope.acc != null}">
+							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
+						</c:if>
+						<c:if test="${sessionScope.acc == null}">
+							item: <span>$0.00</span>
+						</c:if>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="humberger__open">
+				<i class="fa fa-bars"></i>
+			</div>
+		</div>
+	</header>
   <div class="mainContent  summary" id="mainContent" role="main" currency="USD">
     <div class="grid">
       <div class="grid__group">
@@ -34,6 +100,9 @@
                   </li>
                   <li class="medium-text m-tab selected m-tab__title fake-tabs__item">
                     <a aria-current="page" href="SummarysellsideControl">Sell mode</a>
+                  </li>
+                  <li class="medium-text m-tab selected m-tab__title fake-tabs__item">
+                    <a  href="LichsugiaodichControl">Lịch sử giao dịch</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
                     <a href="user/profile">Account</a>
@@ -119,5 +188,13 @@
     </div>
   </div>
 </body>
-
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/toast.js"></script>
+    <script src="js/main.js"></script>
 </html>

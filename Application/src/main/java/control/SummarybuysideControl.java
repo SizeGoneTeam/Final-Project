@@ -34,6 +34,12 @@ public class SummarybuysideControl extends HttpServlet {
         GiaodichDao giaodichDao = new GiaodichDao();
         int Tongsachmua = giaodichDao.Tongsachmua(MaTK);
         Double Tongmua = giaodichDao.Tongmua(MaTK);
+        int demyt = dao.countyeuthich(MaTK);
+        int demdb = dao.CountDangBan(MaTK);
+        int demgh = dao.CountGioHang(MaTK);
+        request.setAttribute("demyt", demyt);
+        request.setAttribute("demdb", demdb);
+        request.setAttribute("demgh", demgh);
         request.setAttribute("Tongsachmua", Tongsachmua);
         request.setAttribute("Tongmua", Tongmua);
 

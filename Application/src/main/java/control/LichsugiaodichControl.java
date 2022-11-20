@@ -11,40 +11,40 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entity.TbAccount;
+import entity.TbGiaoDich;
 import entity.TbSach;
 import model.BookDao;
 import model.GiaodichDao;
-import model.PhienDauGiaDao;
 
 /**
- * Servlet implementation class SummarysellsideControl
+ * Servlet implementation class LichsugiaodichControl
  */
-@WebServlet("/SummarysellsideControl")
-public class SummarysellsideControl extends HttpServlet {
+@WebServlet("/LichsugiaodichControl")
+public class LichsugiaodichControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
         String MaTK = account.getMaTK().toString();
+        int matk = account.getMaTK().intValue();
         BookDao dao = new BookDao();
-        List<TbSach> Topselling = dao.SellingTop3(MaTK);
-        List<TbSach> Topsold = dao.SoldTop3(MaTK);
-        GiaodichDao giaodichDao = new GiaodichDao();
-        Long sachdadangLong = giaodichDao.Tongsachdang(MaTK);
-        Double tongdoanhthu = giaodichDao.Tongdoanthu(MaTK);
+        GiaodichDao gDao = new GiaodichDao();
+        List<TbGiaoDich> lsgd = gDao.getGiaoDichs(MaTK);
         int demyt = dao.countyeuthich(MaTK);
         int demdb = dao.CountDangBan(MaTK);
         int demgh = dao.CountGioHang(MaTK);
+
+
         request.setAttribute("demyt", demyt);
         request.setAttribute("demdb", demdb);
         request.setAttribute("demgh", demgh);
-        
-        request.setAttribute("Topselling", Topselling);
-        request.setAttribute("Topsold", Topsold);
-        request.setAttribute("sachdadangLong", sachdadangLong);
-        request.setAttribute("tongdoanhthu", tongdoanhthu);
-        request.getRequestDispatcher("Summary-sellmode.jsp").forward(request, response);
+        request.setAttribute("lsgd", lsgd);
+
+
+        request.setAttribute("matk", matk);
+
+        request.getRequestDispatcher("Lichsugiaodich.jsp").forward(request, response);
     }
 
     /**

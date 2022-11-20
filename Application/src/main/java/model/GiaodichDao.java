@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import entity.TbChiTietHD;
+import entity.TbGiaoDich;
 import entity.TbGioHang;
 import entity.TbHoaDon;
 import entity.TbLichSuXem;
@@ -99,7 +100,13 @@ public class GiaodichDao {
         TbHoaDon entity = (TbHoaDon) query.getSingleResult();
         return entity;
     }
-    
+    public List<TbGiaoDich> getGiaoDichs(String MaTK) {
+        String jpql = "SELECT o FROM TbGiaoDich o where o.nguoiGui = :MaTK or o.nguoiNhan = :MaTK order by o.ngayTao desc";
+        TypedQuery<TbGiaoDich> query = em.createQuery(jpql,TbGiaoDich.class);
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        List<TbGiaoDich> entity = query.setMaxResults(12).getResultList();
+        return entity;
+    }
     public Double Doanhthutheothang(int thang, int nam) {
         String jpql = "SELECT SUM(tienHoaHong) FROM TbGiaoDich o where EXTRACT(year FROM o.ngayTao) = :nam and EXTRACT(month FROM o.ngayTao) = :thang ";
         Query query = em.createQuery(jpql);
@@ -190,13 +197,16 @@ public class GiaodichDao {
     }
     public static void main(String[] args) {
         GiaodichDao dao = new GiaodichDao();
-        TbHoaDon list = dao.gethoadon(1);
-        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
-        chiTietHDs.addAll(list.getTbChiTietHds());
-        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
-            System.out.println(tbChiTietHD.getMaSach().getAnh());
-        }
-        System.out.println(list.getAccount().getEmail());
+//        TbHoaDon list = dao.gethoadon(1);
+//        List<TbChiTietHD> chiTietHDs = new ArrayList<TbChiTietHD>();
+//        chiTietHDs.addAll(list.getTbChiTietHds());
+//        for (TbChiTietHD tbChiTietHD : chiTietHDs) {
+//            System.out.println(tbChiTietHD.getMaSach().getAnh());
+//        }
+        List<TbGiaoDich> list=  dao.getGiaoDichs("1");
+      for (TbGiaoDich tbChiTietHD : list) {
+      System.out.println(tbChiTietHD.getTienGD());
+  }
 
 
     }

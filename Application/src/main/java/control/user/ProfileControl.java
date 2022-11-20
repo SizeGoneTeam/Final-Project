@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entity.TbAccount;
+import model.BookDao;
 import model.UserDao;
 
 @WebServlet("/user/profile")
@@ -27,12 +28,19 @@ public class ProfileControl extends HttpServlet {
 		    //Sync data account
 		    TbAccount data = UserDao.selectAccount(Long.toString(account.getMaTK()));
 		    session.setAttribute("acc", data);
-		    
+	        String MaTK = account.getMaTK().toString();
 		    String fullName = checkNullString(request.getParameter("fullName"));
 	        String email = checkNullString(request.getParameter("email"));
 	        String phoneNumber = checkNullString(request.getParameter("phoneNumber"));
 	        String dateOfBirth = checkNullString(request.getParameter("dateOfBirth"));
+	        BookDao dao = new BookDao();
 	        
+	        int demyt = dao.countyeuthich(MaTK);
+	        int demdb = dao.CountDangBan(MaTK);
+	        int demgh = dao.CountGioHang(MaTK);
+	        request.setAttribute("demyt", demyt);
+	        request.setAttribute("demdb", demdb);
+	        request.setAttribute("demgh", demgh);
 	        if (fullName.equals("") && email.equals("") && phoneNumber.equals("") && dateOfBirth.equals("")) {
 	        }
 	        else {

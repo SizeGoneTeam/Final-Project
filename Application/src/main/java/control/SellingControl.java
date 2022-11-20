@@ -26,6 +26,12 @@ public class SellingControl extends HttpServlet {
         TbAccount account = (TbAccount) session.getAttribute("acc");
         String MaTK = account.getMaTK().toString();
         BookDao dao = new BookDao();
+        int demyt = dao.countyeuthich(MaTK);
+        int demdb = dao.CountDangBan(MaTK);
+        int demgh = dao.CountGioHang(MaTK);
+        request.setAttribute("demyt", demyt);
+        request.setAttribute("demdb", demdb);
+        request.setAttribute("demgh", demgh);
         List<TbSach> selling = dao.SellingTop9(MaTK);
         request.setAttribute("selling", selling);
         request.setAttribute("MaTK", MaTK);

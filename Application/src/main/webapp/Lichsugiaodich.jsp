@@ -9,6 +9,9 @@
   <title>BookStore - Summary</title>
   <link rel="stylesheet" href="./My eBay - Summary_files/summary-88zDzmOw.css">
   <link rel="stylesheet" href="css/sumary.css">
+   <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+   <link rel="stylesheet" type="text/css" href="./css/style.css"/>  
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -20,9 +23,7 @@
 <link rel="stylesheet" href="css/toast.css" type="text/css">
 </head>
 <body>
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+
 	<header class="header">
 		<div class="container">
 			<div class="row">
@@ -79,6 +80,7 @@
 			</div>
 		</div>
 	</header>
+
   <div class="mainContent  summary" id="mainContent" role="main" currency="USD">
     <div class="grid">
       <div class="grid__group">
@@ -96,10 +98,11 @@
                     <a href="SummarybuysideControl">Buy mode</a>
                   </li>
                   <li class="medium-text m-tab selected m-tab__title fake-tabs__item">
-                    <a aria-current="page" href="SummarysellsideControl">Sell mode</a>
+                    <a href="SummarysellsideControl">Sell mode</a>
                   </li>
+                  
                   <li class="medium-text m-tab selected m-tab__title fake-tabs__item">
-                    <a  href="LichsugiaodichControl">Lịch sử giao dịch</a>
+                    <a aria-current="page" href="LichsugiaodichControl">Lịch sử giao dịch</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
                     <a href="user/profile">Account</a>
@@ -114,71 +117,54 @@
 
     <div class="grid">
       <div class="grid__group">
-        <div class="grid__cell grid__cell--3of16 m-page-left">
-          <section class="m-links-accordion">
-            <ul>
-              <li><a href="SummarysellsideControl">Tóm tắt</a></li>
-              <li class="selected"><a href="SellingControl">Đang bán</a></li>
-              <li><a href="SoldControl">Đã bán</a></li>
-            </ul>
-          </section>
-        </div>
+
         <div class="grid__cell grid__cell--13of16 m-page-middle full-width">
           <div class="m-river summary ">
             <div class="m-river__body">
-              <div class="m-container container-1">
-                <div class="m-container__header border-header">
-                  <div class="title-container">
-                    <h2 class="title large-text-2">Đang bán</h2>
-                    <div class="sub-title regular-text"></div>
-                  </div>
+              <div class="m-container container-2" id="container-2-anchor" type="MyebayWatchlistModule"
+                name="ITEM_CONTAINER" container-id="container-2">
+                <div class="title-container">
+                  <h2 class="title large-text-2">Lịch sử giao dịch</h2>
                 </div>
-                
-                 <c:forEach items="${selling}" var="o">
-                <div class="m-container__body">
-                  <div class="m-container__body--items">
-                    <div class="m-container-items BuyingActivityDwebModule">
-                      <div class="m-item-card">
-                        <div class="m-container-item-layout-row m-container-item-layout-row__body">
-                          <div class="container-item-col container-item-col-img">
-                            <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}">
-                              <div class="m-image"><img
-                                  src="${o.getAnh()}"
-                                  alt="product's image">
-                              </div>
-                            </a>
-                          </div>
-                          <div class="container-item-col container-item-col-item-info">
-                            <div
-                              class="container-item-col__info-item-info-primary container-item-col__info-item-info-title">
-                              <div><a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="nav-link">${o.getTenSach() }</a></div>
-                            </div>
-                            
-                          </div>
-                          <div class="container-item-col container-item-col-time-left-info">
-                        
-                          </div>
-                          <div class="container-item-col container-item-col-orderTotal">
-                            <div class="container-item-col__info-tertiary container-item-col__info-displayPrice">
-                              <div><span class="POSITIVE BOLD">${o.getDonGia()} $</span></div>
-                            </div>
-                         
-                          </div>
-                          <div class="container-item-col container-item-col-cta">
-                            <div class="container-item-col-cta__item">
-                              <div class="m-cta">
-                                <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
-                                  Xem chi tiết
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </c:forEach>
+                <div class="container-actions border-header bottom-padding"></div>
+               <table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Loại giao dịch</th>
+				      <th scope="col">Ngày giao dịch</th>
+				      <th scope="col">Số tiền</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				 <c:forEach items="${lsgd}" var="o">
+				    <tr>
+				    <c:if test="${o.getLoaiGD() == 1}">
+				      <td>Nạp tiền</td>
+				      <td>${o.getNgayTao()}</td>
+				      <td style="color: green">+ ${o.getTienGD()}</td>
+				    </c:if>
+				    <c:if test="${o.getLoaiGD() == 2}">
+				      <td>Chuyển tiền</td>
+				      <td>${o.getNgayTao()}</td>
+				      <c:if test="${o.getNguoiGui() == matk}">
+				       <td style="color: red">- ${o.getTienGD()}</td>
+				       </c:if>
+				       <c:if test="${o.getNguoiNhan() == matk}">
+				       <td style="color: green" >+ ${o.getTienGD()}</td>
+				       </c:if>
+				     </c:if>
+				    <c:if test="${o.getLoaiGD() == 3}">
+				      <td>Rút tiền</td>
+				      <td>${o.getNgayTao()}</td>
+				      <td style="color: red">- ${o.getTienGD()}</td>
+				    </c:if>
+
+				    </tr>
+					</c:forEach>
+				  </tbody>
+				</table>
+
+
               </div>
             </div>
           </div>
@@ -187,13 +173,5 @@
     </div>
   </div>
 </body>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/toast.js"></script>
-    <script src="js/main.js"></script>
+
 </html>

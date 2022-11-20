@@ -27,6 +27,12 @@ public class RecentlyviewedControl extends HttpServlet {
         String MaTK = account.getMaTK().toString();
         BookDao dao = new BookDao();
         List<TbSach> lastSeen = dao.getLastSeenTop9(MaTK);
+        int demyt = dao.countyeuthich(MaTK);
+        int demdb = dao.CountDangBan(MaTK);
+        int demgh = dao.CountGioHang(MaTK);
+        request.setAttribute("demyt", demyt);
+        request.setAttribute("demdb", demdb);
+        request.setAttribute("demgh", demgh);
         request.setAttribute("lastSeen", lastSeen);
         request.setAttribute("MaTK", MaTK);
 
