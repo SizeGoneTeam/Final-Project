@@ -42,6 +42,24 @@ public class GiaodichDao {
         }
     }
     
+    public void insert(TbGiaoDich giaoDich) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(giaoDich);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error:"+ e.toString());
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            //em.close();
+        }
+    }
+    
     public void update(TbHoaDon hoaDon) {
         EntityTransaction trans = em.getTransaction();
         try {

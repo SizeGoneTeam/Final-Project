@@ -198,7 +198,7 @@ public class BookDao {
     public List<TbTheLoai> GetCategory() {
         String jpql = "SELECT o FROM TbTheLoai o";
         TypedQuery<TbTheLoai> query = em.createQuery(jpql,TbTheLoai.class);
-        List<TbTheLoai> entity = query.setMaxResults(12).getResultList();
+        List<TbTheLoai> entity = query.getResultList();
         return entity;
     }
     public List<TbSach> LastAdd() {

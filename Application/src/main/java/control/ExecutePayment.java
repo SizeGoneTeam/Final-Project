@@ -9,6 +9,8 @@ import com.paypal.api.payments.*;
 import com.paypal.base.rest.PayPalRESTException;
 
 import entity.TbAccount;
+import entity.TbGiaoDich;
+import model.GiaodichDao;
 import model.UserDao;
 import service.PaymentServices;
  
@@ -39,13 +41,16 @@ public class ExecutePayment extends HttpServlet {
             Transaction transaction = payment.getTransactions().get(0);
             
             acc.setTien(oldTien+ Double.parseDouble(transaction.getAmount().getTotal()));
+            TbGiaoDich giaoDich = new TbGiaoDich(1, 1, acc.getMaTK().intValue(), Double.parseDouble(transaction.getAmount().getTotal()));
+            GiaodichDao giaodichDao = new GiaodichDao();
+            giaodichDao.insert(giaoDich);
             dao.update(acc);
             
             session.setAttribute("acc", acc);
             request.setAttribute("payer", payerInfo);
             request.setAttribute("transaction", transaction);          
  
-            request.getRequestDispatcher("receipt.jsp").forward(request, response);
+            request.getRequestDispatcher("LichsugiaodichControl").forward(request, response);
              
         } catch (PayPalRESTException ex) {
             request.getRequestDispatcher("ErrorPatment.html").forward(request, response);

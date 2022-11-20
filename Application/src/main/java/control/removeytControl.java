@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.dao;
 import entity.BidHistory;
 import entity.Product;
 import entity.TbAccount;

@@ -33,6 +33,10 @@ import com.fasterxml.uuid.Generators;
 import com.google.gson.Gson;
 
 import entity.TbAccount;
+import entity.TbGiaoDich;
+import entity.TbGioHang;
+import model.GiaodichDao;
+import model.GioHangDao;
 import model.UserDao;
 import service.PayPalToken;
 import service.Payout;
@@ -122,9 +126,12 @@ public class Withdraw extends HttpServlet {
             try {
                     if(payout.getBatch_header().getPayout_batch_id() != null) System.out.println("Rút tiền thành công");
                     account.setTien(Math.floor( (account.getTien()- value)*100) /100);
+                    TbGiaoDich giaoDich = new TbGiaoDich(3, account.getMaTK().intValue(), 1, value);
+                    GiaodichDao giaodichDao = new GiaodichDao();
+                    giaodichDao.insert(giaoDich);
                     UserDao.updateAccount(account);
                     session.setAttribute("acc", account);
-                    url = "loadSach";
+                    url = "LichsugiaodichControl";
                 }
              catch (Exception e) {
                     System.out.println("Rút không thành công . Quý khách vui lòng thử lại sau");

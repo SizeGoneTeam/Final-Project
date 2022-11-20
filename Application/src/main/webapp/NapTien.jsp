@@ -18,6 +18,10 @@ body {
 	background-color: #cccccc;
 	background-position: center;
 }
+.btn-info {
+    background-color: green;
+    border-color: #17a2b8;
+}
 </style>
 </head>
 <body>

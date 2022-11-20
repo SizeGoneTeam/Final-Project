@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Timer;
 
 import TimerTask.GiamGia;
-import dao.dao;
 import entity.TbAccount;
 import entity.TbAnh;
 import entity.TbGioHang;
