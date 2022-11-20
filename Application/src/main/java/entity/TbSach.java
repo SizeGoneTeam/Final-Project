@@ -80,6 +80,7 @@ public class TbSach implements Serializable {
     @OneToMany(mappedBy = "tbSach")
     private List<TbGioHang> gioHang;
     
+    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }

@@ -34,8 +34,8 @@ import model.UserDao;
 public class test2 {
     public static void main(String[] args) {
         BookDao bookDao = new BookDao();
-        for (TbSach sach : bookDao.searchSach("vla","0")) {
-            System.out.println(sach.toString());
-        }
+        UserDao userDao = new UserDao();
+        TbAccount acc = userDao.findById(Long.valueOf(1));
+        System.out.println(acc.getTbDiaChiKhs().get(1).getMacDinh());
     }
 }

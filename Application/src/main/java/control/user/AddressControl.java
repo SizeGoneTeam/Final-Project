@@ -1,6 +1,7 @@
 package control.user;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -33,6 +34,7 @@ public class AddressControl extends HttpServlet {
 		    session.setAttribute("acc", user);
 		    
 		    String type = checkNullString(request.getParameter("type"));
+		    System.out.println(type);
 		    
 		    if (type.equals("delete")) {
 		        String id = checkNullString(request.getParameter("id"));
@@ -40,6 +42,18 @@ public class AddressControl extends HttpServlet {
 		        deleteObject.setId(Integer.parseInt(id));
 		        
 		        AddressDAO.deleteAddress(deleteObject);
+		    }else if(type.equals("SetDefault")) {
+		        String id = checkNullString(request.getParameter("id"));
+		        List<TbDiaChiKH> diaChiKHs = AddressDAO.selectAddress(account);
+		        for (TbDiaChiKH tbDiaChiKH : diaChiKHs) {
+                    if (tbDiaChiKH.getId() == Long.valueOf(id).intValue()) {
+                        tbDiaChiKH.setMacDinh(1);
+                        AddressDAO.updateAddress(tbDiaChiKH);
+                    }else if(tbDiaChiKH.getMacDinh()==1) {
+                        tbDiaChiKH.setMacDinh(0);
+                        AddressDAO.updateAddress(tbDiaChiKH);
+                    }
+                }
 		    }
 		    else if (!type.isEmpty()) {
 		        
@@ -93,6 +107,7 @@ public class AddressControl extends HttpServlet {
 		    List<TbTinhThanh> provinces = AddressDAO.selectAllProvince();
 		    
 		    List<TbDiaChiKH> addresses = AddressDAO.selectAddress(user);
+		    int count = AddressDAO.CountAll(user);
 		    
 		    request.setAttribute("provinces", provinces);
 		    

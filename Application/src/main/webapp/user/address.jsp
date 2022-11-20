@@ -242,6 +242,7 @@
                             <h1 class="QvBZmg">Địa chỉ của tôi</h1>
                           </div>
                           <div>
+                          <c:if test="${count <4}">
                             <div class="sS8qJ1">
                               <div style="display: flex;">
                                 <button class="shopee-button-solid shopee-button-solid--primary bXfVa5" onclick="document.getElementById('id00').style.display='block'">
@@ -256,6 +257,7 @@
                                 </button>
                               </div>
                             </div>
+                            </c:if>
                           </div>
                         </div>
       
@@ -276,9 +278,19 @@
                                     <div class="kTdq3r" style="margin: 0px 5px;">|</div>
                                     <div role="row" class="bRMEUm _2bzRo+ _4DcXuJ" style="white-space: nowrap;display: flex;align-items: center;">${o.sdt}</div>
                                   </div>
+                                  <c:if test="${o.getMacDinh()!=1}">
+                                  <form action="address" method="post">
+                                  <div class="aQxJVJ" style="flex-basis: 40px;justify-content: flex-end;display: flex;">
+                                  	<input name="type" value="SetDefault" hidden />
+                                    <button class="wORiuh" style="white-space: nowrap;padding: 4px;color: green;border: 0;background: none;outline: none;" name="id" value="${o.id}">Đặt làm địa chỉ mặc đỉnh</button>
+                                  </div>
+                                  </form>
+                                  <div class="kTdq3r" style="margin: 0px 5px;">|</div>
+                                  </c:if>
                                   <div class="aQxJVJ" style="flex-basis: 40px;justify-content: flex-end;display: flex;">
                                     <button class="wORiuh" style="white-space: nowrap;padding: 4px;color: #08f;border: 0;background: none;outline: none;" onclick="document.getElementById('id0${count}').style.display='block'">Cập nhật</button>
                                   </div>
+                                  <c:if test="${o.getMacDinh()!=1}">
                                   <div class="kTdq3r" style="margin: 0px 5px;">|</div>
                                   <form action="address" method="post">
                                     <div class="aQxJVJ" style="flex-basis: 40px;justify-content: flex-end;display: flex;">
@@ -286,6 +298,7 @@
                                       <button class="wORiuh" style="white-space: nowrap;padding: 4px;color: rgb(255, 0, 0);border: 0;background: none;outline: none;" name="id" value="${o.id}">Xóa</button>
                                     </div>
                                   </form>
+                                  </c:if>
                                 </div>
                                 
                                 <div role="heading" class="FSlv-V m3QHyX" style="    margin-bottom: 4px;    justify-content: space-between;display: flex;">

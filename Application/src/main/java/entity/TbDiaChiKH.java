@@ -42,8 +42,12 @@ public class TbDiaChiKH implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="IDTinh")
 	private TbTinhThanh tbTinhThanh;
+	
+    @Column(name="MacDinh")
+    private int macDinh;
 
 	public TbDiaChiKH() {
+	    this.macDinh = 1;
 	}
 
 	public int getId() {
@@ -109,6 +113,14 @@ public class TbDiaChiKH implements Serializable {
 	public void setTbTinhThanh(TbTinhThanh tbTinhThanh) {
 		this.tbTinhThanh = tbTinhThanh;
 	}
+
+    public int getMacDinh() {
+        return macDinh;
+    }
+
+    public void setMacDinh(int macDinh) {
+        this.macDinh = macDinh;
+    }
 		
 
 }

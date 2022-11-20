@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import entity.TbAccount;
@@ -90,5 +91,13 @@ public class AddressDAO {
         } finally {
             em.close();
         }
+    }
+    
+    public static int CountAll(TbAccount account) {
+        EntityManager em = JpaUntils.getEmFactory().createEntityManager();
+        String jpql = "SELECT count(a) FROM TbDiaChiKH a WHERE a.tbAccount = :account";
+        Query query = em.createQuery(jpql);
+        query.setParameter("account", account);
+        return ((Long) query.getSingleResult()).intValue();
     }
 }
