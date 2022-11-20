@@ -236,13 +236,13 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="./index.jsp"><img src="img/logo.png" alt=""></a>
+						<a href="./index.jsp"><img src="image/logobook.png" width="100"  height="50" alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="loadSach">Home</a></li>
+							<li><a href="loadSach">Home</a></li>
 							<li><a href="search?key=">Shop</a></li>
 							<li><a href="FAQControl">FAQ</a></li>
 							<c:if test="${sessionScope.acc != null}">

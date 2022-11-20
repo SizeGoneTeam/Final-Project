@@ -58,7 +58,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./index.html">Home</a></li>
                 <li><a href="search?key=">Shop</a></li>
                 <li><a href="FAQControl">FAQ</a></li>
                 <li><a href="./contact.html">Contact</a></li>
@@ -447,26 +447,35 @@
     <!-- Related Product Section End -->
 
     <!-- Footer Section Begin -->
-    	<footer class="footer spad">
+    <footer class="footer spad">
 		<div class="container">
+
 			<div class="row">
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="footer__about">
+				<div class="col-lg-4 col-md-12">
+					<div class="footer__widget">
 						<div class="footer__about__logo">
-							<a href="./index.jsp"><img src="img/logo.png" alt=""></a>
+							<a href="./index.jsp"><img src="image/logobook.png" width="250"  height="150" alt=""></a> <br>
 						</div>
-						<ul>
-							<li>Address: Số 1 Võ Văn Ngân,<br> Thành phố Thủ Đức
-							</li>
-							<li>Phone: +65 11.188.888</li>
-							<li>Email: sizegonebook@gmail.com</li>
-						</ul>
+			
 					</div>
 				</div>
-				
-				
-			</div>
-			
+			       <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <p>Address: Số 1 Võ Văn Ngân, Thành phố Thủ Đức</p>
+                        <p>Phone: +84 88.888.888</p>
+                        <p>Email: sizegonebook@gmail.com</p>
+                     
+                    </div>
+                	</div>
+                	  <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Sự hài lòng của bạn là hạnh phúc của chúng tôi</h6>
+                        <p> </p>
+                       
+                     
+                    </div>
+                	</div>
+		</div>
 		</div>
 	</footer>
     <!-- Footer Section End -->
