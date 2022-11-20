@@ -192,7 +192,7 @@
 	                       	<div class="col-lg-4 col-md-6 col-sm-6">
 	                            <div class="product__item">
 	                           
-	                                <div  class="product__item__pic set-bg"  data-setbg="${o.getAnh()}" onclick="window.location='detail?pid=${o.maSach }';">
+	                                <div  class="product__item__pic set-bg"  data-setbg="${o.getAnhs().get(0).getAnh()}" onclick="window.location='detail?pid=${o.maSach }';">
 	                                    
 	                                </div>
 	                                <div class="product__item__text">
