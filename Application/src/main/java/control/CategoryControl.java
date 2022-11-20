@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import entity.TbAccount;
 import entity.TbSach;
 import entity.TbTheLoai;
 import model.BookDao;
@@ -41,6 +43,21 @@ public class CategoryControl extends HttpServlet {
         if(count % 9!=0) {
             endPage++;
         }
+        HttpSession session = request.getSession();
+        TbAccount account = (TbAccount) session.getAttribute("acc");
+        if (account == null) {
+            String MaTK="";
+        }
+        else {
+        String MaTK = account.getMaTK().toString();
+        int demyt = bookDao.countyeuthich(MaTK);
+        int demdb = bookDao.CountDangBan(MaTK);
+        int demgh = bookDao.CountGioHang(MaTK);
+        request.setAttribute("demyt", demyt);
+        request.setAttribute("demdb", demdb);
+        request.setAttribute("demgh", demgh);
+        }
+
         String endPTitle ="0";
         request.setAttribute("lastAdd", lastAdd);
         request.setAttribute("search", searchtheloai); 
