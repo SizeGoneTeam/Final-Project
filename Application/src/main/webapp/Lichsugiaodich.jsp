@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en" class="font-marketsans mdl-js">
 
@@ -145,7 +146,8 @@
 				       <td style="color: red">- ${o.getTienGD()}</td>
 				       </c:if>
 				       <c:if test="${o.getNguoiNhan() == matk}">
-				       <td style="color: green" >+ ${o.getTienGD()}</td>
+				       <td style="color: green" >+ <fmt:formatNumber type = "number" maxFractionDigits = "2" value = "${o.getTienGD() *0.8 -0.005}" /> </td>
+				       <%-- <td style="color: green" >+ ${o.getTienGD() *0.8}</td> --%>
 				       </c:if>
 				     </c:if>
 				    <c:if test="${o.getLoaiGD() == 3}">

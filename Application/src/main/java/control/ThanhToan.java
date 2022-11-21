@@ -89,6 +89,7 @@ public class ThanhToan extends HttpServlet {
                     bookDao.update(sach);
                     userDao.update(sach.getNguoiSoHuu());
                     gioHangDao.remove(gioHangDao.findGioHang(acc.getMaTK().toString(), Integer.toString(sach.getMaSach())));
+                    session.setAttribute("acc", acc);
                 }
                 SendMail.sendMail(hoaDon.getMaHD());
                 url = "OrderControl";
