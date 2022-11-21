@@ -28,7 +28,7 @@ public class TbSach implements Serializable {
      * private String anh;
      */
 	
-	@OneToMany(mappedBy = "sach", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@OneToMany(mappedBy = "sach", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
 	private List<TbAnh> anhs;
 	
 	@Column(name="DonGia")

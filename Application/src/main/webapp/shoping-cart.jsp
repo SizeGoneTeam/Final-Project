@@ -226,11 +226,10 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
+   <!--  Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
     	<header class="header">
 		<div class="container">
 			<div class="row">
@@ -349,7 +348,7 @@
                                         <td class="shoping__cart__item">
                                             <a href="detail?pid=${o.tbSach.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="latest-product__item">
                                                 <div class="latest-product__item__pic">
-                                                    <img src="${o.tbSach.anh}" alt="">
+                                                    <img src="${o.tbSach.getAnhs().get(0).getAnh()}" alt="">
                                                 </div>
                                                 <div class="latest-product__item__text">
                                                     <h6>${o.tbSach.tenSach}</h6>

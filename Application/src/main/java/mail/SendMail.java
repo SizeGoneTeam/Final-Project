@@ -32,7 +32,7 @@ public class SendMail {
             tongALL += tongDouble;
             table += "<tr>\r\n"
                     + "                  <td align=\"left\" width=\"38%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tbChiTietHD.getMaSach().getTenSach()+"</td>\r\n"
-                    + "                  <td align=\"left\" width=\"38%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\"><img src=\""+tbChiTietHD.getMaSach().getAnhs().get(0)+'"'+" width=\"130\"  height=\"150\" alt=\"\"></td>\r\n"
+                    + "                  <td align=\"left\" width=\"38%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\"><img src=\""+tbChiTietHD.getMaSach().getAnhs().get(0).getAnh()+'"'+" width=\"130\"  height=\"150\" alt=\"\"></td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tbChiTietHD.getMaSach().getDonGia()+"</td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tbChiTietHD.getGiaVC()+"</td>\r\n"
                     + "                  <td align=\"left\" width=\"8%\" style=\"padding: 6px 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">"+tongDouble+"$</td>\r\n"
