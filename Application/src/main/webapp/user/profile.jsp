@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
       <link rel="stylesheet" type="text/css" href="../css/style.css"/>    
       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>  
+
+      <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+      <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+      <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+      <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+      <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+      <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+      <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+      <link rel="stylesheet" href="../css/style.css" type="text/css">
+      <link rel="stylesheet" href="../css/toast.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <meta name="viewport" content="width=1240,shrink-to-fit=no" />
@@ -48,15 +58,7 @@
           href="./styles_main/2825.c1fba5fdd46028ab.css"
         />
         
-                   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="../css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="../css/style.css" type="text/css">
-<link rel="stylesheet" href="../css/toast.css" type="text/css">
+
 </head>
 <body>
 
@@ -93,7 +95,7 @@
 							
 						</c:if>
 						</ul>
-						<div class="header__cart__price">
+						<div class="header__cart__price" style="font-weight: bold;">
 						<c:if test="${sessionScope.acc != null}">
 							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
 						</c:if>			
@@ -163,6 +165,7 @@
                                            minlength="6"
                                           name="fullName"
                                           value="${sessionScope.acc.hoTen}"
+                                          required
                                         />
                                       </div>
                                     </div>
@@ -181,6 +184,7 @@
                                           minlength="6"
                                           name="email"
                                           value="${sessionScope.acc.email}"
+                                          required
                                         />
                                       </div>
                                     </div>
@@ -199,6 +203,7 @@
                                          minlength="6"
                                           name="phoneNumber"
                                           value="${sessionScope.acc.phone}"
+                                          required
                                         />
                                       </div>
                                     </div>
