@@ -3,8 +3,15 @@
 <!DOCTYPE html>
 <html lang="vi">
     <head>
-      <link rel="stylesheet" type="text/css" href="../css/style.css"/>    
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>  
+            <link rel="stylesheet" href="/..css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<link rel="stylesheet" href="../css/toast.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <meta name="viewport" content="width=1240,shrink-to-fit=no" />
@@ -181,7 +188,7 @@
         />
     
         <title>
-          Shopee Việt Nam | Mua và Bán Trên Ứng Dụng Di Động Hoặc Website
+          Address
         </title>
         <meta name="robots" content="noindex" data-rh="true" />
         <meta
@@ -213,7 +220,53 @@
     </head>
 
     <body>
-      <%@include file="../header.jsp" %>
+            <header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="header__logo">
+						<a href="./index.jsp"><img src="../image/logobook.png" width="100"  height="50" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<nav class="header__menu">
+						<ul>
+							<li class="active"><a href="loadSach">Home</a></li>
+							<li><a href="search?key=">Shop</a></li>
+							<li><a href="FAQControl">FAQ</a></li>
+							<c:if test="${sessionScope.acc != null}">
+							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
+								<li><a href="adminpage/DashboardControl">Admin</a></li>
+							</c:if>
+							</c:if>
+						</ul>
+					</nav>
+				</div>
+				<div class="col-lg-3">
+					<div class="header__cart">
+						<ul>
+						<c:if test="${sessionScope.acc != null}">
+							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
+							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
+							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
+							<li><a href="NapTien.jsp"><i class="fa-solid fa-wallet"></i></a></li>
+						</c:if>
+							
+						</ul>
+						<div class="header__cart__price">
+						<c:if test="${sessionScope.acc != null}">
+							<span><a href="NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
+						</c:if>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="humberger__open">
+				<i class="fa fa-bars"></i>
+			</div>
+		</div>
+	</header>
         <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-WJZQSJF"

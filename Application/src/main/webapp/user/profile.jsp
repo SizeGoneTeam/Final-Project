@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <!DOCTYPE html>
     <html>
 
@@ -17,7 +18,7 @@
         />
     
         <title>
-          Shopee Việt Nam | Mua và Bán Trên Ứng Dụng Di Động Hoặc Website
+           Profile
         </title>
         <meta name="robots" content="noindex" data-rh="true" />
         <meta
@@ -47,16 +48,15 @@
           href="./styles_main/2825.c1fba5fdd46028ab.css"
         />
         
-        <link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css"/>
-        <link rel="stylesheet" type="text/css" href="styles/custom.css"/>    
-      <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+                   <link rel="stylesheet" href="/..css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<link rel="stylesheet" href="../css/toast.css" type="text/css">
 </head>
 <body>
 
@@ -65,23 +65,21 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="./index.jsp"><img src="img/logo.png" alt=""></a>
+						<a href="./index.jsp"><img src="../image/logobook.png" width="100"  height="50" alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="../loadSach">Home</a></li>
-							<li><a href="./shop-grid.html">Shop</a></li>
-							<li><a href="#">Pages</a>
-								<ul class="header__menu__dropdown">
-									<li><a href="./shop-details.html">Shop Details</a></li>
-									<li><a href="./shoping-cart.html">Shoping Cart</a></li>
-									<li><a href="./checkout.html">Check Out</a></li>
-									<li><a href="./blog-details.html">Blog Details</a></li>
-								</ul></li>
-							<li><a href="FAQ.jsp">FAQ</a></li>
-							<li><a href="AdminProduct">Admin</a></li>
+							
+							<li class="active"><a href="loadSach">Home</a></li>
+							<li><a href="search?key=">Shop</a></li>
+							<li><a href="FAQControl">FAQ</a></li>
+							<c:if test="${sessionScope.acc != null}">
+							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
+								<li><a href="adminpage/DashboardControl">Admin</a></li>
+							</c:if>
+							</c:if>
 						</ul>
 					</nav>
 				</div>
@@ -92,6 +90,7 @@
 							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
 							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
 							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
+							<li><a href="NapTien.jsp"><i class="fa-solid fa-wallet"></i></a></li>
 						</c:if>
 						</ul>
 						<div class="header__cart__price">
@@ -161,6 +160,7 @@
                                         <input
                                           type="text"
                                           maxlength="255"
+                                           minlength="6"
                                           name="fullName"
                                           value="${sessionScope.acc.hoTen}"
                                         />
@@ -178,6 +178,7 @@
                                         <input
                                           type="text"
                                           maxlength="255"
+                                          minlength="6"
                                           name="email"
                                           value="${sessionScope.acc.email}"
                                         />
@@ -195,6 +196,7 @@
                                         <input
                                           type="text"
                                           maxlength="255"
+                                         minlength="6"
                                           name="phoneNumber"
                                           value="${sessionScope.acc.phone}"
                                         />
@@ -212,6 +214,9 @@
                                         <input
                                           type="date"
                                           name="dateOfBirth"
+                                          minlength="8"
+                                          minlength="9"
+                                          required
                                           value="${sessionScope.acc.dateOfBirth.toString()}"
                                         />
                                       </div>

@@ -244,7 +244,7 @@ public class BookDao {
     }
     public List<TbSach> SoldTop3(String MaTK) {
         String jpql = "SELECT o FROM TbSach o "
-                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.ngayKetThuc desc";
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.maPhien desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbSach> entity = query.setMaxResults(3).getResultList();
@@ -260,7 +260,7 @@ public class BookDao {
     
     public List<TbSach> SoldTop9(String MaTK, String page) {
         String jpql = "SELECT o FROM TbSach o "
-                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.ngayKetThuc desc";
+                + "where o.nguoiSoHuu.maTK = :MaTK and o.phienDauGia.isEnd = 1 order by o.phienDauGia.maPhien desc";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(6).getResultList();
