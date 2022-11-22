@@ -304,7 +304,7 @@ public class TaoPhienDauGia extends HttpServlet {
             url = "login";
         }
        
-        request.getRequestDispatcher(url).forward(request, response);
+        response.sendRedirect(url);
 
     }
     

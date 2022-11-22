@@ -42,6 +42,7 @@ public class DetailControl extends HttpServlet {
 	         HttpSession session = request.getSession();
 	        TbAccount account = (TbAccount) session.getAttribute("acc");
 	        String maKH = account.getMaTK().toString();
+	        UserDao userDao = new UserDao();
 	        BookDao daoSach = new BookDao();
 	        PhienDauGiaDao daoPhien = new PhienDauGiaDao();
 	        GioHangDao daoGH = new GioHangDao();
@@ -66,6 +67,7 @@ public class DetailControl extends HttpServlet {
 	            request.setAttribute("demyt", demyt);
 	            request.setAttribute("demdb", demdb);
 	            request.setAttribute("demgh", demgh);
+	            session.setAttribute("acc", userDao.findById(account.getMaTK()));
 	            
 	            if(last.isEmpty()) {
 	                detail.insert(xem);

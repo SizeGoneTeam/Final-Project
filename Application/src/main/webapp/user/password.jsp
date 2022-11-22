@@ -4,8 +4,6 @@
     <html>
 
     <head>
-         <link rel="stylesheet" type="text/css" href="../css/style.css"/>    
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>  
             <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">

@@ -71,7 +71,7 @@ public class placeBid extends HttpServlet{
         }
 	    
         
-		req.getRequestDispatcher(url).forward(req, resp);
+		resp.sendRedirect(url);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

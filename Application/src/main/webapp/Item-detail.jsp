@@ -230,7 +230,7 @@ th {
 					</div>
 					<div>
 					<c:forEach items="${tacGia}" var="o">
-						<a href="${o.getTenTacGia()}">${o.getTenTacGia()}</a>
+						<a href="search?key=${o.getTenTacGia()}">${o.getTenTacGia()}</a>
 					</c:forEach>
 					</div>
 					<hr>

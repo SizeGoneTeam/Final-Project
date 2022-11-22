@@ -36,7 +36,6 @@ public class TbGioHang implements Serializable {
 	    Date now = new Date();
         Timestamp NowTime = new Timestamp(now.getTime());
         ngayThem = NowTime;
-
 	}
 	
 	public TbGioHang(GioHangPK gioHangPK) {
@@ -44,7 +43,6 @@ public class TbGioHang implements Serializable {
         Timestamp NowTime = new Timestamp(now.getTime());
         ngayThem = NowTime;
 	    this.gioHangPK = gioHangPK;
-
     }
 
 
@@ -85,8 +83,6 @@ public class TbGioHang implements Serializable {
 	public void setNgayThem(Timestamp ngayThem) {
 		this.ngayThem = ngayThem;
 	}
-
-
 
     public TbSach getMaSach() {
         return tbSach;

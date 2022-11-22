@@ -108,7 +108,6 @@ public class BookDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
         }
     }
     
@@ -125,7 +124,6 @@ public class BookDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
         }
     }
     
@@ -142,7 +140,6 @@ public class BookDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
         }
     }
 
@@ -160,7 +157,6 @@ public class BookDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
         }
     }
     public int CountDangBan(String MaTK) {
@@ -300,9 +296,9 @@ public class BookDao {
     }
     public List<TbSach> NoPayTop3(String MaTK) {
         String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.tbAccount.maTK = :MaTK order by o.gioHangPK desc";
+                + "where o.gioHangPK.maTK = :MaTK order by o.gioHangPK desc";
         TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
-        query.setParameter("MaTK",Long.parseLong(MaTK));
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
         List<TbGioHang> entity = query.setMaxResults(3).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbGioHang product : entity) {
@@ -312,9 +308,9 @@ public class BookDao {
     }
     public List<TbSach> NoPayTop9(String MaTK) {
         String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.tbAccount.maTK = :MaTK order by o.gioHangPK desc";
+                + "where o.gioHangPK.maTK = :MaTK order by o.gioHangPK desc";
         TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
-        query.setParameter("MaTK",Long.parseLong(MaTK));
+        query.setParameter("MaTK",Integer.parseInt(MaTK));
         List<TbGioHang> entity = query.setMaxResults(9).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbGioHang product : entity) {

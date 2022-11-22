@@ -89,10 +89,11 @@ public class ThanhToan extends HttpServlet {
                     bookDao.update(sach);
                     userDao.update(sach.getNguoiSoHuu());
                     gioHangDao.remove(gioHangDao.findGioHang(acc.getMaTK().toString(), Integer.toString(sach.getMaSach())));
-                    session.setAttribute("acc", acc);
+                    System.out.println("xoá sách" + sach.getMaSach());
                 }
                 SendMail.sendMail(hoaDon.getMaHD());
                 url = "OrderControl";
+                session.setAttribute("acc", acc);
             } else {
                 url = "ErrorPayment.jsp";
                 request.setAttribute("mess", "Tài khoản không đủ thanh toán\r\n"
@@ -100,6 +101,7 @@ public class ThanhToan extends HttpServlet {
             }
         }catch (Exception e) {
             url = "ErrorPayment.jsp";
+            e.printStackTrace();
         }
         
         request.getRequestDispatcher(url).forward(request, response);
