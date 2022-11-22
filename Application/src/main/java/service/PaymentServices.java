@@ -1,18 +1,19 @@
 package service;
 
 import java.util.*;
+import javax.servlet.http.HttpServlet;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.*;
 
 import entity.OrderDetail;
-import entity.TbAccount;
+import utils.getServerPathUtil;
 
-public class PaymentServices {
+public class PaymentServices extends HttpServlet {
     private static final String CLIENT_ID = "AacQ0Q5c7wRMX2tCwE8AVLPaOQ0rwaQRZhDoXtb78HD17Jba9BoDUNGgKWoFgmgvoTQ6ERQMhdYtwWuh";
     private static final String CLIENT_SECRET = "EOEgqN1jb4xHBJsVzL6fjYSaeMPsT_uKeRb61LibzsWfQIRN4Km_aMDZrfRw8NGgr6V7Y3jU0VNa0lbO";
     private static final String MODE = "sandbox";
-
+    
     public String authorizePayment(OrderDetail orderDetail)
             throws PayPalRESTException {
 
@@ -45,10 +46,11 @@ public class PaymentServices {
     }
 
     private RedirectUrls getRedirectURLs() {
+        String urlServer = getServerPathUtil.ServerPath;
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("https://sizegone-bookstore.herokuapp.com/cancel.html");
+        redirectUrls.setCancelUrl(urlServer+"cancel.html");
         //redirectUrls.setReturnUrl("http://localhost:8080/BookStore/review_payment");
-        redirectUrls.setReturnUrl("https://sizegone-bookstore.herokuapp.com/review_payment");
+        redirectUrls.setReturnUrl(urlServer+"review_payment");
         return redirectUrls;
     }
 

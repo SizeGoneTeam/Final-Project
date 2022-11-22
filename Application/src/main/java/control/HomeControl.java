@@ -17,6 +17,8 @@ import entity.TbAccount;
 import entity.TbSach;
 import entity.TbTheLoai;
 import model.BookDao;
+import model.UserDao;
+import utils.getServerPathUtil;
 
 @WebServlet(urlPatterns = {"/loadSach"})
 public class HomeControl extends HttpServlet{
@@ -26,15 +28,17 @@ public class HomeControl extends HttpServlet{
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
-
+		
+		UserDao userDao = new UserDao();
 		BookDao home = new BookDao();
 		List<TbSach> all = home.GetAll();
 		List<TbSach> lowest = home.Lowest();
 		List<TbSach> lastAdd = home.LastAdd();
 	    List<TbTheLoai> category = home.GetCategory();
 		HttpSession session=req.getSession();
-		TbAccount account;
-		account= (TbAccount) session.getAttribute("acc");
+		TbAccount account =  (TbAccount) session.getAttribute("acc");
+		getServerPathUtil.getServerPath(req, resp);
+		System.out.println(getServerPathUtil.ServerPath);
 		if(account != null) {
 		    int demyt = home.countyeuthich(account.getMaTK().toString());
 		    int demdb = home.CountDangBan(account.getMaTK().toString());
@@ -45,12 +49,14 @@ public class HomeControl extends HttpServlet{
 			req.setAttribute("demyt", demyt);
 			req.setAttribute("demdb", demdb);
 			req.setAttribute("demgh", demgh);
+			session.setAttribute("acc", userDao.findById(account.getMaTK()));
 		}
 		
 		req.setAttribute("listP", all);
 		req.setAttribute("category", category);
 		req.setAttribute("listNew", lastAdd);
 		req.setAttribute("lowest", lowest);
+		
 
 
 		req.getRequestDispatcher("home.jsp").forward(req, resp);

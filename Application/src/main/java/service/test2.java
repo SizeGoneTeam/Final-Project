@@ -1,6 +1,8 @@
 package service;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import TimerTask.GiamGia;
 import TinhTien.GiaoHang;
@@ -31,11 +39,17 @@ import model.PhienDauGiaDao;
 import model.TacGiaDao;
 import model.UserDao;
 
-public class test2 {
-    public static void main(String[] args) {
-        BookDao bookDao = new BookDao();
-        UserDao userDao = new UserDao();
-        TbAccount acc = userDao.findById(Long.valueOf(1));
-        System.out.println(acc.getTbDiaChiKhs().get(1).getMacDinh());
+@WebServlet("/test2")
+public class test2 extends HttpServlet {
+    public URL url;
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String requestURL = req.getRequestURL().toString();
+        String servletPath = req.getServletPath();
+        String serverPath = requestURL.substring(0,requestURL.indexOf(servletPath));
+        URL url = new URL(serverPath + "/myservlet");
+        System.out.println(url);
+        
     }
+    
 }
