@@ -35,12 +35,15 @@ public class yeuthichControl extends HttpServlet {
         request.setAttribute("demyt", demyt);
         request.setAttribute("demdb", demdb);
         request.setAttribute("demgh", demgh);
-	    
+        request.setAttribute("category", category);
 	    List<TbSach> getyeuthichList = dao.GetYeuThich(MaTK);
+	    
 	    int dem = dao.countyeuthich(MaTK);
 	    request.setAttribute("getyeuthich", getyeuthichList);
+	    
 	    request.setAttribute("dem", dem);
 	    request.getRequestDispatcher("YeuThich.jsp").forward(request, response);
+	    
 	}
 
 	/**

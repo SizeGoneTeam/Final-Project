@@ -31,7 +31,32 @@
 <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/slideshow.css" type="text/css">
+
 <style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+   position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
 
 table {
 	border: 1px solid #e5e5e5;
@@ -109,8 +134,16 @@ th {
 							<i class="fa fa-bars"></i> <span>Tất cả thể loại</span>
 						</div>
 						<ul>
-							<c:forEach items="${category}" var="o">
-								<li><a href="categorysearch?keycategory=${o.getTenTheLoai() }">${o.getTenTheLoai()}</a></li>
+							<div class="dropdown">
+							  <button class="dropbtn">Xem Thêm</button>
+							  <div class="dropdown-content">
+							  <c:forEach items="${category}" var="o" begin ="12">
+							    <a href="categorysearch?keycategory=${o.getTenTheLoai() }">${o.getTenTheLoai()}</a>
+							    </c:forEach>
+							  </div>
+							</div>
+							<c:forEach items="${category}" var="o" begin ="0" end ="11">
+							<li><a href="categorysearch?keycategory=${o.getTenTheLoai() }">${o.getTenTheLoai()}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -353,7 +386,7 @@ th {
 	<script src="js/jquery.slicknav.js"></script>
 	<script src="js/mixitup.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
-	<!-- 	<script src="js/main.js"></script> -->
+	<script src="js/main.js"></script>
 
 <script>
 var slideIndex = 1;
