@@ -15,6 +15,7 @@ import entity.TbAccount;
 import entity.TbDiaChiKH;
 import entity.TbTinhThanh;
 import model.AddressDAO;
+import model.BookDao;
 import model.UserDao;
 
 @WebServlet("/user/address")
@@ -24,7 +25,7 @@ public class AddressControl extends HttpServlet {
 	    request.setCharacterEncoding("UTF-8");
 	    HttpSession session = request.getSession();
 		TbAccount account = (TbAccount) session.getAttribute("acc");
-		
+		 String MaTK = account.getMaTK().toString();
 		if (account == null) {
 		    response.sendRedirect("../login");
 		}
@@ -105,7 +106,14 @@ public class AddressControl extends HttpServlet {
             }
 		    
 		    List<TbTinhThanh> provinces = AddressDAO.selectAllProvince();
-		    
+	        BookDao dao = new BookDao();
+	        
+	        int demyt = dao.countyeuthich(MaTK);
+	        int demdb = dao.CountDangBan(MaTK);
+	        int demgh = dao.CountGioHang(MaTK);
+	        request.setAttribute("demyt", demyt);
+	        request.setAttribute("demdb", demdb);
+	        request.setAttribute("demgh", demgh);
 		    List<TbDiaChiKH> addresses = AddressDAO.selectAddress(user);
 		    int count = AddressDAO.CountAll(user);
 		    

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entity.TbAccount;
+import model.BookDao;
 import model.UserDao;
 
 @WebServlet("/user/password")
@@ -53,7 +54,16 @@ public class PasswordControl extends HttpServlet {
                 
                 request.setAttribute("message", message);
             }  
-            
+
+            String MaTK = account.getMaTK().toString();
+            BookDao dao = new BookDao();
+          
+            int demyt = dao.countyeuthich(MaTK);
+            int demdb = dao.CountDangBan(MaTK);
+            int demgh = dao.CountGioHang(MaTK);
+            request.setAttribute("demyt", demyt);
+            request.setAttribute("demdb", demdb);
+            request.setAttribute("demgh", demgh);
             getServletContext().getRequestDispatcher("/user/password.jsp").forward(request, response);
         }
 	}
