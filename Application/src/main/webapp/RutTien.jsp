@@ -52,7 +52,7 @@ body {
 									<div align="center">
 										<h6>Email Người nhận</h6>
 										<input class="col-sm-5 text-secondary" type="email"
-											name="email" value="${sessionScope.acc.email }">
+											name="email" value="${sessionScope.acc.email }" required="required">
 										<h6>Số tiền muốn rút</h6>
 										<input class="col-sm-5 text-secondary" type="Number"
 											name="total" value="10" step="0.01" min = 10 max =${sessionScope.acc.tien }>
