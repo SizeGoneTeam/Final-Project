@@ -72,7 +72,7 @@ body {
 						<div class="card-body">
 							<h1>Vui Lòng đăng nhập lại để tiếp tục</h1>
 							<h2>
-								<a href="Login.jsp">Login</a>
+								<a href="login">Login</a>
 							</h2>
 						</div>
 					</div>

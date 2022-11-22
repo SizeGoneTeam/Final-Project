@@ -15,6 +15,13 @@ public class getServerPathUtil extends HttpServlet {
         if(ServerPath == null) {
             String requestURL = req.getRequestURL().toString();
             ServerPath = requestURL;
+            String servletPath = req.getServletPath();
+            System.out.println(requestURL.indexOf(servletPath));
+            if(requestURL.contains(servletPath)) {
+                String serverPath = requestURL.substring(0,requestURL.indexOf(servletPath));
+                ServerPath = serverPath +"/";
+            }
+            
         }
         return ServerPath;
     }

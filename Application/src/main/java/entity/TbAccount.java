@@ -265,7 +265,7 @@ public class TbAccount implements Serializable {
             if(diachi.getMacDinh() ==1) 
                 return diachi.getTbTinhThanh().getId();
         }
-        return 1;
+        return 0;
     }
 
 

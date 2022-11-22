@@ -18,46 +18,46 @@ import utils.CookieUtil;
 public class LoginControl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    String url = "loadSach";
 	    HttpSession session = req.getSession();
 		Cookie[] cookies = req.getCookies();
 		String accountID = CookieUtil.getCookieValue(cookies, "accountID");
+		String username = req.getParameter("user");
+        String password = req.getParameter("pass");
+        System.out.println("khac null");
+        if (accountID.equals("")) {         
+            UserDao dao = new UserDao();
+            TbAccount a = dao.login(username, password);
+            
+            if (a == null) {
+                if(username != null || password != null)
+                req.setAttribute("mess", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
+                url= "Login.jsp";
+            }
+            else {
+                session.setAttribute("acc", a);
+                session.setMaxInactiveInterval(60*30);
+                
+                String rememberMe = req.getParameter("rememberMe");
+                if (rememberMe == null) {
+                    rememberMe = "";
+                }
+                if (rememberMe.equals("on")) {
+                    Cookie c = new Cookie("accountID", a.getMaTK().toString());
+                    //Cookie 1 ngay
+                    c.setMaxAge(60*60*24);
+                    c.setPath("/");
+                    resp.addCookie(c);
+                }
+            }
+        }
+        else
+        {
+            UserDao dao = new UserDao();
+            session.setAttribute("acc", dao.selectAccount(accountID));
+        }
 		
-		if (accountID.equals("")) {
-		    String username = req.getParameter("user");
-	        String password = req.getParameter("pass");
-	        UserDao dao = new UserDao();
-	        TbAccount a = dao.login(username, password);
-	        
-	        if (a == null) {
-	            req.setAttribute("mess", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
-	            req.getRequestDispatcher("Login.jsp").forward(req, resp);
-	        }
-	        else {
-	            
-	            session.setAttribute("acc", a);
-	            session.setMaxInactiveInterval(60*30);
-	            
-	            String rememberMe = req.getParameter("rememberMe");
-	            if (rememberMe == null) {
-	                rememberMe = "";
-	            }
-	            if (rememberMe.equals("on")) {
-	                Cookie c = new Cookie("accountID", a.getMaTK().toString());
-	                //Cookie 1 ngay
-	                c.setMaxAge(60*60*24);
-	                c.setPath("/");
-	                resp.addCookie(c);
-	            }
-	            
-	            req.getServletContext().getRequestDispatcher("/loadSach").forward(req, resp);
-	        }
-		}
-		else
-		{
-		    UserDao dao = new UserDao();
-		    session.setAttribute("acc", dao.selectAccount(accountID));
-		    req.getServletContext().getRequestDispatcher("/loadSach").forward(req, resp);
-		}
+        req.getRequestDispatcher(url).forward(req, resp);
 	}
 	
 	@Override

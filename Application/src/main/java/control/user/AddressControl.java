@@ -118,6 +118,7 @@ public class AddressControl extends HttpServlet {
 		    int count = AddressDAO.CountAll(user);
 		    
 		    request.setAttribute("provinces", provinces);
+		    request.setAttribute("countDC", count);
 		    
 		    request.setAttribute("addresses", addresses);
    

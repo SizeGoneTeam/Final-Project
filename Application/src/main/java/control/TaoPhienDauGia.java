@@ -104,7 +104,7 @@ public class TaoPhienDauGia extends HttpServlet {
                tacGias.add(tacgia1);
                
             }
-            else if(name1 != null && name1 != "" && name1.length() !=0) {
+            else if(name1.length() !=0) {
                 System.out.println("tạo tác giả " + name1);
                 tacgia1 = new TbTacGia();
                 tacgia1.setTenTacGia(name1);
@@ -117,7 +117,7 @@ public class TaoPhienDauGia extends HttpServlet {
                     System.out.println("thêm tác giả vào sách " + tacgia2.getTenTacGia());
                     tacGias.add(tacgia2);
             }
-            else if(name2 != null && name2 != "" && name2.length() != 0 && tacgia2!=tacgia1) {
+            else if(name2.length() != 0 && name2!=name1) {
                 System.out.println(name2 != null);
                     System.out.println("tạo tác giả " + name2);
                     tacgia2 = new TbTacGia();
@@ -134,7 +134,7 @@ public class TaoPhienDauGia extends HttpServlet {
                     tacGias.add(tacgia3);
                
             }
-            else if(name3 != null && name3 != "" && name3.length() != 0 && tacgia3!=tacgia2 && tacgia3 != tacgia1 ) {
+            else if(name3.length() != 0 && name3!=name2 && name3 != name1 ) {
 
                     System.out.println("tạo tác giả " + name3);
                     tacgia3 = new TbTacGia();
@@ -285,7 +285,7 @@ public class TaoPhienDauGia extends HttpServlet {
             if(LoaiPhien == 1){
                 Timer timer = new Timer();
                 KetThucPhienAnh ketThucPhien = new KetThucPhienAnh(phien);
-                timer.schedule(ketThucPhien, (ThoiGian + 2) * 1000);
+                timer.schedule(ketThucPhien, (ThoiGian + 1) * 1000);
             }
             else {
                 GiamGia giamGia = new GiamGia(phien,sach);

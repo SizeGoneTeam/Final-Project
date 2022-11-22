@@ -295,7 +295,7 @@
                             <h1 class="QvBZmg">Địa chỉ của tôi</h1>
                           </div>
                           <div>
-                          <c:if test="${count <4}">
+                          <c:if test="${countDC <4}">
                             <div class="sS8qJ1">
                               <div style="display: flex;">
                                 <button class="shopee-button-solid shopee-button-solid--primary bXfVa5" onclick="document.getElementById('id00').style.display='block'">

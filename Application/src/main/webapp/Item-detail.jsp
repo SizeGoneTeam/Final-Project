@@ -146,7 +146,7 @@ th {
 							<c:if test="${sessionScope.acc == null}">
 								<div class="hero__search__login__text">
 									<h5>
-										<a href="Login.jsp">Đăng Nhập</a>
+										<a href="login">Đăng Nhập</a>
 									</h5>
 								</div>
 							</c:if>
@@ -200,6 +200,7 @@ th {
 						</c:if>
 								<div class="product__details__quantity">
 									<div class="quantity">
+									<c:if test="${sessionScope.acc.getDiaChiMacDinh() != 0}">
 									<c:if test="${detail.getPhienDauGia().getIsEnd() == 0}">
 									<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 										<div class="pro-qty">
@@ -212,14 +213,18 @@ th {
 										</c:if>  
 									
 								
-								<input type="submit" class="primary-btn" style="color: #66FFFF"
-									value="Đấu Giá">
+									<input type="submit" class="primary-btn" style="color: #66FFFF" value="Đấu Giá">
 									</c:if>
+									</c:if>
+									<c:if test="${sessionScope.acc.getDiaChiMacDinh() == 0}">
+										<a href="user/address" style="color: red;">Vui lòng thêm địa chỉ để đấu giá</a>
+									</c:if>									 
 									</div>
 								</div>
 								<c:if test="${detail.getPhienDauGia().getIsEnd() == 1}">
 								<h2>Phiên đấu giá đã kết thúc</h2>
-								</c:if>  
+								</c:if>
+								 
 							</form>
 							</c:if>
 							<c:if test="${demgh ==3}"><h5>Giỏ hàng đã đạt 3 sản phẩm. Vui lòng thanh toán để tiếp tục đấu giá</h5></c:if>
