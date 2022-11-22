@@ -32,7 +32,7 @@ public class SearchControl extends HttpServlet {
 	    String page = request.getParameter("page");
 	    HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
-        String maKH = account.getMaTK().toString();
+        
 	    int pagecout;
 	    if(page == null) {
 	        page = "0";
@@ -50,7 +50,8 @@ public class SearchControl extends HttpServlet {
         if(count % 9!=0) {
             endPage++;
         }
-        if(maKH != null) {
+        if(account != null) {
+            String maKH = account.getMaTK().toString();
             int demyt = bookDao.countyeuthich(maKH);
             int demdb = bookDao.CountDangBan(maKH);
             int demgh = bookDao.CountGioHang(maKH);
