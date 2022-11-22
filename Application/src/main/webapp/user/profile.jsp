@@ -65,7 +65,7 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="./index.jsp"><img src="../image/logobook.png" width="100"  height="50" alt=""></a>
+						<a href="../index.jsp"><img src="../image/logobook.png" width="100"  height="50" alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -90,12 +90,12 @@
 							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
 							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
 							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
-							<li><a href="NapTien.jsp"><i class="fa-solid fa-wallet"></i></a></li>
+							
 						</c:if>
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
-							item: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
+							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
 						</c:if>			
 						</div>
 					</div>

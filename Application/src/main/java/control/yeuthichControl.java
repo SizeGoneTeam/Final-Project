@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import entity.TbAccount;
 import entity.TbSach;
+import entity.TbTheLoai;
 import model.BookDao;
 
 /**
@@ -27,7 +28,7 @@ public class yeuthichControl extends HttpServlet {
   
         String MaTK = account.getMaTK().toString();
         BookDao dao = new BookDao();
-      
+        List<TbTheLoai> category = dao.GetCategory();
         int demyt = dao.countyeuthich(MaTK);
         int demdb = dao.CountDangBan(MaTK);
         int demgh = dao.CountGioHang(MaTK);

@@ -77,7 +77,7 @@
 				<div class="col-lg-3">
 					<div class="hero__categories">
 						<div class="hero__categories__all">
-							<i class="fa fa-bars"></i> <span>All departments</span>
+							<i class="fa fa-bars"></i> <span>Tất cả thể loại</span>
 						</div>
 						<ul>
 							<c:forEach items="${category}" var="o">
