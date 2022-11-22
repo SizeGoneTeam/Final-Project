@@ -300,9 +300,9 @@ public class BookDao {
     }
     public List<TbSach> NoPayTop3(String MaTK) {
         String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 0 order by o.gioHangPK desc";
+                + "where o.tbAccount.maTK = :MaTK order by o.gioHangPK desc";
         TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
-        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbGioHang> entity = query.setMaxResults(3).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbGioHang product : entity) {
@@ -312,9 +312,9 @@ public class BookDao {
     }
     public List<TbSach> NoPayTop9(String MaTK) {
         String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 0 order by o.gioHangPK desc";
+                + "where o.tbAccount.maTK = :MaTK order by o.gioHangPK desc";
         TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
-        query.setParameter("MaTK",Integer.parseInt(MaTK));
+        query.setParameter("MaTK",Long.parseLong(MaTK));
         List<TbGioHang> entity = query.setMaxResults(9).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbGioHang product : entity) {

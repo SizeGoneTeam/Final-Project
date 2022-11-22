@@ -210,7 +210,7 @@ public class GiaodichDao {
     }
     public List<TbSach> OrderTop3(String MaTK) {
         String jpql = "SELECT o FROM TbGioHang o "
-                + "where o.gioHangPK.maTK = :MaTK and o.trangThaiThanhToan = 1 order by o.gioHangPK desc";
+                + "where o.gioHangPK.maTK = :MaTK order by o.gioHangPK desc";
         TypedQuery<TbGioHang> query = em.createQuery(jpql,TbGioHang.class);
         query.setParameter("MaTK",Integer.parseInt(MaTK));
         List<TbGioHang> entity = query.setMaxResults(3).getResultList();

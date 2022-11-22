@@ -31,14 +31,12 @@ public class TbGioHang implements Serializable {
 	@Column(name="NgayThem")
 	private Timestamp ngayThem;
 
-	@Column(name="TrangThaiThanhToan")
-	private int trangThaiThanhToan;
 
 	public TbGioHang() {
 	    Date now = new Date();
         Timestamp NowTime = new Timestamp(now.getTime());
         ngayThem = NowTime;
-        trangThaiThanhToan =0;
+
 	}
 	
 	public TbGioHang(GioHangPK gioHangPK) {
@@ -46,7 +44,7 @@ public class TbGioHang implements Serializable {
         Timestamp NowTime = new Timestamp(now.getTime());
         ngayThem = NowTime;
 	    this.gioHangPK = gioHangPK;
-	    trangThaiThanhToan =0;
+
     }
 
 
@@ -88,13 +86,6 @@ public class TbGioHang implements Serializable {
 		this.ngayThem = ngayThem;
 	}
 
-	public int getTrangThaiThanhToan() {
-		return this.trangThaiThanhToan;
-	}
-
-	public void setTrangThaiThanhToan(int trangThaiThanhToan) {
-		this.trangThaiThanhToan = trangThaiThanhToan;
-	}
 
 
     public TbSach getMaSach() {
