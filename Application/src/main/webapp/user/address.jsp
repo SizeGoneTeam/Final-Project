@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html lang="vi">
     <head>
-            <link rel="stylesheet" href="/..css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="../css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="../css/style.css" type="text/css">
-<link rel="stylesheet" href="../css/toast.css" type="text/css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+		<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+		<link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+		<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+		<link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+		<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+		<link rel="stylesheet" href="../css/style.css" type="text/css">
+		<link rel="stylesheet" href="../css/toast.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <meta name="viewport" content="width=1240,shrink-to-fit=no" />
@@ -231,12 +231,12 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="loadSach">Home</a></li>
-							<li><a href="search?key=">Shop</a></li>
-							<li><a href="FAQControl">FAQ</a></li>
+							<li><a href="../loadSach">Home</a></li>
+							<li><a href="../search?key=">Shop</a></li>
+							<li><a href="../FAQControl">FAQ</a></li>
 							<c:if test="${sessionScope.acc != null}">
 							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
-								<li><a href="adminpage/DashboardControl">Admin</a></li>
+								<li><a href="../adminpage/DashboardControl">Admin</a></li>
 							</c:if>
 							</c:if>
 						</ul>

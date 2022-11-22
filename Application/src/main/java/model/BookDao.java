@@ -396,10 +396,16 @@ public class BookDao {
         query.setParameter("keyword","%" + keyword + "%" );
         List<TbTheLoai> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
+        List<TbSach> entity2 = new ArrayList<TbSach>();
         for (TbTheLoai product : entity) {
             entity1.addAll(product.getTbSaches());
         }
-        return entity1;
+        for (TbSach tbSach : entity1) {
+            if(tbSach.getPhienDauGia().getIsEnd()==0) {
+                entity2.add(tbSach);
+            }
+        }
+        return entity2;
     }
     public int CountAllCategory(String keyword) {
         String jpql = "SELECT o FROM TbTheLoai o where o.tenTheLoai like :keyword";
@@ -409,7 +415,12 @@ public class BookDao {
         List<TbTheLoai> entity = query.getResultList();
         List<TbSach> entity1 = new ArrayList<TbSach>();
         for (TbTheLoai product : entity) {
-           dem++;
+            entity1.addAll(product.getTbSaches());
+        }
+        for (TbSach tbSach : entity1) {
+            if(tbSach.getPhienDauGia().getIsEnd()==0) {
+                dem++;
+            }
         }
         return dem;
     }
