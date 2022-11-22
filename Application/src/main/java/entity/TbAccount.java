@@ -258,6 +258,15 @@ public class TbAccount implements Serializable {
     public void setNgayTao(Timestamp ngayTao) {
         this.ngayTao = ngayTao;
     }
+    
+    public int getDiaChiMacDinh()
+    {
+        for (TbDiaChiKH diachi : tbDiaChiKhs) {
+            if(diachi.getMacDinh() ==1) 
+                return diachi.getTbTinhThanh().getId();
+        }
+        return 1;
+    }
 
 
     @Override

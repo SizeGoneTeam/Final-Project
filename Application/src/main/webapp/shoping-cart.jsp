@@ -298,6 +298,20 @@
 
             setPrice();
         }
+        function checkValidCheckOut() {
+            var input = document.getElementsByClassName('shoping__cart__price');
+            var total = 0;
+            var totalShipping = 0;
+            for (var i = 0; i < input.length; i++) {
+                if (document.getElementsByClassName('shoping__cart__price').item(i).parentElement.firstElementChild.firstElementChild.checked) {
+                    total += Number(document.getElementsByClassName('shoping__cart__price').item(i).innerText.replace('$', ''));
+                    totalShipping += Number(document.getElementsByClassName('shipping_cost').item(i).innerText.replace('$', ''));
+                }
+            }
+            document.getElementsByClassName('shoping__checkout').item(0).children.item(1).firstElementChild.firstElementChild.innerText= total;
+            document.getElementsByClassName('shoping__checkout').item(0).children.item(1).children.item(1).firstElementChild.innerText= totalShipping;
+            document.getElementsByClassName('shoping__checkout').item(0).children.item(1).lastElementChild.firstElementChild.innerText = total + totalShipping;
+        }
         function checkAll() {
             var input = document.getElementsByClassName('shoping__cart__price');
             if (document.getElementsByClassName('shoping__cart__table').item(0).firstElementChild.firstElementChild.firstElementChild.firstElementChild.firstElementChild.checked) {
@@ -320,6 +334,31 @@
                 }   
             }
         }
+        function shipping(input, output, id) {
+            $.ajax({
+                url : 'shipping',
+                data : {
+                    startUserID : $(input).text(),
+                    targetUserID: id
+                },
+                success : function(responseText) {
+                    $(output).text(responseText);
+                    setPrice();
+                }
+            });
+        };
+        function updateShipCost() {
+            var input = document.getElementsByClassName('cart__item');
+            for (var i = 0; i < input.length; i++) {
+                shipping('#' + document.getElementsByClassName('cart__item').item(i).firstElementChild.lastElementChild.id, '#' + document.getElementsByClassName('cart__item').item(i).lastElementChild.id, document.getElementsByClassName('display-address').item(0).firstElementChild.firstElementChild.firstElementChild.getAttribute('data-id'));
+            }
+        }
+        function updateDisplayAddress(left, right, id) {
+            document.getElementsByClassName('display-address').item(0).firstElementChild.firstElementChild.firstElementChild.innerHTML = left;
+            document.getElementsByClassName('display-address').item(0).firstElementChild.firstElementChild.firstElementChild.setAttribute('data-id', id);
+            document.getElementsByClassName('display-address').item(0).firstElementChild.firstElementChild.lastElementChild.innerText = right;
+            updateShipCost();
+        }
     </script>
     <section class="shoping-cart spad">
         <div class="container">
@@ -340,7 +379,7 @@
                             <tbody>
                             <form action="ThanhToan" id="form_check_out">
                                 <c:forEach items="${carts}" var="o">
-                                    <tr>
+                                    <tr class="cart__item">
                                         <td>
                                             <input type="checkbox" onclick="totalPrice()" name="MaSach" id = 'input${o.tbSach.maSach}'  value ="${o.tbSach.maSach}" />
                                             <div id='startUserID${o.tbSach.maSach}' style='display: none;'>${o.tbSach.nguoiSoHuu.maTK}</div>
@@ -358,23 +397,8 @@
                                         <td class="shoping__cart__price price">
                                             ${o.tbSach.donGia}
                                         </td>
-                                        <td id="shipping_cost${o.tbSach.maSach}" class="shipping_cost price">0<td></td>
+                                        <td id="shipping_cost${o.tbSach.maSach}" class="shipping_cost price">0</td>
                                     </tr>
-                                    <script>
-                                        $(document).ready(function() {
-                                            $.ajax({
-                                                url : 'shipping',
-                                                data : {
-                                                    startUserID : $('#startUserID${o.tbSach.maSach}').text(),
-                                                    targetUserID: '${sessionScope.acc.maTK}'
-                                                },
-                                                success : function(responseText) {
-                                                    $('#shipping_cost${o.tbSach.maSach}').text(responseText);
-                                                    setPrice();
-                                                }
-                                            });
-                                        });
-                                    </script>
                                 </c:forEach>
                               </form>
                             </tbody>
@@ -400,17 +424,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="display: flex;
-                        align-items: center;">
+                        <div class="display-address" style="display: flex; align-items: center;" >
                             <div>
                                 <div style="display: flex;
                                 align-items: center;
                                 font-size: 1rem;
                                 word-break: break-word;">
-                                    <div style="font-weight: 700;
-                                    color: #222;">${addresses[0].hoVaTen} ${addresses[0].sdt}</div>
+                                    <div style="font-weight: 700; color: #222;" data-id="123"></div>
                                     <div style="margin-left: 20px;
-                                    word-break: break-word;">${addresses[0].diaChi} ${addresses[0].tenPhuong} ${addresses[0].tenQuan} ${addresses[0].tbTinhThanh.tinhThanh}</div>
+                                    word-break: break-word;"></div>
                                 </div>          
                             </div>
                             <div style="color: #4080ee;
@@ -523,78 +545,86 @@
     </footer>
     <!-- Footer Section End -->
 
-    <c:forEach items="${addresses}" var="o">
-        <div id="id00" class="form-container modal">
-            <div class="box modal-content animate">
-                <div class="heading">Chọn địa chỉ</div>
+    
+    <div id="id00" class="form-container modal">
+        <div class="box modal-content animate">
+            <div class="heading">Chọn địa chỉ</div>
 
-                <form action="address" method="post">
-                    <div class="form-inside">
-                        <div class="form-content">
-                            <div class="ApAubL nn3Z+6"
-                            style="display:flex;padding: 18px 0 20px;border-top: 1px solid rgba(0,0,0,.09);">
-                            <div style="padding: 0px 10px 0px 0px;">
-                            <input type='radio' name='' />
-                            </div>
-                            <div class="_221a6W" style="min-width: 0;width: 100%; display: block;">
-                                <div role="heading" class="FSlv-V m3QHyX"
-                                    style="margin-bottom: 4px; justify-content: space-between;display: flex;">
-                                    <div class="nFbAe4 beZuCH"
-                                        style="    margin-right: 8px; flex-grow: 1; overflow-x: hidden; display: flex;">
-                                        <span class="_30MS7O VKNC5l" style="display: inline-flex;align-items: center;">
-                                            <div class="tziqvJ"
-                                                style="    overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                                                ${o.hoVaTen}</div>
-                                        </span>
-                                        <div class="kTdq3r" style="margin: 0px 5px;">|</div>
-                                        <div role="row" class="bRMEUm _2bzRo+ _4DcXuJ"
-                                            style="white-space: nowrap;display: flex;align-items: center;">${o.sdt}</div>
-                                    </div>
+            <form action="address" method="post">
+                <div class="form-inside">
+                    <div class="form-content">
+                        <c:forEach items="${addresses}" var="o">
+                            <div class="ApAubL nn3Z+6" style="display:flex;padding: 18px 0 20px;border-top: 1px solid rgba(0,0,0,.09);">
+                                <div style="padding: 0px 10px 0px 0px;">
+                                    <input type='radio' name='changeAddress' onclick="updateDisplayAddress('${o.hoVaTen} ${o.sdt}', '${o.diaChi}, ${o.tenPhuong}, ${o.tenQuan}, ${o.tbTinhThanh.tinhThanh}', '${o.tbTinhThanh.id}')" <c:if test="${o.macDinh == '1'}" >checked</c:if> />
                                 </div>
-
-                                <div role="heading" class="FSlv-V m3QHyX"
-                                    style="    margin-bottom: 4px;    justify-content: space-between;display: flex;">
-                                    <div class="nFbAe4 beZuCH"
-                                        style="margin-right: 8px;    flex-grow: 1;overflow-x: hidden;display: flex;">
-                                        <div class="xk89A1">
-                                            <div role="row" class="_4DcXuJ" style="display: flex;align-items: center;">
-                                                ${o.diaChi}</div>
-                                            <div role="row" class="_4DcXuJ"
-                                                style="    display: flex;    align-items: center;">
-                                                ${o.tenPhuong}, ${o.tenQuan}, ${o.tbTinhThanh.tinhThanh}
-                                            </div>
+                                <div class="_221a6W" style="min-width: 0;width: 100%; display: block;">
+                                    <div role="heading" class="FSlv-V m3QHyX"
+                                        style="margin-bottom: 4px; justify-content: space-between;display: flex;">
+                                        <div class="nFbAe4 beZuCH"
+                                            style="    margin-right: 8px; flex-grow: 1; overflow-x: hidden; display: flex;">
+                                            <span class="_30MS7O VKNC5l" style="display: inline-flex;align-items: center;">
+                                                <div class="tziqvJ"
+                                                    style="    overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;">
+                                                    ${o.hoVaTen}</div>
+                                            </span>
+                                            <div class="kTdq3r" style="margin: 0px 5px;">|</div>
+                                            <div role="row" class="bRMEUm _2bzRo+ _4DcXuJ"
+                                                style="white-space: nowrap;display: flex;align-items: center;">${o.sdt}</div>
                                         </div>
                                     </div>
-                                    <div class="_5txhTu aQxJVJ"
-                                        style="padding-top: 4px;    flex-basis: 40px;justify-content: flex-end;display: flex; display:none;">
-                                        <button class="WTM1cN amiqmV EfkdTP" disabled=""
-                                            style="white-space: nowrap;    background-color: #fff;    padding: 4px 12px;color: rgba(0,0,0,.87);border: 1px solid rgba(0,0,0,.26);opacity: .7;">
-                                            Thiết lập mặc định
-                                        </button>
+                                    <c:if test="${o.macDinh == '1'}" >
+                                        <script>
+                                            updateDisplayAddress('${o.hoVaTen} ${o.sdt}', '${o.diaChi}, ${o.tenPhuong}, ${o.tenQuan}, ${o.tbTinhThanh.tinhThanh}', '${o.tbTinhThanh.id}');
+                                        </script>
+                                    </c:if>
+
+                                    <div role="heading" class="FSlv-V m3QHyX"
+                                        style="    margin-bottom: 4px;    justify-content: space-between;display: flex;">
+                                        <div class="nFbAe4 beZuCH"
+                                            style="margin-right: 8px;    flex-grow: 1;overflow-x: hidden;display: flex;">
+                                            <div class="xk89A1">
+                                                <div role="row" class="_4DcXuJ" style="display: flex;align-items: center;">
+                                                    ${o.diaChi}</div>
+                                                <div role="row" class="_4DcXuJ"
+                                                    style="    display: flex;    align-items: center;">
+                                                    ${o.tenPhuong}, ${o.tenQuan}, ${o.tbTinhThanh.tinhThanh}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="_5txhTu aQxJVJ"
+                                            style="padding-top: 4px;    flex-basis: 40px;justify-content: flex-end;display: flex; display:none;">
+                                            <button class="WTM1cN amiqmV EfkdTP" disabled=""
+                                                style="white-space: nowrap;    background-color: #fff;    padding: 4px 12px;color: rgba(0,0,0,.87);border: 1px solid rgba(0,0,0,.26);opacity: .7;">
+                                                Thiết lập mặc định
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div role="row" class="GM70BR _4DcXuJ"
+                                        style="margin-top: 4px;flex-wrap: wrap;display: flex;align-items: center; display:none;">
+                                        <span role="mark" class="BQozJg D+-Kud _8-tEK7"
+                                            style="margin-right: 0;color: #ee4d2d;border-color: #ee4d2d;margin: 0 4px 4px 0;border-radius: 1px;padding: 2px 4px;border: .5px solid;">Mặc
+                                            định</span>
                                     </div>
                                 </div>
-                                <div role="row" class="GM70BR _4DcXuJ"
-                                    style="margin-top: 4px;flex-wrap: wrap;display: flex;align-items: center; display:none;">
-                                    <span role="mark" class="BQozJg D+-Kud _8-tEK7"
-                                        style="margin-right: 0;color: #ee4d2d;border-color: #ee4d2d;margin: 0 4px 4px 0;border-radius: 1px;padding: 2px 4px;border: .5px solid;">Mặc
-                                        định</span>
-                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-nav">
-                            <button class="form-nav-back" onclick="document.getElementById('id00').style.display='none'"
-                                type="button">Hủy</button>
-                            <button class="form-nav-submit" type="submit">Xác nhận</button>
-                        </div>
+                        </c:forEach>
                     </div>
-                </form>
-            </div>
+
+                    <div class="form-nav">
+                        <button class="form-nav-back" onclick="document.getElementById('id00').style.display='none'" style="display: none;" type="button">Hủy</button>
+                        <button class="form-nav-submit" onclick="document.getElementById('id00').style.display='none'; totalPrice();"  type="button">Xác nhận</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </c:forEach>
+    </div>
+
 
     <script>
+        updateShipCost();
         totalPrice();
+
     </script>
 
     <!-- Js Plugins -->

@@ -695,9 +695,9 @@ public class GiaoHang extends HttpServlet {
             GiaoHang giaoHang = new GiaoHang();
             
             TbAccount startUser = daoUser.findById(Long.valueOf(startUserID));
-            TbAccount targetUser = daoUser.findById(Long.valueOf(targetUserID));
+            //TbAccount targetUser = daoUser.findById(Long.valueOf(targetUserID));
             
-            double TienVC = giaoHang.dijkstra(startUser.getTbDiaChiKhs().get(0).getTbTinhThanh().getId(), targetUser.getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).intValue();
+            double TienVC = giaoHang.dijkstra(startUser.getDiaChiMacDinh(), Integer.parseInt(targetUserID)).intValue();
             TienVC = (double)Math.round((TienVC/23000) *100) /100;
             System.out.println(TienVC);
             response.setContentType("text/plain");

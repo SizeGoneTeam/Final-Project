@@ -91,7 +91,9 @@ public class ThanhToan extends HttpServlet {
                     gioHangDao.remove(gioHangDao.findGioHang(acc.getMaTK().toString(), Integer.toString(sach.getMaSach())));
                     System.out.println("xoá sách" + sach.getMaSach());
                 }
-                SendMail.sendMail(hoaDon.getMaHD());
+                if (acc.getEmail() != null) {
+                    SendMail.sendMail(hoaDon.getMaHD());
+                }
                 url = "OrderControl";
                 session.setAttribute("acc", acc);
             } else {
