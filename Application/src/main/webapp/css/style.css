@@ -1828,7 +1828,7 @@ ol {
 }
 
 .pro-qty .qtybtn {
-	width: 35px;
+	width: 0px;
 	font-size: 16px;
 	color: #6f6f6f;
 	cursor: pointer;

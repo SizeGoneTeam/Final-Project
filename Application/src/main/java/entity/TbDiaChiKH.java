@@ -47,7 +47,7 @@ public class TbDiaChiKH implements Serializable {
     private int macDinh;
 
 	public TbDiaChiKH() {
-	    this.macDinh = 1;
+	    this.macDinh = 0;
 	}
 
 	public int getId() {

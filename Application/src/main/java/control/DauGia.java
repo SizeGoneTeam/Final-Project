@@ -55,17 +55,18 @@ public class DauGia extends HttpServlet{
                 TbLichSuBid bid = new TbLichSuBid(sach.getDonGia(), acc);
                 phien.addBid(bid);
                 daoPhien.update(phien);
+                url = "cart";
             }else {
-                url = "detail?pid=" + maSach;
+                url = "ErrorPayment.jsp";
+                req.setAttribute("mess", "Phiên đấu giá đã kết thúc");
+                req.setAttribute("back", "detail?pid=" + sach.getMaSach());
             }
-            
-            url = "cart";
         }else {
             url = "login";
         }
         
-    
-        resp.sendRedirect(url);
+        if(url.equals("ErrorPayment.jsp")) req.getRequestDispatcher(url).forward(req, resp);
+        else resp.sendRedirect(url);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

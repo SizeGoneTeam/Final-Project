@@ -307,7 +307,7 @@
 																																							id="startPrice"
 																																							aria-describedby="err_startPrice"
 																																							md="dt|DOUBLE||em|Please enter a starting price.||vm|Please enter a valid starting price.||gdn|priceQtyPrntCell"
-																																							vld="1" maxlength="10"
+																																							vld="1" max="1000000"
 																																							aria-required="true"
 																																							aria-labelledby="startPrice_currencySymbol"
 																																							required="required" onblur="{this.startPrice}" step="0.01">

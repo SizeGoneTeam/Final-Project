@@ -25,12 +25,10 @@ import model.UserDao;
 
 public class test {
     public static void main(String[] args) {
-        BookDao bookDao = new BookDao();
-        TbSach sach = bookDao.findById(52);
-        List<TbAnh> anhs = sach.getAnhs();
-        for (TbAnh tbAnh : anhs) {
-            System.out.println(tbAnh.getAnh());
-        }
+        String a = "213";
+        String b = "213";
+        if(a!=b) System.out.println("khác");
+        else System.out.println("Giống");
         
     }
 

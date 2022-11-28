@@ -367,7 +367,7 @@ public class BookDao {
     }
     
     public List<TbSach> searchSach(String keyword,Double tien, String page) {
-        String jpql = "SELECT o FROM TbSach o JOIN o.tbTacGias tb where (o.tenSach like :keyword or tg.tenTacGia like :keyword  or o.donGia <= :tien) and o.phienDauGia.isEnd = 0";
+        String jpql = "SELECT DISTINCT o FROM TbSach o JOIN o.tbTacGias tb where (o.tenSach like :keyword or tg.tenTacGia like :keyword  or o.donGia <= :tien) and o.phienDauGia.isEnd = 0";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("keyword", "%" + keyword + "%"  );
         query.setParameter("tien", tien);
@@ -376,14 +376,14 @@ public class BookDao {
     }
     
     public List<TbSach> searchSach(String keyword, String page) {
-        String jpql = "SELECT o FROM TbSach o LEFT JOIN o.tbTacGias tg where (o.tenSach like :keyword or tg.tenTacGia like :keyword) and o.phienDauGia.isEnd = 0";
+        String jpql = "SELECT DISTINCT o FROM TbSach o LEFT JOIN o.tbTacGias tg where (o.tenSach like :keyword or tg.tenTacGia like :keyword) and o.phienDauGia.isEnd = 0";
         TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
         query.setParameter("keyword", "%" + keyword + "%"  );
         List<TbSach> entity = query.setFirstResult(Integer.parseInt(page)).setMaxResults(9).getResultList();
         return entity;
     }
     public List<TbTacGia> searchTG(String keyword, String page) {
-        String jpql = "SELECT o FROM TbTacGia o JOIN o.tbSachs sach where o.tenTacGia like :keyword or sach.tenSach like :keyword";
+        String jpql = "SELECT DISTINCT o FROM TbTacGia o JOIN o.tbSachs sach where o.tenTacGia like :keyword or sach.tenSach like :keyword";
         TypedQuery<TbTacGia> query = em.createQuery(jpql,TbTacGia.class);
         query.setParameter("keyword", "%" + keyword + "%"  );
         List<TbTacGia> entity = query.getResultList();

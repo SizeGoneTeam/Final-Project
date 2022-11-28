@@ -50,6 +50,7 @@ public class placeBid extends HttpServlet{
                 daoPhien.update(phien);
                 url = "ErrorPayment.jsp";
                 req.setAttribute("mess", "Phiên đấu giá đã kết thúc");
+                req.setAttribute("back", "detail?pid=" + sach.getMaSach());
             }else {
                 if(price - sach.getDonGia() >0)
                 {
@@ -63,6 +64,7 @@ public class placeBid extends HttpServlet{
                     url = "ErrorPayment.jsp";
                     req.setAttribute("mess", "Có người đã đặt giá cao hơn bạn\r\n"
                             + "Bạn vui lòng thử lại sau");
+                    req.setAttribute("back", "detail?pid=" + sach.getMaSach());
                 }
             }
             
@@ -71,7 +73,8 @@ public class placeBid extends HttpServlet{
         }
 	    
         
-		resp.sendRedirect(url);
+        if(url.equals("ErrorPayment.jsp")) req.getRequestDispatcher(url).forward(req, resp);
+        else resp.sendRedirect(url);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

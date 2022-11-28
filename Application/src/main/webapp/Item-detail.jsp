@@ -229,7 +229,7 @@ th {
 							<form action="placeBid">
 						</c:if>
 						<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
-							<form action="DauGia">
+							<form action="DauGia" method="post">
 						</c:if>
 								<div class="product__details__quantity">
 									<div class="quantity">
@@ -237,7 +237,7 @@ th {
 									<c:if test="${detail.getPhienDauGia().getIsEnd() == 0}">
 									<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
 										<div class="pro-qty">
-											<input name="new_price" type="Number" value="${detail.donGia +1}" min="${detail.donGia+0.01}" step = "0.01">
+											<input name="new_price" type="Number" value="${detail.donGia +1}" min="${detail.donGia+0.01}" step = "0.01" max = "9999999">
 											<input name="maSach" value="${detail.maSach}" hidden> 
 										</div>
 										</c:if>

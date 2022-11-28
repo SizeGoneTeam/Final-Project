@@ -63,18 +63,20 @@ public class TaoPhienDauGia extends HttpServlet {
             throws ServletException, IOException {
         
         String url = "";
-        
+        request.setCharacterEncoding("UTF-8");
+        System.out.println("vào vòng lặp");
         HttpSession session = request.getSession();
         TbAccount acc = (TbAccount) session.getAttribute("acc");
         
         if (acc!=null)
         {
+            
             PhienDauGiaDao daoPhien = new PhienDauGiaDao();
             UserDao daoUser = new UserDao();
             BookDao daoPhienBook = new BookDao();
             TacGiaDao daoTacGia = new TacGiaDao();
            
-            request.setCharacterEncoding("UTF-8");
+            
             String TenSach = request.getParameter("title");
             String Mota = request.getParameter("MoTa");
             String TinhTrang = request.getParameter("TinhTrang");
@@ -117,8 +119,7 @@ public class TaoPhienDauGia extends HttpServlet {
                     System.out.println("thêm tác giả vào sách " + tacgia2.getTenTacGia());
                     tacGias.add(tacgia2);
             }
-            else if(name2.length() != 0 && name2!=name1) {
-                System.out.println(name2 != null);
+            else if(name2.length() != 0 && !name2.equals(name1)) {
                     System.out.println("tạo tác giả " + name2);
                     tacgia2 = new TbTacGia();
                     tacgia2.setTenTacGia(name2);
@@ -127,14 +128,14 @@ public class TaoPhienDauGia extends HttpServlet {
                 
             }
             
-            if(tacgia3 != null && tacgia3!=tacgia2 && tacgia3 != tacgia1   )
+            if(tacgia3 != null && tacgia3!=tacgia2 && tacgia3!=tacgia1)
             {
 
                     System.out.println("thêm tác giả vào sách " + tacgia3.getTenTacGia());
                     tacGias.add(tacgia3);
                
             }
-            else if(name3.length() != 0 && name3!=name2 && name3 != name1 ) {
+            else if(name3.length() != 0 && !name3.equals(name2) && !name3.equals(name1) ) {
 
                     System.out.println("tạo tác giả " + name3);
                     tacgia3 = new TbTacGia();
@@ -297,14 +298,14 @@ public class TaoPhienDauGia extends HttpServlet {
             
               
              
-            url = "loadSach";
+            url = "detail?pid=" + phien.getMaSach().getMaSach();
         }
         
         else {
             url = "login";
         }
-       
-        response.sendRedirect(url);
+        if(url.equals("ErrorPayment.jsp")) request.getRequestDispatcher(url).forward(request, response);
+        else response.sendRedirect(url);
 
     }
     

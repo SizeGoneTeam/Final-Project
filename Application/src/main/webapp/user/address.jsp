@@ -419,7 +419,7 @@
                                                   <div class="form-input">
                                                       <div class="form-input-box">
                                                           <input class="form-input-content"
-                                                              type="text" placeholder="Quận/Huyện" value="${o.tenQuan}" name="city">
+                                                              type="text" placeholder="Quận/Huyện" value="${o.tenQuan}" name="city" required>
                                                       </div>
                                                   </div>
                                               </div>
@@ -428,7 +428,7 @@
                                                   <div class="form-input">
                                                       <div class="form-input-box">
                                                             <input class="form-input-content"
-                                                                type="text" placeholder="Phường/Xã" value="${o.tenPhuong}" name="ward">
+                                                                type="text" placeholder="Phường/Xã" value="${o.tenPhuong}" name="ward" required>
                                                       </div>
                                                   </div>
                                               </div>
@@ -437,7 +437,7 @@
                                                   <div class="form-input">
                                                       <div class="form-input-box">
                                                           <input class="form-input-content"
-                                                              type="text" placeholder="Địa chỉ" value="${o.diaChi}" name="street">
+                                                              type="text" placeholder="Địa chỉ" value="${o.diaChi}" name="street" required>
                                                       </div>
                                                   </div>
                                               </div>
