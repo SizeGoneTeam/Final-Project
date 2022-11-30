@@ -89,15 +89,15 @@
 					<div class="header__cart">
 						<ul>
 							<c:if test="${sessionScope.acc != null}">
-							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
-							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
-							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
+							<li><a href="../taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
+							<li><a href="../yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
+							<li><a href="../cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
 							
 						</c:if>
 						</ul>
 						<div class="header__cart__price" style="font-weight: bold;">
 						<c:if test="${sessionScope.acc != null}">
-							Money: <span><a href="NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
+							Money: <span><a href="../NapTien.jsp">${sessionScope.acc.tien} USD</a></span>
 						</c:if>			
 						</div>
 					</div>

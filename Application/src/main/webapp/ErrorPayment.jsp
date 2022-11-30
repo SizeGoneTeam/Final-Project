@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Error payment</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/errorpayment.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/errorpayment.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 

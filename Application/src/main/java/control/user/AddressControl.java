@@ -81,6 +81,7 @@ public class AddressControl extends HttpServlet {
 	                address.setTenQuan(city);
 	                address.setTenPhuong(ward);
 	                address.setDiaChi(street);
+	                if(user.getDiaChiMacDinh() ==0) address.setMacDinh(1); 
 	                
 	                if (type.equals("add")) {
 	                    AddressDAO.insertAddress(address);
@@ -104,25 +105,9 @@ public class AddressControl extends HttpServlet {
 		    else {
                 //Do nothing
             }
-		    
-		    List<TbTinhThanh> provinces = AddressDAO.selectAllProvince();
-	          BookDao dao = new BookDao();
-	            
-	            int demyt = dao.countyeuthich(MaTK);
-	            int demdb = dao.CountDangBan(MaTK);
-	            int demgh = dao.CountGioHang(MaTK);
-	            request.setAttribute("demyt", demyt);
-	            request.setAttribute("demdb", demdb);
-	            request.setAttribute("demgh", demgh);
-		    List<TbDiaChiKH> addresses = AddressDAO.selectAddress(user);
-		    int count = AddressDAO.CountAll(user);
-		    
-		    request.setAttribute("provinces", provinces);
-		    request.setAttribute("countDC", count);
-		    
-		    request.setAttribute("addresses", addresses);
+		    response.sendRedirect("./loadAddress");
    
-	        getServletContext().getRequestDispatcher("/user/address.jsp").forward(request, response);
+	       // getServletContext().getRequestDispatcher("/user/loadAddress").forward(request, response);
 		}
 	}
 	@Override

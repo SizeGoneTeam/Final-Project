@@ -64,7 +64,6 @@ public class TaoPhienDauGia extends HttpServlet {
         
         String url = "";
         request.setCharacterEncoding("UTF-8");
-        System.out.println("vào vòng lặp");
         HttpSession session = request.getSession();
         TbAccount acc = (TbAccount) session.getAttribute("acc");
         
@@ -75,7 +74,6 @@ public class TaoPhienDauGia extends HttpServlet {
             UserDao daoUser = new UserDao();
             BookDao daoPhienBook = new BookDao();
             TacGiaDao daoTacGia = new TacGiaDao();
-           
             
             String TenSach = request.getParameter("title");
             String Mota = request.getParameter("MoTa");

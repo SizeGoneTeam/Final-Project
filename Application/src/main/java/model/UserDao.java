@@ -31,7 +31,7 @@ public class UserDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
+            //em.close();
         }
     }
     
@@ -113,7 +113,7 @@ public class UserDao {
            System.out.println("Error:"+ e.toString());
         }
         finally {
-            em.close();
+          //  em.close();
         }
     }
     
@@ -128,7 +128,7 @@ public class UserDao {
         } catch (NoResultException e) {
             return null;
         } finally {
-            em.close();
+            //em.close();
         }
     }
     
@@ -145,7 +145,7 @@ public class UserDao {
             return false;
         }
         finally {
-            em.close();
+           // em.close();
         }
         return true;
     }

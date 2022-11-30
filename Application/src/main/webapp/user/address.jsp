@@ -246,16 +246,16 @@
 					<div class="header__cart">
 						<ul>
 						<c:if test="${sessionScope.acc != null}">
-							<li><a href="taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
-							<li><a href="yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
-							<li><a href="cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
+							<li><a href="../taoSach"><i class="fa fa-book"></i> <span>${demdb}</span></a></li>
+							<li><a href="../yeuthich"><i class="fa fa-heart"></i> <span>${demyt}</span></a></li>
+							<li><a href="../cart"><i class="fa fa-shopping-bag"></i> <span>${demgh}</span></a></li>
 						
 						</c:if>
 							
 						</ul>
 						<div class="header__cart__price">
 						<c:if test="${sessionScope.acc != null}">
-							<span>Money: <a href="NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
+							<span>Money: <a href="../NapTien.jsp">${sessionScope.acc.tien.toString()} USD</a></span>
 						</c:if>
 							
 						</div>
@@ -479,13 +479,13 @@
                             <div class="form-field">
                                 <div class="form-input">
                                     <div class="form-input-box">
-                                        <input class="form-input-content" type="text" placeholder="Họ và tên" autocomplete="name" maxlength="64" value="" name="fullName">
+                                        <input class="form-input-content" type="text" placeholder="Họ và tên" autocomplete="name" maxlength="64" value="" name="fullName" required="required">
                                     </div>
                                 </div>
                                 <div class="form-space"></div>
                                 <div class="form-input">
                                     <div class="form-input-box">
-                                        <input class="form-input-content" type="text" placeholder="Số điện thoại" autocomplete="user-address-phone" value="" name="phone">
+                                        <input class="form-input-content" type="text" placeholder="Số điện thoại" autocomplete="user-address-phone" value="" name="phone" required="required">
                                     </div>
                                 </div>
                             </div>
@@ -507,7 +507,7 @@
                                 <div class="form-input">
                                     <div class="form-input-box">
                                         <input class="form-input-content"
-                                            type="text" placeholder="Quận/Huyện" value="" name="city">
+                                            type="text" placeholder="Quận/Huyện" value="" name="city" required="required">
                                     </div>
                                 </div>
                             </div>
@@ -516,7 +516,7 @@
                                 <div class="form-input">
                                     <div class="form-input-box">
                                           <input class="form-input-content"
-                                              type="text" placeholder="Phường/Xã" value="" name="ward">
+                                              type="text" placeholder="Phường/Xã" value="" name="ward" required="required">
                                     </div>
                                 </div>
                             </div>
@@ -525,7 +525,7 @@
                                 <div class="form-input">
                                     <div class="form-input-box">
                                         <input class="form-input-content"
-                                            type="text" placeholder="Địa chỉ" value="" name="street">
+                                            type="text" placeholder="Địa chỉ" value="" name="street" required="required">
                                     </div>
                                 </div>
                             </div>

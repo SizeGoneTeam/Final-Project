@@ -20,7 +20,7 @@
         <div class="stardust-dropdown__item-body stardust-dropdown__item-body--open">
           <div class="Yu7gVR">
             <a class="FEE-3D" href="profile"><span class="qyt-aY">Hồ
-                sơ</span></a><a class="FEE-3D" href="address"><span class="qyt-aY">Địa
+                sơ</span></a><a class="FEE-3D" href="loadAddress"><span class="qyt-aY">Địa
                 chỉ</span></a><a class="FEE-3D" href="password"><span class="qyt-aY">Đổi
                 mật khẩu</span></a>
           </div>
