@@ -44,11 +44,8 @@ public class test2 extends HttpServlet {
     public URL url;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestURL = req.getRequestURL().toString();
-        String servletPath = req.getServletPath();
-        String serverPath = requestURL.substring(0,requestURL.indexOf(servletPath));
-        URL url = new URL(serverPath + "/myservlet");
-        System.out.println(url);
+        TbSach sach = new TbSach();
+        sach.getPhienDauGia().getIsEnd()
         
     }
     

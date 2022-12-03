@@ -143,6 +143,7 @@
                       <th>Đơn giá</th>
                       <th>Tình trạng</th>
                       <th>Người sở hữu</th>
+                      <th>Trạng thái</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -152,6 +153,7 @@
                       <th>Đơn giá</th>
                       <th>Tình trạng</th>
                       <th>Người sở hữu</th>
+                      <th>Trạng thái</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -162,6 +164,14 @@
                       <td>${o.getDonGia()}</td>
                       <td>${o.getTinhTrang()}</td>
                       <td>${o.getNguoiSoHuu().UName}</td>
+                      <c:if test="${o.getPhienDauGia().getIsEnd() == 1}">
+                      <td>Kết thúc</td>
+                      </c:if>
+                      
+                      <c:if test="${o.getPhienDauGia().getIsEnd() == 0}">
+                      <td>Đang diễn ra</td>
+                      </c:if>
+                      
 
                     </tr>
                  	</c:forEach>
