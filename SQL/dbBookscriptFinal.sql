@@ -1,206 +1,765 @@
-CREATE DATABASE IF NOT EXISTS dbbook;
-use dbbook;
+/*
+ Navicat Premium Data Transfer
 
-create table tbAccount(
-MaTK int auto_increment primary key,
-HoTen varchar(40),
-Phone varchar(10),
-Email varchar(50),
-UName varchar(15) unique,
-PWord varchar(20),
-Tien double(15,2) default 0,
-Sao float(2,1),
-DateOfBirth date DEFAULT NULL,
-NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-isAdmin bit
-);
-create table tbPhienDauGia(
-MaPhien int auto_increment primary key,
-MaTK int,
-LoaiPhien int,
-MaSach int,
-GiaKhoiDiem bigint,
-GiaChot bigint,
-NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-NgayKetThuc timestamp default null,
-ThoiGian int,
-GiaGiam bigint,
-ThoiGianGiam int,
-GiaThapNhat bigint,
-IsEnd bit default 0,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
-);
-create table tbSach(
-MaSach int auto_increment primary key,
-TenSach varchar(120),
-Anh varchar(200),
-DonGia bigint,
-TinhTrang VARCHAR(50),
-MoTa text,
-NguoiSoHuu int,
-foreign key(NguoiSoHuu) references tbAccount(MaTK) ON DELETE CASCADE
-);
--- Tạo thực thể Thể loại
-create table tbTheLoai(
-MaTheLoai int auto_increment primary key,
-TenTheLoai varchar(50)
-);
+ Source Server         : aws
+ Source Server Type    : MySQL
+ Source Server Version : 80028
+ Source Host           : database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com:3306
+ Source Schema         : dbbook
 
--- Tạo thực thể Thuộc thể loại
-create table tbThuocTheLoai(
-MaSach int,
-MaTheLoai int,
-primary key(MaSach,MaTheLoai),
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaTheLoai) references tbTheLoai(MaTheLoai) ON DELETE CASCADE
-);
+ Target Server Type    : MySQL
+ Target Server Version : 80028
+ File Encoding         : 65001
 
--- Tạo thực thể Tác giả
-create table tbTacGia(
-MaTacGia int auto_increment primary key,
-TenTacGia varchar(50)
-);
+ Date: 21/11/2022 18:44:05
+*/
 
--- Tạo thực thể Viết ( Tác Giả - Cuốn Sách)
-create table tbViet(
-MaTacGia int,
-MaSach int,
-primary key(MaTacGia,MaSach),
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaTacGia) references tbTacGia(MaTacGia) ON DELETE CASCADE
-);
-
-CREATE TABLE tbTinhThanh  (
-  ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  TinhThanh varchar(50) NOT NULL
-);
-
-create table tbDiaChiKH(
-ID int NOT NULL AUTO_INCREMENT primary key,
-MaTK int,
-HoVaTen varchar(100),
-SDT varchar(15),
-DiaChi varchar(50),
-TenPhuong varchar(50),
-TenQuan varchar(50),
-IDTinh int NULL DEFAULT NULL,
-foreign key(MaTK) references tbAccount(MaTK),
-foreign key(IDTinh) references tbTinhThanh(ID)
-);
-
-create table tbLichSuBid(
-MaBid int auto_increment primary key,
-MaTK int,
-MaPhien int,
-Bid bigint,
-NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-foreign key(MaPhien) references tbPhienDauGia(MaPhien) ON DELETE CASCADE,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
-);
-
-create table tbLichSuXem(
-MaTK int,
-MaSach int,
-NgayXem timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-primary key(MaTK,MaSach),
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
-);
-
-create table tbYeuThich(
-MaTK int,
-MaSach int,
-primary key(MaTK,MaSach),
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
-);
-
-create table tbGiaoDich (
-MaGD int auto_increment primary key,
-NguoiGui INT NOT NULL,
-NguoiNhan int not null,
--- 1. Nap | 2.Chuyen Tien |3. Rut
-LoaiGD int not null,
-TienGD double(15,2) default 0,
-TienHoaHong double(15,2) default 0,
-NgayTao timestamp default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-foreign key(NguoiGui) references tbAccount(MaTK) ON DELETE CASCADE,
-foreign key(NguoiNhan) references tbAccount(MaTK) ON DELETE CASCADE
-);
-
-create table tbHoaDon(
-MaHD int auto_increment primary key,
-MaTK int,
-MaGD int,
-TienVC double(15,2) default 0,
-TienSach double(15,2) default 0,
-TienHD double(15,2) default 0,
-foreign key(MaGD) references tbGiaoDich(MaGD) ON DELETE CASCADE,
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE
-);
-
-create table tbChiTietHD(
-MaCT int auto_increment,
-MaHD int,
-MaSach int,
-GiaVC double(15,2) default 0,
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-foreign key(MaHD) references tbHoaDon(MaHD) ON DELETE CASCADE,
-PRIMARY KEY(MaCT,MaHD)
-);
-
-CREATE TABLE tbGioHang(
-MaTK int ,
-MaSach int,
-TrangThaiThanhToan int ,
-NgayThem TIMESTAMP default (CONVERT_TZ(NOW(),'+00:00','+7:00')),
-foreign key(MaTK) references tbAccount(MaTK) ON DELETE CASCADE,
-foreign key(MaSach) references tbSach(MaSach) ON DELETE CASCADE,
-PRIMARY KEY(MaTK,MaSach)
-);
-
-
--- Nhập dữ liệu
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-insert into tbAccount(UName,PWord)
-values ("hai","hai123");
-insert into tbAccount(UName,PWord)
-values ("a","b");
+-- ----------------------------
+-- Table structure for tbAccount
+-- ----------------------------
+DROP TABLE IF EXISTS `tbAccount`;
+CREATE TABLE `tbAccount`  (
+  `MaTK` int NOT NULL AUTO_INCREMENT,
+  `HoTen` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Phone` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `UName` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `PWord` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Tien` double(15, 2) NULL DEFAULT 0.00,
+  `Sao` float(2, 1) NULL DEFAULT NULL,
+  `DateOfBirth` date NULL DEFAULT NULL,
+  `NgayTao` timestamp(0) NULL,
+  `isAdmin` bit(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`MaTK`) USING BTREE,
+  UNIQUE INDEX `UName`(`UName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
-insert into tbTheLoai(TenTheLoai) 
-values
-	("Sách Tiếng Việt"),("Sách văn học"),("Sách kinh tế"),("Sách thiếu nhi "),("Sách kỹ năng sống"),
-    ("Sách Bà mẹ - Em bé"),("Sách Giáo Khoa - Giáo Trình"),("Sách Học Ngoại Ngữ"),("Sách Tham Khảo"),
-    ("Từ Điển"),("Sách Kiến Thức Tổng Hợp"),("Sách Khoa Học - Kỹ Thuật"),("Sách Lịch sử"),("Điện Ảnh - Nhạc - Họa"),
-    ("Truyện Tranh, Manga, Comic"),("Sách Tôn Giáo - Tâm Linh"),("Sách Văn Hóa - Địa Lý - Du Lịch"),
-    ("Sách Chính Trị - Pháp Lý"),("Sách Nông - Lâm - Ngư Nghiệp"),("Sách Công Nghệ Thông Tin"),("Sách Y Học"),("Tạp Chí - Catalogue"),
-    ("Sách Tâm lý - Giới tính"),("Sách Thường Thức - Gia Đình"),("Thể Dục - Thể Thao"),("Sách Tiếng Anh"),
-    ("Art & Photography"),("Biographies & Memoirs"),("Business & Economics"),("How-to - Self Help"),("Children's Books"),
-    ("Dictionary"),("Education - Teaching"),("Fiction - Literature"),("Magazines"),("Medical Books"),("Parenting & Relationships"),("Reference"),
-    ("Science - Technology"),("History, Politics & Social Sciences"),("Travel & Holiday"),("Cookbooks, Food & Wine");
-	
-insert into tbThuocTheLoai(MaSach,MaTheLoai)
-values
-	(1,1),(1,2),
-    (2,1),(2,2),
-    (3,1),(3,2),
-    (4,1),(4,3),
-    (5,1),(5,3),
-    (6,1),(6,3),
-    (7,1),(7,4),
-    (8,1),(8,4),
-    (9,1),(9,4);
-    
-insert into tbTacGia(TenTacGia)
-values
-	("Frank Herbert"),("Paulo Coelho"),("Vladimir Nabokov"),("Morgan Housel"),("Napoleon Hill"),("Yann Martel"),("Luis Sepulveda"),("Antoine De Saint-Exupéry"),
-    ("Kate DiCamillo");
+-- ----------------------------
+-- Records of tbAccount
+-- ----------------------------
+INSERT INTO `tbAccount` VALUES (1, NULL, NULL, 'giotocdo@gmail.com', 'admin', 'admin123', 2903.19, NULL, NULL, '2022-11-12 18:25:10', b'1');
+INSERT INTO `tbAccount` VALUES (2, NULL, NULL, 'nghiapv74@gmail.com', 'aaa', 'gio123', 1708.06, NULL, NULL, '2022-11-12 18:25:10', b'1');
+INSERT INTO `tbAccount` VALUES (3, NULL, NULL, NULL, 'hoanganh', '123456', 2835129.10, NULL, NULL, '2022-11-12 20:57:34', b'1');
+INSERT INTO `tbAccount` VALUES (4, NULL, NULL, NULL, 'hoanganh1', '123456', 8000.70, NULL, NULL, '2022-11-12 21:16:27', b'1');
+INSERT INTO `tbAccount` VALUES (5, NULL, NULL, NULL, 'hieu', '123456', -4114.00, NULL, NULL, '2022-11-14 10:26:52', b'0');
+INSERT INTO `tbAccount` VALUES (6, NULL, NULL, NULL, 'vv', 'vv', 87.38, NULL, NULL, '2022-11-14 22:20:24', b'1');
+INSERT INTO `tbAccount` VALUES (7, NULL, NULL, NULL, 'c', 'd', 0.00, NULL, NULL, '2022-11-16 08:17:26', b'0');
+INSERT INTO `tbAccount` VALUES (8, NULL, NULL, NULL, 'nghia', '1234', 0.00, NULL, NULL, '2022-11-16 08:18:31', b'0');
+INSERT INTO `tbAccount` VALUES (9, NULL, NULL, NULL, 'ab', 'ba', 0.00, NULL, NULL, '2022-11-16 08:19:14', b'0');
+INSERT INTO `tbAccount` VALUES (10, NULL, NULL, NULL, 'nghianghia', '1234', 0.00, NULL, NULL, '2022-11-16 08:19:41', b'0');
+INSERT INTO `tbAccount` VALUES (11, NULL, NULL, NULL, 'nghianghiann', '1234', 0.00, NULL, NULL, '2022-11-16 08:20:12', b'0');
+INSERT INTO `tbAccount` VALUES (12, NULL, NULL, NULL, 'nghianghian', '1234', 0.00, NULL, NULL, '2022-11-16 08:20:46', b'0');
+INSERT INTO `tbAccount` VALUES (13, NULL, NULL, NULL, '1234567891', '11', 23.00, NULL, NULL, '2022-11-18 14:22:45', b'1');
+INSERT INTO `tbAccount` VALUES (14, NULL, NULL, NULL, 'anninhsitinh', 'anninhsitinh', 0.00, NULL, NULL, '2022-11-18 19:05:03', b'0');
+INSERT INTO `tbAccount` VALUES (16, NULL, NULL, NULL, 'admin1', 'admin1', 0.00, NULL, NULL, '2022-11-20 13:47:58', b'0');
 
-insert into tbViet(MaTacGia,MaSach)
-values
-	(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9);
+-- ----------------------------
+-- Table structure for tbAnh
+-- ----------------------------
+DROP TABLE IF EXISTS `tbAnh`;
+CREATE TABLE `tbAnh`  (
+  `MaAnh` int NOT NULL AUTO_INCREMENT,
+  `MaSach` int NULL DEFAULT NULL,
+  `Anh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`MaAnh`) USING BTREE,
+  INDEX `MaSach`(`MaSach`) USING BTREE,
+  CONSTRAINT `tbAnh_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Records of tbAnh
+-- ----------------------------
+INSERT INTO `tbAnh` VALUES (1, 45, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668780032/hqz9k975v5knvn6aur87.png');
+INSERT INTO `tbAnh` VALUES (2, 45, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668780182/hmfccdlcuktvkb6jhf13.png');
+INSERT INTO `tbAnh` VALUES (3, 51, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668887769/hfx6cbek1wto8ficqkqv.jpg');
+INSERT INTO `tbAnh` VALUES (4, 50, '4');
+INSERT INTO `tbAnh` VALUES (5, 50, '2');
+INSERT INTO `tbAnh` VALUES (6, 50, '4');
+INSERT INTO `tbAnh` VALUES (7, 52, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668888293/pe4lh0vuepk1tzceu9me.jpg');
+INSERT INTO `tbAnh` VALUES (8, 52, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668888295/zxy4ccga4xzk6yr3r6qy.png');
+INSERT INTO `tbAnh` VALUES (9, 52, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668888300/o90kmu5camjj2js4cw1z.png');
+INSERT INTO `tbAnh` VALUES (10, 53, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668928845/birdk1721exk6ou8uhy3.png');
+INSERT INTO `tbAnh` VALUES (11, 53, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668928847/keuvaxlwdogx4k59tg5i.png');
+INSERT INTO `tbAnh` VALUES (12, 54, 'http://res.cloudinary.com/dzchykus4/image/upload/v1668956089/jinjhbih1gkt4u4w7hvo.webp');
+INSERT INTO `tbAnh` VALUES (13, 55, 'http://res.cloudinary.com/dzchykus4/image/upload/v1669016066/illvgrugemib7dy635yt.png');
+INSERT INTO `tbAnh` VALUES (14, 56, 'http://res.cloudinary.com/dzchykus4/image/upload/v1669016144/y2ltyo0a6iypedmpvuxe.png');
+INSERT INTO `tbAnh` VALUES (15, 57, 'http://res.cloudinary.com/dzchykus4/image/upload/v1669016469/mmnbnnynq2cojl4i51b3.png');
+INSERT INTO `tbAnh` VALUES (16, 58, 'http://res.cloudinary.com/dzchykus4/image/upload/v1669019246/u8sxgwrjygysbq563pml.jpg');
+
+-- ----------------------------
+-- Table structure for tbChiTietHD
+-- ----------------------------
+DROP TABLE IF EXISTS `tbChiTietHD`;
+CREATE TABLE `tbChiTietHD`  (
+  `MaCT` int NOT NULL AUTO_INCREMENT,
+  `MaHD` int NOT NULL,
+  `MaGD` int NULL DEFAULT NULL,
+  `MaSach` int NULL DEFAULT NULL,
+  `GiaVC` double(15, 2) NULL DEFAULT 0.00,
+  PRIMARY KEY (`MaCT`) USING BTREE,
+  INDEX `MaSach`(`MaSach`) USING BTREE,
+  INDEX `MaHD`(`MaHD`) USING BTREE,
+  INDEX `MaGD`(`MaGD`) USING BTREE,
+  CONSTRAINT `tbChiTietHD_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbChiTietHD_ibfk_2` FOREIGN KEY (`MaHD`) REFERENCES `tbHoaDon` (`MaHD`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbChiTietHD_ibfk_3` FOREIGN KEY (`MaGD`) REFERENCES `tbGiaoDich` (`MaGD`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbChiTietHD
+-- ----------------------------
+INSERT INTO `tbChiTietHD` VALUES (23, 38, 41, 45, 3.26);
+INSERT INTO `tbChiTietHD` VALUES (25, 40, 47, 54, 3.26);
+INSERT INTO `tbChiTietHD` VALUES (27, 42, 49, 55, 3.26);
+INSERT INTO `tbChiTietHD` VALUES (28, 43, 50, 57, 3.26);
+
+-- ----------------------------
+-- Table structure for tbDiaChiKH
+-- ----------------------------
+DROP TABLE IF EXISTS `tbDiaChiKH`;
+CREATE TABLE `tbDiaChiKH`  (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `MaTK` int NULL DEFAULT NULL,
+  `HoVaTen` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `SDT` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `DiaChi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `TenPhuong` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `TenQuan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `TenTP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `IDTinh` int NULL DEFAULT NULL,
+  `MacDinh` int NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `MaTK`(`MaTK`) USING BTREE,
+  INDEX `IDTinh`(`IDTinh`) USING BTREE,
+  CONSTRAINT `tbDiaChiKH_ibfk_1` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tbDiaChiKH_ibfk_2` FOREIGN KEY (`IDTinh`) REFERENCES `tbTinhThanh` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbDiaChiKH
+-- ----------------------------
+INSERT INTO `tbDiaChiKH` VALUES (1, 2, 'a', 'b', 'a', 'b', 'a', '', 3, 1);
+INSERT INTO `tbDiaChiKH` VALUES (2, 1, 'Hải', '123456789', 'KTX khu B', 'Linh Trung', 'Thủ Đức', NULL, 2, 0);
+INSERT INTO `tbDiaChiKH` VALUES (3, 5, 'Hiếu', '12345', 'Nó1 111', 'adsf', 'asdf', NULL, 18, 1);
+INSERT INTO `tbDiaChiKH` VALUES (4, 5, 'Hiếu2', '12345678', 'No1111', 'Aaaaaaa', 'DDDDDDD', NULL, 5, 0);
+INSERT INTO `tbDiaChiKH` VALUES (5, 3, NULL, NULL, NULL, NULL, NULL, NULL, 7, 0);
+INSERT INTO `tbDiaChiKH` VALUES (6, 4, NULL, NULL, NULL, NULL, NULL, NULL, 12, 0);
+INSERT INTO `tbDiaChiKH` VALUES (7, 6, NULL, NULL, NULL, NULL, NULL, NULL, 19, 0);
+INSERT INTO `tbDiaChiKH` VALUES (10, 1, 'Hai Ngoc Tran', '', 'Tô Vĩnh Diện, Đường Đ. Mạc Đĩnh Chi', '', 'Dĩ An', NULL, 4, 0);
+INSERT INTO `tbDiaChiKH` VALUES (11, 1, 'Hai Ngoc Tran', '', 'Tô Vĩnh Diện, Đường Đ. Mạc Đĩnh Chi', '', 'Dĩ An', NULL, 4, 1);
+
+-- ----------------------------
+-- Table structure for tbGiaoDich
+-- ----------------------------
+DROP TABLE IF EXISTS `tbGiaoDich`;
+CREATE TABLE `tbGiaoDich`  (
+  `MaGD` int NOT NULL AUTO_INCREMENT,
+  `NguoiGui` int NOT NULL,
+  `NguoiNhan` int NOT NULL,
+  `LoaiGD` int NOT NULL,
+  `TienGD` double(15, 2) NULL DEFAULT 0.00,
+  `TienHoaHong` double(15, 2) NULL DEFAULT 0.00,
+  `NgayTao` timestamp(0) NULL,
+  PRIMARY KEY (`MaGD`) USING BTREE,
+  INDEX `NguoiGui`(`NguoiGui`) USING BTREE,
+  INDEX `NguoiNhan`(`NguoiNhan`) USING BTREE,
+  CONSTRAINT `tbGiaoDich_ibfk_1` FOREIGN KEY (`NguoiGui`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbGiaoDich_ibfk_2` FOREIGN KEY (`NguoiNhan`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbGiaoDich
+-- ----------------------------
+INSERT INTO `tbGiaoDich` VALUES (3, 2, 1, 2, 50000.00, 5000.00, '2022-11-12 20:16:50');
+INSERT INTO `tbGiaoDich` VALUES (5, 2, 1, 2, 40000.00, 4000.00, '2022-11-11 00:00:00');
+INSERT INTO `tbGiaoDich` VALUES (6, 2, 1, 2, 30000.00, 3000.00, '2022-10-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (7, 2, 1, 2, 20000.00, 2000.00, '2022-09-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (8, 2, 1, 2, 10000.00, 1000.00, '2022-08-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (9, 2, 1, 2, 10000.00, 1000.00, '2022-07-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (10, 2, 1, 2, 10000.00, 1000.00, '2022-06-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (11, 2, 1, 2, 10000.00, 1000.00, '2022-05-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (12, 2, 1, 2, 8000.00, 800.00, '2022-04-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (13, 2, 1, 2, 7000.00, 700.00, '2022-03-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (14, 2, 1, 2, 6000.00, 600.00, '2022-02-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (15, 2, 1, 2, 5000.00, 500.00, '2022-01-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (16, 2, 1, 2, 4000.00, 400.00, '2021-12-11 00:01:00');
+INSERT INTO `tbGiaoDich` VALUES (17, 2, 1, 2, 5000.00, 500.00, '2022-11-12 21:16:50');
+INSERT INTO `tbGiaoDich` VALUES (20, 5, 1, 2, 983.00, 196.60, '2022-11-16 10:31:27');
+INSERT INTO `tbGiaoDich` VALUES (21, 5, 1, 2, 1074.00, 214.80, '2022-11-16 10:31:27');
+INSERT INTO `tbGiaoDich` VALUES (22, 5, 1, 2, 983.00, 196.60, '2022-11-16 10:47:37');
+INSERT INTO `tbGiaoDich` VALUES (23, 5, 1, 2, 1074.00, 214.80, '2022-11-16 10:47:38');
+INSERT INTO `tbGiaoDich` VALUES (24, 5, 1, 2, 983.00, 196.60, '2022-11-16 10:48:45');
+INSERT INTO `tbGiaoDich` VALUES (25, 5, 1, 2, 1074.00, 214.80, '2022-11-16 10:48:45');
+INSERT INTO `tbGiaoDich` VALUES (26, 5, 1, 2, 983.00, 196.60, '2022-11-16 10:54:18');
+INSERT INTO `tbGiaoDich` VALUES (27, 5, 1, 2, 1074.00, 214.80, '2022-11-16 10:54:19');
+INSERT INTO `tbGiaoDich` VALUES (31, 1, 6, 2, 109.22, 21.84, '2022-11-17 01:13:40');
+INSERT INTO `tbGiaoDich` VALUES (33, 2, 1, 2, 122.26, 24.45, '2022-11-17 01:19:12');
+INSERT INTO `tbGiaoDich` VALUES (34, 2, 3, 2, 13.91, 2.78, '2022-11-17 11:45:11');
+INSERT INTO `tbGiaoDich` VALUES (35, 2, 3, 2, 13.91, 2.78, '2022-11-17 11:45:19');
+INSERT INTO `tbGiaoDich` VALUES (36, 1, 3, 2, 10.87, 2.17, '2022-11-17 20:23:01');
+INSERT INTO `tbGiaoDich` VALUES (37, 1, 2, 2, 793.26, 158.65, '2022-11-17 20:49:07');
+INSERT INTO `tbGiaoDich` VALUES (38, 1, 2, 2, 1003.26, 200.65, '2022-11-17 21:41:16');
+INSERT INTO `tbGiaoDich` VALUES (41, 1, 2, 2, 2327.26, 465.45, '2022-11-18 21:25:12');
+INSERT INTO `tbGiaoDich` VALUES (42, 3, 4, 2, 10000.87, 2000.17, '2022-11-19 19:14:57');
+INSERT INTO `tbGiaoDich` VALUES (44, 2, 1, 3, 10.00, 2.00, '2022-11-21 02:54:13');
+INSERT INTO `tbGiaoDich` VALUES (45, 2, 1, 3, 10.00, 2.00, '2022-11-21 03:01:13');
+INSERT INTO `tbGiaoDich` VALUES (46, 2, 1, 3, 20.00, 4.00, '2022-11-21 03:02:29');
+INSERT INTO `tbGiaoDich` VALUES (47, 2, 1, 2, 2224.26, 444.85, '2022-11-21 10:23:31');
+INSERT INTO `tbGiaoDich` VALUES (49, 1, 2, 2, 14.26, 2.85, '2022-11-21 14:45:42');
+INSERT INTO `tbGiaoDich` VALUES (50, 2, 1, 2, 111.26, 22.25, '2022-11-21 15:15:46');
+
+-- ----------------------------
+-- Table structure for tbGioHang
+-- ----------------------------
+DROP TABLE IF EXISTS `tbGioHang`;
+CREATE TABLE `tbGioHang`  (
+  `MaTK` int NOT NULL,
+  `MaSach` int NOT NULL,
+  `TrangThaiThanhToan` int NULL DEFAULT NULL,
+  `NgayThem` timestamp(0) NULL,
+  PRIMARY KEY (`MaTK`, `MaSach`) USING BTREE,
+  INDEX `MaSach`(`MaSach`) USING BTREE,
+  CONSTRAINT `tbGioHang_ibfk_1` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbGioHang_ibfk_2` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbGioHang
+-- ----------------------------
+INSERT INTO `tbGioHang` VALUES (5, 54, 1, '2022-11-21 08:16:51');
+
+-- ----------------------------
+-- Table structure for tbHoaDon
+-- ----------------------------
+DROP TABLE IF EXISTS `tbHoaDon`;
+CREATE TABLE `tbHoaDon`  (
+  `MaHD` int NOT NULL AUTO_INCREMENT,
+  `MaTK` int NULL DEFAULT NULL,
+  `NgayTao` timestamp(0) NULL ,
+  PRIMARY KEY (`MaHD`) USING BTREE,
+  INDEX `MaTK`(`MaTK`) USING BTREE,
+  CONSTRAINT `tbHoaDon_ibfk_1` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbHoaDon
+-- ----------------------------
+INSERT INTO `tbHoaDon` VALUES (1, 1, '2022-11-16 08:24:20');
+INSERT INTO `tbHoaDon` VALUES (2, 5, '2022-11-16 09:30:48');
+INSERT INTO `tbHoaDon` VALUES (7, 5, '2022-11-16 10:03:52');
+INSERT INTO `tbHoaDon` VALUES (8, 5, '2022-11-16 10:07:20');
+INSERT INTO `tbHoaDon` VALUES (9, 5, '2022-11-16 10:12:03');
+INSERT INTO `tbHoaDon` VALUES (10, 5, '2022-11-16 10:14:28');
+INSERT INTO `tbHoaDon` VALUES (11, 5, '2022-11-16 10:16:33');
+INSERT INTO `tbHoaDon` VALUES (12, 5, '2022-11-16 10:17:45');
+INSERT INTO `tbHoaDon` VALUES (13, 5, '2022-11-16 10:22:21');
+INSERT INTO `tbHoaDon` VALUES (14, 5, '2022-11-16 10:23:21');
+INSERT INTO `tbHoaDon` VALUES (15, 5, '2022-11-16 10:26:28');
+INSERT INTO `tbHoaDon` VALUES (16, 5, '2022-11-16 10:28:20');
+INSERT INTO `tbHoaDon` VALUES (17, 5, '2022-11-16 10:29:54');
+INSERT INTO `tbHoaDon` VALUES (18, 5, '2022-11-16 10:31:27');
+INSERT INTO `tbHoaDon` VALUES (19, 5, '2022-11-16 10:47:37');
+INSERT INTO `tbHoaDon` VALUES (20, 5, '2022-11-16 10:48:44');
+INSERT INTO `tbHoaDon` VALUES (21, 5, '2022-11-16 10:54:18');
+INSERT INTO `tbHoaDon` VALUES (22, 5, '2022-11-17 00:09:41');
+INSERT INTO `tbHoaDon` VALUES (23, 1, '2022-11-17 00:09:58');
+INSERT INTO `tbHoaDon` VALUES (24, 1, '2022-11-17 00:10:35');
+INSERT INTO `tbHoaDon` VALUES (25, 1, '2022-11-17 00:11:30');
+INSERT INTO `tbHoaDon` VALUES (26, 1, '2022-11-17 00:43:17');
+INSERT INTO `tbHoaDon` VALUES (27, 1, '2022-11-17 01:12:04');
+INSERT INTO `tbHoaDon` VALUES (28, 1, '2022-11-17 01:13:38');
+INSERT INTO `tbHoaDon` VALUES (29, 1, '2022-11-17 01:15:55');
+INSERT INTO `tbHoaDon` VALUES (30, 2, '2022-11-17 01:19:12');
+INSERT INTO `tbHoaDon` VALUES (31, 2, '2022-11-17 11:45:11');
+INSERT INTO `tbHoaDon` VALUES (32, 2, '2022-11-17 11:45:19');
+INSERT INTO `tbHoaDon` VALUES (33, 1, '2022-11-17 20:23:01');
+INSERT INTO `tbHoaDon` VALUES (34, 1, '2022-11-17 20:49:06');
+INSERT INTO `tbHoaDon` VALUES (35, 1, '2022-11-17 21:41:15');
+INSERT INTO `tbHoaDon` VALUES (36, 1, '2022-11-18 21:04:06');
+INSERT INTO `tbHoaDon` VALUES (37, 1, '2022-11-18 21:08:03');
+INSERT INTO `tbHoaDon` VALUES (38, 1, '2022-11-18 21:25:12');
+INSERT INTO `tbHoaDon` VALUES (39, 3, '2022-11-19 19:14:56');
+INSERT INTO `tbHoaDon` VALUES (40, 2, '2022-11-21 10:23:31');
+INSERT INTO `tbHoaDon` VALUES (41, 2, '2022-11-21 10:28:16');
+INSERT INTO `tbHoaDon` VALUES (42, 1, '2022-11-21 14:45:42');
+INSERT INTO `tbHoaDon` VALUES (43, 2, '2022-11-21 15:15:46');
+
+-- ----------------------------
+-- Table structure for tbLichSuBid
+-- ----------------------------
+DROP TABLE IF EXISTS `tbLichSuBid`;
+CREATE TABLE `tbLichSuBid`  (
+  `MaBid` int NOT NULL AUTO_INCREMENT,
+  `MaTK` int NULL DEFAULT NULL,
+  `MaPhien` int NULL DEFAULT NULL,
+  `Bid` double(15, 2) NULL DEFAULT NULL,
+  `NgayTao` timestamp(0) NULL,
+  PRIMARY KEY (`MaBid`) USING BTREE,
+  INDEX `MaPhien`(`MaPhien`) USING BTREE,
+  INDEX `MaTK`(`MaTK`) USING BTREE,
+  CONSTRAINT `tbLichSuBid_ibfk_1` FOREIGN KEY (`MaPhien`) REFERENCES `tbPhienDauGia` (`MaPhien`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbLichSuBid_ibfk_2` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 212 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbLichSuBid
+-- ----------------------------
+INSERT INTO `tbLichSuBid` VALUES (1, NULL, 1, 995.00, '2022-11-13 03:04:24');
+INSERT INTO `tbLichSuBid` VALUES (2, NULL, 1, 990.00, '2022-11-13 03:05:24');
+INSERT INTO `tbLichSuBid` VALUES (3, NULL, 1, 985.00, '2022-11-13 03:06:24');
+INSERT INTO `tbLichSuBid` VALUES (4, NULL, 1, 980.00, '2022-11-13 03:07:24');
+INSERT INTO `tbLichSuBid` VALUES (5, NULL, 2, 1101.00, '2022-11-13 03:39:26');
+INSERT INTO `tbLichSuBid` VALUES (6, NULL, 2, 1091.00, '2022-11-13 03:40:26');
+INSERT INTO `tbLichSuBid` VALUES (7, NULL, 2, 1081.00, '2022-11-13 03:41:26');
+INSERT INTO `tbLichSuBid` VALUES (8, NULL, 2, 1071.00, '2022-11-13 03:42:26');
+INSERT INTO `tbLichSuBid` VALUES (9, NULL, 4, 110.00, '2022-11-14 14:38:08');
+INSERT INTO `tbLichSuBid` VALUES (10, NULL, 4, 109.00, '2022-11-14 14:39:08');
+INSERT INTO `tbLichSuBid` VALUES (11, NULL, 4, 108.00, '2022-11-14 14:40:08');
+INSERT INTO `tbLichSuBid` VALUES (12, NULL, 4, 107.00, '2022-11-14 14:41:08');
+INSERT INTO `tbLichSuBid` VALUES (13, NULL, 4, 106.00, '2022-11-14 14:42:08');
+INSERT INTO `tbLichSuBid` VALUES (14, NULL, 4, 105.00, '2022-11-14 14:43:08');
+INSERT INTO `tbLichSuBid` VALUES (15, NULL, 4, 104.00, '2022-11-14 14:44:08');
+INSERT INTO `tbLichSuBid` VALUES (16, NULL, 4, 103.00, '2022-11-14 14:45:08');
+INSERT INTO `tbLichSuBid` VALUES (17, NULL, 4, 102.00, '2022-11-14 14:46:08');
+INSERT INTO `tbLichSuBid` VALUES (18, NULL, 4, 101.00, '2022-11-14 14:47:08');
+INSERT INTO `tbLichSuBid` VALUES (19, NULL, 4, 100.00, '2022-11-14 14:48:08');
+INSERT INTO `tbLichSuBid` VALUES (20, NULL, 4, 99.00, '2022-11-14 14:49:08');
+INSERT INTO `tbLichSuBid` VALUES (21, NULL, 4, 98.00, '2022-11-14 14:50:08');
+INSERT INTO `tbLichSuBid` VALUES (22, NULL, 4, 97.00, '2022-11-14 14:51:08');
+INSERT INTO `tbLichSuBid` VALUES (23, NULL, 4, 96.00, '2022-11-14 14:52:08');
+INSERT INTO `tbLichSuBid` VALUES (24, NULL, 4, 95.00, '2022-11-14 14:53:08');
+INSERT INTO `tbLichSuBid` VALUES (25, NULL, 4, 94.00, '2022-11-14 14:54:08');
+INSERT INTO `tbLichSuBid` VALUES (26, NULL, 4, 93.00, '2022-11-14 14:55:08');
+INSERT INTO `tbLichSuBid` VALUES (27, NULL, 4, 92.00, '2022-11-14 14:56:08');
+INSERT INTO `tbLichSuBid` VALUES (28, NULL, 4, 91.00, '2022-11-14 14:57:08');
+INSERT INTO `tbLichSuBid` VALUES (29, NULL, 4, 90.00, '2022-11-14 14:58:08');
+INSERT INTO `tbLichSuBid` VALUES (30, NULL, 4, 89.00, '2022-11-14 14:59:08');
+INSERT INTO `tbLichSuBid` VALUES (31, NULL, 4, 88.00, '2022-11-14 15:00:08');
+INSERT INTO `tbLichSuBid` VALUES (32, NULL, 4, 87.00, '2022-11-14 15:01:08');
+INSERT INTO `tbLichSuBid` VALUES (33, NULL, 4, 86.00, '2022-11-14 15:02:08');
+INSERT INTO `tbLichSuBid` VALUES (34, NULL, 4, 85.00, '2022-11-14 15:03:08');
+INSERT INTO `tbLichSuBid` VALUES (35, NULL, 4, 84.00, '2022-11-14 15:04:08');
+INSERT INTO `tbLichSuBid` VALUES (36, NULL, 4, 83.00, '2022-11-14 15:05:08');
+INSERT INTO `tbLichSuBid` VALUES (37, NULL, 4, 82.00, '2022-11-14 15:06:08');
+INSERT INTO `tbLichSuBid` VALUES (38, NULL, 4, 81.00, '2022-11-14 15:07:08');
+INSERT INTO `tbLichSuBid` VALUES (39, NULL, 4, 80.00, '2022-11-14 15:08:08');
+INSERT INTO `tbLichSuBid` VALUES (40, NULL, 4, 79.00, '2022-11-14 15:09:08');
+INSERT INTO `tbLichSuBid` VALUES (41, NULL, 4, 78.00, '2022-11-14 15:10:08');
+INSERT INTO `tbLichSuBid` VALUES (42, NULL, 4, 77.00, '2022-11-14 15:11:08');
+INSERT INTO `tbLichSuBid` VALUES (43, NULL, 4, 76.00, '2022-11-14 15:12:08');
+INSERT INTO `tbLichSuBid` VALUES (44, NULL, 4, 75.00, '2022-11-14 15:13:09');
+INSERT INTO `tbLichSuBid` VALUES (45, NULL, 4, 74.00, '2022-11-14 15:14:08');
+INSERT INTO `tbLichSuBid` VALUES (46, NULL, 4, 73.00, '2022-11-14 15:15:09');
+INSERT INTO `tbLichSuBid` VALUES (47, NULL, 4, 72.00, '2022-11-14 15:16:09');
+INSERT INTO `tbLichSuBid` VALUES (48, NULL, 4, 71.00, '2022-11-14 15:17:09');
+INSERT INTO `tbLichSuBid` VALUES (49, NULL, 4, 70.00, '2022-11-14 15:18:09');
+INSERT INTO `tbLichSuBid` VALUES (50, NULL, 4, 69.00, '2022-11-14 15:19:09');
+INSERT INTO `tbLichSuBid` VALUES (51, NULL, 4, 68.00, '2022-11-14 15:20:09');
+INSERT INTO `tbLichSuBid` VALUES (52, NULL, 4, 67.00, '2022-11-14 15:21:09');
+INSERT INTO `tbLichSuBid` VALUES (53, NULL, 4, 66.00, '2022-11-14 15:22:09');
+INSERT INTO `tbLichSuBid` VALUES (54, NULL, 4, 65.00, '2022-11-14 15:23:09');
+INSERT INTO `tbLichSuBid` VALUES (55, NULL, 4, 64.00, '2022-11-14 15:24:09');
+INSERT INTO `tbLichSuBid` VALUES (56, NULL, 4, 63.00, '2022-11-14 15:25:09');
+INSERT INTO `tbLichSuBid` VALUES (57, NULL, 4, 62.00, '2022-11-14 15:26:09');
+INSERT INTO `tbLichSuBid` VALUES (58, NULL, 4, 61.00, '2022-11-14 15:27:09');
+INSERT INTO `tbLichSuBid` VALUES (59, NULL, 4, 60.00, '2022-11-14 15:28:09');
+INSERT INTO `tbLichSuBid` VALUES (60, NULL, 4, 59.00, '2022-11-14 15:29:09');
+INSERT INTO `tbLichSuBid` VALUES (61, NULL, 4, 58.00, '2022-11-14 15:30:09');
+INSERT INTO `tbLichSuBid` VALUES (62, NULL, 4, 57.00, '2022-11-14 15:31:09');
+INSERT INTO `tbLichSuBid` VALUES (63, NULL, 4, 56.00, '2022-11-14 15:32:09');
+INSERT INTO `tbLichSuBid` VALUES (64, NULL, 4, 55.00, '2022-11-14 15:33:09');
+INSERT INTO `tbLichSuBid` VALUES (65, NULL, 4, 54.00, '2022-11-14 15:34:09');
+INSERT INTO `tbLichSuBid` VALUES (66, NULL, 4, 53.00, '2022-11-14 15:35:09');
+INSERT INTO `tbLichSuBid` VALUES (67, NULL, 4, 52.00, '2022-11-14 15:36:09');
+INSERT INTO `tbLichSuBid` VALUES (68, NULL, 4, 51.00, '2022-11-14 15:37:09');
+INSERT INTO `tbLichSuBid` VALUES (69, NULL, 4, 50.00, '2022-11-14 15:38:09');
+INSERT INTO `tbLichSuBid` VALUES (70, NULL, 4, 49.00, '2022-11-14 15:39:09');
+INSERT INTO `tbLichSuBid` VALUES (71, NULL, 4, 48.00, '2022-11-14 15:40:09');
+INSERT INTO `tbLichSuBid` VALUES (72, NULL, 4, 47.00, '2022-11-14 15:41:09');
+INSERT INTO `tbLichSuBid` VALUES (73, NULL, 4, 46.00, '2022-11-14 15:42:09');
+INSERT INTO `tbLichSuBid` VALUES (74, NULL, 4, 45.00, '2022-11-14 15:43:09');
+INSERT INTO `tbLichSuBid` VALUES (75, NULL, 4, 44.00, '2022-11-14 15:44:09');
+INSERT INTO `tbLichSuBid` VALUES (76, NULL, 4, 43.00, '2022-11-14 15:45:09');
+INSERT INTO `tbLichSuBid` VALUES (77, NULL, 4, 42.00, '2022-11-14 15:46:09');
+INSERT INTO `tbLichSuBid` VALUES (78, NULL, 4, 41.00, '2022-11-14 15:47:09');
+INSERT INTO `tbLichSuBid` VALUES (79, NULL, 4, 40.00, '2022-11-14 15:48:09');
+INSERT INTO `tbLichSuBid` VALUES (80, NULL, 4, 39.00, '2022-11-14 15:49:09');
+INSERT INTO `tbLichSuBid` VALUES (81, NULL, 4, 38.00, '2022-11-14 15:50:09');
+INSERT INTO `tbLichSuBid` VALUES (82, NULL, 4, 37.00, '2022-11-14 15:51:09');
+INSERT INTO `tbLichSuBid` VALUES (83, NULL, 6, 700.00, '2022-11-14 16:16:49');
+INSERT INTO `tbLichSuBid` VALUES (84, NULL, 6, 400.00, '2022-11-14 16:17:49');
+INSERT INTO `tbLichSuBid` VALUES (85, NULL, 6, 289.00, '2022-11-14 16:18:49');
+INSERT INTO `tbLichSuBid` VALUES (86, 2, 7, 11110.00, '2022-11-14 16:19:00');
+INSERT INTO `tbLichSuBid` VALUES (87, 1, 7, 11109.00, '2022-11-14 16:20:00');
+INSERT INTO `tbLichSuBid` VALUES (88, NULL, 6, 289.00, '2022-11-14 16:18:49');
+INSERT INTO `tbLichSuBid` VALUES (89, 2, 7, 11108.00, '2022-11-14 16:21:00');
+INSERT INTO `tbLichSuBid` VALUES (90, 2, 7, 11107.00, '2022-11-14 16:22:00');
+INSERT INTO `tbLichSuBid` VALUES (91, NULL, 8, 700.00, '2022-11-14 21:27:46');
+INSERT INTO `tbLichSuBid` VALUES (92, NULL, 8, 400.00, '2022-11-14 21:28:46');
+INSERT INTO `tbLichSuBid` VALUES (93, NULL, 8, 299.00, '2022-11-14 21:29:46');
+INSERT INTO `tbLichSuBid` VALUES (94, NULL, 9, 12292.00, '2022-11-15 02:11:05');
+INSERT INTO `tbLichSuBid` VALUES (95, NULL, 9, 12272.00, '2022-11-15 02:12:05');
+INSERT INTO `tbLichSuBid` VALUES (96, NULL, 9, 12252.00, '2022-11-15 02:13:06');
+INSERT INTO `tbLichSuBid` VALUES (97, NULL, 9, 12232.00, '2022-11-15 02:14:06');
+INSERT INTO `tbLichSuBid` VALUES (98, NULL, 10, 110.00, '2022-11-15 09:21:09');
+INSERT INTO `tbLichSuBid` VALUES (99, NULL, 10, 109.00, '2022-11-15 09:22:09');
+INSERT INTO `tbLichSuBid` VALUES (100, NULL, 11, 1101.00, '2022-11-15 09:25:13');
+INSERT INTO `tbLichSuBid` VALUES (101, NULL, 11, 1091.00, '2022-11-15 09:26:13');
+INSERT INTO `tbLichSuBid` VALUES (102, 6, 11, 1091.00, '2022-11-15 09:26:33');
+INSERT INTO `tbLichSuBid` VALUES (103, NULL, 13, 700.00, '2022-11-15 12:42:39');
+INSERT INTO `tbLichSuBid` VALUES (104, NULL, 12, 700.00, '2022-11-15 12:42:39');
+INSERT INTO `tbLichSuBid` VALUES (105, NULL, 13, 400.00, '2022-11-15 12:43:39');
+INSERT INTO `tbLichSuBid` VALUES (106, NULL, 12, 400.00, '2022-11-15 12:43:39');
+INSERT INTO `tbLichSuBid` VALUES (107, NULL, 13, 298.00, '2022-11-15 12:44:39');
+INSERT INTO `tbLichSuBid` VALUES (108, NULL, 12, 298.00, '2022-11-15 12:44:39');
+INSERT INTO `tbLichSuBid` VALUES (109, NULL, 13, 298.00, '2022-11-15 12:44:39');
+INSERT INTO `tbLichSuBid` VALUES (110, NULL, 12, 298.00, '2022-11-15 12:44:39');
+INSERT INTO `tbLichSuBid` VALUES (111, NULL, 14, 810.20, '2022-11-15 12:52:58');
+INSERT INTO `tbLichSuBid` VALUES (112, NULL, 15, 810.20, '2022-11-15 12:53:37');
+INSERT INTO `tbLichSuBid` VALUES (113, 6, 15, 810.20, '2022-11-15 12:53:49');
+INSERT INTO `tbLichSuBid` VALUES (114, NULL, 14, 510.20, '2022-11-15 12:53:58');
+INSERT INTO `tbLichSuBid` VALUES (115, NULL, 14, 300.20, '2022-11-15 12:54:58');
+INSERT INTO `tbLichSuBid` VALUES (116, NULL, 14, 300.20, '2022-11-15 12:54:58');
+INSERT INTO `tbLichSuBid` VALUES (117, 1, 16, 5.23, '2022-11-15 13:05:32');
+INSERT INTO `tbLichSuBid` VALUES (118, 1, 16, 5.23, '2022-11-15 13:06:01');
+INSERT INTO `tbLichSuBid` VALUES (119, 1, 16, 5.23, '2022-11-15 13:06:09');
+INSERT INTO `tbLichSuBid` VALUES (120, 1, 16, 5.23, '2022-11-15 13:09:48');
+INSERT INTO `tbLichSuBid` VALUES (121, 1, 16, 5.23, '2022-11-15 13:10:27');
+INSERT INTO `tbLichSuBid` VALUES (122, 1, 16, 6.23, '2022-11-15 13:11:44');
+INSERT INTO `tbLichSuBid` VALUES (123, 1, 16, 3000000.00, '2022-11-15 13:19:11');
+INSERT INTO `tbLichSuBid` VALUES (124, 1, 16, 3000000.00, '2022-11-15 13:19:16');
+INSERT INTO `tbLichSuBid` VALUES (125, 1, 16, 3000000.00, '2022-11-15 13:19:27');
+INSERT INTO `tbLichSuBid` VALUES (126, 1, 16, 3000000.00, '2022-11-15 13:21:37');
+INSERT INTO `tbLichSuBid` VALUES (127, 1, 16, 3000000.00, '2022-11-15 13:21:43');
+INSERT INTO `tbLichSuBid` VALUES (128, 1, 16, 3000000.20, '2022-11-15 13:28:29');
+INSERT INTO `tbLichSuBid` VALUES (131, 1, 16, 3000000.90, '2022-11-15 13:34:50');
+INSERT INTO `tbLichSuBid` VALUES (132, 1, 16, 3000001.90, '2022-11-15 13:35:10');
+INSERT INTO `tbLichSuBid` VALUES (133, 1, 16, 3000005.90, '2022-11-15 13:35:44');
+INSERT INTO `tbLichSuBid` VALUES (134, 6, 17, 20.20, '2022-11-15 13:45:18');
+INSERT INTO `tbLichSuBid` VALUES (135, 2, 17, 20.21, '2022-11-15 13:46:23');
+INSERT INTO `tbLichSuBid` VALUES (136, 2, 17, 300.00, '2022-11-15 13:46:52');
+INSERT INTO `tbLichSuBid` VALUES (137, 6, 17, 320.00, '2022-11-15 13:46:54');
+INSERT INTO `tbLichSuBid` VALUES (138, 6, 17, 400.00, '2022-11-15 13:47:10');
+INSERT INTO `tbLichSuBid` VALUES (139, 6, 17, 401.00, '2022-11-15 13:49:32');
+INSERT INTO `tbLichSuBid` VALUES (140, 6, 17, 402.00, '2022-11-15 13:49:41');
+INSERT INTO `tbLichSuBid` VALUES (141, 1, 18, 23.00, '2022-11-15 14:01:47');
+INSERT INTO `tbLichSuBid` VALUES (142, 2, 18, 24.00, '2022-11-15 14:01:55');
+INSERT INTO `tbLichSuBid` VALUES (143, 1, 18, 100.00, '2022-11-15 14:02:01');
+INSERT INTO `tbLichSuBid` VALUES (144, 2, 18, 300.00, '2022-11-15 14:02:14');
+INSERT INTO `tbLichSuBid` VALUES (145, 1, 18, 301.00, '2022-11-15 14:05:16');
+INSERT INTO `tbLichSuBid` VALUES (146, 1, 18, 302.00, '2022-11-15 14:05:27');
+INSERT INTO `tbLichSuBid` VALUES (147, 1, 18, 303.00, '2022-11-15 14:05:31');
+INSERT INTO `tbLichSuBid` VALUES (148, 1, 18, 304.00, '2022-11-15 14:05:41');
+INSERT INTO `tbLichSuBid` VALUES (149, 1, 18, 305.00, '2022-11-15 14:05:46');
+INSERT INTO `tbLichSuBid` VALUES (150, 1, 18, 306.00, '2022-11-15 14:05:49');
+INSERT INTO `tbLichSuBid` VALUES (151, 1, 18, 307.00, '2022-11-15 14:05:52');
+INSERT INTO `tbLichSuBid` VALUES (152, 1, 18, 308.00, '2022-11-15 14:05:54');
+INSERT INTO `tbLichSuBid` VALUES (153, 1, 18, 309.00, '2022-11-15 14:05:58');
+INSERT INTO `tbLichSuBid` VALUES (154, 1, 18, 310.00, '2022-11-15 14:06:02');
+INSERT INTO `tbLichSuBid` VALUES (155, 1, 18, 311.00, '2022-11-15 14:06:05');
+INSERT INTO `tbLichSuBid` VALUES (156, 1, 18, 312.00, '2022-11-15 14:06:07');
+INSERT INTO `tbLichSuBid` VALUES (157, 1, 18, 313.00, '2022-11-15 14:06:11');
+INSERT INTO `tbLichSuBid` VALUES (158, 1, 18, 314.00, '2022-11-15 14:06:14');
+INSERT INTO `tbLichSuBid` VALUES (159, 1, 18, 315.00, '2022-11-15 14:08:57');
+INSERT INTO `tbLichSuBid` VALUES (160, 1, 18, 316.00, '2022-11-15 14:09:43');
+INSERT INTO `tbLichSuBid` VALUES (161, 6, 19, 112.00, '2022-11-15 14:15:53');
+INSERT INTO `tbLichSuBid` VALUES (162, 2, 19, 113.00, '2022-11-15 14:16:06');
+INSERT INTO `tbLichSuBid` VALUES (163, 6, 19, 114.00, '2022-11-15 14:17:00');
+INSERT INTO `tbLichSuBid` VALUES (164, 2, 19, 115.00, '2022-11-15 14:19:25');
+INSERT INTO `tbLichSuBid` VALUES (165, 2, 19, 116.00, '2022-11-15 14:19:32');
+INSERT INTO `tbLichSuBid` VALUES (166, 2, 19, 117.00, '2022-11-15 14:19:57');
+INSERT INTO `tbLichSuBid` VALUES (167, 2, 19, 118.00, '2022-11-15 14:20:01');
+INSERT INTO `tbLichSuBid` VALUES (168, 2, 19, 119.00, '2022-11-15 14:20:11');
+INSERT INTO `tbLichSuBid` VALUES (169, 1, 20, 201.00, '2022-11-15 14:44:27');
+INSERT INTO `tbLichSuBid` VALUES (170, 6, 20, 202.00, '2022-11-15 14:44:36');
+INSERT INTO `tbLichSuBid` VALUES (171, 1, 20, 230.00, '2022-11-15 14:44:50');
+INSERT INTO `tbLichSuBid` VALUES (172, 6, 20, 500.00, '2022-11-15 14:44:58');
+INSERT INTO `tbLichSuBid` VALUES (173, 6, 20, 501.00, '2022-11-15 14:45:03');
+INSERT INTO `tbLichSuBid` VALUES (174, 1, 20, 600.00, '2022-11-15 14:45:53');
+INSERT INTO `tbLichSuBid` VALUES (175, 1, 20, 601.00, '2022-11-15 14:47:02');
+INSERT INTO `tbLichSuBid` VALUES (176, 1, 20, 602.00, '2022-11-15 14:47:25');
+INSERT INTO `tbLichSuBid` VALUES (177, 1, 20, 603.00, '2022-11-15 14:47:29');
+INSERT INTO `tbLichSuBid` VALUES (178, 1, 20, 604.00, '2022-11-15 14:48:01');
+INSERT INTO `tbLichSuBid` VALUES (179, 1, 20, 605.00, '2022-11-15 14:48:10');
+INSERT INTO `tbLichSuBid` VALUES (180, 1, 20, 606.00, '2022-11-15 14:48:13');
+INSERT INTO `tbLichSuBid` VALUES (181, 1, 20, 607.00, '2022-11-15 14:48:16');
+INSERT INTO `tbLichSuBid` VALUES (182, NULL, 23, 990.00, '2022-11-17 20:37:57');
+INSERT INTO `tbLichSuBid` VALUES (183, NULL, 23, 980.00, '2022-11-17 20:38:57');
+INSERT INTO `tbLichSuBid` VALUES (184, NULL, 23, 970.00, '2022-11-17 20:39:57');
+INSERT INTO `tbLichSuBid` VALUES (185, NULL, 23, 960.00, '2022-11-17 20:40:57');
+INSERT INTO `tbLichSuBid` VALUES (186, 3, 24, 1001.00, '2022-11-17 20:46:41');
+INSERT INTO `tbLichSuBid` VALUES (187, 3, 24, 10000.00, '2022-11-17 20:47:03');
+INSERT INTO `tbLichSuBid` VALUES (188, NULL, 25, 790.00, '2022-11-17 20:48:34');
+INSERT INTO `tbLichSuBid` VALUES (189, 1, 25, 790.00, '2022-11-17 20:48:48');
+INSERT INTO `tbLichSuBid` VALUES (190, 1, 26, 1000.00, '2022-11-17 21:40:16');
+INSERT INTO `tbLichSuBid` VALUES (191, 14, 4, 330.00, '2022-11-18 19:10:47');
+INSERT INTO `tbLichSuBid` VALUES (192, NULL, 43, 2290.00, '2022-11-18 20:48:03');
+INSERT INTO `tbLichSuBid` VALUES (193, NULL, 43, 2280.00, '2022-11-18 20:49:03');
+INSERT INTO `tbLichSuBid` VALUES (194, NULL, 43, 2270.00, '2022-11-18 20:50:03');
+INSERT INTO `tbLichSuBid` VALUES (195, NULL, 43, 2260.00, '2022-11-18 20:51:03');
+INSERT INTO `tbLichSuBid` VALUES (196, NULL, 44, 23161.00, '2022-11-18 21:01:33');
+INSERT INTO `tbLichSuBid` VALUES (197, NULL, 44, 23111.00, '2022-11-18 21:02:33');
+INSERT INTO `tbLichSuBid` VALUES (198, NULL, 44, 23061.00, '2022-11-18 21:03:33');
+INSERT INTO `tbLichSuBid` VALUES (199, NULL, 44, 23011.00, '2022-11-18 21:04:33');
+INSERT INTO `tbLichSuBid` VALUES (200, 1, 45, 2324.00, '2022-11-18 21:05:27');
+INSERT INTO `tbLichSuBid` VALUES (201, 2, 52, 221.20, '2022-11-20 16:13:10');
+INSERT INTO `tbLichSuBid` VALUES (202, 2, 52, 222.20, '2022-11-20 16:13:19');
+INSERT INTO `tbLichSuBid` VALUES (203, 2, 52, 223.20, '2022-11-20 16:13:30');
+INSERT INTO `tbLichSuBid` VALUES (204, 2, 52, 224.20, '2022-11-20 16:13:37');
+INSERT INTO `tbLichSuBid` VALUES (205, 2, 52, 225.20, '2022-11-20 16:13:49');
+INSERT INTO `tbLichSuBid` VALUES (206, 2, 52, 226.20, '2022-11-20 16:13:58');
+INSERT INTO `tbLichSuBid` VALUES (207, 2, 52, 227.20, '2022-11-20 16:14:20');
+INSERT INTO `tbLichSuBid` VALUES (208, 2, 52, 228.20, '2022-11-20 16:14:26');
+INSERT INTO `tbLichSuBid` VALUES (209, 2, 52, 229.20, '2022-11-20 16:14:41');
+INSERT INTO `tbLichSuBid` VALUES (210, NULL, 54, 2221.00, '2022-11-20 21:55:49');
+INSERT INTO `tbLichSuBid` VALUES (211, 2, 54, 2221.00, '2022-11-20 21:56:04');
+INSERT INTO `tbLichSuBid` VALUES (212, 16, 53, 112.00, '2022-11-21 10:03:34');
+INSERT INTO `tbLichSuBid` VALUES (213, 1, 55, 11.00, '2022-11-21 14:35:38');
+INSERT INTO `tbLichSuBid` VALUES (214, NULL, 57, 110.00, '2022-11-21 14:42:12');
+INSERT INTO `tbLichSuBid` VALUES (215, NULL, 57, 109.00, '2022-11-21 14:43:12');
+INSERT INTO `tbLichSuBid` VALUES (216, NULL, 57, 108.00, '2022-11-21 14:44:12');
+INSERT INTO `tbLichSuBid` VALUES (217, 2, 57, 108.00, '2022-11-21 14:44:48');
+
+-- ----------------------------
+-- Table structure for tbLichSuXem
+-- ----------------------------
+DROP TABLE IF EXISTS `tbLichSuXem`;
+CREATE TABLE `tbLichSuXem`  (
+  `MaTK` int NOT NULL,
+  `MaSach` int NOT NULL,
+  `NgayXem` timestamp(0) NULL ,
+  PRIMARY KEY (`MaTK`, `MaSach`) USING BTREE,
+  INDEX `MaSach`(`MaSach`) USING BTREE,
+  CONSTRAINT `tbLichSuXem_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbLichSuXem_ibfk_2` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbLichSuXem
+-- ----------------------------
+INSERT INTO `tbLichSuXem` VALUES (1, 45, '2022-11-20 02:23:22');
+INSERT INTO `tbLichSuXem` VALUES (1, 50, '2022-11-20 18:05:33');
+INSERT INTO `tbLichSuXem` VALUES (1, 51, '2022-11-20 18:06:00');
+INSERT INTO `tbLichSuXem` VALUES (1, 52, '2022-11-20 18:05:40');
+INSERT INTO `tbLichSuXem` VALUES (1, 53, '2022-11-20 18:05:49');
+INSERT INTO `tbLichSuXem` VALUES (1, 55, '2022-11-21 14:36:01');
+INSERT INTO `tbLichSuXem` VALUES (2, 51, '2022-11-21 14:10:33');
+INSERT INTO `tbLichSuXem` VALUES (2, 52, '2022-11-21 14:10:13');
+INSERT INTO `tbLichSuXem` VALUES (2, 53, '2022-11-21 15:28:22');
+INSERT INTO `tbLichSuXem` VALUES (2, 54, '2022-11-20 21:55:54');
+INSERT INTO `tbLichSuXem` VALUES (2, 55, '2022-11-21 14:35:06');
+INSERT INTO `tbLichSuXem` VALUES (2, 56, '2022-11-21 14:40:18');
+INSERT INTO `tbLichSuXem` VALUES (2, 57, '2022-11-21 14:45:01');
+INSERT INTO `tbLichSuXem` VALUES (16, 53, '2022-11-21 10:03:41');
+
+-- ----------------------------
+-- Table structure for tbPhienDauGia
+-- ----------------------------
+DROP TABLE IF EXISTS `tbPhienDauGia`;
+CREATE TABLE `tbPhienDauGia`  (
+  `MaPhien` int NOT NULL AUTO_INCREMENT,
+  `MaTK` int NULL DEFAULT NULL,
+  `LoaiPhien` int NULL DEFAULT NULL,
+  `MaSach` int NULL DEFAULT NULL,
+  `GiaKhoiDiem` double(15, 2) NULL DEFAULT NULL,
+  `GiaChot` double(15, 2) NULL DEFAULT NULL,
+  `NgayTao` timestamp(0) NULL ,
+  `NgayKetThuc` timestamp(0) NULL DEFAULT NULL,
+  `ThoiGian` int NULL DEFAULT NULL,
+  `GiaGiam` double(15, 2) NULL DEFAULT NULL,
+  `ThoiGianGiam` int NULL DEFAULT NULL,
+  `GiaThapNhat` double(15, 2) NULL DEFAULT NULL,
+  `IsEnd` bit(1) NULL DEFAULT b'0',
+  PRIMARY KEY (`MaPhien`) USING BTREE,
+  INDEX `MaTK`(`MaTK`) USING BTREE,
+  CONSTRAINT `tbPhienDauGia_ibfk_1` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbPhienDauGia
+-- ----------------------------
+INSERT INTO `tbPhienDauGia` VALUES (1, 1, 1, 1, 1000.00, 980.00, '2022-11-13 03:03:20', '2022-11-13 03:08:21', 300, 5.00, 60, 20.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (2, 1, 2, 2, 1111.00, 1071.00, '2022-11-13 03:38:23', '2022-11-13 03:43:23', 300, 10.00, 60, 111.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (4, 2, 1, 4, 111.00, 330.00, '2022-11-14 14:37:05', '2022-11-21 14:37:06', 604800, 1.00, 60, 1.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (6, 1, 2, 6, 1000.00, 289.00, '2022-11-14 16:15:46', '2022-11-14 16:20:46', 300, 300.00, 60, 289.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (7, 2, 2, 7, 11111.00, 11107.00, '2022-11-14 16:17:56', '2022-11-14 16:22:57', 300, 1.00, 60, 12.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (8, 2, 2, 8, 1000.00, 299.00, '2022-11-14 21:26:42', '2022-11-15 21:26:42', 86400, 300.00, 60, 299.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (9, 1, 2, 9, 12312.00, 12232.00, '2022-11-15 02:09:57', '2022-11-15 02:14:58', 300, 20.00, 60, 11.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (10, 6, 2, 10, 111.00, 109.00, '2022-11-15 09:20:05', '2022-11-15 09:25:05', 300, 1.00, 60, 1.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (11, 1, 2, 11, 1111.00, 1091.00, '2022-11-15 09:24:03', '2022-11-15 09:29:04', 300, 10.00, 60, 2.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (12, 1, 2, 12, 1000.23, 298.00, '2022-11-15 12:41:35', '2022-11-15 12:46:36', 300, 300.00, 60, 298.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (13, 1, 2, 13, 1000.23, 298.00, '2022-11-15 12:41:35', '2022-11-15 12:46:35', 300, 300.00, 60, 298.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (14, 1, 2, 14, 1110.20, 300.20, '2022-11-15 12:51:54', '2022-11-15 12:56:55', 300, 300.00, 60, 300.20, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (15, 1, 2, 15, 1110.20, 810.20, '2022-11-15 12:52:34', '2022-11-15 12:57:34', 300, 300.00, 60, 300.20, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (16, 6, 1, 16, 5.23, 3000005.90, '2022-11-15 13:02:12', '2022-11-22 13:02:13', 604800, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (17, 1, 1, 17, 10.20, 10.20, '2022-11-15 13:44:39', '2022-11-15 13:49:40', 300, 1.00, 28800, 0.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (18, 6, 1, 18, 20.00, 317.00, '2022-11-15 14:00:50', '2022-11-15 14:05:50', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (19, 1, 1, 19, 111.00, 119.00, '2022-11-15 14:15:19', '2022-11-15 14:20:20', 300, 1.00, 28800, 0.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (20, 2, 1, 20, 200.00, 608.00, '2022-11-15 14:43:18', '2022-11-15 14:48:19', 300, 1.00, 28800, 0.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (21, 3, 1, 21, 1.26, 1.26, '2022-11-16 17:14:12', '2022-11-17 17:14:12', 86400, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (22, 3, 1, 22, 10.00, 11.00, '2022-11-16 17:19:36', '2022-11-16 17:24:37', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (23, 2, 2, 23, 1000.00, 960.00, '2022-11-17 20:36:52', '2022-11-17 20:41:53', 300, 10.00, 60, 123.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (24, 4, 1, 24, 1000.00, 10000.00, '2022-11-17 20:45:33', '2022-11-17 20:50:33', 300, 1.00, 28800, 0.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (25, 2, 2, 25, 800.00, 790.00, '2022-11-17 20:47:29', '2022-11-20 20:47:29', 259200, 10.00, 60, 24.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (26, 2, 2, 26, 1000.00, 1000.00, '2022-11-17 21:39:37', '2022-11-17 21:44:38', 300, 1.00, 28800, 11.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (27, 13, 1, 27, 111.00, 111.00, '2022-11-18 14:27:50', '2022-11-25 14:27:51', 604800, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (28, 14, 1, 28, 0.02, 0.02, '2022-11-18 19:07:50', '2022-11-25 19:07:51', 604800, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (29, 14, 1, 29, 0.03, 0.03, '2022-11-18 19:29:55', '2022-11-18 19:34:55', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (30, 14, 1, 30, 0.10, 0.10, '2022-11-18 19:32:11', '2022-11-18 19:37:11', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (31, 14, 1, 31, 0.10, 0.10, '2022-11-18 19:32:13', '2022-11-18 19:37:13', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (32, 14, 1, 32, 0.10, 0.10, '2022-11-18 19:32:17', '2022-11-18 19:37:17', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (43, 1, 2, 43, 2300.00, 2260.00, '2022-11-18 20:46:59', '2022-11-18 20:51:59', 300, 10.00, 60, 233.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (44, 1, 2, 44, 23211.00, 23011.00, '2022-11-18 21:00:29', '2022-11-18 21:05:30', 300, 50.00, 60, 111.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (45, 2, 1, 45, 2323.00, 2324.00, '2022-11-18 21:03:00', '2022-11-18 21:08:00', 300, 1.00, 28800, 0.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (46, 1, 1, 46, 2323.00, 2323.00, '2022-11-20 02:32:42', '2022-11-23 02:32:42', 259200, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (47, 1, 1, 47, 111.00, 111.00, '2022-11-20 02:36:28', '2022-11-21 02:36:28', 86400, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (48, 1, 1, 48, 2323.00, 2323.00, '2022-11-20 02:40:33', '2022-11-20 02:45:33', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (49, 1, 1, 49, 2323.00, 2323.00, '2022-11-20 02:43:42', '2022-11-20 02:48:43', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (50, 1, 1, 50, 2323.00, 2323.00, '2022-11-20 02:47:53', '2022-11-20 02:52:53', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (51, 1, 1, 51, 2323.00, 2323.00, '2022-11-20 02:56:04', '2022-11-20 03:01:04', 300, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (52, 1, 1, 52, 2323.00, 229.20, '2022-11-20 03:04:51', '2022-11-21 03:04:52', 86400, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (53, 1, 1, 53, 111.00, 112.00, '2022-11-20 14:20:22', '2022-11-21 14:20:23', 86400, 1.00, 28800, 0.00, b'0');
+INSERT INTO `tbPhienDauGia` VALUES (54, 1, 2, 54, 2222.00, 2221.00, '2022-11-20 21:54:45', '2022-11-21 21:54:46', 86400, 1.00, 60, 2.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (55, 2, 2, 55, 11.00, 11.00, '2022-11-21 14:34:25', '2022-11-21 14:39:25', 300, 1.00, 1800, 1.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (56, 2, 2, 56, 11.00, 11.00, '2022-11-21 14:35:43', '2022-11-21 14:40:43', 300, 1.00, 1800, 1.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (57, 1, 2, 57, 111.00, 108.00, '2022-11-21 14:41:07', '2022-11-21 14:46:08', 300, 1.00, 60, 1.00, b'1');
+INSERT INTO `tbPhienDauGia` VALUES (58, 1, 1, 58, 1.00, 1.00, '2022-11-21 15:27:24', '2022-11-21 15:32:24', 300, 1.00, 28800, 0.00, b'0');
+
+-- ----------------------------
+-- Table structure for tbSach
+-- ----------------------------
+DROP TABLE IF EXISTS `tbSach`;
+CREATE TABLE `tbSach`  (
+  `MaSach` int NOT NULL AUTO_INCREMENT,
+  `TenSach` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Anh` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `DonGia` double(15, 2) NULL DEFAULT NULL,
+  `TinhTrang` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `MoTa` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `NguoiSoHuu` int NULL DEFAULT NULL,
+  PRIMARY KEY (`MaSach`) USING BTREE,
+  INDEX `NguoiSoHuu`(`NguoiSoHuu`) USING BTREE,
+  CONSTRAINT `tbSach_ibfk_1` FOREIGN KEY (`NguoiSoHuu`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbSach
+-- ----------------------------
+INSERT INTO `tbSach` VALUES (45, '23', 'http://res.cloudinary.com/dzchykus4/image/upload/v1668780182/hmfccdlcuktvkb6jhf13.png', 2324.00, 'Sách Mới 100%', '223', 1);
+INSERT INTO `tbSach` VALUES (50, 'Hải Trần', NULL, 21.00, 'Sách Mới 100%', '2132', 1);
+INSERT INTO `tbSach` VALUES (51, 'vla', NULL, 222.70, 'Sách Mới 100%', '222.7', 1);
+INSERT INTO `tbSach` VALUES (52, 'test ảnh', NULL, 229.20, 'Sách Mới 100%', '220.2', 1);
+INSERT INTO `tbSach` VALUES (53, 'nhà giả kim can tho an lk jso23', NULL, 112.00, 'Sách Mới 100%', '32', 1);
+INSERT INTO `tbSach` VALUES (54, '232', NULL, 21.00, 'Sách Mới 100%', '23', 2);
+INSERT INTO `tbSach` VALUES (55, '222', NULL, 11.00, 'Gần Như Mới', '22', 1);
+INSERT INTO `tbSach` VALUES (56, '222', NULL, 11.00, 'Gần Như Mới', '22', 2);
+INSERT INTO `tbSach` VALUES (57, '323', NULL, 108.00, 'Sách Mới 100%', '12', 2);
+INSERT INTO `tbSach` VALUES (58, '232', NULL, 1.00, 'Sách Mới 100%', '231', 1);
+
+-- ----------------------------
+-- Table structure for tbTacGia
+-- ----------------------------
+DROP TABLE IF EXISTS `tbTacGia`;
+CREATE TABLE `tbTacGia`  (
+  `MaTacGia` int NOT NULL AUTO_INCREMENT,
+  `TenTacGia` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`MaTacGia`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbTacGia
+-- ----------------------------
+INSERT INTO `tbTacGia` VALUES (1, 'Frank Herbert');
+INSERT INTO `tbTacGia` VALUES (2, 'Paulo Coelho');
+INSERT INTO `tbTacGia` VALUES (3, 'Vladimir Nabokov');
+INSERT INTO `tbTacGia` VALUES (4, 'Morgan Housel');
+INSERT INTO `tbTacGia` VALUES (5, 'Napoleon Hill');
+INSERT INTO `tbTacGia` VALUES (6, 'Yann Martel');
+INSERT INTO `tbTacGia` VALUES (7, 'Luis Sepulveda');
+INSERT INTO `tbTacGia` VALUES (8, 'Antoine De Saint-Exupéry');
+INSERT INTO `tbTacGia` VALUES (9, 'Kate DiCamillo');
+INSERT INTO `tbTacGia` VALUES (10, '123');
+INSERT INTO `tbTacGia` VALUES (11, '232');
+INSERT INTO `tbTacGia` VALUES (12, '232');
+INSERT INTO `tbTacGia` VALUES (13, 'Aoyama Gōshō');
+INSERT INTO `tbTacGia` VALUES (14, 'Kishimoto Masashi');
+INSERT INTO `tbTacGia` VALUES (15, '1');
+
+-- ----------------------------
+-- Table structure for tbTheLoai
+-- ----------------------------
+DROP TABLE IF EXISTS `tbTheLoai`;
+CREATE TABLE `tbTheLoai`  (
+  `MaTheLoai` int NOT NULL AUTO_INCREMENT,
+  `TenTheLoai` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`MaTheLoai`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbTheLoai
+-- ----------------------------
+INSERT INTO `tbTheLoai` VALUES (1, 'Sách Tiếng Việt');
+INSERT INTO `tbTheLoai` VALUES (2, 'Sách văn học');
+INSERT INTO `tbTheLoai` VALUES (3, 'Sách kinh tế');
+INSERT INTO `tbTheLoai` VALUES (4, 'Sách thiếu nhi ');
+INSERT INTO `tbTheLoai` VALUES (5, 'Sách kỹ năng sống');
+INSERT INTO `tbTheLoai` VALUES (6, 'Truyện Tranh, Manga, Comic');
+INSERT INTO `tbTheLoai` VALUES (7, 'Sách Giáo Khoa - Giáo Trình');
+INSERT INTO `tbTheLoai` VALUES (8, 'Sách Học Ngoại Ngữ');
+INSERT INTO `tbTheLoai` VALUES (9, 'Sách Tham Khảo');
+INSERT INTO `tbTheLoai` VALUES (10, 'Từ Điển');
+INSERT INTO `tbTheLoai` VALUES (11, 'Sách Kiến Thức Tổng Hợp');
+INSERT INTO `tbTheLoai` VALUES (12, 'Sách Khoa Học - Kỹ Thuật');
+INSERT INTO `tbTheLoai` VALUES (13, 'Sách Lịch sử');
+INSERT INTO `tbTheLoai` VALUES (14, 'Điện Ảnh - Nhạc - Họa');
+INSERT INTO `tbTheLoai` VALUES (15, 'Sách Bà mẹ - Em bé');
+INSERT INTO `tbTheLoai` VALUES (16, 'Sách Tôn Giáo - Tâm Linh');
+INSERT INTO `tbTheLoai` VALUES (17, 'Sách Văn Hóa - Địa Lý - Du Lịch');
+INSERT INTO `tbTheLoai` VALUES (18, 'Sách Chính Trị - Pháp Lý');
+INSERT INTO `tbTheLoai` VALUES (19, 'Sách Nông - Lâm - Ngư Nghiệp');
+INSERT INTO `tbTheLoai` VALUES (20, 'Sách Công Nghệ Thông Tin');
+INSERT INTO `tbTheLoai` VALUES (21, 'Sách Y Học');
+INSERT INTO `tbTheLoai` VALUES (22, 'Tạp Chí - Catalogue');
+INSERT INTO `tbTheLoai` VALUES (23, 'Sách Tâm lý - Giới tính');
+INSERT INTO `tbTheLoai` VALUES (24, 'Sách Thường Thức - Gia Đình');
+INSERT INTO `tbTheLoai` VALUES (25, 'Thể Dục - Thể Thao');
+INSERT INTO `tbTheLoai` VALUES (26, 'Sách Tiếng Anh');
+
+-- ----------------------------
+-- Table structure for tbThuocTheLoai
+-- ----------------------------
+DROP TABLE IF EXISTS `tbThuocTheLoai`;
+CREATE TABLE `tbThuocTheLoai`  (
+  `MaSach` int NOT NULL,
+  `MaTheLoai` int NOT NULL,
+  PRIMARY KEY (`MaSach`, `MaTheLoai`) USING BTREE,
+  INDEX `MaTheLoai`(`MaTheLoai`) USING BTREE,
+  CONSTRAINT `tbThuocTheLoai_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbThuocTheLoai_ibfk_2` FOREIGN KEY (`MaTheLoai`) REFERENCES `tbTheLoai` (`MaTheLoai`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbThuocTheLoai
+-- ----------------------------
+INSERT INTO `tbThuocTheLoai` VALUES (55, 19);
+INSERT INTO `tbThuocTheLoai` VALUES (56, 19);
+
+-- ----------------------------
+-- Table structure for tbTinhThanh
+-- ----------------------------
+DROP TABLE IF EXISTS `tbTinhThanh`;
+CREATE TABLE `tbTinhThanh`  (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `TinhThanh` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbTinhThanh
+-- ----------------------------
 INSERT INTO `tbTinhThanh` VALUES (1, 'An Giang');
 INSERT INTO `tbTinhThanh` VALUES (2, 'Bà Rịa - Vũng Tàu');
 INSERT INTO `tbTinhThanh` VALUES (3, 'Bắc Giang');
@@ -264,7 +823,71 @@ INSERT INTO `tbTinhThanh` VALUES (60, 'Tuyên Quang');
 INSERT INTO `tbTinhThanh` VALUES (61, 'Vĩnh Long');
 INSERT INTO `tbTinhThanh` VALUES (62, 'Vĩnh Phúc');
 INSERT INTO `tbTinhThanh` VALUES (63, 'Yên Bái');
-    
-    
-SET FOREIGN_KEY_CHECKS = 1;
 
+-- ----------------------------
+-- Table structure for tbViet
+-- ----------------------------
+DROP TABLE IF EXISTS `tbViet`;
+CREATE TABLE `tbViet`  (
+  `MaTacGia` int NOT NULL,
+  `MaSach` int NOT NULL,
+  PRIMARY KEY (`MaTacGia`, `MaSach`) USING BTREE,
+  INDEX `MaSach`(`MaSach`) USING BTREE,
+  CONSTRAINT `tbViet_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbViet_ibfk_2` FOREIGN KEY (`MaTacGia`) REFERENCES `tbTacGia` (`MaTacGia`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbViet
+-- ----------------------------
+INSERT INTO `tbViet` VALUES (3, 3);
+INSERT INTO `tbViet` VALUES (5, 5);
+INSERT INTO `tbViet` VALUES (3, 50);
+INSERT INTO `tbViet` VALUES (7, 54);
+
+-- ----------------------------
+-- Table structure for tbYeuThich
+-- ----------------------------
+DROP TABLE IF EXISTS `tbYeuThich`;
+CREATE TABLE `tbYeuThich`  (
+  `MaTK` int NOT NULL,
+  `MaSach` int NOT NULL,
+  PRIMARY KEY (`MaTK`, `MaSach`) USING BTREE,
+  INDEX `MaSach`(`MaSach`) USING BTREE,
+  CONSTRAINT `tbYeuThich_ibfk_1` FOREIGN KEY (`MaSach`) REFERENCES `tbSach` (`MaSach`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `tbYeuThich_ibfk_2` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbYeuThich
+-- ----------------------------
+INSERT INTO `tbYeuThich` VALUES (1, 51);
+INSERT INTO `tbYeuThich` VALUES (1, 52);
+
+-- ----------------------------
+-- Table structure for tbNhanXet
+-- ----------------------------
+DROP TABLE IF EXISTS `tbNhanXet`;
+CREATE TABLE `tbNhanXet`  (
+  `MaDG` int NOT NULL AUTO_INCREMENT,
+  `MaTK` int NULL DEFAULT NULL,
+  `TK_BiDG` int NULL DEFAULT NULL,
+  `Sao` float NULL DEFAULT 5,
+  `NhanXet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `NgayDG` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`MaDG`) USING BTREE,
+  INDEX `MaTK`(`MaTK`) USING BTREE,
+  INDEX `TK_BiDG`(`TK_BiDG`) USING BTREE,
+  CONSTRAINT `tbNhanXet_ibfk_1` FOREIGN KEY (`MaTK`) REFERENCES `tbAccount` (`MaTK`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tbNhanXet_ibfk_2` FOREIGN KEY (`TK_BiDG`) REFERENCES `tbAccount` (`MaTK`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbNhanXet
+-- ----------------------------
+INSERT INTO `tbNhanXet` VALUES (1, 1, 2, 5, 'sách tệ', '2022-12-07 07:44:02');
+INSERT INTO `tbNhanXet` VALUES (2, 1, 2, 3.23, NULL, '2022-12-07 07:44:02');
+INSERT INTO `tbNhanXet` VALUES (3, 1, 2, 5, 'abc', '2022-12-07 07:44:19');
+INSERT INTO `tbNhanXet` VALUES (4, 1, 2, 5, NULL, '2022-12-07 07:44:38');
+
+SET FOREIGN_KEY_CHECKS = 1;

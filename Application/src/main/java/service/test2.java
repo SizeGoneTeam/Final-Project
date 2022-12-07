@@ -45,7 +45,7 @@ public class test2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TbSach sach = new TbSach();
-        sach.getPhienDauGia().getIsEnd()
+        sach.getPhienDauGia().getIsEnd();
         
     }
     
