@@ -80,6 +80,9 @@ public class TbSach implements Serializable {
     @OneToMany(mappedBy = "tbSach")
     private List<TbGioHang> gioHang;
     
+    @OneToOne(mappedBy = "tbSach")
+    private TbNhanXet tbNhanXet;
+    
     
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -235,6 +238,12 @@ public class TbSach implements Serializable {
     
     
    
+    public TbNhanXet getTbNhanXet() {
+        return tbNhanXet;
+    }
+    public void setTbNhanXet(TbNhanXet tbNhanXet) {
+        this.tbNhanXet = tbNhanXet;
+    }
     public List<TbGioHang> getGioHang() {
         return gioHang;
     }

@@ -81,8 +81,11 @@ public class TbAccount implements Serializable {
     @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<TbLichSuBid> bids;
 	
-	 @OneToMany(mappedBy="tbAccount")
+	@OneToMany(mappedBy="tbAccount")
     private List<TbDiaChiKH> tbDiaChiKhs;
+	
+	@OneToMany(mappedBy="account", fetch = FetchType.LAZY)
+    private List<TbNhanXet> tbNhanXets;
 	 
 	@OneToMany(mappedBy = "tbAccount")
 	private List<TbGioHang> gioHang;
@@ -248,6 +251,22 @@ public class TbAccount implements Serializable {
     }
     
     
+    public void addNhanXet(TbNhanXet nhanXet)
+    {
+        if (tbNhanXets == null)
+            sachs = new ArrayList<>();
+        tbNhanXets.add(nhanXet);
+        nhanXet.setAccount(this);
+    }
+
+    public List<TbNhanXet> getTbNhanXets() {
+        return tbNhanXets;
+    }
+
+
+    public void setTbNhanXets(List<TbNhanXet> tbNhanXets) {
+        this.tbNhanXets = tbNhanXets;
+    }
 
 
     public Timestamp getNgayTao() {
@@ -267,6 +286,8 @@ public class TbAccount implements Serializable {
         }
         return 0;
     }
+    
+    
 
 
     @Override

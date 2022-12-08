@@ -20,6 +20,7 @@ import entity.TbGioHang;
 import entity.TbHoaDon;
 import entity.TbLichSuXem;
 import entity.TbLichSuXemPK;
+import entity.TbNhanXet;
 import entity.TbSach;
 import entity.TbTacGia;
 import entity.TbTheLoai;
@@ -39,6 +40,22 @@ public class BookDao {
         return entity;
     }
     
+    public void insert(TbNhanXet nhanXet) {
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(nhanXet);
+            trans.commit();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            trans.rollback();
+           System.out.println("Error:"+ e.toString());
+        }
+        finally {
+            //em.close();
+        }
+    }
     
     public void insertyeuthich(TbYeuThich xem) {
         EntityTransaction trans = em.getTransaction();

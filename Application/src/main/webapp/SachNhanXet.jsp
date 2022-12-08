@@ -33,6 +33,151 @@
 <link rel="stylesheet" href="css/slideshow.css" type="text/css">
 
 <style>
+
+* {
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+*:before, *:after {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+.clearfix {
+  clear:both;
+}
+
+.text-center {text-align:center;}
+
+a {
+  color: tomato;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2196f3;
+}
+
+pre {
+display: block;
+padding: 9.5px;
+margin: 0 0 10px;
+font-size: 13px;
+line-height: 1.42857143;
+color: #333;
+word-break: break-all;
+word-wrap: break-word;
+background-color: #F5F5F5;
+border: 1px solid #CCC;
+border-radius: 4px;
+}
+
+.header {
+  padding:20px 0;
+  position:relative;
+  margin-bottom:10px;
+  
+}
+
+.header:after {
+  content:"";
+  display:block;
+  height:1px;
+  background:#eee;
+  position:absolute; 
+  left:30%; right:30%;
+}
+
+.header h2 {
+  font-size:3em;
+  font-weight:300;
+  margin-bottom:0.2em;
+}
+
+.header p {
+  font-size:14px;
+}
+
+
+
+#a-footer {
+  margin: 20px 0;
+}
+
+.new-react-version {
+  padding: 20px 20px;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+  
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.new-react-version .react-svg-logo {
+  text-align: center;
+  max-width: 60px;
+  margin: 20px auto;
+  margin-top: 0;
+}
+
+
+
+
+
+.success-box {
+  margin:50px 0;
+  padding:10px 10px;
+  border:1px solid #eee;
+  background:#f9f9f9;
+}
+
+.success-box img {
+  margin-right:10px;
+  display:inline-block;
+  vertical-align:top;
+}
+
+.success-box > div {
+  vertical-align:top;
+  display:inline-block;
+  color:#888;
+}
+
+
+
+/* Rating Star Widgets Style */
+.rating-stars ul {
+  list-style-type:none;
+  padding:0;
+  
+  -moz-user-select:none;
+  -webkit-user-select:none;
+}
+.rating-stars ul > li.star {
+  display:inline-block;
+  
+}
+
+/* Idle State of the stars */
+.rating-stars ul > li.star > i.fa {
+  font-size:2.5em; /* Change the size of the stars */
+  color:#ccc; /* Color on idle state */
+}
+
+/* Hover state of the stars */
+.rating-stars ul > li.star.hover > i.fa {
+  color:#FFCC36;
+}
+
+/* Selected state of the stars */
+.rating-stars ul > li.star.selected > i.fa {
+  color:#FF912C;
+}
 .dropbtn {
   background-color: #4CAF50;
   color: white;
@@ -219,52 +364,7 @@ th {
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
 						<h2 style=" word-wrap: break-word;">${detail.tenSach}</h2>
-						<div class="product__details__rating">
-							<h5 style="color: #0066ff;">Ngày kết thúc: ${detail.getPhienDauGia().getNgayKetThuc()}</h4>
-						</div>
 						<div class="product__details__price">${detail.donGia}$</div>
-						<c:if test="${sessionScope.acc.getMaTK() != detail.getNguoiSoHuu().getMaTK()}">
-						<c:if test="${demgh <3}">
-						<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
-							<form action="placeBid">
-						</c:if>
-						<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
-							<form action="DauGia" method="post">
-						</c:if>
-								<div class="product__details__quantity">
-									<div class="quantity">
-									<c:if test="${sessionScope.acc.getDiaChiMacDinh() != 0}">
-									<c:if test="${detail.getPhienDauGia().getIsEnd() == 0}">
-									<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 1}">
-										<div class="pro-qty">
-											<input name="new_price" type="Number" value="${detail.donGia +1}" min="${detail.donGia+0.01}" step = "0.01" max = "9999999">
-											<input name="maSach" value="${detail.maSach}" hidden> 
-										</div>
-										</c:if>
-										<c:if test="${detail.getPhienDauGia().getLoaiPhien() == 2}">
-											<input name="maSach" value="${detail.maSach}" hidden> 
-										</c:if>  
-									
-								
-									<input type="submit" class="primary-btn" style="color: #66FFFF" value="Đấu Giá">
-									</c:if>
-									</c:if>
-									<c:if test="${sessionScope.acc.getDiaChiMacDinh() == 0}">
-										<a href="user/address" style="color: red;">Vui lòng thêm địa chỉ để đấu giá</a>
-									</c:if>									 
-									</div>
-								</div>
-								<c:if test="${detail.getPhienDauGia().getIsEnd() == 1}">
-								<h2>Phiên đấu giá đã kết thúc</h2>
-								</c:if>
-								 
-							</form>
-							</c:if>
-							<c:if test="${demgh ==3}"><h5>Giỏ hàng đã đạt 3 sản phẩm. Vui lòng thanh toán để tiếp tục đấu giá</h5></c:if>
-						</c:if>
-						
-						
-						 <a href="insertytdetail?MaSach=${detail.maSach }" class="heart-icon"><span class="icon_heart_alt"></span></a>
 					</div>
 					<div>
 					<c:forEach items="${tacGia}" var="o">
@@ -272,23 +372,100 @@ th {
 					</c:forEach>
 					</div>
 					<hr>
-					<div class="bid-history">
-						<table border="1">
-							<tr>
-								<th>Bidder</th>
-								<th>Bid Amount</th>
-								<th>Bid Time</th>
-							</tr>
-							<c:forEach items="${BidHistory}" var="o">
-								<tr>
-									<td>${o.account.getMaTK()}</td>
-									<td>${o.bid} $</td>
-									<td>${o.ngayTao}</td>
-								</tr>
-							</c:forEach>
-
-						</table>
+					<div class="Nhan-Xet">
+					<c:if test="${detail.getTbNhanXet() == null }">
+					<form action="NhanXet" method="post">
+					<div align="center">
+					<h2 style="color: green;">Nhận Xét</h2>
 					</div>
+					<section class='rating-widget'>
+					  
+					  <!-- Rating Stars Box -->
+					  <div class='rating-stars text-center'>
+					    <ul id='stars'>
+					      <li class='star' title='Poor' data-value='1'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star' title='Fair' data-value='2'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star' title='Good' data-value='3'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star' title='Excellent' data-value='4'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star' title='WOW!!!' data-value='5'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </ul>
+					  </div>
+
+					  <input type="number" name="Sao" id="minPrice" value="5" hidden="">
+					  <input type="number" name="MaSach" value="${detail.getMaSach()}" hidden>			
+					</section>
+					<h4 style="color: black;">Nhập nhận xét của bạn (Tối đa 150 kí tự)</h4>
+					<textarea class="form-control" rows="8" id="message" placeholder="Message" required="required" data-validation-required-message="Vui lòng ghi nhận xét vào đây" name="NhanXet" maxlength="150"></textarea>
+					<div style="color: red; margin-top: 1em;" align="center">
+						<input type="submit" >
+					</div>
+					</form>
+					</c:if>
+					<c:if test="${detail.getTbNhanXet() != null }">
+					<!-- Rating Stars Box -->
+					  <div class='rating-stars text-center'>
+					    <ul id='stars1'>
+					      <li class='star selected' title='Poor' data-value='1'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    <c:if test="${detail.getTbNhanXet().getSao() >= 2 }">
+					      <li class='star selected' title='Fair' data-value='2'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					    <c:if test="${detail.getTbNhanXet().getSao() < 2 }">
+					      <li class='star' title='Fair' data-value='2'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					      <c:if test="${detail.getTbNhanXet().getSao() >= 3 }">
+					      <li class='star selected' title='Fair' data-value='3'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					    <c:if test="${detail.getTbNhanXet().getSao() < 3 }">
+					      <li class='star' title='Fair' data-value='3'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					      <c:if test="${detail.getTbNhanXet().getSao() >= 4 }">
+					      <li class='star selected' title='Fair' data-value='4'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					    <c:if test="${detail.getTbNhanXet().getSao() < 4 }">
+					      <li class='star' title='Fair' data-value='4'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					      <c:if test="${detail.getTbNhanXet().getSao() >= 5 }">
+					      <li class='star selected' title='Fair' data-value='5'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					    <c:if test="${detail.getTbNhanXet().getSao() < 5 }">
+					      <li class='star' title='Fair' data-value='5'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					    </c:if>
+					    </ul>
+					  </div>
+					  <h2 style="color: black;">${detail.getTbNhanXet().getAccount().getUName()}</h2>
+					<textarea class="form-control" rows="8" id="message" placeholder="${detail.getTbNhanXet().getNhanXet() }" name="NhanXet" maxlength="150" readonly="readonly"></textarea>
+					
+					</c:if>
+					</div>
+					
 				</div>
 				<div class="col-lg-12">
 					<div class="product__details__tab">
@@ -393,6 +570,63 @@ th {
 	<script src="js/main.js"></script>
 
 <script>
+$(document).ready(function(){
+	  
+	  /* 1. Visualizing things on Hover - See next part for action on click */
+	  $('#stars li').on('mouseover', function(){
+	    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+	   
+	    // Now highlight all the stars that's not after the current hovered star
+	    $(this).parent().children('li.star').each(function(e){
+	      if (e < onStar) {
+	        $(this).addClass('hover');
+	      }
+	      else {
+	        $(this).removeClass('hover');
+	      }
+	    });
+	    
+	  }).on('mouseout', function(){
+	    $(this).parent().children('li.star').each(function(e){
+	      $(this).removeClass('hover');
+	    });
+	  });
+	  
+	  
+	  /* 2. Action to perform on click */
+	  $('#stars li').on('click', function(){
+	    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+	    var stars = $(this).parent().children('li.star');
+	    
+	    for (i = 0; i < stars.length; i++) {
+	      $(stars[i]).removeClass('selected');
+	    }
+	    
+	    for (i = 0; i < onStar; i++) {
+	      $(stars[i]).addClass('selected');
+	    }
+	    
+	    // JUST RESPONSE (Not needed)
+	    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+	    var msg = "";
+	    if (ratingValue > 1) {
+	        msg = "Thanks! You rated this " + ratingValue + " stars.";
+	    }
+	    else {
+	        msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+	    }
+	    responseMessage(msg,ratingValue);
+	    
+	  });
+	  
+	  
+	});
+
+
+	function responseMessage(msg,ratingValue) {
+	  document.getElementById("minPrice").value = ratingValue;
+	  console.log(msg);
+	}
 var slideIndex = 1;
 showDivs(slideIndex);
 

@@ -27,20 +27,25 @@ public class KetThucPhienAnh extends TimerTask {
         PhienDauGiaDao daoPhien = new PhienDauGiaDao();
         phienDauGia = daoPhien.findById(phienDauGia.getMaPhien());
         phienDauGia.setIsEnd(1);
-        TbLichSuBid bid = daoPhien.getTopBid(phienDauGia.getMaPhien());
-        daoPhien.update(phienDauGia);
-        Date now = new Date();
-        int maSach =phienDauGia.getMaSach().getMaSach();
-        GioHangDao daoGH = new GioHangDao();
-        System.out.println(phienDauGia.getMaPhien());
+        try {
+            TbLichSuBid bid = daoPhien.getTopBid(phienDauGia.getMaPhien());
+            daoPhien.update(phienDauGia);
+            Date now = new Date();
+            int maSach =phienDauGia.getMaSach().getMaSach();
+            GioHangDao daoGH = new GioHangDao();
+            System.out.println(phienDauGia.getMaPhien());
 
-        System.out.println(bid.getMaBid());
-        int maTK = bid.getAccount().getMaTK().intValue();
-        System.out.println(now);
-        GioHangPK gioHangPK = new GioHangPK(maTK,maSach);
-        TbGioHang giohang = new TbGioHang(gioHangPK);
-        daoGH.insert(giohang);
-        System.out.println("thêm giỏ hàng");
+            System.out.println(bid.getMaBid());
+            int maTK = bid.getAccount().getMaTK().intValue();
+            System.out.println(now);
+            GioHangPK gioHangPK = new GioHangPK(maTK,maSach);
+            TbGioHang giohang = new TbGioHang(gioHangPK);
+            daoGH.insert(giohang);
+            System.out.println("thêm giỏ hàng");
+        } catch (Exception e) {
+            daoPhien.update(phienDauGia);
+        }
+        
         
 
     }

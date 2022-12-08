@@ -30,12 +30,12 @@ import model.PhienDauGiaDao;
 import model.UserDao;
 
 
-@WebServlet("/detail")
-public class DetailControl extends HttpServlet {
+@WebServlet("/LoadSachNX")
+public class LoadSachNX extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String url = "Item-detail.jsp";
+	    String url = "SachNhanXet.jsp";
 	    try
 	    {
 	        String id = request.getParameter("pid");
@@ -45,15 +45,8 @@ public class DetailControl extends HttpServlet {
 	        UserDao userDao = new UserDao();
 	        account = userDao.findById(Long.valueOf(maKH));
 	        BookDao daoSach = new BookDao();
-	        PhienDauGiaDao daoPhien = new PhienDauGiaDao();
-	        GioHangDao daoGH = new GioHangDao();
 	        TbSach sach = daoSach.findById(Integer.valueOf(id));
-	        List<TbLichSuBid> list = daoPhien.getTop8Bid(sach.getPhienDauGia().getMaPhien());
-	        List<TbSach> lastAdd = daoSach.LastAdd();
-	        List<TbTacGia> tacGia = sach.getTbTacGias();
-	        //List<Product> last = Dao.getLast(maKH, id);
 	        BookDao detail = new BookDao();
-	        List<TbTheLoai> category = detail.GetCategory();
 	        List<TbAnh> anhs = sach.getAnhs();
 	        if(maKH != null) {
 	            int demyt = daoSach.countyeuthich(maKH);
@@ -80,14 +73,8 @@ public class DetailControl extends HttpServlet {
 	                detail.update(xem); 
 	            }
 	        }
-	        
-	        request.setAttribute("BidHistory", list);
 	        request.setAttribute("detail", sach);
-	        request.setAttribute("category", category);
-	        request.setAttribute("tacGia", tacGia);
-	        request.setAttribute("listNew", lastAdd);
 	        request.setAttribute("anhs", anhs);
-	        request.setAttribute("theloai", sach.getTbTheLoais());
 	    }catch (Exception e) {
             url = "login";
             e.printStackTrace();

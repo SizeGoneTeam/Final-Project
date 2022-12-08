@@ -28,6 +28,7 @@ import entity.TbGiaoDich;
 import entity.TbGioHang;
 import entity.TbHoaDon;
 import entity.TbLichSuBid;
+import entity.TbNhanXet;
 import entity.TbPhienDauGia;
 import entity.TbSach;
 import entity.TbTacGia;
@@ -43,9 +44,18 @@ import model.UserDao;
 public class test2 extends HttpServlet {
     public URL url;
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String NhanXet = request.getParameter("NhanXet");
+        int MaSach = Integer.valueOf(request.getParameter("MaSach"));
+        Long Sao = Long.valueOf(request.getParameter("Sao"));
+        System.out.println("Mã Sách "+ MaSach +" Sao = "  + Sao + " | Nhận Xét: " + NhanXet);
+        BookDao bookDao = new BookDao();
+        TbNhanXet tbNhanXet = new TbNhanXet(MaSach, 1, NhanXet, Float.valueOf("3.2"));
+        bookDao.insert(tbNhanXet);
         TbSach sach = new TbSach();
-        sach.getPhienDauGia().getIsEnd();
+        sach.getTbNhanXet().getAccount().getUName();
+        
         
     }
     

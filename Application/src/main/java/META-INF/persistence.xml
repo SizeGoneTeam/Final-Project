@@ -23,6 +23,7 @@
     <class>entity.TbChiTietHD</class>
     <class>entity.TbHoaDon</class>
     <class>entity.TbAnh</class>
+    <class>entity.TbNhanXet</class>
     <properties>
     	<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-1.cluster-cgn1djdowz61.us-east-1.rds.amazonaws.com:3306/dbbook"/> -->
         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://database-2.cuhigonpnglj.ap-southeast-1.rds.amazonaws.com:3306/dbbook"/>

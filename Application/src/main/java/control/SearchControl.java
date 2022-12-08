@@ -28,7 +28,7 @@ public class SearchControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html;charset=UTF-8");
-	    String key = request.getParameter("key");
+	    String key = request.getParameter("key");  
 	    String page = request.getParameter("page");
 	    HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
