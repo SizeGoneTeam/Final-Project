@@ -34,7 +34,7 @@ public class TbNhanXet implements Serializable {
 	private String nhanXet;
 
 	@Column(name="Sao")
-	private float sao;
+	private int sao;
 	
 	@OneToOne(cascade = CascadeType.ALL )  
     @JoinColumn(name = "MaSach", insertable=false, updatable=false)
@@ -49,7 +49,7 @@ public class TbNhanXet implements Serializable {
 	
 	
 
-	public TbNhanXet(int maSach, int maTK, String nhanXet, float sao) {
+	public TbNhanXet(int maSach, int maTK, String nhanXet, int sao) {
         super();
         this.maSach = maSach;
         this.maTK = maTK;
@@ -102,11 +102,11 @@ public class TbNhanXet implements Serializable {
 		this.nhanXet = nhanXet;
 	}
 
-	public float getSao() {
+	public int getSao() {
 		return this.sao;
 	}
 
-	public void setSao(float sao) {
+	public void setSao(int sao) {
 		this.sao = sao;
 	}
 
@@ -132,6 +132,14 @@ public class TbNhanXet implements Serializable {
 
     public void setAccount(TbAccount account) {
         this.account = account;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "TbNhanXet [maDG=" + maDG + ", maSach=" + maSach + ", maTK=" + maTK + ", ngayDG=" + ngayDG + ", nhanXet="
+                + nhanXet + ", sao=" + sao + "]";
     }
 	
     

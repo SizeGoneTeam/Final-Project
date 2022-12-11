@@ -48,11 +48,10 @@ public class test2 extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String NhanXet = request.getParameter("NhanXet");
         int MaSach = Integer.valueOf(request.getParameter("MaSach"));
-        Long Sao = Long.valueOf(request.getParameter("Sao"));
+        int Sao = Long.valueOf(request.getParameter("Sao")).intValue();
         System.out.println("Mã Sách "+ MaSach +" Sao = "  + Sao + " | Nhận Xét: " + NhanXet);
         BookDao bookDao = new BookDao();
-        TbNhanXet tbNhanXet = new TbNhanXet(MaSach, 1, NhanXet, Float.valueOf("3.2"));
-        bookDao.insert(tbNhanXet);
+      
         TbSach sach = new TbSach();
         sach.getTbNhanXet().getAccount().getUName();
         

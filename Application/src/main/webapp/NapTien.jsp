@@ -52,12 +52,12 @@ body {
 									<div align="center">
 										<h6>Số tiền muốn nạp</h6>
 										<input class="col-sm-5 text-secondary" type="Number"
-											name="total" value="100" min =10>
+											name="total" value="100" min =10 max="5000000">
 										<hr>
 										<input class="btn btn-info " type="submit" value="Nạp Ngay">
 										
 									</div>
-									<a href="RutTien.jsp">Rút Tiền</a>
+									<a class="rut" href="RutTien.jsp">Rút Tiền</a>
 								</div>
 							</div>
 						</div>

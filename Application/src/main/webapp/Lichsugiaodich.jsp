@@ -101,6 +101,8 @@
                     <a aria-current="page" href="LichsugiaodichControl">Lịch sử giao dịch</a>
                   </li>
                   <li class="medium-text m-tab m-tab__title fake-tabs__item">
+                    <a href="FeedbackControl">Feedback</a>
+                  <li class="medium-text m-tab m-tab__title fake-tabs__item">
                     <a href="user/profile">Account</a>
                   </li>
                 </ul>

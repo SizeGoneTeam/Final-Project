@@ -55,12 +55,12 @@ body {
 											name="email" value="${sessionScope.acc.email }" required="required">
 										<h6>Số tiền muốn rút</h6>
 										<input class="col-sm-5 text-secondary" type="Number"
-											name="total" value="10" step="0.01" min = 10 max =${sessionScope.acc.tien }>
+											name="total" value="10" step="0.01" min = 10 max =${sessionScope.acc.tien } max =${sessionScope.acc.tien }>
 										<hr>
 										<input class="btn btn-info " type="submit" value="Rút Ngay">
 										
 									</div>
-									<a href="NapTien.jsp">Nạp Tiền</a>
+									<a class="rut" href="NapTien.jsp">Nạp Tiền</a>
 								</div>
 							</div>
 						</div>

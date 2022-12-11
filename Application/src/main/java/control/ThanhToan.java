@@ -85,8 +85,6 @@ public class ThanhToan extends HttpServlet {
                     acc.setTien(Math.ceil((acc.getTien() - Tong)*100) /100);
                     userDao.update(acc);
                     sach.getNguoiSoHuu().setTien(Math.ceil((sach.getNguoiSoHuu().getTien() + Tong * 0.8)*100)/100);
-                    sach.setNguoiSoHuu(acc);
-                    bookDao.update(sach);
                     userDao.update(sach.getNguoiSoHuu());
                     gioHangDao.remove(gioHangDao.findGioHang(acc.getMaTK().toString(), Integer.toString(sach.getMaSach())));
                     System.out.println("xoá sách" + sach.getMaSach());

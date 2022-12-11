@@ -68,10 +68,26 @@ table {
 th {
 	background-color: #f2f2f2;
 }
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 </head>
 
 <body>
+	<div id="preloder" class="preloder" style="display: none;">
+        <div class="loader"></div>
+    </div>
 	
 	<header class="header">
 		<div class="container">
@@ -246,7 +262,7 @@ th {
 										</c:if>  
 									
 								
-									<input type="submit" class="primary-btn" style="color: #66FFFF" value="Đấu Giá">
+									<input type="submit" class="primary-btn" style="color: #66FFFF" value="Đấu Giá" onclick="load()">
 									</c:if>
 									</c:if>
 									<c:if test="${sessionScope.acc.getDiaChiMacDinh() == 0}">
@@ -393,6 +409,11 @@ th {
 	<script src="js/main.js"></script>
 
 <script>
+function load(){
+	document.querySelector(".preloder").style.display = "block";
+	document.querySelector(".loader").style.display = "block";
+}
+
 var slideIndex = 1;
 showDivs(slideIndex);
 

@@ -18,6 +18,7 @@
 		<div class="login-form">
 			<div class="sign-in-htm">
 				<form action="login" method="post">
+				<input name="back" id="user" type="hidden" class="input" value="${back }" >
 					<div class="group">
 					<div class="alert wrong-pass" role="alert">
 						<p style="color:red">${mess}</p>
@@ -47,6 +48,7 @@
 					<div class="group">
 						<p style="color:red">${mess}</p>
 						<label for="user" class="label">Tên đăng nhập</label>
+						<input name="back" id="user" type="hidden" class="input" value="${back }" >
 						<input name="user" id="user" type="text" class="input" maxlength="10"  minlength="3">
 					</div>
 					<div class="group">

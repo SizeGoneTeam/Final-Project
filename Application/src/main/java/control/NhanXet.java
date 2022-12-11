@@ -28,7 +28,7 @@ public class NhanXet extends HttpServlet {
             if(acc != null) {
                 String NhanXet = request.getParameter("NhanXet");
                 int MaSach = Integer.valueOf(request.getParameter("MaSach"));
-                float Sao = Float.valueOf(request.getParameter("Sao"));
+                int Sao = Float.valueOf(request.getParameter("Sao")).intValue();
                 System.out.println("Mã Sách "+ MaSach +" Sao = "  + Sao + " | Nhận Xét: " + NhanXet);
                 BookDao bookDao = new BookDao();
                 TbNhanXet tbNhanXet = new TbNhanXet(MaSach, acc.getMaTK().intValue(), NhanXet, Sao);

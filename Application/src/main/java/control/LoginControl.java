@@ -18,13 +18,19 @@ import utils.CookieUtil;
 public class LoginControl extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    String url = "loadSach";
+	    
+	    String back = req.getParameter("back");
+	    String url ="";
+	    System.out.println("url:" + back);
+	    if (back == null) {
+	        url = "loadSach";
+        } 
 	    HttpSession session = req.getSession();
 		Cookie[] cookies = req.getCookies();
 		String accountID = CookieUtil.getCookieValue(cookies, "accountID");
 		String username = req.getParameter("user");
         String password = req.getParameter("pass");
-        System.out.println("khac null");
+        
         if (accountID.equals("")) {         
             UserDao dao = new UserDao();
             TbAccount a = dao.login(username, password);
@@ -32,9 +38,12 @@ public class LoginControl extends HttpServlet {
             if (a == null) {
                 if(username != null || password != null)
                 req.setAttribute("mess", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
+                req.setAttribute("back", back);
                 url= "Login.jsp";
             }
             else {
+                url = back;
+                req.setAttribute("back", back);
                 session.setAttribute("acc", a);
                 session.setMaxInactiveInterval(60*30);
                 
@@ -56,7 +65,7 @@ public class LoginControl extends HttpServlet {
             UserDao dao = new UserDao();
             session.setAttribute("acc", dao.selectAccount(accountID));
         }
-		
+        System.out.println(url);
         req.getRequestDispatcher(url).forward(req, resp);
 	}
 	

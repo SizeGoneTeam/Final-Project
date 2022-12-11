@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -9,6 +11,7 @@ import javax.transaction.Transactional;
 
 import entity.TbAccount;
 import entity.TbNhanXet;
+import entity.TbSach;
 import utils.JpaUntils;
 
 public class UserDao {
@@ -149,5 +152,13 @@ public class UserDao {
            // em.close();
         }
         return true;
+    }
+    
+    public List<TbNhanXet> GetNhanXet(TbAccount acc) {
+        String jpql = "SELECT o FROM TbNhanXet o where o.tbSach.nguoiSoHuu = :acc";
+        TypedQuery<TbNhanXet> query = em.createQuery(jpql,TbNhanXet.class);
+        query.setParameter("acc",acc);
+        List<TbNhanXet> entity = query.getResultList();
+        return entity;
     }
 }

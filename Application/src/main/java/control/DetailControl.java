@@ -89,7 +89,7 @@ public class DetailControl extends HttpServlet {
 	        request.setAttribute("anhs", anhs);
 	        request.setAttribute("theloai", sach.getTbTheLoais());
 	    }catch (Exception e) {
-            url = "login";
+            url = "login?back=detail?pid=139";
             e.printStackTrace();
         }
 		
