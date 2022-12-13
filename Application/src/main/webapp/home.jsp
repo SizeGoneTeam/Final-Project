@@ -45,7 +45,7 @@
   background-color: #f9f9f9;
   min-width: 250px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 2;
 }
 
 /* Links inside the dropdown */
@@ -145,7 +145,7 @@
 					</div>
 				</div>
 				<div class="col-lg-9">
-					<div class="hero__search">
+					<div class="hero__search" >
 						<div class="hero__search__form">
 							<form action="search" method="post">
 
@@ -153,8 +153,7 @@
 								<button type="submit" class="site-btn">Tìm kiếm</button>
 							</form>
 						</div>
-						<div class="hero__search__login">
-							
+						<div class="hero__search__login" >
 							<c:if test="${sessionScope.acc != null}">
 							<a href="SummarybuysideControl">
 									<div class="hero__search__login__icon">

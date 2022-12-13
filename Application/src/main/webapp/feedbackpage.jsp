@@ -132,7 +132,7 @@
     <div class="fdbk-detail-list">
       <h2 class="fdbk-detail-list__title">
         <span>Đánh giá của người mua </span>
-        <span class="SECONDARY">(2)</span>
+        <span class="SECONDARY">(${tongNX})</span>
       </h2>
 
       <!--Feedback mode: positive (tích cực)-->
@@ -158,13 +158,13 @@
         <hr>
         </c:forEach>
       </div>
-      
-        
-    </div>
 
   <!--Button-->
-  <div class="fdbk-detail-list__btn-container">
-    <a class="fake-btn fake-btn--primary" href="#">Xem thêm</a>
+  <div class="Phan Trang" align="center">
+    <c:forEach begin="1" end="${endPage}" var="i">
+      		<a href="FeedbackControl?startPage=${i}" style="font-size: 1.5em; color: red; margin: 0.7em; border: 2px solid #b1154a; background-color: #00e1ff">${i}</a>
+      	</c:forEach>
+      </div>
   </div>
 </body>
 

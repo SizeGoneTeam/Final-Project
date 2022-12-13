@@ -33,6 +33,7 @@ public class NhanXet extends HttpServlet {
                 BookDao bookDao = new BookDao();
                 TbNhanXet tbNhanXet = new TbNhanXet(MaSach, acc.getMaTK().intValue(), NhanXet, Sao);
                 bookDao.insert(tbNhanXet);
+                url = "LoadSachNX?pid=" + MaSach;
             }
             else {
                 url ="login";

@@ -167,6 +167,17 @@
                                 <a href="detail?pid=${o.maSach }&amp;maKH=${sessionScope.acc.maTK}" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
                                   Xem chi tiết
                                 </a>
+                                <br>
+                                <c:if test="${o.getTbNhanXet() != null }">
+                                <a href="LoadSachNX?pid=${o.maSach }" style="color: red;" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
+                                  Nhận Xét
+                                </a>
+                                </c:if>
+                                <c:if test="${o.getTbNhanXet() == null }">
+                                <a href="LoadSachNX?pid=${o.maSach }" style="color: yellow;" class="default primary fake-btn fake-btn--fluid fake-btn--primary">
+                                  Nhận Xét
+                                </a>
+                                </c:if>
                               </div>
                             </div>
                           </div>

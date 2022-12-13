@@ -154,11 +154,26 @@ public class UserDao {
         return true;
     }
     
+    public int GetCountNX(TbAccount acc) {
+        String jpql = "SELECT count(o) FROM TbNhanXet o where o.tbSach.nguoiSoHuu = :acc";
+        Query query = em.createQuery(jpql);
+        query.setParameter("acc",acc);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+    
     public List<TbNhanXet> GetNhanXet(TbAccount acc) {
-        String jpql = "SELECT o FROM TbNhanXet o where o.tbSach.nguoiSoHuu = :acc";
+        String jpql = "SELECT o FROM TbNhanXet o where o.tbSach.nguoiSoHuu = :acc order by o.ngayDG desc ";
         TypedQuery<TbNhanXet> query = em.createQuery(jpql,TbNhanXet.class);
         query.setParameter("acc",acc);
         List<TbNhanXet> entity = query.getResultList();
+        return entity;
+    }
+    
+    public List<TbNhanXet> GetNX_Page(TbAccount acc, int page) {
+        String jpql = "SELECT o FROM TbNhanXet o where o.tbSach.nguoiSoHuu = :acc order by o.ngayDG desc ";
+        TypedQuery<TbNhanXet> query = em.createQuery(jpql,TbNhanXet.class);
+        query.setParameter("acc",acc);
+        List<TbNhanXet> entity = query.setFirstResult(page).setMaxResults(3).getResultList();
         return entity;
     }
 }

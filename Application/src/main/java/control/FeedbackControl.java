@@ -61,14 +61,32 @@ public class FeedbackControl extends HttpServlet {
                 }
             }
             
+            
+            // Phân trang
+            
+            int tongNX = userDao.GetCountNX(account);
+            int endPage = tongNX/3;
+            if(tongNX%3 != 0) endPage++;
+            Integer startPage =1;
+            try {
+                 startPage = Integer.valueOf(request.getParameter("startPage"));
+            }catch (Exception e) {
+                // TODO: handle exception
+            }
+           
+            List<TbNhanXet> nhanXetsPage = userDao.GetNX_Page(account, (startPage.intValue() -1) *3);
+            
+            
             trungBinh =((double) Math.round((trungBinh/count) *100)/100);
             request.setAttribute("tichCuc", tichCuc);
             request.setAttribute("trungLap", trungLap);
             request.setAttribute("tieuCuc", tieuCuc);
             request.setAttribute("ngayThamGIa",(account.getNgayTao().getMonth() +1) + "-" + (account.getNgayTao().getYear() + 1900));
-            request.setAttribute("nhanXets", nhanXets);
+            request.setAttribute("nhanXets", nhanXetsPage);
             request.setAttribute("trungBinh", trungBinh);
             request.setAttribute("sachdadangLong", sachdadangLong);
+            request.setAttribute("tongNX", tongNX);
+            request.setAttribute("endPage", endPage);
             System.out.println(nhanXets);
             
         }else {
