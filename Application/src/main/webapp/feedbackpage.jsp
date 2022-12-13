@@ -35,8 +35,9 @@
 						<ul>
 							<li><a href="loadSach">Home</a></li>
 							<li><a href="search?key=">Shop</a></li>
-							<li><a href="FAQControl">FAQ</a></li>
+							
 							<c:if test="${sessionScope.acc != null}">
+							<li><a href="FAQControl">FAQ</a></li>
 							<c:if test="${sessionScope.acc.getIsAdmin() != 0}">
 								<li><a href="adminpage/DashboardControl">Admin</a></li>
 							</c:if>

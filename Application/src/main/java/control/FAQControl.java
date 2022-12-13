@@ -25,15 +25,15 @@ public class FAQControl extends HttpServlet {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
         if(account !=null){
-        String MaTK = account.getMaTK().toString();
-        BookDao dao = new BookDao();
-      
-        int demyt = dao.countyeuthich(MaTK);
-        int demdb = dao.CountDangBan(MaTK);
-        int demgh = dao.CountGioHang(MaTK);
-        request.setAttribute("demyt", demyt);
-        request.setAttribute("demdb", demdb);
-        request.setAttribute("demgh", demgh);
+            String MaTK = account.getMaTK().toString();
+            BookDao dao = new BookDao();
+          
+            int demyt = dao.countyeuthich(MaTK);
+            int demdb = dao.CountDangBan(MaTK);
+            int demgh = dao.CountGioHang(MaTK);
+            request.setAttribute("demyt", demyt);
+            request.setAttribute("demdb", demdb);
+            request.setAttribute("demgh", demgh);
         }
 
         request.getRequestDispatcher("FAQ.jsp").forward(request, response);
