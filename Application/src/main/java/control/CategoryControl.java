@@ -59,6 +59,8 @@ public class CategoryControl extends HttpServlet {
         }
 
         String endPTitle ="0";
+        Double max = bookDao.Getmax();
+        request.setAttribute("max", max);
         request.setAttribute("lastAdd", lastAdd);
         request.setAttribute("search", searchtheloai); 
         request.setAttribute("category", category);

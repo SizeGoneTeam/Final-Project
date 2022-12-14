@@ -50,6 +50,8 @@ public class SearchControl extends HttpServlet {
         if(count % 9!=0) {
             endPage++;
         }
+        Double max = bookDao.Getmax();
+        request.setAttribute("max", max);
         if(account != null) {
             String maKH = account.getMaTK().toString();
             int demyt = bookDao.countyeuthich(maKH);
@@ -67,6 +69,7 @@ public class SearchControl extends HttpServlet {
 	    request.setAttribute("search", search);
 	    request.setAttribute("pageout", page);
 	    request.setAttribute("lastAdd", lastAdd);
+	    
 	    request.getRequestDispatcher("Item-search.jsp").forward(request, response);
 	}
 

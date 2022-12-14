@@ -441,7 +441,17 @@ public class BookDao {
         }
         return dem;
     }
-    
+    public Double Getmax() {
+        String jpql = "SELECT o FROM TbSach o where o.phienDauGia.isEnd = 0 ";
+        TypedQuery<TbSach> query = em.createQuery(jpql,TbSach.class);
+        List<TbSach> entity = query.getResultList();
+        Double max = 0.0;
+        for (TbSach product : entity) {
+            if(max < product.getDonGia())
+                max = product.getDonGia();
+        }
+        return max;
+    }
     public List<TbSach> GetYeuThich(String MaTK) {
         String jpql = "SELECT o FROM TbYeuThich o where o.id.maTK = : MaTK ";
         TypedQuery<TbYeuThich> query = em.createQuery(jpql,TbYeuThich.class);
@@ -511,7 +521,7 @@ public class BookDao {
 //          }
 ////        
         
-        System.out.println(dao.CountDangBan("1"));
+        System.out.println(dao.Getmax()+"");
     }
 }
 
