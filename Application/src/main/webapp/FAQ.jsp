@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,6 +112,8 @@
                         <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
                             <div class="card-body">
                                 <p>Hãy chắc rằng bạn đã đăng nhập vào tài khoản của bạn.</p>
+                                <p>Thêm đia chỉ vào tài khoản của bạn.</p>
+                                <p>Giỏ hàng phải ít hơn 3 sản phẩm để tham gia đấu giá.</p>
                             </div>
                         </div>
                     </div>
@@ -121,6 +124,16 @@
                         <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
                             <div class="card-body">
                                 <p>Trang web hiện chỉ hỗ trợ thanh toán qua paypal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                        <div class="card-header" id="headingThree">
+                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">Tôi không thể rút tiền?<span class="lni-chevron-up"></span></h6>
+                        </div>
+                        <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                            <div class="card-body">
+                                <p>Bạn vui lòng liện hệ qua email của chúng tôi để nhận được hỗ trợ.</p>
                             </div>
                         </div>
                     </div>

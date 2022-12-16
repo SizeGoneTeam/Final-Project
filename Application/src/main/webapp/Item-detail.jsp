@@ -310,7 +310,7 @@ th {
 				<div class="col-lg-12">
 					<div class="product__details__tab">
 					<c:forEach items="${theloai}" var="o">
-					<a href="#">${o.getTenTheLoai()} |</a>
+					<a href="categorysearch?keycategory=${o.getTenTheLoai() }">${o.getTenTheLoai()} |</a>
 					
 					</c:forEach>
 						<ul class="nav nav-tabs" role="tablist">

@@ -47,6 +47,7 @@ public class placeBid extends HttpServlet{
             if(phien.getNgayKetThuc().getTime() - now.getTime() < 0 || daoPhien.findById(phien.getMaPhien()).getIsEnd() == 1)
             {
                 phien.setGiaChot(price);
+                phien.setIsEnd(1);
                 daoPhien.update(phien);
                 url = "ErrorPayment.jsp";
                 req.setAttribute("mess", "Phiên đấu giá đã kết thúc");

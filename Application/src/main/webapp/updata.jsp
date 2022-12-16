@@ -247,9 +247,8 @@
 																							<span class="combo-lrg"><select
 																								id="LoaiPhien" name="LoaiPhien" onchange="editInput()"
 																								aria-required="true">
-																									<option value="1" selected="selected">Mặc
-																										Định</option>
-																									<option value="2">Kiểu Hà Lan</option>
+																									<option value="1" selected="selected">Kiểu Anh</option>
+																									<option value="2">Kiểu Free-Fall</option>
 																							</select></span>
 																						</div>
 																					</div>
