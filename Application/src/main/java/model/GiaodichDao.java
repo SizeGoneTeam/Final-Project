@@ -143,6 +143,15 @@ public class GiaodichDao {
             }
             return 0.0;
     }
+    public Double TongDoanhThu() {
+        String jpql = "SELECT SUM(tienHoaHong) FROM TbGiaoDich";
+        Query query = em.createQuery(jpql);
+        if(query.getSingleResult() != null) {
+            Double entity = (double) query.getSingleResult();
+            return entity;
+            }
+            return 0.0;
+    }
     public Double Tongdoanthu(String MaTK) {
         String jpql = "SELECT SUM(tienGD) FROM TbGiaoDich o where o.nguoiNhan = :MaTK and o.loaiGD = 2";
         Query query = em.createQuery(jpql);

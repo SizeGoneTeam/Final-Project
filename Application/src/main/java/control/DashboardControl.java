@@ -20,7 +20,9 @@ import model.GiaodichDao;
  */
 @WebServlet("/adminpage/DashboardControl")
 public class DashboardControl extends HttpServlet {
-
+    private static final long serialVersionUID = 1L;
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -30,6 +32,7 @@ public class DashboardControl extends HttpServlet {
 
         now.setTime(NowTime);
         now.add(Calendar.YEAR, 1900);
+        Double tongDoanhThu =  dao.TongDoanhThu();
         Double doanhthuhientai = dao.Doanhthutheothang(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
         Long giaodich = dao.giaodichmoi(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
         Long taikhoan = dao.taikhoandangkimoi(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
@@ -42,7 +45,7 @@ public class DashboardControl extends HttpServlet {
         for(int i=0; i<12;i++ ) {
             try {
                 chart = chart + "{ x: new Date("+now.getTime().getYear()+", "+(now.getTime().getMonth())+" ), y: "+dao.Doanhthutheothang(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()))+" },\r\n";
-                trungbinh += dao.Doanhthutheothang(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
+                //trungbinh += dao.Doanhthutheothang(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear()));
                 
                 //System.out.println((now.getTime().getMonth()+1) + "/"+now.getTime().getYear()+ " :"+dao.Doanhthutheothang(Integer.valueOf(now.getTime().getMonth())+1, Integer.valueOf(now.getTime().getYear())));
                 
@@ -75,7 +78,7 @@ public class DashboardControl extends HttpServlet {
 
                 + "        ]\r\n"
                 + "    }]";
-        request.setAttribute("trungbinh", trungbinh);
+        request.setAttribute("tongDoanhThu", tongDoanhThu);
         request.setAttribute("taikhoan", taikhoan);
         request.setAttribute("giaodich", giaodich);
         request.setAttribute("doanhthuhientai", doanhthuhientai);
@@ -86,6 +89,7 @@ public class DashboardControl extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         doGet(request, response);

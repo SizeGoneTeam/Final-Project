@@ -5,7 +5,7 @@
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="com.google.gson.JsonObject"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
 
@@ -18,11 +18,13 @@
   <title>SB Admin  - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+<link href="<%=request.getContextPath()%>/adminpage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/adminpage/css/sb-admin-2.min.css" rel="stylesheet">
 	<script>
 	window.onload = function () {
 	
@@ -151,8 +153,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Doanh thu tháng hiện tại</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${doanhthuhientai} USD</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tổng Doanh Thu</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${tongDoanhThu} USD</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -168,8 +170,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Doanh thu trung bình 12 tháng</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${trungbinh} USD</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Doanh Thu tháng hiện tại</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${doanhthuhientai} USD</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -242,22 +244,17 @@
  
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<%=request.getContextPath()%>/adminpage/vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/adminpage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/adminpage/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-
+  <script src="<%=request.getContextPath()%>/adminpage/js/sb-admin-2.min.js"></script>
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
-  <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 </body>

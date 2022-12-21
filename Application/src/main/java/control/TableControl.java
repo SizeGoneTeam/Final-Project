@@ -23,9 +23,12 @@ import model.GiaodichDao;
  */
 @WebServlet("/adminpage/TableControl")
 public class TableControl extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BookDao dao = new BookDao();
-        List<TbSach> sachs = dao.GetAll2();
+        List<TbSach> sachs = dao.GetTop50();
         
         request.setAttribute("sachs", sachs);
         request.getRequestDispatcher("Table.jsp").forward(request, response);
@@ -34,6 +37,7 @@ public class TableControl extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         doGet(request, response);

@@ -261,6 +261,7 @@
 																								name="ThoiGian" id="duration"
 																								aria-describedby="err_duration" pv="Days_7"
 																								aria-required="true">
+																									<option value="60">1 phút</option>
 																									<option value="300">5 phút</option>
 																									<option value="86400">1 ngày</option>
 																									<option value="259200">3 ngày</option>

@@ -64,8 +64,7 @@ public class ThanhToan extends HttpServlet {
 
             // Kiểm tra tài khoản đủ tiền hay không
             for (TbSach sach : sachs) {
-                TienVC += giaoHang.dijkstra(acc.getTbDiaChiKhs().get(0).getTbTinhThanh().getId(),
-                        sach.getNguoiSoHuu().getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).intValue();
+                TienVC += Double.valueOf(giaoHang.dijkstra(acc.getDiaChiMacDinh(), sach.getNguoiSoHuu().getDiaChiMacDinh()).toString());
                 TienVC = (double) Math.round((TienVC / 23000) * 100) / 100;
                 Tong += TienVC + sach.getDonGia();
             }
@@ -75,8 +74,7 @@ public class ThanhToan extends HttpServlet {
                 TbHoaDon hoaDon = new TbHoaDon(acc);
                 GDDao.insert(hoaDon);
                 for (TbSach sach : sachs) {
-                    TienVC = giaoHang.dijkstra(acc.getTbDiaChiKhs().get(0).getTbTinhThanh().getId(),
-                            sach.getNguoiSoHuu().getTbDiaChiKhs().get(0).getTbTinhThanh().getId()).intValue();
+                    TienVC += Double.valueOf(giaoHang.dijkstra(acc.getDiaChiMacDinh(), sach.getNguoiSoHuu().getDiaChiMacDinh()).toString());
                     TienVC = (double) Math.round((TienVC / 23000) * 100) / 100;
                     Tong = TienVC + sach.getDonGia();
                     giaoDich = new TbGiaoDich(2, acc.getMaTK().intValue(), sach.getNguoiSoHuu().getMaTK().intValue(), Tong);
@@ -84,7 +82,7 @@ public class ThanhToan extends HttpServlet {
                     GDDao.insert(chiTietHD);
                     acc.setTien(Math.ceil((acc.getTien() - Tong)*100) /100);
                     userDao.update(acc);
-                    sach.getNguoiSoHuu().setTien(Math.ceil((sach.getNguoiSoHuu().getTien() + Tong * 0.8)*100)/100);
+                    sach.getNguoiSoHuu().setTien(Math.ceil((sach.getNguoiSoHuu().getTien() + sach.getDonGia() * 0.8)*100)/100);
                     userDao.update(sach.getNguoiSoHuu());
                     gioHangDao.remove(gioHangDao.findGioHang(acc.getMaTK().toString(), Integer.toString(sach.getMaSach())));
                     System.out.println("xoá sách" + sach.getMaSach());
