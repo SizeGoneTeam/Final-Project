@@ -28,6 +28,11 @@ public class FeedbackControl extends HttpServlet {
         HttpSession session = request.getSession();
         TbAccount account = (TbAccount) session.getAttribute("acc");
         String url = "";
+        String id = request.getParameter("id");
+        if (id != null) {
+            UserDao dao = new UserDao();
+            account = dao.findById(Long.valueOf(id));
+        } 
         
         if(account != null) {
             int tichCuc = 0;
@@ -87,6 +92,7 @@ public class FeedbackControl extends HttpServlet {
             request.setAttribute("sachdadangLong", sachdadangLong);
             request.setAttribute("tongNX", tongNX);
             request.setAttribute("endPage", endPage);
+            request.setAttribute("taiKhoan", account);
             System.out.println(nhanXets);
             
         }else {

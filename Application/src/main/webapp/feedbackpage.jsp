@@ -78,7 +78,7 @@
           src="image/avatar7.png" alt="Logo User"></a>
     </div>
     <div class="str-seller-card__store-name">
-      <h1><a href="#">${sessionScope.acc.UName}</a></h1>
+      <h1><a href="#">${taiKhoan.UName}</a></h1>
     </div>
     <div class="str-seller-card__stats">
       <div class="str-seller-card__stats-content">

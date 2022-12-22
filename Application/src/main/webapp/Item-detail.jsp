@@ -309,6 +309,7 @@ th {
 				</div>
 				<div class="col-lg-12">
 					<div class="product__details__tab">
+					<h2 style="color: black;">Người đăng: <a style="color: red;" href="FeedbackControl?id=${detail.getNguoiSoHuu().getMaTK() }">${detail.getNguoiSoHuu().getMaTK() }</a> </h2> 
 					<c:forEach items="${theloai}" var="o">
 					<a href="categorysearch?keycategory=${o.getTenTheLoai() }">${o.getTenTheLoai()} |</a>
 					
